@@ -14,6 +14,8 @@ import modelo.Producto;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 
 @SuppressWarnings("serial")
@@ -62,6 +64,12 @@ public class PVendedor extends JFrame {
 		JButton btnIniciarSubasta = new JButton("Iniciar Subasta");
 		btnIniciarSubasta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				try {
+					General.ipServidor = InetAddress.getLocalHost().getHostAddress();
+				} catch (UnknownHostException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				General.productoSeleccionado = (Producto) listaProductos.getSelectedItem();
 				setVisible(false);
 				PrincipalSubastaVendedor principalSubasta = new PrincipalSubastaVendedor();

@@ -14,9 +14,10 @@ public class General {
 	public static ArrayList<Cliente> clientesConectados = new ArrayList<Cliente>();
 	public static Producto productoSeleccionado;
 	public static ServerSocket servidor;
-	public static int ipServidor;
-	public static Socket socket;
-	public static int puerto = 9080;
+	public static String ipServidor;
+	public static Socket cliente;
+	public static int puerto = 9090;
+	
 
 	private General(){
 		Producto producto1 = new Producto(1, "Bicicleta", 200000);

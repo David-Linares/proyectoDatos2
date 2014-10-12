@@ -16,10 +16,10 @@ public class Cliente implements Serializable {
 	public Cliente() {
 		super();
 	}
-	public Cliente(String ip, int puerto, String nombre, double monto) {
+	public Cliente(String ip, String nombre, double monto) {
 		super();
 		this.ip = ip;
-		this.puerto = puerto;
+		this.puerto = 9081;
 		this.nombre = nombre;
 		this.monto = monto;
 	}
