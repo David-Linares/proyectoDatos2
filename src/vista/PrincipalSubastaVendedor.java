@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -28,6 +29,7 @@ public class PrincipalSubastaVendedor extends JFrame implements Runnable {
 
 	private JPanel contentPane;
 	private JList listConectados = new JList();
+	private JLabel labelIp;
 	General general = General.getInstance();
 	DefaultListModel listadoConectados = new DefaultListModel();
 	/**
@@ -95,15 +97,20 @@ public class PrincipalSubastaVendedor extends JFrame implements Runnable {
 		contentPane.add(productoSubastado);
 		
 		productoSubastado.setText(general.productoSeleccionado.getNombre() + " = " + general.productoSeleccionado.getValor());
+		
+		labelIp = new JLabel();
+		labelIp.setBounds(365, 39, 131, 14);
+		contentPane.add(labelIp);
 	}
 
 	public void run() {
 		try {
-			ServerSocket vendedor = new ServerSocket(general.puerto);
+			general.servidor = new ServerSocket(general.puerto);
+			labelIp.setText(general.servidor.getInetAddress().getHostAddress().toString());
 			Socket nuevaConexion;
 			Cliente clienteEntrante;
 			while (true) {
-				nuevaConexion = vendedor.accept();
+				nuevaConexion = general.servidor.accept();
 				System.out.println("Entró un cliente");
 				ObjectInputStream entrada = new ObjectInputStream(nuevaConexion.getInputStream());
 				clienteEntrante = (Cliente) entrada.readObject();
