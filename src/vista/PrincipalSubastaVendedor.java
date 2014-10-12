@@ -9,6 +9,7 @@ import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -17,6 +18,9 @@ import javax.swing.SwingConstants;
 
 import controlador.General;
 import modelos.Cliente;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 @SuppressWarnings("serial")
@@ -64,13 +68,24 @@ public class PrincipalSubastaVendedor extends JFrame implements Runnable {
 		listConectados.setBounds(365, 93, 131, 254);
 		contentPane.add(listConectados);
 		
-		for(int i = 0; i <= General.clientesConectados.size() - 1; i++ ){
-			listadoConectados.addElement(General.clientesConectados.get(i).getNombre());
+		for(int i = 0; i <= general.clientesConectados.size() - 1; i++ ){
+			listadoConectados.addElement(general.clientesConectados.get(i).getNombre());
 		}
 		
 		listConectados.setModel(listadoConectados);
 		
 		JButton btnNewButton = new JButton("Finalizar Subasta");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					general.servidor.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.exit(0);
+			}
+		});
 		btnNewButton.setBounds(285, 357, 211, 37);
 		contentPane.add(btnNewButton);
 		
@@ -79,12 +94,12 @@ public class PrincipalSubastaVendedor extends JFrame implements Runnable {
 		productoSubastado.setBounds(10, 11, 345, 71);
 		contentPane.add(productoSubastado);
 		
-		productoSubastado.setText(General.productoSeleccionado.getNombre() + " = " + General.productoSeleccionado.getValor());
+		productoSubastado.setText(general.productoSeleccionado.getNombre() + " = " + general.productoSeleccionado.getValor());
 	}
 
 	public void run() {
 		try {
-			ServerSocket vendedor = new ServerSocket(General.puerto);
+			ServerSocket vendedor = new ServerSocket(general.puerto);
 			Socket nuevaConexion;
 			Cliente clienteEntrante;
 			while (true) {
@@ -92,10 +107,10 @@ public class PrincipalSubastaVendedor extends JFrame implements Runnable {
 				System.out.println("Entró un cliente");
 				ObjectInputStream entrada = new ObjectInputStream(nuevaConexion.getInputStream());
 				clienteEntrante = (Cliente) entrada.readObject();
-				General.clientesConectados.add(clienteEntrante);
+				general.clientesConectados.add(clienteEntrante);
 				listadoConectados.removeAllElements();
-				for(int i = 0; i <= General.clientesConectados.size() - 1; i++ ){
-					listadoConectados.addElement(General.clientesConectados.get(i).getNombre());
+				for(int i = 0; i <= general.clientesConectados.size() - 1; i++ ){
+					listadoConectados.addElement(general.clientesConectados.get(i).getNombre());
 				}
 				listConectados.setModel(listadoConectados);
 			}

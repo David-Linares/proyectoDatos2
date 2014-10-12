@@ -16,7 +16,7 @@ public class General {
 	public static ServerSocket servidor;
 	public static String ipServidor;
 	public static Socket socket;
-	public static int puerto = 9080;
+	public static int puerto = 9090;
 	
 
 	private General(){
