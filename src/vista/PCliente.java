@@ -11,7 +11,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
 import controlador.General;
-import modelos.Cliente;
+import modelo.Cliente;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -107,10 +107,10 @@ public class PCliente extends JFrame {
 				}
 				General.clientesConectados.add(clientenuevo);				
 				try {
-					Socket cliente = new Socket(tfIp.getText(), Integer.parseInt(tfPuerto.getText()));
-					ObjectOutputStream salida = new ObjectOutputStream(cliente.getOutputStream());
+					general.cliente = new Socket(tfIp.getText(), Integer.parseInt(tfPuerto.getText()));
+					ObjectOutputStream salida = new ObjectOutputStream(general.cliente.getOutputStream());
 					salida.writeObject(clientenuevo);
-					cliente.close();
+					general.cliente.close();
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

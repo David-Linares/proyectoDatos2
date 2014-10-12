@@ -4,8 +4,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import modelos.Cliente;
-import modelos.Producto;
+import modelo.Cliente;
+import modelo.Producto;
 
 public class General {
 
@@ -15,7 +15,7 @@ public class General {
 	public static Producto productoSeleccionado;
 	public static ServerSocket servidor;
 	public static String ipServidor;
-	public static Socket socket;
+	public static Socket cliente;
 	public static int puerto = 9090;
 	
 

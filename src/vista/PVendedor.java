@@ -10,7 +10,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 import controlador.General;
-import modelos.Producto;
+import modelo.Producto;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
