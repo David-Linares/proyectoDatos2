@@ -21,6 +21,7 @@ public class PrincipalSubastaCliente extends JFrame{
 	DefaultListModel listadoConectados = new DefaultListModel();
 	private JTextField textField;
 	public JList listConectados = new JList();
+	private JLabel labelIpcliente;
 	/**
 	 * Launch the application.
 	 */
@@ -82,6 +83,10 @@ public class PrincipalSubastaCliente extends JFrame{
 		JButton btnNewButton_1 = new JButton("Enviar");
 		btnNewButton_1.setBounds(465, 364, 131, 52);
 		contentPane.add(btnNewButton_1);
+		
+		JLabel labelIpcliente = new JLabel("IP servidor: " + general.servidor.getInetAddress().getHostAddress().toString());
+		labelIpcliente.setBounds(465, 11, 119, 14);
+		contentPane.add(labelIpcliente);
 	}
 
 	/*public void run() {
