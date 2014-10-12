@@ -16,7 +16,7 @@ import java.net.Socket;
 import javax.swing.SwingConstants;
 
 import controlador.General;
-import modelos.Cliente;
+import modelo.Cliente;
 
 
 @SuppressWarnings("serial")

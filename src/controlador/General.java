@@ -4,8 +4,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import modelos.Cliente;
-import modelos.Producto;
+import modelo.Cliente;
+import modelo.Producto;
 
 public class General {
 

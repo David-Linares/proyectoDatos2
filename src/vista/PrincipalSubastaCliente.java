@@ -12,6 +12,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import controlador.General;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class PrincipalSubastaCliente extends JFrame{
@@ -75,6 +77,15 @@ public class PrincipalSubastaCliente extends JFrame{
 		contentPane.add(productoSubastado);
 		
 		textField = new JTextField();
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent eve) {
+				 if (eve.getKeyCode()==10){
+			            //cliente.enviarMensaje(jTextField3.getText());
+			            //jTextField3.setText("");
+			        }
+			}
+		});
 		textField.setBounds(10, 370, 443, 46);
 		contentPane.add(textField);
 		textField.setColumns(10);
