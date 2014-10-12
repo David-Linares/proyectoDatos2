@@ -1,6 +1,4 @@
-package ventanas;
-import general.General;
-
+package vista;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -17,7 +15,8 @@ import java.net.Socket;
 
 import javax.swing.SwingConstants;
 
-import models.Cliente;
+import controlador.General;
+import modelos.Cliente;
 
 
 @SuppressWarnings("serial")

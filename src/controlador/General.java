@@ -1,11 +1,11 @@
-package general;
+package controlador;
 
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import models.Cliente;
-import models.Producto;
+import modelos.Cliente;
+import modelos.Producto;
 
 public class General {
 

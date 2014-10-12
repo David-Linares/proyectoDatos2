@@ -1,6 +1,4 @@
-package ventanas;
-
-import general.General;
+package vista;
 
 import java.awt.EventQueue;
 
@@ -12,7 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
-import models.Cliente;
+import controlador.General;
+import modelos.Cliente;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

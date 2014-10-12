@@ -1,6 +1,4 @@
-package ventanas;
-import general.General;
-
+package vista;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -12,6 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import controlador.General;
 
 @SuppressWarnings("serial")
 public class PrincipalSubastaCliente extends JFrame{
