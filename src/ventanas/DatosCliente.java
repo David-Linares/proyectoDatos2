@@ -2,7 +2,6 @@ package ventanas;
 
 import general.General;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -18,13 +17,14 @@ import models.Cliente;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class DatosCliente extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField tfNombreCliente;
 	private JTextField tfMonto;
 	General general = General.getInstance();
-	Cliente cliente = new Cliente(); //Importante verificar id del cliente.
+	Cliente cliente = new Cliente(); // Importante verificar id del cliente.
 
 	/**
 	 * Launch the application.
@@ -52,35 +52,35 @@ public class DatosCliente extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		tfNombreCliente = new JTextField();
 		tfNombreCliente.setBounds(133, 28, 243, 37);
 		contentPane.add(tfNombreCliente);
 		tfNombreCliente.setColumns(10);
-		
+
 		tfMonto = new JTextField();
 		tfMonto.setColumns(10);
 		tfMonto.setBounds(133, 87, 243, 37);
 		contentPane.add(tfMonto);
-		
+
 		JButton btnNewButton = new JButton("Entrar a la Subasta");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				cliente.setNombre(tfNombreCliente.getText());
 				cliente.setMonto(Double.parseDouble(tfMonto.getText()));
-				general.clientesConectados.add(cliente);
+				General.clientesConectados.add(cliente);
 				setVisible(false);
-				PrincipalSubasta principalSubasta = new PrincipalSubasta();
+				PrincipalSubastaVendedor principalSubasta = new PrincipalSubastaVendedor();
 				principalSubasta.setVisible(true);
 			}
 		});
 		btnNewButton.setBounds(125, 163, 170, 37);
 		contentPane.add(btnNewButton);
-		
+
 		JLabel lblNewLabel = new JLabel("Nombre");
 		lblNewLabel.setBounds(77, 39, 46, 14);
 		contentPane.add(lblNewLabel);
-		
+
 		JLabel lblMontoInicial = new JLabel("Monto Inicial");
 		lblMontoInicial.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblMontoInicial.setBounds(44, 98, 79, 14);

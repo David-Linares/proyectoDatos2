@@ -1,32 +1,26 @@
 package ventanas;
 import general.General;
-
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import java.net.*;
-import java.io.*;
-
-import javax.swing.DefaultBoundedRangeModel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
+import models.Producto;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
+@SuppressWarnings("serial")
 public class PVendedor extends JFrame {
 
 	private JPanel contentPane;
 	
-	final General general = General.getInstance();
+	General general = General.getInstance();
 
 	/**
 	 * Launch the application.
@@ -57,34 +51,24 @@ public class PVendedor extends JFrame {
 		
 		JLabel lblSeleccioneElProducto = new JLabel("Seleccione el producto a Subastar");
 		lblSeleccioneElProducto.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSeleccioneElProducto.setBounds(96, 28, 232, 29);
+		lblSeleccioneElProducto.setBounds(75, 28, 289, 42);
 		contentPane.add(lblSeleccioneElProducto);
 		
-		final JComboBox listaProductos = new JComboBox();
+		final JComboBox listaProductos = new JComboBox(General.productos);
 		listaProductos.setBounds(106, 90, 222, 20);
 		contentPane.add(listaProductos);
 		
 		JButton btnIniciarSubasta = new JButton("Iniciar Subasta");
 		btnIniciarSubasta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				general.productoSeleccionado = (String) listaProductos.getSelectedItem();
+				General.productoSeleccionado = (Producto) listaProductos.getSelectedItem();
 				setVisible(false);
-				PrincipalSubasta principalSubasta = new PrincipalSubasta();
+				PrincipalSubastaVendedor principalSubasta = new PrincipalSubastaVendedor();
 				principalSubasta.setVisible(true);
 			}
 		});
 		btnIniciarSubasta.setBounds(140, 171, 167, 42);
-		contentPane.add(btnIniciarSubasta);
-		
-		DefaultComboBoxModel listadoProductos = new DefaultComboBoxModel(); 
-		
-		for(int i = 0; i <= general.productos.size() -1; i++ ){
-			listadoProductos.addElement(general.productos.get(i).getNombre());
-		}
-		
-		listaProductos.setModel(listadoProductos);
-		
-		
+		contentPane.add(btnIniciarSubasta);	
 		
 	}
 }

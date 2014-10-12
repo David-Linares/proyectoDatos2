@@ -5,6 +5,8 @@ public class Producto {
 	private int id;
 	private String nombre;
 	private String descripcion;
+	private double valor;
+	
 	public int getId() {
 		return id;
 	}
@@ -21,15 +23,15 @@ public class Producto {
 		this.descripcion = descripcion;
 	}
 
-	private double valor;
 	
 	public Producto() {
 		super();
 	}
 	
-	public Producto(String nombre, double valor) {
+	public Producto(int id, String nombre, double valor) {
 		super();
-		this.nombre = nombre;
+		this.id = id;
+		this.nombre = nombre;		
 		this.valor = valor;
 	}
 
@@ -44,6 +46,12 @@ public class Producto {
 	}
 	public void setValor(double valor) {
 		this.valor = valor;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return id+". " + nombre + " : " + valor;
+	}
+	
 	
 }

@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
+@SuppressWarnings("serial")
 public class Principal extends JFrame {
 
 	/**
