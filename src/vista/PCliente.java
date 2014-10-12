@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -94,8 +95,16 @@ public class PCliente extends JFrame {
 		JButton btnNewButton = new JButton("Conectarme");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Cliente clientenuevo = new Cliente(tfIp
-						.getText(), Integer.parseInt(tfPuerto.getText()), tfNombreCliente.getText(), Double.parseDouble(tfMonto.getText()));
+				Cliente clientenuevo = null;
+				try {
+					clientenuevo = new Cliente(InetAddress.getLocalHost().getHostAddress(), tfNombreCliente.getText(), Double.parseDouble(tfMonto.getText()));
+				} catch (NumberFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (UnknownHostException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				General.clientesConectados.add(clientenuevo);				
 				try {
 					Socket cliente = new Socket(tfIp.getText(), Integer.parseInt(tfPuerto.getText()));
