@@ -119,7 +119,7 @@ public class PCliente extends JFrame {
 					e.printStackTrace();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
-					System.out.println(e.getMessage());
+					System.out.println("Error acá: " + e.getMessage());
 				}
 				setVisible(false);
 				PrincipalSubastaCliente psubasta = new PrincipalSubastaCliente();
