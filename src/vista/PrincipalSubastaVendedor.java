@@ -99,7 +99,7 @@ public class PrincipalSubastaVendedor extends JFrame implements Runnable {
 		productoSubastado.setText(general.productoSeleccionado.getNombre() + " = " + general.productoSeleccionado.getValor());
 		
 		labelIp = new JLabel();
-		labelIp.setBounds(365, 39, 131, 14);
+		labelIp.setBounds(365, 22, 131, 31);
 		contentPane.add(labelIp);
 	}
 

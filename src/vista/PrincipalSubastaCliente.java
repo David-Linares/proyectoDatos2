@@ -26,7 +26,7 @@ import javax.swing.JTextArea;
 public class PrincipalSubastaCliente extends JFrame{
 
 	private JPanel contentPane;
-	General general = General.getInstance();
+	public General general = General.getInstance();
 	DefaultListModel listadoConectados = new DefaultListModel();
 	private JTextField textField;
 	public JList listConectados = new JList();
@@ -102,11 +102,6 @@ public class PrincipalSubastaCliente extends JFrame{
 		JButton btnNewButton_1 = new JButton("Enviar");
 		btnNewButton_1.setBounds(465, 364, 131, 52);
 		contentPane.add(btnNewButton_1);
-		
-
-		JLabel labelIpcliente = new JLabel("IP servidor: " + general.servidor.getInetAddress().getHostAddress().toString());
-		labelIpcliente.setBounds(465, 11, 119, 14);
-		contentPane.add(labelIpcliente);
 
 		panelSubasta = new JTextArea();
 		panelSubasta.setBounds(10, 94, 445, 258);
