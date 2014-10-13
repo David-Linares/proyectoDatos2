@@ -41,4 +41,34 @@ public class General {
 		return general;
 	}
 
+	
+	public void enviarTrama(int nCodigo, String sTrama){
+        for (Cliente ms:clientesConectados){
+            ms.enviarTrama(nCodigo, sTrama);
+        }
+    }
+    
+    public void conectaNuevo(Cliente nuevo){
+        for (Cliente ms:clientesConectados){
+            nuevo.enviarTrama(1, ms.getNombre());
+        }
+        clientesConectados.add(nuevo);
+    }
+    
+    public void desconecta(Cliente eliminar){
+        int nPos=-1;
+        for (int n=0;n<clientesConectados.size();n++){
+            if (clientesConectados.get(n)==eliminar){
+                nPos=n;
+            }
+        }
+        if (nPos!=-1){
+            for (int n=0;n<clientesConectados.size();n++){
+                if (n!=nPos){
+                    clientesConectados.get(n).enviarTrama(3, ""+nPos);
+                }
+            }
+            clientesConectados.remove(nPos);
+        }
+    }
 }

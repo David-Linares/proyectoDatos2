@@ -115,7 +115,10 @@ public class PrincipalSubastaCliente extends JFrame{
 			ObjectInputStream entrada = new ObjectInputStream(general.cliente.getInputStream());
 			//Socket cliente;
 			//Cliente conectado;
+			
 			while (true) {
+				String mensaje = entrada.readUTF();
+				mensajeRecibido(mensaje);
 				/*cliente = clienteServidor.accept();
 				ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
 				conectado = (Cliente) entrada.readObject();
@@ -125,7 +128,6 @@ public class PrincipalSubastaCliente extends JFrame{
 				}
 				listConectados.setModel(listadoConectados);
 				cliente.close();*/
-				String mensaje = entrada.readUTF();
 			}
 			
 		} catch (Exception e) {

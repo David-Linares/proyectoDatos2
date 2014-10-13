@@ -1,10 +1,16 @@
 package modelo;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class Cliente implements Serializable {
 	
+	
+	private DataInputStream dis;
+    private DataOutputStream dos;
+    
 	private String ip;
 	private int puerto;
 	private String nombre;
@@ -46,6 +52,12 @@ public class Cliente implements Serializable {
 		this.monto = monto;
 	}
 	
-	
+	public void enviarTrama(int nCodigo, String sTrama){
+        try{
+           dos.writeInt(nCodigo);
+           dos.writeUTF(sTrama);
+        }catch(Exception e){
+        }
+    }
 
 }

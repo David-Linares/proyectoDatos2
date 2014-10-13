@@ -105,7 +105,7 @@ public class PCliente extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				General.clientesConectados.add(clientenuevo);				
+				general.conectaNuevo(clientenuevo);				
 				try {
 					general.cliente = new Socket(tfIp.getText(), Integer.parseInt(tfPuerto.getText()));
 					ObjectOutputStream salida = new ObjectOutputStream(general.cliente.getOutputStream());
