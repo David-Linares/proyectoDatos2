@@ -3,6 +3,7 @@ package modelo;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.Serializable;
+import java.net.Socket;
 
 @SuppressWarnings("serial")
 public class Cliente implements Serializable {
@@ -15,7 +16,14 @@ public class Cliente implements Serializable {
 	private int puerto;
 	private String nombre;
 	private double monto;
-
+	private Socket cliente;
+	
+	public Socket getCliente() {
+		return cliente;
+	}
+	public void setCliente(Socket cliente) {
+		this.cliente = cliente;
+	}
 	public int getPuerto() {
 		return puerto;
 	}

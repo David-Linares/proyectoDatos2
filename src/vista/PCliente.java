@@ -107,10 +107,10 @@ public class PCliente extends JFrame {
 				}
 				general.conectaNuevo(clientenuevo);				
 				try {
-					general.cliente = new Socket(tfIp.getText(), Integer.parseInt(tfPuerto.getText()));
-					ObjectOutputStream salida = new ObjectOutputStream(general.cliente.getOutputStream());
+					clientenuevo.setCliente(new Socket(tfIp.getText(), Integer.parseInt(tfPuerto.getText())));
+					ObjectOutputStream salida = new ObjectOutputStream(clientenuevo.getCliente().getOutputStream());
 					salida.writeObject(clientenuevo);
-					general.cliente.close();
+					clientenuevo.getCliente().close();
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
