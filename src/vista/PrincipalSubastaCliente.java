@@ -90,8 +90,7 @@ public class PrincipalSubastaCliente extends JFrame{
 			public void keyPressed(KeyEvent eve) {
 				
 				if (eve.getKeyCode()==10){
-			            //cliente.enviarMensaje(jTextField3.getText());
-			            //jTextField3.setText("");
+			            //
 			        }
 			}
 		});
@@ -111,14 +110,10 @@ public class PrincipalSubastaCliente extends JFrame{
 
 	public void run() {
 		try {
-			ServerSocket clienteServidor = new ServerSocket(general.puerto);
-			ObjectInputStream entrada = new ObjectInputStream(general.cliente.getInputStream());
 			//Socket cliente;
 			//Cliente conectado;
 			
 			while (true) {
-				String mensaje = entrada.readUTF();
-				mensajeRecibido(mensaje);
 				/*cliente = clienteServidor.accept();
 				ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
 				conectado = (Cliente) entrada.readObject();
@@ -135,7 +130,4 @@ public class PrincipalSubastaCliente extends JFrame{
 		}		
 	}
 	
-	public void mensajeRecibido(String mensaje){
-        panelSubasta.append(mensaje + "\n");
-    }
-}
+	}
