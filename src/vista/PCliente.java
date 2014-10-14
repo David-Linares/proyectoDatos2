@@ -55,6 +55,7 @@ public class PCliente extends JFrame {
 	 * Create the frame.
 	 */
 	public PCliente() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 454, 362);
 		contentPane = new JPanel();
@@ -62,12 +63,12 @@ public class PCliente extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		tfIp = new JTextField();
-		tfIp.setBounds(217, 74, 209, 34);
+		tfIp = new JTextField("127.0.0.1");
+		tfIp.setBounds(217, 75, 209, 34);
 		contentPane.add(tfIp);
 		tfIp.setColumns(10);
 
-		tfPuerto = new JTextField();
+		tfPuerto = new JTextField("9090");
 		tfPuerto.setColumns(10);
 		tfPuerto.setBounds(217, 120, 209, 37);
 		contentPane.add(tfPuerto);
@@ -97,7 +98,11 @@ public class PCliente extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Cliente clientenuevo = null;
 				try {
-					clientenuevo = new Cliente(InetAddress.getLocalHost().getHostAddress(), tfNombreCliente.getText(), Double.parseDouble(tfMonto.getText()));
+					setVisible(false);
+					PrincipalSubastaCliente psubasta = new PrincipalSubastaCliente();
+					clientenuevo = new Cliente(InetAddress.getLocalHost().getHostAddress(), tfNombreCliente.getText(), Double.parseDouble(tfMonto.getText()),psubasta);
+					clientenuevo.start();
+					psubasta.setVisible(true);
 				} catch (NumberFormatException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -105,25 +110,7 @@ public class PCliente extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				general.conectaNuevo(clientenuevo);				
-				try {
-					clientenuevo.setCliente(new Socket(tfIp.getText(), Integer.parseInt(tfPuerto.getText())));
-					ObjectOutputStream salida = new ObjectOutputStream(clientenuevo.getCliente().getOutputStream());
-					salida.writeObject(clientenuevo);
-					clientenuevo.getCliente().close();
-				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (UnknownHostException e) {
-					System.out.println("Ip de Servidor Desconocida");
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					System.out.println("Error acá: " + e.getMessage());
-				}
-				setVisible(false);
-				PrincipalSubastaCliente psubasta = new PrincipalSubastaCliente();
-				psubasta.setVisible(true);
+				general.conectaNuevo(clientenuevo);
 			}
 		});
 		btnNewButton.setBounds(133, 287, 175, 34);

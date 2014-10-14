@@ -1,7 +1,10 @@
 package controlador;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import modelo.Cliente;
@@ -17,6 +20,7 @@ public class General {
 	public static String ipServidor;
 	public static Socket cliente;
 	public static int puerto = 9090;
+	public static int puertoCliente = 9091;
 	
 
 	private General(){
@@ -40,17 +44,32 @@ public class General {
 
 		return general;
 	}
-
 	
-	public void enviarTrama(int nCodigo, String sTrama){
+	public void enviarMensaje(String msj){
+		for(Cliente clienteConectado : clientesConectados){
+			try {
+				Socket s = new Socket(clienteConectado.getIp(), clienteConectado.getPuerto());
+				DataOutputStream salida = new DataOutputStream(s.getOutputStream());
+				salida.writeUTF(msj);
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	/*public void enviarTrama(int nCodigo, String sTrama){
         for (Cliente ms:clientesConectados){
             ms.enviarTrama(nCodigo, sTrama);
         }
-    }
+    }*/
     
     public void conectaNuevo(Cliente nuevo){
-        for (Cliente ms:clientesConectados){
-            nuevo.enviarTrama(1, ms.getNombre());
+        for (Cliente clienteConectado : clientesConectados){
+            nuevo.enviarDatos(1, clienteConectado);
         }
         clientesConectados.add(nuevo);
     }
@@ -65,7 +84,7 @@ public class General {
         if (nPos!=-1){
             for (int n=0;n<clientesConectados.size();n++){
                 if (n!=nPos){
-                    clientesConectados.get(n).enviarTrama(3, ""+nPos);
+                    clientesConectados.get(n).enviarDatos(3, nPos);
                 }
             }
             clientesConectados.remove(nPos);

@@ -54,9 +54,7 @@ public class PrincipalSubastaCliente extends JFrame{
 	/**
 	 * Create the frame.
 	 */
-	public PrincipalSubastaCliente() {/*
-		Thread hilo = new Thread(this);
-		hilo.start();*/
+	public PrincipalSubastaCliente() {
 		setTitle("Subasta");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 610, 506);
@@ -69,9 +67,9 @@ public class PrincipalSubastaCliente extends JFrame{
 		listConectados.setBounds(465, 98, 131, 254);
 		contentPane.add(listConectados);
 		
-		for(int i = 0; i <= General.clientesConectados.size() - 1; i++ ){
+		/*for(int i = 0; i <= General.clientesConectados.size() - 1; i++ ){
 			listadoConectados.addElement(General.clientesConectados.get(i).getNombre());
-		}
+		}*/
 		
 		listConectados.setModel(listadoConectados);
 		
@@ -90,7 +88,7 @@ public class PrincipalSubastaCliente extends JFrame{
 			public void keyPressed(KeyEvent eve) {
 				
 				if (eve.getKeyCode()==10){
-			            //
+			            String msjSubasta = textField.getText();
 			        }
 			}
 		});
@@ -107,14 +105,17 @@ public class PrincipalSubastaCliente extends JFrame{
 		contentPane.add(panelSubasta);
 
 	}
+	
+	public void agregarNuevo(Cliente nuevoCliente){
+		listadoConectados.addElement(nuevoCliente);
+	}
 
-	public void run() {
+	/*public void run() {
 		try {
-			//Socket cliente;
-			//Cliente conectado;
-			
+			Socket cliente;
+			ServerSocket clienteServidor = new ServerSocket(general.puertoCliente);
 			while (true) {
-				/*cliente = clienteServidor.accept();
+				cliente = clienteServidor.accept();
 				ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
 				conectado = (Cliente) entrada.readObject();
 				listadoConectados.removeAllElements();
@@ -122,12 +123,12 @@ public class PrincipalSubastaCliente extends JFrame{
 					listadoConectados.addElement(general.clientesConectados.get(i).getNombre());
 				}
 				listConectados.setModel(listadoConectados);
-				cliente.close();*/
+				cliente.close();
 			}
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}		
-	}
+	}*/
 	
 	}
