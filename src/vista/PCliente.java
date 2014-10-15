@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
+import controlador.CCliente;
 import controlador.General;
 import modelo.Cliente;
 
@@ -25,6 +26,7 @@ import java.net.UnknownHostException;
 @SuppressWarnings("serial")
 public class PCliente extends JFrame {
 
+
 	General general = General.getInstance();
 	private JPanel contentPane;
 	private JTextField tfIp;
@@ -35,6 +37,7 @@ public class PCliente extends JFrame {
 	private JLabel lblMontoInicial;
 	private JLabel lblDatosDeConexin;
 
+	private CCliente cliente = null;
 	/**
 	 * Launch the application.
 	 */
@@ -68,7 +71,7 @@ public class PCliente extends JFrame {
 		contentPane.add(tfIp);
 		tfIp.setColumns(10);
 
-		tfPuerto = new JTextField("9090");
+		tfPuerto = new JTextField("8090");
 		tfPuerto.setColumns(10);
 		tfPuerto.setBounds(217, 120, 209, 37);
 		contentPane.add(tfPuerto);
@@ -93,29 +96,6 @@ public class PCliente extends JFrame {
 		lblNewLabel_1.setBounds(12, 121, 187, 34);
 		contentPane.add(lblNewLabel_1);
 
-		JButton btnNewButton = new JButton("Conectarme");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Cliente clientenuevo = null;
-				try {
-					setVisible(false);
-					PrincipalSubastaCliente psubasta = new PrincipalSubastaCliente();
-					clientenuevo = new Cliente(InetAddress.getLocalHost().getHostAddress(), tfNombreCliente.getText(), Double.parseDouble(tfMonto.getText()),psubasta);
-					clientenuevo.start();
-					psubasta.setVisible(true);
-				} catch (NumberFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (UnknownHostException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				general.conectaNuevo(clientenuevo);
-			}
-		});
-		btnNewButton.setBounds(133, 287, 175, 34);
-		contentPane.add(btnNewButton);
-
 		lblNombre = new JLabel("Nombre");
 		lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNombre.setBounds(12, 172, 187, 34);
@@ -126,10 +106,52 @@ public class PCliente extends JFrame {
 		lblMontoInicial.setBounds(12, 218, 187, 34);
 		contentPane.add(lblMontoInicial);
 
-		lblDatosDeConexin = new JLabel("Datos de ConexiÃ³n");
+		lblDatosDeConexin = new JLabel("Datos de Conexión");
 		lblDatosDeConexin.setFont(new Font("Dialog", Font.BOLD, 20));
 		lblDatosDeConexin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDatosDeConexin.setBounds(106, 12, 247, 34);
 		contentPane.add(lblDatosDeConexin);
-	}
+
+		JButton btnNewButton = new JButton("Conectarme");
+		btnNewButton.setBounds(133, 287, 175, 34);
+		contentPane.add(btnNewButton);
+	
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					int puerto = Integer.parseInt(tfPuerto.getText());
+					String ip = tfIp.getText();
+					if (cliente==null){
+						cliente = new CCliente(puerto, ip);
+						cliente.start();
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				//try {
+				
+					Cliente clientenuevo = null;
+					setVisible(false);
+					PrincipalSubastaCliente psubasta = new PrincipalSubastaCliente();
+					
+					//clientenuevo = new Cliente(InetAddress.getLocalHost().getHostAddress(), Integer.parseInt(tfPuerto.getText()), tfNombreCliente.getText(), Double.parseDouble(tfMonto.getText()));
+					//clientenuevo.start();
+					psubasta.setVisible(true);
+					
+				//}// catch (NumberFormatException e1) {
+					//e1.printStackTrace();
+					
+				//} //catch (UnknownHostException e1) {
+					//e1.printStackTrace();
+					
+				}
+				//general.conectaNuevo(clientenuevo);
+			//}
+		});
+				
+
+			}
+	
+		
+
 }

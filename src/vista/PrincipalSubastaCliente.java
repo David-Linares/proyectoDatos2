@@ -110,6 +110,14 @@ public class PrincipalSubastaCliente extends JFrame{
 		listadoConectados.addElement(nuevoCliente);
 	}
 
+	public void mensajeRecibido(String nuevoMensaje) {
+		panelSubasta.append(nuevoMensaje);
+	}
+
+	public void borrarPersona(int posicion) {
+		listadoConectados.remove(posicion);
+	}
+
 	/*public void run() {
 		try {
 			Socket cliente;

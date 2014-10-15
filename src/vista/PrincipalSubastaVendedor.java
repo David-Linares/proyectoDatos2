@@ -114,7 +114,7 @@ public class PrincipalSubastaVendedor extends JFrame implements Runnable {
 				System.out.println("Entró un cliente");
 				ObjectInputStream entrada = new ObjectInputStream(nuevaConexion.getInputStream());
 				clienteEntrante = (Cliente) entrada.readObject();
-				general.getInstance().conectaNuevo(clienteEntrante);
+				//general.getInstance().conectaNuevo(clienteEntrante);
 				listadoConectados.removeAllElements();
 				for(int i = 0; i <= general.clientesConectados.size() - 1; i++ ){
 					listadoConectados.addElement(general.clientesConectados.get(i).getNombre());

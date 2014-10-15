@@ -45,49 +45,4 @@ public class General {
 		return general;
 	}
 	
-	public void enviarMensaje(String msj){
-		for(Cliente clienteConectado : clientesConectados){
-			try {
-				Socket s = new Socket(clienteConectado.getIp(), clienteConectado.getPuerto());
-				DataOutputStream salida = new DataOutputStream(s.getOutputStream());
-				salida.writeUTF(msj);
-			} catch (UnknownHostException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 	}
-	
-	/*public void enviarTrama(int nCodigo, String sTrama){
-        for (Cliente ms:clientesConectados){
-            ms.enviarTrama(nCodigo, sTrama);
-        }
-    }*/
-    
-    public void conectaNuevo(Cliente nuevo){
-        for (Cliente clienteConectado : clientesConectados){
-            nuevo.enviarDatos(1, clienteConectado);
-        }
-        clientesConectados.add(nuevo);
-    }
-    
-    public void desconecta(Cliente eliminar){
-        int nPos=-1;
-        for (int n=0;n<clientesConectados.size();n++){
-            if (clientesConectados.get(n)==eliminar){
-                nPos=n;
-            }
-        }
-        if (nPos!=-1){
-            for (int n=0;n<clientesConectados.size();n++){
-                if (n!=nPos){
-                    clientesConectados.get(n).enviarDatos(3, nPos);
-                }
-            }
-            clientesConectados.remove(nPos);
-        }
-    }
-}
