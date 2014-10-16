@@ -105,7 +105,7 @@ public class PCliente extends JFrame {
 		lblMontoInicial.setBounds(12, 218, 187, 34);
 		contentPane.add(lblMontoInicial);
 
-		lblDatosDeConexin = new JLabel("Datos de Conexión");
+		lblDatosDeConexin = new JLabel("Datos de Conexiï¿½n");
 		lblDatosDeConexin.setFont(new Font("Dialog", Font.BOLD, 20));
 		lblDatosDeConexin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDatosDeConexin.setBounds(106, 12, 247, 34);
@@ -121,8 +121,9 @@ public class PCliente extends JFrame {
 				try {
 					int puerto = Integer.parseInt(tfPuerto.getText());
 					String ip = tfIp.getText();
+					Cliente nuevoCliente = new Cliente(tfNombreCliente.getText(), Double.parseDouble(tfMonto.getText()));
 					if (general.cliente==null){
-						general.cliente = new CCliente(puerto, ip, psubasta);
+						general.cliente = new CCliente(puerto, ip, psubasta, nuevoCliente);
 						general.cliente.start();
 					}
 				} catch (Exception e) {

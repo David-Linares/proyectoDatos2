@@ -14,11 +14,9 @@ public class General {
 
 	private static General general;
 	public static Producto[] productos;
-	public static ArrayList<Cliente> clientesConectados = new ArrayList<Cliente>();
 	private ArrayList<Conexion> conexiones = new ArrayList<Conexion>();
 	public static Producto productoSeleccionado;
-	public static ServerSocket servidor;
-	public static String ipServidor;
+	public CServidor servidor = null;
 	public static CCliente cliente = null;
 	public static int puerto = 9090;
 	public static int puertoCliente = 9091;

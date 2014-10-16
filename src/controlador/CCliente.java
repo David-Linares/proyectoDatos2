@@ -6,21 +6,23 @@ import java.net.Socket;
 
 import javax.swing.JOptionPane;
 
-import vista.PCliente;
+import modelo.Cliente;
 import vista.PrincipalSubastaCliente;
 
 public class CCliente extends Thread{
-
+	
+	private Cliente clienteConectado;
 	private int puerto;
 	private String ip;
 	private PrincipalSubastaCliente ventanaCliente;
 	private boolean conectado;
 	private Socket SCliente;
 	
-	public CCliente(int puerto, String ip, PrincipalSubastaCliente ventanaCliente){
+	public CCliente(int puerto, String ip, PrincipalSubastaCliente ventanaCliente, Cliente clienteConectado){
 		this.ip= ip;
 		this.puerto=puerto;
 		this.ventanaCliente = ventanaCliente;
+		this.clienteConectado = clienteConectado;
 	}
 	public void run(){
 		try {
@@ -32,7 +34,8 @@ public class CCliente extends Thread{
 				ventanaCliente.mensajeRecibido(eMensaje);
 			}
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(ventanaCliente, "No se pudo establecer la Conexión ");
+			System.out.println(e.getCause());
+			JOptionPane.showMessageDialog(ventanaCliente, "No se pudo establecer la Conexiï¿½n "+e.getMessage());
 			// TODO: handle exception
 		}
 	}
@@ -45,5 +48,7 @@ public class CCliente extends Thread{
 			JOptionPane.showMessageDialog(ventanaCliente, "Se produjo un error al enviar el mensaje");
 		}
 	}
-	
+	public Cliente getClienteConectado(){
+		return this.clienteConectado;
+	}
 }

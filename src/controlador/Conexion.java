@@ -5,8 +5,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+import modelo.Cliente;
+
 public class Conexion extends Thread {
-	
 	private Socket s;
 	private DataInputStream entrada;
 	private DataOutputStream salida;

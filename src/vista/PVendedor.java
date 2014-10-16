@@ -26,8 +26,6 @@ public class PVendedor extends JFrame {
 
 	private JPanel contentPane;
 	
-	private CServidor servidor = null;
-	
 	General general = General.getInstance();
 	private JTextField textFieldPuerto;
 
@@ -83,10 +81,10 @@ public class PVendedor extends JFrame {
 		
 		btnIniciarSubasta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (servidor==null){
+				if (general.servidor == null){
 					int puerto =Integer.parseInt(textFieldPuerto.getText());
-					servidor = new CServidor(puerto);
-					servidor.start();
+					general.servidor = new CServidor(puerto);
+					general.servidor.start();
 				}
 				
 				/*try {

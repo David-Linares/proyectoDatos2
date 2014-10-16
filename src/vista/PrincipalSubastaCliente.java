@@ -126,32 +126,10 @@ public class PrincipalSubastaCliente extends JFrame{
 	}
 
 	public void mensajeRecibido(String nuevoMensaje) {
-		panelSubasta.append(nuevoMensaje + "\n");
+		panelSubasta.append(general.cliente.getName() + ": "+nuevoMensaje + "\n");
 	}
 
 	public void borrarPersona(int posicion) {
 		listadoConectados.remove(posicion);
-	}
-
-	/*public void run() {
-		try {
-			Socket cliente;
-			ServerSocket clienteServidor = new ServerSocket(general.puertoCliente);
-			while (true) {
-				cliente = clienteServidor.accept();
-				ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
-				conectado = (Cliente) entrada.readObject();
-				listadoConectados.removeAllElements();
-				for(int i = 0; i <= general.clientesConectados.size() - 1; i++ ){
-					listadoConectados.addElement(general.clientesConectados.get(i).getNombre());
-				}
-				listConectados.setModel(listadoConectados);
-				cliente.close();
-			}
-			
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}		
-	}*/
-	
-	}
+	}	
+}

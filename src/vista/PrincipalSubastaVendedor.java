@@ -23,14 +23,16 @@ import modelo.Cliente;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextArea;
 
 
 @SuppressWarnings("serial")
-public class PrincipalSubastaVendedor extends JFrame implements Runnable {
+public class PrincipalSubastaVendedor extends JFrame{
 
 	private JPanel contentPane;
 	private JList listConectados = new JList();
 	private JLabel labelIp;
+	JTextArea taMensajesSubasta = new JTextArea();
 	General general = General.getInstance();
 	DefaultListModel listadoConectados = new DefaultListModel();
 	/**
@@ -53,8 +55,6 @@ public class PrincipalSubastaVendedor extends JFrame implements Runnable {
 	 * Create the frame.
 	 */
 	public PrincipalSubastaVendedor() {
-		Thread hilo = new Thread(this);
-		hilo.start();
 		setTitle("Subasta");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 522, 443);
@@ -63,29 +63,16 @@ public class PrincipalSubastaVendedor extends JFrame implements Runnable {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JList listSubasta = new JList();
-		listSubasta.setBounds(10, 93, 345, 254);
-		contentPane.add(listSubasta);
-		
 		
 		listConectados.setBounds(365, 93, 131, 254);
 		contentPane.add(listConectados);
 		
-		for(int i = 0; i <= general.clientesConectados.size() - 1; i++ ){
-			listadoConectados.addElement(general.clientesConectados.get(i).getNombre());
-		}
 		
 		listConectados.setModel(listadoConectados);
 		
 		JButton btnNewButton = new JButton("Finalizar Subasta");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					general.servidor.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				System.exit(0);
 			}
 		});
@@ -103,32 +90,18 @@ public class PrincipalSubastaVendedor extends JFrame implements Runnable {
 			labelIp = new JLabel("IP: "+InetAddress.getLocalHost().getHostAddress());
 			labelIp.setBounds(365, 22, 131, 31);
 			contentPane.add(labelIp);
+			taMensajesSubasta.setBounds(10, 94, 345, 254);
+			contentPane.add(taMensajesSubasta);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	public void agregarNuevo(Cliente nuevoCliente){
+		listadoConectados.addElement(nuevoCliente);
+	}
 
-	public void run() {
-		try {
-			general.servidor = new ServerSocket(general.puerto);
-			labelIp.setText(general.servidor.getInetAddress().getHostAddress().toString());
-			Socket nuevaConexion;
-			Cliente clienteEntrante;
-			while (true) {
-				nuevaConexion = general.servidor.accept();
-				System.out.println("Entró un cliente");
-				ObjectInputStream entrada = new ObjectInputStream(nuevaConexion.getInputStream());
-				clienteEntrante = (Cliente) entrada.readObject();
-				//general.getInstance().conectaNuevo(clienteEntrante);
-				listadoConectados.removeAllElements();
-				for(int i = 0; i <= general.clientesConectados.size() - 1; i++ ){
-					listadoConectados.addElement(general.clientesConectados.get(i).getNombre());
-				}
-				listConectados.setModel(listadoConectados);
-			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}		
+	public void mensajeRecibido(String nuevoMensaje) {
+		taMensajesSubasta.append(nuevoMensaje + "\n");
 	}
 }
