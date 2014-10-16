@@ -19,6 +19,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import javax.swing.JTextField;
+import java.awt.Font;
 
 
 @SuppressWarnings("serial")
@@ -49,34 +50,42 @@ public class PVendedor extends JFrame {
 	 * Create the frame.
 	 */
 	public PVendedor() {
+		setTitle("Producto");
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 474, 346);
+		setBounds(100, 100, 474, 235);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblSeleccioneElProducto = new JLabel("Seleccione el producto a Subastar");
-		lblSeleccioneElProducto.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSeleccioneElProducto.setBounds(10, 41, 233, 42);
+		lblSeleccioneElProducto.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSeleccioneElProducto.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
+		lblSeleccioneElProducto.setBounds(12, 41, 198, 20);
 		contentPane.add(lblSeleccioneElProducto);
 		
 		final JComboBox listaProductos = new JComboBox(General.productos);
-		listaProductos.setBounds(226, 52, 222, 20);
+		listaProductos.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
+		lblSeleccioneElProducto.setLabelFor(listaProductos);
+		listaProductos.setBounds(228, 40, 222, 20);
 		contentPane.add(listaProductos);
 		
 		JLabel lblPuerto = new JLabel("Puerto");
-		lblPuerto.setBounds(89, 125, 46, 14);
+		lblPuerto.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblPuerto.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
+		lblPuerto.setBounds(133, 86, 77, 14);
 		contentPane.add(lblPuerto);
 		
 		textFieldPuerto = new JTextField();
+		textFieldPuerto.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		textFieldPuerto.setText("8090");
-		textFieldPuerto.setBounds(226, 122, 86, 20);
+		textFieldPuerto.setBounds(228, 83, 222, 20);
 		contentPane.add(textFieldPuerto);
 		textFieldPuerto.setColumns(10);
 		
 		JButton btnIniciarSubasta = new JButton("Iniciar Subasta");
-		btnIniciarSubasta.setBounds(178, 193, 167, 42);
+		btnIniciarSubasta.setBounds(98, 128, 264, 42);
 		contentPane.add(btnIniciarSubasta);	
 		
 		btnIniciarSubasta.addActionListener(new ActionListener() {

@@ -18,10 +18,9 @@ public class CCliente extends Thread{
 	private boolean conectado;
 	private Socket SCliente;
 	
-	public CCliente(int puerto, String ip, PrincipalSubastaCliente ventanaCliente, Cliente clienteConectado){
+	public CCliente(int puerto, String ip, Cliente clienteConectado){
 		this.ip= ip;
 		this.puerto=puerto;
-		this.ventanaCliente = ventanaCliente;
 		this.clienteConectado = clienteConectado;
 	}
 	public void run(){
@@ -51,4 +50,11 @@ public class CCliente extends Thread{
 	public Cliente getClienteConectado(){
 		return this.clienteConectado;
 	}
+	public PrincipalSubastaCliente getVentanaCliente() {
+		return ventanaCliente;
+	}
+	public void setVentanaCliente(PrincipalSubastaCliente ventanaCliente) {
+		this.ventanaCliente = ventanaCliente;
+	}
+	
 }
