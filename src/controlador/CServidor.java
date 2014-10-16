@@ -14,6 +14,7 @@ public class CServidor extends Thread{
 
 	private int puerto;
 	private JFrame ventana;
+	General general = General.getInstance();
 	
 	
 	public CServidor(int puerto) {
@@ -27,8 +28,11 @@ public class CServidor extends Thread{
 	ServerSocket sServidor= null;
 	try {
 		sServidor= new ServerSocket(puerto);
-		Socket nuevoSServidor = sServidor.accept();
-		JOptionPane.showMessageDialog(ventana, "Se ha conectado el servidor");
+		while(true){
+			Socket nuevoSServidor = sServidor.accept();
+			general.nuevaConexion(new Conexion(nuevoSServidor));
+		}
+		//JOptionPane.showMessageDialog(ventana, "Se ha conectado el servidor");
 		
 	} catch (Exception e) {
 		JOptionPane.showMessageDialog(ventana, "Error al Abrir el Puerto");

@@ -15,10 +15,11 @@ public class General {
 	private static General general;
 	public static Producto[] productos;
 	public static ArrayList<Cliente> clientesConectados = new ArrayList<Cliente>();
+	private ArrayList<Conexion> conexiones = new ArrayList<Conexion>();
 	public static Producto productoSeleccionado;
 	public static ServerSocket servidor;
 	public static String ipServidor;
-	public static Socket cliente;
+	public static CCliente cliente = null;
 	public static int puerto = 9090;
 	public static int puertoCliente = 9091;
 	
@@ -45,4 +46,13 @@ public class General {
 		return general;
 	}
 	
+	public void enviarMensaje(String sMensaje){
+		for(Conexion con : conexiones){
+			con.enviarMensaje(sMensaje);
+		}
 	}
+	
+	public void nuevaConexion(Conexion nuevo){
+		conexiones.add(nuevo);
+	}
+}

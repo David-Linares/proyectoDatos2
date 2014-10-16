@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import modelo.Cliente;
+import controlador.CCliente;
 import controlador.General;
 
 import java.awt.event.KeyAdapter;
@@ -20,7 +21,11 @@ import java.io.DataInputStream;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+
 import javax.swing.JTextArea;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class PrincipalSubastaCliente extends JFrame{
@@ -28,13 +33,13 @@ public class PrincipalSubastaCliente extends JFrame{
 	private JPanel contentPane;
 	public General general = General.getInstance();
 	DefaultListModel listadoConectados = new DefaultListModel();
-	private JTextField textField;
+	private JTextField tfMensaje;
 	public JList listConectados = new JList();
 
 	private JLabel labelIpcliente;
 
 	private JTextArea panelSubasta;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -82,21 +87,26 @@ public class PrincipalSubastaCliente extends JFrame{
 		productoSubastado.setBounds(10, 12, 443, 74);
 		contentPane.add(productoSubastado);
 		
-		textField = new JTextField();
-		textField.addKeyListener(new KeyAdapter() {
+		tfMensaje = new JTextField();
+		tfMensaje.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent eve) {
 				
 				if (eve.getKeyCode()==10){
-			            String msjSubasta = textField.getText();
-			        }
+					enviarMensaje();
+				}
 			}
 		});
-		textField.setBounds(10, 370, 443, 46);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		tfMensaje.setBounds(10, 370, 443, 46);
+		contentPane.add(tfMensaje);
+		tfMensaje.setColumns(10);
 		
 		JButton btnNewButton_1 = new JButton("Enviar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				enviarMensaje();				
+			}
+		});
 		btnNewButton_1.setBounds(465, 364, 131, 52);
 		contentPane.add(btnNewButton_1);
 
@@ -106,12 +116,17 @@ public class PrincipalSubastaCliente extends JFrame{
 
 	}
 	
+	public void enviarMensaje(){
+		general.cliente.enviarMensaje(tfMensaje.getText());
+		tfMensaje.setText("");
+	}
+	
 	public void agregarNuevo(Cliente nuevoCliente){
 		listadoConectados.addElement(nuevoCliente);
 	}
 
 	public void mensajeRecibido(String nuevoMensaje) {
-		panelSubasta.append(nuevoMensaje);
+		panelSubasta.append(nuevoMensaje + "\n");
 	}
 
 	public void borrarPersona(int posicion) {

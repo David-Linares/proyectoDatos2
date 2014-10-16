@@ -14,6 +14,7 @@ import java.io.ObjectInputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 import javax.swing.SwingConstants;
 
@@ -98,9 +99,14 @@ public class PrincipalSubastaVendedor extends JFrame implements Runnable {
 		
 		productoSubastado.setText(general.productoSeleccionado.getNombre() + " = " + general.productoSeleccionado.getValor());
 		
-		labelIp = new JLabel();
-		labelIp.setBounds(365, 22, 131, 31);
-		contentPane.add(labelIp);
+		try {
+			labelIp = new JLabel("IP: "+InetAddress.getLocalHost().getHostAddress());
+			labelIp.setBounds(365, 22, 131, 31);
+			contentPane.add(labelIp);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void run() {
