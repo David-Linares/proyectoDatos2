@@ -1,13 +1,6 @@
 package controlador;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
-
-import modelo.Cliente;
 import modelo.Producto;
 
 public class General {
@@ -44,9 +37,9 @@ public class General {
 		return general;
 	}
 	
-	public void enviarMensaje(String sMensaje){
+	public void enviarDatos(int operacion, Object sMensaje){
 		for(Conexion con : conexiones){
-			con.enviarMensaje(sMensaje);
+			con.enviarDatos(operacion, sMensaje);
 		}
 	}
 	

@@ -6,6 +6,7 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 
 @SuppressWarnings("serial")
@@ -35,6 +36,7 @@ public class Principal extends JFrame {
 		getContentPane().setLayout(null);
 		
 		JButton btnNewButton = new JButton("Crear nueva Subasta");
+		btnNewButton.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
@@ -46,6 +48,7 @@ public class Principal extends JFrame {
 		getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Entrar a la Subasta");
+		btnNewButton_1.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);

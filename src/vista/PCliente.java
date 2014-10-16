@@ -17,11 +17,6 @@ import modelo.Cliente;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
 
 @SuppressWarnings("serial")
 public class PCliente extends JFrame {
@@ -135,17 +130,15 @@ public class PCliente extends JFrame {
 						general.cliente.setVentanaCliente(psubasta);
 						general.cliente.start();
 					}
+					psubasta.setVisible(true);
+					setVisible(false);
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
 				//try {
-				
-					Cliente clientenuevo = null;
-					setVisible(false);
 					
 					//clientenuevo = new Cliente(InetAddress.getLocalHost().getHostAddress(), Integer.parseInt(tfPuerto.getText()), tfNombreCliente.getText(), Double.parseDouble(tfMonto.getText()));
 					//clientenuevo.start();
-					psubasta.setVisible(true);
 					
 				//}// catch (NumberFormatException e1) {
 					//e1.printStackTrace();

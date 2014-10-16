@@ -153,12 +153,12 @@ public class PrincipalSubastaCliente extends JFrame{
 		tfMensaje.setText("");
 	}
 	
-	public void agregarNuevo(Cliente nuevoCliente){
-		listadoConectados.addElement(nuevoCliente);
+	public void agregarNuevo(Object nuevoCliente){
+		listadoConectados.addElement((Cliente) nuevoCliente);
 	}
 
 	public void mensajeRecibido(String nuevoMensaje) {
-		panelSubasta.append(general.cliente.getClienteConectado().getNombre() + ": "+nuevoMensaje + "\n");
+		panelSubasta.append(nuevoMensaje + "\n");
 	}
 
 	public void borrarPersona(int posicion) {
