@@ -44,7 +44,7 @@ public class CCliente extends Thread{
 			}
 		} catch (Exception e) {
 			System.out.println(e.getCause());
-			JOptionPane.showMessageDialog(ventanaCliente, "No se pudo establecer la Conexiï¿½n "+e.getMessage());
+			JOptionPane.showMessageDialog(ventanaCliente, "No se pudo establecer la Conexión "+e.getMessage());
 			// TODO: handle exception
 		}
 	}

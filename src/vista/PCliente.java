@@ -32,6 +32,7 @@ public class PCliente extends JFrame {
 	private JLabel lblMontoInicial;
 	private JLabel lblDatosDeConexin;
 	PrincipalSubastaCliente psubasta;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -120,6 +121,7 @@ public class PCliente extends JFrame {
 	
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				try {
 					int puerto = Integer.parseInt(tfPuerto.getText());
 					String ip = tfIp.getText();
@@ -127,9 +129,10 @@ public class PCliente extends JFrame {
 					if (general.cliente==null){
 						general.cliente = new CCliente(puerto, ip, nuevoCliente);
 						psubasta = new PrincipalSubastaCliente();
-						general.cliente.setVentanaCliente(psubasta);
 						general.cliente.start();
+						general.cliente.setVentanaCliente(psubasta);
 					}
+					psubasta.agregarNuevo(nuevoCliente);
 					psubasta.setVisible(true);
 					setVisible(false);
 				} catch (Exception e) {

@@ -154,7 +154,9 @@ public class PrincipalSubastaCliente extends JFrame{
 	}
 	
 	public void agregarNuevo(Object nuevoCliente){
-		listadoConectados.addElement((Cliente) nuevoCliente);
+		Cliente temp = (Cliente) nuevoCliente;
+		listadoConectados.addElement(temp.getNombre());
+		
 	}
 
 	public void mensajeRecibido(String nuevoMensaje) {
