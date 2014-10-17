@@ -31,7 +31,7 @@ public class Principal extends JFrame {
 	 */
 	public Principal() {
 		setTitle("Bienvenido");
-		setBounds(100, 100, 364, 149);
+		setBounds(100, 100, 376, 158);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		

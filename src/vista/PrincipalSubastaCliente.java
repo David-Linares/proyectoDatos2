@@ -36,10 +36,11 @@ public class PrincipalSubastaCliente extends JFrame{
 
 	private JPanel contentPane;
 	General general = General.getInstance();
-	DefaultListModel listadoConectados = new DefaultListModel();
 	private JTextField tfMensaje;
 	public JList listConectados = new JList();
 
+	
+	
 	private JLabel labelIpcliente;
 
 	private JTextArea panelSubasta;
@@ -82,12 +83,23 @@ public class PrincipalSubastaCliente extends JFrame{
 			listadoConectados.addElement(General.clientesConectados.get(i).getNombre());
 		}*/
 		
-		listConectados.setModel(listadoConectados);
 		
-		JButton btnNewButton = new JButton("Abandonar Subasta");
-		btnNewButton.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
-		btnNewButton.setBounds(385, 428, 211, 37);
-		contentPane.add(btnNewButton);
+		JButton btnAbandonarSubasta = new JButton("Abandonar Subasta");
+		btnAbandonarSubasta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			//ok
+				if (general.cliente!=null){
+				general.cliente.enviarDatos(3, "");
+				general.cliente.interrupt();
+			}
+			general.cliente=null;
+			general.listadoConectados.removeAllElements();
+			panelSubasta.setText("");
+			}
+		});
+		btnAbandonarSubasta.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
+		btnAbandonarSubasta.setBounds(385, 428, 211, 37);
+		contentPane.add(btnAbandonarSubasta);
 		
 		JLabel lblProductoSubastado = new JLabel("New label");
 		lblProductoSubastado.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
@@ -99,10 +111,12 @@ public class PrincipalSubastaCliente extends JFrame{
 		tfMensaje.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		tfMensaje.addKeyListener(new KeyAdapter() {
 			@Override
+			//OK
 			public void keyPressed(KeyEvent eve) {
 				
 				if (eve.getKeyCode()==10){
-					enviarMensaje();
+					general.cliente.enviarMensaje(tfMensaje.getText());
+					tfMensaje.setText("");
 				}
 			}
 		});
@@ -113,8 +127,10 @@ public class PrincipalSubastaCliente extends JFrame{
 		JButton btnNewButton_1 = new JButton("Enviar");
 		btnNewButton_1.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		btnNewButton_1.addActionListener(new ActionListener() {
+	
+			//
 			public void actionPerformed(ActionEvent arg0) {
-				enviarMensaje();				
+				//enviarMensaje();				
 			}
 		});
 		btnNewButton_1.setBounds(465, 384, 131, 31);
@@ -148,22 +164,24 @@ public class PrincipalSubastaCliente extends JFrame{
 
 	}
 	
-	public void enviarMensaje(){
+	/*public void enviarMensaje(){
+		System.out.println("Envio msj psc");
 		general.cliente.enviarMensaje(tfMensaje.getText());
 		tfMensaje.setText("");
-	}
-	
+	}*/
+	//OK
 	public void agregarNuevo(Object nuevoCliente){
 		Cliente temp = (Cliente) nuevoCliente;
-		listadoConectados.addElement(temp.getNombre());
+		general.listadoConectados.addElement(temp.getNombre());
 		
 	}
 
+	//OK
 	public void mensajeRecibido(String nuevoMensaje) {
 		panelSubasta.append(nuevoMensaje + "\n");
 	}
-
+	//OK
 	public void borrarPersona(int posicion) {
-		listadoConectados.remove(posicion);
+		general.listadoConectados.remove(posicion);
 	}	
 }

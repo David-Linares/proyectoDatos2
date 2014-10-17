@@ -11,10 +11,12 @@ import modelo.Cliente;
 
 public class Conexion extends Thread {
 	private Socket s;
-	private ObjectInputStream entrada;
-	private ObjectOutputStream salida;
+	public ObjectInputStream entrada;
+	public ObjectOutputStream salida;
 	General general = General.getInstance();
-	private Cliente clienteTemp;
+	public Cliente clienteTemp;
+	
+	//OK
 	public Conexion(Socket s) {
 		try {
 			this.s = s;
@@ -27,27 +29,42 @@ public class Conexion extends Thread {
 		}
 	}
 	
+	
+	public Cliente getClienteTemp() {
+		return clienteTemp;
+	}
+
+
+	//Inicializa el hilo - OK
 	public void run(){
 		while(true){
-			try {
-				int operacion = entrada.readInt();
-				Object eMensaje = entrada.readUTF();
-				switch (operacion){
-					case 1:
-						this.clienteTemp = (Cliente) eMensaje;
+				try {
+					int operacion = entrada.readInt();
+					Object eMensaje = entrada.readObject();
+					switch (operacion){
+						case 1:
+							clienteTemp = (Cliente) eMensaje;
+							general.enviarDatos(operacion, eMensaje);
+							break;
+						case 2:
+							eMensaje = this.clienteTemp.getNombre() + ": " + eMensaje;
+							general.enviarDatos(operacion, eMensaje);
+							break;
+						case 3:
+							//FALTA IMPLEMENTAR
 						break;
-					case 2:
-						eMensaje = this.clienteTemp.getNombre() + ": " + eMensaje;
-						break;
-				}
-				general.enviarDatos(operacion, eMensaje);
-			} catch (IOException e) {
+					}
+					
+				} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		}
 	}
-	
+	//OK
 	public void enviarDatos(int operacion, Object sMensaje){
 		try {
 			salida.writeInt(operacion);
