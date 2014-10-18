@@ -132,13 +132,11 @@ public class PCliente extends JFrame {
 					if (general.cliente == null) {
 						general.cliente = new CCliente(puerto, ip, nuevoCliente);
 						psubasta = new PrincipalSubastaCliente();
-						general.cliente.start();
 						general.cliente.setVentanaCliente(psubasta);
+						general.cliente.start();
 					}
 					//PENDIENTE
 					psubasta.listConectados.setModel(general.listadoConectados);
-					//pendiente
-					psubasta.agregarNuevo(nuevoCliente);
 					psubasta.setVisible(true);
 					setVisible(false);
 				} catch (Exception e) {

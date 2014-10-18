@@ -34,7 +34,6 @@ public class Principal extends JFrame {
 		setBounds(100, 100, 376, 158);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
-		
 		JButton btnNewButton = new JButton("Crear nueva Subasta");
 		btnNewButton.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		btnNewButton.addActionListener(new ActionListener() {

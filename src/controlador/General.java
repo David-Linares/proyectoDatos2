@@ -11,9 +11,7 @@ public class General {
 	private static General general;
 	public static Producto[] productos;
 	private ArrayList<Conexion> conexiones = new ArrayList<Conexion>();
-	
-	public DefaultListModel listadoConectados = new DefaultListModel();
-	
+	public DefaultListModel listadoConectados = new DefaultListModel();	
 	public static Producto productoSeleccionado;
 	public static CServidor servidor = null;
 	public static CCliente cliente = null;

@@ -28,19 +28,20 @@ public class CCliente extends Thread{
 	//OK
 	public void run(){
 		try {
-			System.out.println("Entro al hilo de ccliente");
 			SCliente= new Socket(ip, puerto);
-			ObjectInputStream entrada = new ObjectInputStream(SCliente.getInputStream());
 			enviarDatos(1, clienteConectado);
+			ObjectInputStream entrada = new ObjectInputStream(SCliente.getInputStream());
 			conectado = true;
 			while(conectado){
 				int operacion = entrada.readInt();
 				Object eMensaje = entrada.readObject();
 				switch (operacion){
 					case 1://Agregar nuevo cliente
-						ventanaCliente.agregarNuevo(eMensaje);
+						JOptionPane.showMessageDialog(ventanaCliente, "Se conecta un nuevo cliente, msj desde CCliente"+eMensaje.toString());
+						ventanaCliente.agregarNuevo((Cliente) eMensaje);
 						break;
 					case 2://Enviar Mensaje
+						JOptionPane.showMessageDialog(ventanaCliente, "envia uno nuevo, msj desde CCliente");
 						ventanaCliente.mensajeRecibido((String) eMensaje);
 						break;
 				}
@@ -52,14 +53,12 @@ public class CCliente extends Thread{
 		}
 	}
 	//OK
-	public void enviarMensaje(String sMensaje){
-		System.out.println("envia msj cc");
+	public void enviarMensajeHilo(String sMensaje){
 		enviarDatos(2, sMensaje);
 	}
 	//OK
 	public void enviarDatos(int operacion, Object valor){
 		try {
-			System.out.println("envio msj cc 2 "+valor);
 			ObjectOutputStream salida = new ObjectOutputStream(SCliente.getOutputStream());			
 			salida.writeInt(operacion);
 			salida.writeObject(valor);			

@@ -8,6 +8,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -115,8 +116,7 @@ public class PrincipalSubastaCliente extends JFrame{
 			public void keyPressed(KeyEvent eve) {
 				
 				if (eve.getKeyCode()==10){
-					general.cliente.enviarMensaje(tfMensaje.getText());
-					tfMensaje.setText("");
+					enviarMensaje();
 				}
 			}
 		});
@@ -130,7 +130,7 @@ public class PrincipalSubastaCliente extends JFrame{
 	
 			//
 			public void actionPerformed(ActionEvent arg0) {
-				//enviarMensaje();				
+				enviarMensaje();				
 			}
 		});
 		btnNewButton_1.setBounds(465, 384, 131, 31);
@@ -164,16 +164,15 @@ public class PrincipalSubastaCliente extends JFrame{
 
 	}
 	
-	/*public void enviarMensaje(){
-		System.out.println("Envio msj psc");
-		general.cliente.enviarMensaje(tfMensaje.getText());
+	public void enviarMensaje(){
+		JOptionPane.showMessageDialog(this, "Nuevo Mensaje"+tfMensaje.getText());
+		general.cliente.enviarMensajeHilo(tfMensaje.getText());
 		tfMensaje.setText("");
-	}*/
+	}
 	//OK
-	public void agregarNuevo(Object nuevoCliente){
-		Cliente temp = (Cliente) nuevoCliente;
-		general.listadoConectados.addElement(temp.getNombre());
-		
+	public void agregarNuevo(Cliente nuevoCliente){
+		JOptionPane.showMessageDialog(this, nuevoCliente.getNombre());
+		general.listadoConectados.addElement(nuevoCliente.getNombre());
 	}
 
 	//OK
