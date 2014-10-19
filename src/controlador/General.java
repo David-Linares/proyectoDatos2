@@ -52,6 +52,22 @@ public class General {
 			nuevo.enviarDatos(1, con.getClienteTemp());
 		}
 		conexiones.add(nuevo);
-		
+	}
+	
+	public void desconecta(Conexion cliente){
+		int pos = -1;
+		for(int n= 0; n<conexiones.size(); n++){
+			if(conexiones.get(n) == cliente){
+				pos = n;
+			}
+		}
+		if(pos != -1){
+			for(int n= 0; n<conexiones.size(); n++){
+				if(n != pos ){
+					conexiones.get(n).enviarDatos(3, ""+pos);
+				}
+			}
+		}
+		conexiones.remove(pos);
 	}
 }

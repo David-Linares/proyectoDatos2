@@ -58,7 +58,7 @@ public class Conexion extends Thread {
 					general.enviarDatos(operacion, (String) eMensaje);
 					break;
 				case 3:
-					// FALTA IMPLEMENTAR
+					general.desconecta(this);
 					break;
 				}
 

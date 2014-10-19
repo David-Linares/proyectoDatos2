@@ -39,9 +39,7 @@ public class PrincipalSubastaCliente extends JFrame{
 	General general = General.getInstance();
 	private JTextField tfMensaje;
 	public JList listConectados = new JList();	
-	
 	private JLabel labelIpcliente;
-
 	private JTextArea panelSubasta;
 	
 	/**
@@ -78,22 +76,20 @@ public class PrincipalSubastaCliente extends JFrame{
 		listConectados.setBounds(465, 92, 131, 254);
 		contentPane.add(listConectados);
 		
-		/*for(int i = 0; i <= General.clientesConectados.size() - 1; i++ ){
-			listadoConectados.addElement(General.clientesConectados.get(i).getNombre());
-		}*/
-		
-		
 		JButton btnAbandonarSubasta = new JButton("Abandonar Subasta");
 		btnAbandonarSubasta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			//ok
 			if (general.cliente!=null){
-				general.cliente.enviarDatos(3, "");
+				general.cliente.enviarDatos(3, null);
 				general.cliente.interrupt();
 			}
 			general.cliente=null;
+			setVisible(false);
 			general.listadoConectados.removeAllElements();
 			panelSubasta.setText("");
+			Principal regreso = new Principal();
+			regreso.setVisible(true);
 			}
 		});
 		btnAbandonarSubasta.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
@@ -175,7 +171,7 @@ public class PrincipalSubastaCliente extends JFrame{
 		panelSubasta.append(nuevoMensaje + "\n");
 	}
 	//OK
-	public void borrarPersona(int posicion) {
+	public void borrarCliente(int posicion) {
 		general.listadoConectados.remove(posicion);
 	}	
 }

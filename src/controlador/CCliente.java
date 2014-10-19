@@ -43,6 +43,9 @@ public class CCliente extends Thread {
 					break;
 				case 2:// Enviar Mensaje
 					ventanaCliente.mensajeRecibido((String) eMensaje);
+					break;				
+				case 3:
+					ventanaCliente.borrarCliente(Integer.parseInt((String) eMensaje));
 					break;
 				}
 			}
