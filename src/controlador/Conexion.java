@@ -7,6 +7,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import modelo.Cliente;
 
 public class Conexion extends Thread {
@@ -15,64 +18,66 @@ public class Conexion extends Thread {
 	public ObjectOutputStream salida;
 	General general = General.getInstance();
 	public Cliente clienteTemp;
-	
-	//OK
+
+	// OK
 	public Conexion(Socket s) {
 		try {
 			this.s = s;
-			entrada = new ObjectInputStream(s.getInputStream());
 			salida = new ObjectOutputStream(s.getOutputStream());
 			start();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(
+					new JFrame(),
+					"Conexion / Se produjo un error en la salida "
+							+ e.getMessage());
 		}
 	}
-	
-	
+
 	public Cliente getClienteTemp() {
 		return clienteTemp;
 	}
 
-
-	//Inicializa el hilo - OK
-	public void run(){
-		while(true){
-				try {
-					int operacion = entrada.readInt();
-					Object eMensaje = entrada.readObject();
-					switch (operacion){
-						case 1:
-							clienteTemp = (Cliente) eMensaje;
-							general.enviarDatos(operacion, eMensaje);
-							break;
-						case 2:
-							eMensaje = this.clienteTemp.getNombre() + ": " + eMensaje;
-							general.enviarDatos(operacion, eMensaje);
-							break;
-						case 3:
-							//FALTA IMPLEMENTAR
-						break;
-					}
-					
-				} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+	// Inicializa el hilo - OK
+	public void run() {
+		while (true) {
+			try {
+				entrada = new ObjectInputStream(s.getInputStream());
+				System.out.println("Entrò  al try");
+				int operacion = entrada.readInt();
+				System.out.println("pasò operaciòn");
+				Object eMensaje = entrada.readObject();
+				System.out.println("Pasó mensaje");
+				switch (operacion) {
+				case 1:
+					System.out.println("Entrò  a la opc 1");
+					clienteTemp = (Cliente) eMensaje;
+					general.enviarDatos(operacion, eMensaje);
+					break;
+				case 2:
+					eMensaje = this.clienteTemp.getNombre() + ": " + eMensaje;
+					general.enviarDatos(operacion, (String) eMensaje);
+					break;
+				case 3:
+					// FALTA IMPLEMENTAR
+					break;
 				}
+
+			} catch (IOException e) {
+				System.out.println(e.getCause() + " " + e.getMessage());
+			} catch (ClassNotFoundException e) {
+				JOptionPane.showMessageDialog(new JFrame(), "Conexion / Se produjo un error Class en la salida "+e.getMessage());
+			}
 		}
 	}
-	//OK
-	public void enviarDatos(int operacion, Object sMensaje){
+
+	// OK
+	public void enviarDatos(int operacion, Object sMensaje) {
 		try {
 			salida.writeInt(operacion);
 			salida.writeObject(sMensaje);
 		} catch (Exception e) {
-			// TODO: handle exception
+			JOptionPane.showMessageDialog(new JFrame(), "Conexion / Se produjo un error en la llegada "+e.getMessage());
 		}
 	}
-	
-	
+
 }

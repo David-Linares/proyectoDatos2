@@ -140,6 +140,7 @@ public class PCliente extends JFrame {
 					psubasta.setVisible(true);
 					setVisible(false);
 				} catch (Exception e) {
+					JOptionPane.showMessageDialog(new JFrame(), "PCliente / Se produjo un error"+e.getMessage());
 					general.cliente=null;
 				}
 

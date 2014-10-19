@@ -38,9 +38,7 @@ public class PrincipalSubastaCliente extends JFrame{
 	private JPanel contentPane;
 	General general = General.getInstance();
 	private JTextField tfMensaje;
-	public JList listConectados = new JList();
-
-	
+	public JList listConectados = new JList();	
 	
 	private JLabel labelIpcliente;
 
@@ -89,7 +87,7 @@ public class PrincipalSubastaCliente extends JFrame{
 		btnAbandonarSubasta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			//ok
-				if (general.cliente!=null){
+			if (general.cliente!=null){
 				general.cliente.enviarDatos(3, "");
 				general.cliente.interrupt();
 			}
@@ -158,20 +156,17 @@ public class PrincipalSubastaCliente extends JFrame{
 			lblIpCliente.setBounds(465, 38, 131, 15);
 			contentPane.add(lblIpCliente);
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(new JFrame(), "SubastaCliente / Se produjo un error en la lectura de IP "+e.getMessage());
 		}
 
 	}
 	
 	public void enviarMensaje(){
-		JOptionPane.showMessageDialog(this, "Nuevo Mensaje"+tfMensaje.getText());
 		general.cliente.enviarMensajeHilo(tfMensaje.getText());
 		tfMensaje.setText("");
 	}
 	//OK
 	public void agregarNuevo(Cliente nuevoCliente){
-		JOptionPane.showMessageDialog(this, nuevoCliente.getNombre());
 		general.listadoConectados.addElement(nuevoCliente.getNombre());
 	}
 

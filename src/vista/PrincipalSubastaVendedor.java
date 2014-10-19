@@ -8,6 +8,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -23,7 +24,9 @@ import modelo.Cliente;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JTextArea;
+
 import java.awt.Font;
 
 
@@ -31,11 +34,10 @@ import java.awt.Font;
 public class PrincipalSubastaVendedor extends JFrame{
 
 	private JPanel contentPane;
-	private JList listConectados = new JList();
+	public JList listConectados = new JList();
 	private JLabel labelIp;
 	JTextArea taMensajesSubasta = new JTextArea();
 	General general = General.getInstance();
-	DefaultListModel listadoConectados = new DefaultListModel();
 	/**
 	 * Launch the application.
 	 */
@@ -70,7 +72,7 @@ public class PrincipalSubastaVendedor extends JFrame{
 		contentPane.add(listConectados);
 		
 		
-		listConectados.setModel(listadoConectados);
+		listConectados.setModel(general.listadoConectados);
 		
 		JButton btnNewButton = new JButton("Finalizar Subasta");
 		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 11));
@@ -99,13 +101,9 @@ public class PrincipalSubastaVendedor extends JFrame{
 			taMensajesSubasta.setBounds(10, 45, 345, 254);
 			contentPane.add(taMensajesSubasta);
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(new JFrame(), "SubastaVendedor / Se produjo un error "+e.getMessage());
 		}
-	}
-	public void agregarNuevo(Cliente nuevoCliente){
-		listadoConectados.addElement(nuevoCliente);
-	}
+	}	
 
 	public void mensajeRecibido(String nuevoMensaje) {
 		taMensajesSubasta.append(nuevoMensaje + "\n");

@@ -100,6 +100,7 @@ public class PVendedor extends JFrame {
 				General.productoSeleccionado = (Producto) listaProductos.getSelectedItem();
 				setVisible(false);
 				PrincipalSubastaVendedor principalSubasta = new PrincipalSubastaVendedor();
+				principalSubasta.listConectados.setModel(general.listadoConectados);
 				principalSubasta.setVisible(true);
 			}
 		});

@@ -30,6 +30,7 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		setResizable(false);
 		setTitle("Bienvenido");
 		setBounds(100, 100, 376, 158);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
