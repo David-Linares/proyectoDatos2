@@ -89,22 +89,18 @@ public class PVendedor extends JFrame {
 		contentPane.add(btnIniciarSubasta);	
 		
 		btnIniciarSubasta.addActionListener(new ActionListener() {
+			//OK
 			public void actionPerformed(ActionEvent arg0) {
 				if (general.servidor == null){
 					int puerto =Integer.parseInt(textFieldPuerto.getText());
 					general.servidor = new CServidor(puerto);
 					general.servidor.start();
 				}
-				
-				/*try {
-					General.ipServidor = InetAddress.getLocalHost().getHostAddress();
-				} catch (UnknownHostException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}*/
+								
 				General.productoSeleccionado = (Producto) listaProductos.getSelectedItem();
 				setVisible(false);
 				PrincipalSubastaVendedor principalSubasta = new PrincipalSubastaVendedor();
+				principalSubasta.listConectados.setModel(general.listadoConectados);
 				principalSubasta.setVisible(true);
 			}
 		});

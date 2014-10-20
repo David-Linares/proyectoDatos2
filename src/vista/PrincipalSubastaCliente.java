@@ -8,6 +8,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -30,18 +31,16 @@ import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class PrincipalSubastaCliente extends JFrame{
 
 	private JPanel contentPane;
 	General general = General.getInstance();
-	DefaultListModel listadoConectados = new DefaultListModel();
 	private JTextField tfMensaje;
-	public JList listConectados = new JList();
-
+	public JList listConectados = new JList();	
 	private JLabel labelIpcliente;
-
 	private JTextArea panelSubasta;
 	
 	/**
@@ -69,6 +68,7 @@ public class PrincipalSubastaCliente extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 610, 506);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(211, 211, 211));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -78,16 +78,25 @@ public class PrincipalSubastaCliente extends JFrame{
 		listConectados.setBounds(465, 92, 131, 254);
 		contentPane.add(listConectados);
 		
-		/*for(int i = 0; i <= General.clientesConectados.size() - 1; i++ ){
-			listadoConectados.addElement(General.clientesConectados.get(i).getNombre());
-		}*/
-		
-		listConectados.setModel(listadoConectados);
-		
-		JButton btnNewButton = new JButton("Abandonar Subasta");
-		btnNewButton.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
-		btnNewButton.setBounds(385, 428, 211, 37);
-		contentPane.add(btnNewButton);
+		JButton btnAbandonarSubasta = new JButton("Abandonar Subasta");
+		btnAbandonarSubasta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			//ok
+			if (general.cliente!=null){
+				general.cliente.enviarDatos(3, null);
+				general.cliente.interrupt();
+			}
+			general.cliente=null;
+			setVisible(false);
+			general.listadoConectados.removeAllElements();
+			panelSubasta.setText("");
+			Principal regreso = new Principal();
+			regreso.setVisible(true);
+			}
+		});
+		btnAbandonarSubasta.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
+		btnAbandonarSubasta.setBounds(385, 428, 211, 37);
+		contentPane.add(btnAbandonarSubasta);
 		
 		JLabel lblProductoSubastado = new JLabel("New label");
 		lblProductoSubastado.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
@@ -99,6 +108,7 @@ public class PrincipalSubastaCliente extends JFrame{
 		tfMensaje.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		tfMensaje.addKeyListener(new KeyAdapter() {
 			@Override
+			//OK
 			public void keyPressed(KeyEvent eve) {
 				
 				if (eve.getKeyCode()==10){
@@ -113,6 +123,8 @@ public class PrincipalSubastaCliente extends JFrame{
 		JButton btnNewButton_1 = new JButton("Enviar");
 		btnNewButton_1.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		btnNewButton_1.addActionListener(new ActionListener() {
+	
+			//
 			public void actionPerformed(ActionEvent arg0) {
 				enviarMensaje();				
 			}
@@ -121,6 +133,7 @@ public class PrincipalSubastaCliente extends JFrame{
 		contentPane.add(btnNewButton_1);
 
 		panelSubasta = new JTextArea();
+		panelSubasta.setLineWrap(true);
 		panelSubasta.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		panelSubasta.setEditable(false);
 		panelSubasta.setBounds(10, 93, 445, 254);
@@ -142,28 +155,40 @@ public class PrincipalSubastaCliente extends JFrame{
 			lblIpCliente.setBounds(465, 38, 131, 15);
 			contentPane.add(lblIpCliente);
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(new JFrame(), "SubastaCliente / Se produjo un error en la lectura de IP "+e.getMessage());
 		}
 
 	}
 	
-	public void enviarMensaje(){
-		general.cliente.enviarMensaje(tfMensaje.getText());
-		tfMensaje.setText("");
+	public boolean esNumero(String valor){
+		return true;
+		/*try{
+			Integer.parseInt(valor);
+			return true;
+		}catch(Exception e){
+			return false;
+		}*/
 	}
 	
-	public void agregarNuevo(Object nuevoCliente){
-		Cliente temp = (Cliente) nuevoCliente;
-		listadoConectados.addElement(temp.getNombre());
-		
+	public void enviarMensaje(){
+		if (esNumero(tfMensaje.getText())) {			
+			general.cliente.enviarMensajeHilo(tfMensaje.getText());
+			tfMensaje.setText("");
+		}else{
+			JOptionPane.showMessageDialog(new JFrame(), "Por favor digite un número valido", "Datos", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	//OK
+	public void agregarNuevo(Cliente nuevoCliente){
+		general.listadoConectados.addElement(nuevoCliente.getNombre());
 	}
 
+	//OK
 	public void mensajeRecibido(String nuevoMensaje) {
 		panelSubasta.append(nuevoMensaje + "\n");
 	}
-
-	public void borrarPersona(int posicion) {
-		listadoConectados.remove(posicion);
+	//OK
+	public void borrarCliente(int posicion) {
+		general.listadoConectados.remove(posicion);
 	}	
 }

@@ -1,6 +1,9 @@
 package controlador;
 
 import java.util.ArrayList;
+
+import javax.swing.DefaultListModel;
+
 import modelo.Producto;
 
 public class General {
@@ -8,11 +11,12 @@ public class General {
 	private static General general;
 	public static Producto[] productos;
 	private ArrayList<Conexion> conexiones = new ArrayList<Conexion>();
+	public DefaultListModel listadoConectados = new DefaultListModel();
 	public static Producto productoSeleccionado;
-	public CServidor servidor = null;
+	public static CServidor servidor = null;
 	public static CCliente cliente = null;
 	public static int puerto = 9090;
-	public static int puertoCliente = 9091;
+	
 	
 
 	private General(){
@@ -36,14 +40,34 @@ public class General {
 
 		return general;
 	}
-	
+	//OK
 	public void enviarDatos(int operacion, Object sMensaje){
 		for(Conexion con : conexiones){
 			con.enviarDatos(operacion, sMensaje);
 		}
 	}
-	
+	//OK
 	public void nuevaConexion(Conexion nuevo){
+		for(Conexion con: conexiones){
+			nuevo.enviarDatos(1, con.getClienteTemp());
+		}
 		conexiones.add(nuevo);
+	}
+	
+	public void desconecta(Conexion cliente){
+		int pos = -1;
+		for(int n= 0; n<conexiones.size(); n++){
+			if(conexiones.get(n) == cliente){
+				pos = n;
+			}
+		}
+		if(pos != -1){
+			for(int n= 0; n<conexiones.size(); n++){
+				if(n != pos ){
+					conexiones.get(n).enviarDatos(3, ""+pos);
+				}
+			}
+		}
+		conexiones.remove(pos);
 	}
 }

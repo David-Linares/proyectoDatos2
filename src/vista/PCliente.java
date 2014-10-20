@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -21,7 +22,6 @@ import java.awt.Font;
 @SuppressWarnings("serial")
 public class PCliente extends JFrame {
 
-
 	General general = General.getInstance();
 	private JPanel contentPane;
 	private JTextField tfIp;
@@ -32,7 +32,8 @@ public class PCliente extends JFrame {
 	private JLabel lblMontoInicial;
 	private JLabel lblDatosDeConexin;
 	PrincipalSubastaCliente psubasta;
-	
+	private CCliente cliente = null;
+
 	/**
 	 * Launch the application.
 	 */
@@ -118,45 +119,35 @@ public class PCliente extends JFrame {
 		JButton btnNewButton = new JButton("Conectarme");
 		btnNewButton.setBounds(105, 198, 224, 34);
 		contentPane.add(btnNewButton);
-	
+
 		btnNewButton.addActionListener(new ActionListener() {
+		//Inicia el hilo! - OK
 			public void actionPerformed(ActionEvent arg0) {
-				
 				try {
 					int puerto = Integer.parseInt(tfPuerto.getText());
 					String ip = tfIp.getText();
-					Cliente nuevoCliente = new Cliente(tfNombreCliente.getText(), Double.parseDouble(tfMonto.getText()));
-					if (general.cliente==null){
+					Cliente nuevoCliente = new Cliente(tfNombreCliente
+							.getText(), Double.parseDouble(tfMonto.getText()));
+					
+					if (general.cliente == null) {
 						general.cliente = new CCliente(puerto, ip, nuevoCliente);
 						psubasta = new PrincipalSubastaCliente();
-						general.cliente.start();
 						general.cliente.setVentanaCliente(psubasta);
+						general.cliente.start();
 					}
-					psubasta.agregarNuevo(nuevoCliente);
+					//PENDIENTE
+					psubasta.listConectados.setModel(general.listadoConectados);
 					psubasta.setVisible(true);
 					setVisible(false);
 				} catch (Exception e) {
-					// TODO: handle exception
+					JOptionPane.showMessageDialog(new JFrame(), "PCliente / Se produjo un error"+e.getMessage());
+					general.cliente=null;
 				}
-				//try {
-					
-					//clientenuevo = new Cliente(InetAddress.getLocalHost().getHostAddress(), Integer.parseInt(tfPuerto.getText()), tfNombreCliente.getText(), Double.parseDouble(tfMonto.getText()));
-					//clientenuevo.start();
-					
-				//}// catch (NumberFormatException e1) {
-					//e1.printStackTrace();
-					
-				//} //catch (UnknownHostException e1) {
-					//e1.printStackTrace();
-					
-				}
-				//general.conectaNuevo(clientenuevo);
-			//}
-		});
-				
 
 			}
-	
-		
+
+		});
+
+	}
 
 }

@@ -7,55 +7,73 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import modelo.Cliente;
 
 public class Conexion extends Thread {
 	private Socket s;
-	private ObjectInputStream entrada;
-	private ObjectOutputStream salida;
+	public ObjectInputStream entrada;
+	public ObjectOutputStream salida;
 	General general = General.getInstance();
-	private Cliente clienteTemp;
+	public Cliente clienteTemp;
+
+	// OK
 	public Conexion(Socket s) {
 		try {
 			this.s = s;
-			entrada = new ObjectInputStream(s.getInputStream());
 			salida = new ObjectOutputStream(s.getOutputStream());
 			start();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(
+					new JFrame(),
+					"Conexion / Se produjo un error en la salida "
+							+ e.getMessage());
 		}
 	}
-	
-	public void run(){
-		while(true){
+
+	public Cliente getClienteTemp() {
+		return clienteTemp;
+	}
+
+	// Inicializa el hilo - OK
+	public void run() {
+		while (true) {
 			try {
+				entrada = new ObjectInputStream(s.getInputStream());
 				int operacion = entrada.readInt();
-				Object eMensaje = entrada.readUTF();
-				switch (operacion){
-					case 1:
-						this.clienteTemp = (Cliente) eMensaje;
-						break;
-					case 2:
-						eMensaje = this.clienteTemp.getNombre() + ": " + eMensaje;
-						break;
+				Object eMensaje = entrada.readObject();
+				switch (operacion) {
+				case 1:
+					clienteTemp = (Cliente) eMensaje;
+					general.enviarDatos(operacion, eMensaje);
+					break;
+				case 2:
+					eMensaje = this.clienteTemp.getNombre() + ": " + eMensaje;
+					general.enviarDatos(operacion, (String) eMensaje);
+					break;
+				case 3:
+					general.desconecta(this);
+					break;
 				}
-				general.enviarDatos(operacion, eMensaje);
+
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println(e.getCause() + " " + e.getMessage());
+			} catch (ClassNotFoundException e) {
+				JOptionPane.showMessageDialog(new JFrame(), "Conexion / Se produjo un error Class en la salida "+e.getMessage());
 			}
 		}
 	}
-	
-	public void enviarDatos(int operacion, Object sMensaje){
+
+	// OK
+	public void enviarDatos(int operacion, Object sMensaje) {
 		try {
 			salida.writeInt(operacion);
 			salida.writeObject(sMensaje);
 		} catch (Exception e) {
-			// TODO: handle exception
+			JOptionPane.showMessageDialog(new JFrame(), "Conexion / Se produjo un error en la llegada "+e.getMessage());
 		}
 	}
-	
-	
+
 }
