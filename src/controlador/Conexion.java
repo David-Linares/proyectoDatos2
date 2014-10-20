@@ -42,14 +42,10 @@ public class Conexion extends Thread {
 		while (true) {
 			try {
 				entrada = new ObjectInputStream(s.getInputStream());
-				System.out.println("Entrò  al try");
 				int operacion = entrada.readInt();
-				System.out.println("pasò operaciòn");
 				Object eMensaje = entrada.readObject();
-				System.out.println("Pasó mensaje");
 				switch (operacion) {
 				case 1:
-					System.out.println("Entrò  a la opc 1");
 					clienteTemp = (Cliente) eMensaje;
 					general.enviarDatos(operacion, eMensaje);
 					break;

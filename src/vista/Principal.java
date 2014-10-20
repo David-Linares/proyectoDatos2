@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Color;
 
 
 @SuppressWarnings("serial")
@@ -30,12 +31,16 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		getContentPane().setBackground(new Color(0, 0, 0, 0.5f));
+		getContentPane().setForeground(new Color(0, 0, 0));
 		setResizable(false);
 		setTitle("Bienvenido");
 		setBounds(100, 100, 376, 158);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		JButton btnNewButton = new JButton("Crear nueva Subasta");
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBackground(new Color(0, 0, 0));
 		btnNewButton.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -48,6 +53,8 @@ public class Principal extends JFrame {
 		getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Entrar a la Subasta");
+		btnNewButton_1.setForeground(new Color(255, 255, 255));
+		btnNewButton_1.setBackground(new Color(0, 0, 0));
 		btnNewButton_1.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

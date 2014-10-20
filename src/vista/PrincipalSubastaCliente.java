@@ -31,6 +31,7 @@ import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class PrincipalSubastaCliente extends JFrame{
@@ -67,6 +68,7 @@ public class PrincipalSubastaCliente extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 610, 506);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(211, 211, 211));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -131,6 +133,7 @@ public class PrincipalSubastaCliente extends JFrame{
 		contentPane.add(btnNewButton_1);
 
 		panelSubasta = new JTextArea();
+		panelSubasta.setLineWrap(true);
 		panelSubasta.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		panelSubasta.setEditable(false);
 		panelSubasta.setBounds(10, 93, 445, 254);
@@ -157,9 +160,23 @@ public class PrincipalSubastaCliente extends JFrame{
 
 	}
 	
+	public boolean esNumero(String valor){
+		return true;
+		/*try{
+			Integer.parseInt(valor);
+			return true;
+		}catch(Exception e){
+			return false;
+		}*/
+	}
+	
 	public void enviarMensaje(){
-		general.cliente.enviarMensajeHilo(tfMensaje.getText());
-		tfMensaje.setText("");
+		if (esNumero(tfMensaje.getText())) {			
+			general.cliente.enviarMensajeHilo(tfMensaje.getText());
+			tfMensaje.setText("");
+		}else{
+			JOptionPane.showMessageDialog(new JFrame(), "Por favor digite un número valido", "Datos", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	//OK
 	public void agregarNuevo(Cliente nuevoCliente){
