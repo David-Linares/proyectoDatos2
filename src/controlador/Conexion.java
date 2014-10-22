@@ -46,8 +46,7 @@ public class Conexion extends Thread {
 			try {
 				entrada = new ObjectInputStream(s.getInputStream());
 				int operacion = entrada.readInt();
-				Object eMensaje = entrada.readObject();
-		
+				Object eMensaje = entrada.readObject();		
 				switch (operacion) {
 				case 1:
 					clienteTemp = (Cliente) eMensaje;

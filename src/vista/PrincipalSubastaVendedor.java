@@ -106,6 +106,8 @@ public class PrincipalSubastaVendedor extends JFrame{
 	}	
 
 	public void mensajeRecibido(String nuevoMensaje) {
+		//Con la variable que creaste de conexión de servidor (Leer CServidor linea 35) llamas el textPane que tiene esa variable
+		//y le das el método para agregarle el texto, que creo que es textPane.setText("....");
 	// ??? COMO LO CAMBIO	tpMensajesSubasta.append(nuevoMensaje + "\n");
 	}
 }

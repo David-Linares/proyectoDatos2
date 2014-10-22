@@ -83,7 +83,7 @@ public class PrincipalSubastaCliente extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 			//ok
 			if (general.cliente!=null){
-				general.cliente.enviarDatos(3, null);
+				general.cliente.enviarDatosCliente(3, null);
 				general.cliente.interrupt();
 			}
 			general.cliente=null;
@@ -175,7 +175,7 @@ public class PrincipalSubastaCliente extends JFrame{
 			general.cliente.enviarMensajeHilo(tfMensaje.getText());
 			tfMensaje.setText("");
 		}else{
-			JOptionPane.showMessageDialog(new JFrame(), "Por favor digite un n�mero valido", "Datos", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(new JFrame(), "Por favor digite un n�mero valido", "Datos", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	//OK
@@ -185,7 +185,8 @@ public class PrincipalSubastaCliente extends JFrame{
 
 	//OK
 	public void mensajeRecibido(String nuevoMensaje) {
-		panelSubasta.append(nuevoMensaje + "\n");
+		panelSubasta.append(nuevoMensaje + "\n");//Toca cambiarlo para que sea el panel del cliente el que reciba los datos,
+		//o la función puede recibir por parámetro el elemento al cual le quieres hacer la implementación.
 	}
 	//OK
 	public void borrarCliente(int posicion) {

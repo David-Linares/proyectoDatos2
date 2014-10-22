@@ -93,7 +93,7 @@ public class PVendedor extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if (general.servidor == null){
 					int puerto =Integer.parseInt(textFieldPuerto.getText());
-					general.servidor = new CServidor(puerto);
+					general.servidor = new CServidor(puerto); //Poner el TextPane de la clase general.
 					general.servidor.start();
 				}
 								

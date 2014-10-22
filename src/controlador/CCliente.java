@@ -28,7 +28,7 @@ public class CCliente extends Thread {
 	public void run() {
 		try {
 			SCliente = new Socket(ip, puerto);
-			enviarDatos(1, clienteConectado);
+			enviarDatosCliente(1, clienteConectado);
 			ObjectInputStream entrada = new ObjectInputStream(
 					SCliente.getInputStream());
 			conectado = true;
@@ -59,11 +59,11 @@ public class CCliente extends Thread {
 
 	// OK
 	public void enviarMensajeHilo(String sMensaje) {
-		enviarDatos(2, sMensaje);
+		enviarDatosCliente(2, sMensaje);
 	}
 
 	// ESCRIBE LOS DATOS A LA CONEXION 
-	public void enviarDatos(int operacion, Object valor) {
+	public void enviarDatosCliente(int operacion, Object valor) {
 		try {
 			ObjectOutputStream salida = new ObjectOutputStream(
 					SCliente.getOutputStream());

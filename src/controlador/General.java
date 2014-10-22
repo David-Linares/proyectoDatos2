@@ -16,8 +16,8 @@ public class General {
 	public static CServidor servidor = null;
 	public static CCliente cliente = null;
 	public static int puerto = 9090;
-	
-	
+	//Hay que poner un nuevo textPane que es el que se va a implementar en todas las ventanas nuevas.
+	//Crear una variable de Conexión para el servidor (Leer comentario CServidor Linea 35)
 
 	private General(){
 		Producto producto1 = new Producto(1, "Bicicleta", 200000);
