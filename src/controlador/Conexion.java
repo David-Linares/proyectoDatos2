@@ -85,7 +85,7 @@ public class Conexion extends Thread {
 		}
 	}
 
-	// MÉTODO PARA ENVIAR MENSAJES AL SERVIDOR
+
 
 	
 }
