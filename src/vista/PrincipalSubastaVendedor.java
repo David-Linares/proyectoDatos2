@@ -19,6 +19,7 @@ import java.net.UnknownHostException;
 
 import javax.swing.SwingConstants;
 
+import controlador.CServidor;
 import controlador.General;
 import modelo.Cliente;
 
@@ -29,6 +30,8 @@ import javax.swing.JTextArea;
 
 import java.awt.Font;
 
+import javax.swing.JTextPane;
+
 
 @SuppressWarnings("serial")
 public class PrincipalSubastaVendedor extends JFrame{
@@ -36,7 +39,7 @@ public class PrincipalSubastaVendedor extends JFrame{
 	private JPanel contentPane;
 	public JList listConectados = new JList();
 	private JLabel labelIp;
-	JTextArea taMensajesSubasta = new JTextArea();
+	private JTextPane tpMensajesSubasta;
 	General general = General.getInstance();
 	/**
 	 * Launch the application.
@@ -91,21 +94,18 @@ public class PrincipalSubastaVendedor extends JFrame{
 		contentPane.add(productoSubastado);
 		
 		productoSubastado.setText(general.productoSeleccionado.getNombre() + " = " + general.productoSeleccionado.getValor());
-		
+		new CServidor(tpMensajesSubasta).start();
 		try {
 			labelIp = new JLabel("IP: "+InetAddress.getLocalHost().getHostAddress());
 			labelIp.setFont(new Font("Dialog", Font.BOLD, 11));
 			labelIp.setBounds(365, 11, 131, 23);
 			contentPane.add(labelIp);
-			taMensajesSubasta.setFont(new Font("Dialog", Font.BOLD, 11));
-			taMensajesSubasta.setBounds(10, 45, 345, 254);
-			contentPane.add(taMensajesSubasta);
-		} catch (UnknownHostException e) {
+			} catch (UnknownHostException e) {
 			JOptionPane.showMessageDialog(new JFrame(), "SubastaVendedor / Se produjo un error "+e.getMessage());
 		}
 	}	
 
 	public void mensajeRecibido(String nuevoMensaje) {
-		taMensajesSubasta.append(nuevoMensaje + "\n");
+	// ??? COMO LO CAMBIO	tpMensajesSubasta.append(nuevoMensaje + "\n");
 	}
 }

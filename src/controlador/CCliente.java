@@ -64,7 +64,7 @@ public class CCliente extends Thread {
 		enviarDatos(2, sMensaje);
 	}
 
-	// OK
+	// ESCRIBE LOS DATOS A LA CONEXION 
 	public void enviarDatos(int operacion, Object valor) {
 		try {
 			ObjectOutputStream salida = new ObjectOutputStream(

@@ -40,20 +40,27 @@ public class General {
 
 		return general;
 	}
-	//OK
+	
+	
+	public ArrayList<Conexion> getConexiones() {
+		return conexiones;
+	}
+
+	//RECORRE TODAS LAS CONEXIONES EXISTENTES Y ENVIA A CONEXION UNA NUEVA ENTRADA DE DATOS
 	public void enviarDatos(int operacion, Object sMensaje){
 		for(Conexion con : conexiones){
-			con.enviarDatos(operacion, sMensaje);
+			con.entradaDatosConexion(operacion, sMensaje);
 		}
 	}
-	//OK
+	//NOTIFICA A UN CLIENTE NUEVO TODAS LAS CONEXIONES EXISTENTES
 	public void nuevaConexion(Conexion nuevo){
 		for(Conexion con: conexiones){
-			nuevo.enviarDatos(1, con.getClienteTemp());
+			nuevo.entradaDatosConexion(1, con.getClienteTemp());
 		}
 		conexiones.add(nuevo);
 	}
 	
+	//DESCONECTA Y ELIMINA LA CONEXION DE UN CLIENTE
 	public void desconecta(Conexion cliente){
 		int pos = -1;
 		for(int n= 0; n<conexiones.size(); n++){
@@ -64,7 +71,7 @@ public class General {
 		if(pos != -1){
 			for(int n= 0; n<conexiones.size(); n++){
 				if(n != pos ){
-					conexiones.get(n).enviarDatos(3, ""+pos);
+					conexiones.get(n).entradaDatosConexion(3, ""+pos);
 				}
 			}
 		}
