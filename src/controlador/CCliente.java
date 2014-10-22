@@ -1,7 +1,5 @@
 package controlador;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -53,7 +51,7 @@ public class CCliente extends Thread {
 			System.out.println(e.getCause());
 			JOptionPane.showMessageDialog(
 					ventanaCliente,
-					"CCCliente / No se pudo establecer la Conexión "
+					"CCCliente / No se pudo establecer la Conexiï¿½n "
 							+ e.getMessage());
 			// TODO: handle exception
 		}
