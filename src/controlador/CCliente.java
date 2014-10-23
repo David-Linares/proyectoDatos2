@@ -5,6 +5,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTextPane;
 
 import modelo.Cliente;
 import vista.PrincipalSubastaCliente;
@@ -17,6 +18,7 @@ public class CCliente extends Thread {
 	private PrincipalSubastaCliente ventanaCliente;
 	private boolean conectado;
 	private Socket SCliente;
+	private JTextPane panelCliente;
 
 	public CCliente(int puerto, String ip, Cliente clienteConectado) {
 		this.ip = ip;
@@ -27,10 +29,14 @@ public class CCliente extends Thread {
 	// OK
 	public void run() {
 		try {
+			System.out.println("Entró al run");
 			SCliente = new Socket(ip, puerto);
+			System.out.println("Entró pasó conexión server");
 			enviarDatosCliente(1, clienteConectado);
+			System.out.println("pasó envió de datos");
 			ObjectInputStream entrada = new ObjectInputStream(
 					SCliente.getInputStream());
+			System.out.println("pasó llegada de datos");
 			conectado = true;
 			while (conectado) {
 				int operacion = entrada.readInt();

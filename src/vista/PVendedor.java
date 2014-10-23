@@ -19,6 +19,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import javax.swing.JTextField;
+
 import java.awt.Font;
 
 
@@ -90,16 +91,18 @@ public class PVendedor extends JFrame {
 		
 		btnIniciarSubasta.addActionListener(new ActionListener() {
 			//OK
+			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
+				General.productoSeleccionado = (Producto) listaProductos.getSelectedItem();
+				PrincipalSubastaVendedor principalSubasta = new PrincipalSubastaVendedor();
 				if (general.servidor == null){
 					int puerto =Integer.parseInt(textFieldPuerto.getText());
+					general.setTextPane(principalSubasta.getTpMensajesSubasta());
 					general.servidor = new CServidor(puerto); //Poner el TextPane de la clase general.
 					general.servidor.start();
 				}
 								
-				General.productoSeleccionado = (Producto) listaProductos.getSelectedItem();
 				setVisible(false);
-				PrincipalSubastaVendedor principalSubasta = new PrincipalSubastaVendedor();
 				principalSubasta.listConectados.setModel(general.listadoConectados);
 				principalSubasta.setVisible(true);
 			}

@@ -16,31 +16,29 @@ public class CServidor extends Thread {
 	PrincipalSubastaVendedor ventana;
 	private JTextPane tpMensajesSubasta;
 	
+	//COnstructor con el TextPane que va a contener los mensajes del servidor.
 	public CServidor(int puerto) {
-		super();
 		this.puerto = puerto;
 	}
-	//COnstructor con el TextPane que va a contener los mensajes del servidor.
-	public CServidor(JTextPane tpMensajesSubasta) {
-		this.tpMensajesSubasta=tpMensajesSubasta;
-		general.getConexiones();
-	}
+	
 	//OK
 	public void run() {
 		ServerSocket sServidor = null;
 		Conexion nuevaConexion = null;
 		try {
 			sServidor = new ServerSocket(puerto);
-			nuevaConexion = new Conexion(sServidor.accept(), tpMensajesSubasta);
+			
 			//Quité el método start() de nuevaConexión, porque esa no arranca acá, vamos a manejar una conexión
 			//en la clase general que es para tener la conexión del servidor, y de esta forma no confundirlo con un cliente.
 			//aunque tenga las mismas funciones de un cliente, no es cliente, porque no tiene nombre, ni monto.
-			//Lo que hay que hacer, es crear una variable de tipo conexión en general para almacenar esta variable nuevaConexión
-			//que creaste arriba.
+			
+			//Lo que hay que hacer, es crear una variable de tipo conexión en general para almacenar esta 
+			//variable nuevaConexión que creaste arriba.
 			//(Leer PrincipalSubastaVendedor Linea 108)			
 			while (true) {
 				Socket nuevoSServidor = sServidor.accept();
-				general.nuevaConexion(new Conexion(nuevoSServidor, tpMensajesSubasta));
+				nuevaConexion = new Conexion(nuevoSServidor, general.getTextPane());
+				general.nuevaConexion(nuevaConexion);
 			}
 
 		} catch (Exception e) {

@@ -19,9 +19,24 @@ public class Conexion extends Thread {
 	General general = General.getInstance();
 	public Cliente clienteTemp;
 	private JTextPane tpMensajesSubasta;
+	
+	
 
 	// OK
 	
+	public JTextPane getTpMensajesSubasta() {
+		return tpMensajesSubasta;
+	}
+
+	public void setTpMensajesSubasta(JTextPane tpMensajesSubasta) {
+		this.tpMensajesSubasta = tpMensajesSubasta;
+	}
+
+	public Conexion(Socket s) {
+		super();
+		this.s = s;
+	}
+
 	public Conexion(Socket s, JTextPane tpMensajeSubasta ) {
 		try {
 			this.s = s;
@@ -51,13 +66,16 @@ public class Conexion extends Thread {
 				case 1:
 					clienteTemp = (Cliente) eMensaje;
 					general.enviarDatos(operacion, eMensaje);
+					this.tpMensajesSubasta.setText(this.tpMensajesSubasta.getText() + clienteTemp.getNombre() + " se conectó \n" );
 					break;
 				case 2:
 					eMensaje = this.clienteTemp.getNombre() + ": " + eMensaje;
 					general.enviarDatos(operacion, (String) eMensaje);
+					this.tpMensajesSubasta.setText(this.tpMensajesSubasta.getText() + eMensaje  + "\n");
 					break;
 				case 3:
 					general.desconecta(this);
+					this.tpMensajesSubasta.setText(this.tpMensajesSubasta.getText() + clienteTemp.getNombre() + " se desconectó \n");
 					break;
 				}
 

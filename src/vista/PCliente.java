@@ -133,6 +133,7 @@ public class PCliente extends JFrame {
 						general.cliente = new CCliente(puerto, ip, nuevoCliente);
 						psubasta = new PrincipalSubastaCliente();
 						general.cliente.setVentanaCliente(psubasta);
+						general.setTextPane(psubasta.getPanelSubasta());
 						general.cliente.start();
 					}
 					//PENDIENTE

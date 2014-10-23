@@ -31,6 +31,7 @@ import javax.swing.JTextArea;
 import java.awt.Font;
 
 import javax.swing.JTextPane;
+import javax.swing.JScrollPane;
 
 
 @SuppressWarnings("serial")
@@ -39,7 +40,8 @@ public class PrincipalSubastaVendedor extends JFrame{
 	private JPanel contentPane;
 	public JList listConectados = new JList();
 	private JLabel labelIp;
-	private JTextPane tpMensajesSubasta;
+	private JTextPane tpMensajesSubasta = new JTextPane();
+	private JScrollPane panelScroll = new JScrollPane(tpMensajesSubasta);
 	General general = General.getInstance();
 	/**
 	 * Launch the application.
@@ -56,11 +58,18 @@ public class PrincipalSubastaVendedor extends JFrame{
 			}
 		});
 	}
+	
+	public JTextPane getTpMensajesSubasta() {
+		return tpMensajesSubasta;
+	}
+
+
 
 	/**
 	 * Create the frame.
 	 */
 	public PrincipalSubastaVendedor() {
+		tpMensajesSubasta.setEditable(false);
 		setTitle("Subasta");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 522, 394);
@@ -94,20 +103,24 @@ public class PrincipalSubastaVendedor extends JFrame{
 		contentPane.add(productoSubastado);
 		
 		productoSubastado.setText(general.productoSeleccionado.getNombre() + " = " + general.productoSeleccionado.getValor());
-		new CServidor(tpMensajesSubasta).start();
 		try {
 			labelIp = new JLabel("IP: "+InetAddress.getLocalHost().getHostAddress());
 			labelIp.setFont(new Font("Dialog", Font.BOLD, 11));
 			labelIp.setBounds(365, 11, 131, 23);
 			contentPane.add(labelIp);
+			
+			
+			panelScroll.setBounds(10, 45, 345, 254);
+			contentPane.add(panelScroll);
 			} catch (UnknownHostException e) {
 			JOptionPane.showMessageDialog(new JFrame(), "SubastaVendedor / Se produjo un error "+e.getMessage());
 		}
 	}	
 
 	public void mensajeRecibido(String nuevoMensaje) {
-		//Con la variable que creaste de conexión de servidor (Leer CServidor linea 35) llamas el textPane que tiene esa variable
+		//Con la variable que creaste de conexión de servidor (Leer CServidor linea 35) llamas el textPane 
+		//que tiene esa variable
 		//y le das el método para agregarle el texto, que creo que es textPane.setText("....");
-	// ??? COMO LO CAMBIO	tpMensajesSubasta.append(nuevoMensaje + "\n");
+	tpMensajesSubasta.setText(tpMensajesSubasta.getText()+ nuevoMensaje + "\n");
 	}
 }

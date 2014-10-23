@@ -4,26 +4,20 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import modelo.Cliente;
-import controlador.CCliente;
 import controlador.General;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.DataInputStream;
-import java.io.ObjectInputStream;
-import java.net.Inet4Address;
 import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.UnknownHostException;
 
 import javax.swing.JTextArea;
@@ -33,6 +27,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
 
+import javax.swing.JTextPane;
+
 @SuppressWarnings("serial")
 public class PrincipalSubastaCliente extends JFrame{
 
@@ -41,11 +37,13 @@ public class PrincipalSubastaCliente extends JFrame{
 	private JTextField tfMensaje;
 	public JList listConectados = new JList();	
 	private JLabel labelIpcliente;
-	private JTextArea panelSubasta;
-	
+	private JTextPane panelSubasta;
+	private JScrollPane panelScroll = new JScrollPane(panelSubasta);
 	/**
 	 * Launch the application.
 	 */
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -57,6 +55,14 @@ public class PrincipalSubastaCliente extends JFrame{
 				}
 			}
 		});
+	}
+
+	public JTextPane getPanelSubasta() {
+		return panelSubasta;
+	}
+
+	public void setPanelSubasta(JTextPane panelSubasta) {
+		this.panelSubasta = panelSubasta;
 	}
 
 	/**
@@ -131,13 +137,6 @@ public class PrincipalSubastaCliente extends JFrame{
 		});
 		btnNewButton_1.setBounds(465, 384, 131, 31);
 		contentPane.add(btnNewButton_1);
-
-		panelSubasta = new JTextArea();
-		panelSubasta.setLineWrap(true);
-		panelSubasta.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
-		panelSubasta.setEditable(false);
-		panelSubasta.setBounds(10, 93, 445, 254);
-		contentPane.add(panelSubasta);
 		
 		JLabel lblNombreCliente = new JLabel("Nombre: "+general.cliente.getClienteConectado().getNombre());
 		lblNombreCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
@@ -154,6 +153,15 @@ public class PrincipalSubastaCliente extends JFrame{
 			lblIpCliente = new JLabel("IP: "+InetAddress.getLocalHost().getHostAddress().toString());
 			lblIpCliente.setBounds(465, 38, 131, 15);
 			contentPane.add(lblIpCliente);
+			
+			JTextPane textPane = new JTextPane();
+			textPane.setBounds(450, 92, -413, 229);
+			contentPane.add(textPane);
+			
+			JTextPane panelSubasta = new JTextPane();
+			panelSubasta.setBounds(10, 92, 445, 254);
+			panelScroll.setBounds(10, 92, 445, 254);
+			contentPane.add(panelScroll);
 		} catch (UnknownHostException e) {
 			JOptionPane.showMessageDialog(new JFrame(), "SubastaCliente / Se produjo un error en la lectura de IP "+e.getMessage());
 		}
@@ -185,7 +193,7 @@ public class PrincipalSubastaCliente extends JFrame{
 
 	//OK
 	public void mensajeRecibido(String nuevoMensaje) {
-		panelSubasta.append(nuevoMensaje + "\n");//Toca cambiarlo para que sea el panel del cliente el que reciba los datos,
+		panelSubasta.setText(nuevoMensaje + "\n");//Toca cambiarlo para que sea el panel del cliente el que reciba los datos,
 		//o la función puede recibir por parámetro el elemento al cual le quieres hacer la implementación.
 	}
 	//OK

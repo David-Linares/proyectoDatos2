@@ -3,6 +3,7 @@ package controlador;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JTextPane;
 
 import modelo.Producto;
 
@@ -16,6 +17,16 @@ public class General {
 	public static CServidor servidor = null;
 	public static CCliente cliente = null;
 	public static int puerto = 9090;
+	private JTextPane panelSubastaCliente;
+	
+	public JTextPane getTextPane(){
+		return panelSubastaCliente;
+	}
+	
+	public void setTextPane(JTextPane panelCliente){
+		this.panelSubastaCliente = panelCliente;
+	}
+	
 	//Hay que poner un nuevo textPane que es el que se va a implementar en todas las ventanas nuevas.
 	//Crear una variable de Conexión para el servidor (Leer comentario CServidor Linea 35)
 
