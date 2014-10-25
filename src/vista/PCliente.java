@@ -102,6 +102,15 @@ public class PCliente extends JFrame {
 		tfNombreCliente.setColumns(10);
 
 		tfMonto = new JTextField();
+		tfMonto.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(java.awt.event.KeyEvent evt) {
+				char car = evt.getKeyChar();
+				if ((car < '0' || car > '9')) {
+						evt.consume();
+				}
+			}
+		});
 		tfMonto.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		tfMonto.setColumns(10);
 		tfMonto.setBounds(217, 163, 209, 23);

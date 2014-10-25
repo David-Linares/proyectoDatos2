@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 
 import modelo.Cliente;
 import controlador.General;
+import controlador.Temporizador;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -107,7 +108,7 @@ public class PrincipalSubastaCliente extends JFrame{
 		JLabel lblProductoSubastado = new JLabel("New label");
 		lblProductoSubastado.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		lblProductoSubastado.setHorizontalAlignment(SwingConstants.LEFT);
-		lblProductoSubastado.setBounds(10, 66, 443, 15);
+		lblProductoSubastado.setBounds(10, 66, 156, 15);
 		contentPane.add(lblProductoSubastado);
 		
 		tfMensaje = new JTextField();
@@ -140,14 +141,14 @@ public class PrincipalSubastaCliente extends JFrame{
 		
 		JLabel lblNombreCliente = new JLabel("Nombre: "+general.cliente.getClienteConectado().getNombre());
 		lblNombreCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
-		lblNombreCliente.setBounds(10, 12, 443, 15);
+		lblNombreCliente.setBounds(10, 12, 172, 15);
 		contentPane.add(lblNombreCliente);
 		
 		JLabel lblMontoCliente = new JLabel("Monto Disponible: "+general.cliente.getClienteConectado().getMonto());
 		lblMontoCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		lblMontoCliente.setBounds(10, 39, 443, 15);
 		contentPane.add(lblMontoCliente);
-		
+			
 		JLabel lblIpCliente;
 		try {
 			lblIpCliente = new JLabel("IP: "+InetAddress.getLocalHost().getHostAddress().toString());
@@ -162,6 +163,8 @@ public class PrincipalSubastaCliente extends JFrame{
 			panelSubasta.setBounds(10, 92, 445, 254);
 			panelScroll.setBounds(10, 92, 445, 254);
 			contentPane.add(panelScroll);
+			
+			
 		} catch (UnknownHostException e) {
 			JOptionPane.showMessageDialog(new JFrame(), "SubastaCliente / Se produjo un error en la lectura de IP "+e.getMessage());
 		}
