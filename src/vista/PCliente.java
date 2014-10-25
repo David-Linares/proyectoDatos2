@@ -18,6 +18,8 @@ import modelo.Cliente;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class PCliente extends JFrame {
@@ -63,12 +65,31 @@ public class PCliente extends JFrame {
 		contentPane.setLayout(null);
 
 		tfIp = new JTextField("127.0.0.1");
+		tfIp.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(java.awt.event.KeyEvent evt) {
+				char car = evt.getKeyChar();
+				if ((car < '0' || car > '9')) {
+					if (car != '.') {
+						evt.consume();
+					}
+				}
+			}
+		});
+
 		tfIp.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		tfIp.setBounds(217, 58, 209, 23);
 		contentPane.add(tfIp);
 		tfIp.setColumns(10);
 
 		tfPuerto = new JTextField("8090");
+		tfPuerto.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(java.awt.event.KeyEvent evt) {
+				char car2 = evt.getKeyChar();
+				if((car2 <'0'||car2>'9')) evt.consume();
+			}
+		});
 		tfPuerto.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		tfPuerto.setColumns(10);
 		tfPuerto.setBounds(217, 93, 209, 23);
@@ -121,14 +142,14 @@ public class PCliente extends JFrame {
 		contentPane.add(btnNewButton);
 
 		btnNewButton.addActionListener(new ActionListener() {
-		//Inicia el hilo! - OK
+			// Inicia el hilo! - OK
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					int puerto = Integer.parseInt(tfPuerto.getText());
 					String ip = tfIp.getText();
 					Cliente nuevoCliente = new Cliente(tfNombreCliente
 							.getText(), Double.parseDouble(tfMonto.getText()));
-					
+
 					if (general.cliente == null) {
 						general.cliente = new CCliente(puerto, ip, nuevoCliente);
 						psubasta = new PrincipalSubastaCliente();
@@ -136,13 +157,14 @@ public class PCliente extends JFrame {
 						general.setTextPane(psubasta.getPanelSubasta());
 						general.cliente.start();
 					}
-					//PENDIENTE
+					// PENDIENTE
 					psubasta.listConectados.setModel(general.listadoConectados);
 					psubasta.setVisible(true);
 					setVisible(false);
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(new JFrame(), "PCliente / Se produjo un error"+e.getMessage());
-					general.cliente=null;
+					JOptionPane.showMessageDialog(new JFrame(),
+							"PCliente / Se produjo un error" + e.getMessage());
+					general.cliente = null;
 				}
 
 			}

@@ -168,18 +168,8 @@ public class PrincipalSubastaCliente extends JFrame{
 
 	}
 	
-	public boolean esNumero(String valor){
-		return true;
-		/*try{
-			Integer.parseInt(valor);
-			return true;
-		}catch(Exception e){
-			return false;
-		}*/
-	}
-	
 	public void enviarMensaje(){
-		if (esNumero(tfMensaje.getText())) {			
+		if (General.esNumero(tfMensaje.getText())) {			
 			general.cliente.enviarMensajeHilo(tfMensaje.getText());
 			tfMensaje.setText("");
 		}else{
