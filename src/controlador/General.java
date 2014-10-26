@@ -98,4 +98,13 @@ public class General {
 		}
 		conexiones.remove(pos);
 	}
+	
+	public static boolean esNumero(String valor){
+		try{
+			Integer.parseInt(valor);
+			return true;
+		}catch(Exception e){
+			return false;
+		}
+	}
 }
