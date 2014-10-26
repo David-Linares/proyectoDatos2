@@ -129,12 +129,12 @@ public class PCliente extends JFrame {
 					Cliente nuevoCliente = new Cliente(tfNombreCliente
 							.getText(), Double.parseDouble(tfMonto.getText()));
 					
-					if (general.cliente == null) {
-						general.cliente = new CCliente(puerto, ip, nuevoCliente);
+					if (General.cliente == null) {
+						General.cliente = new CCliente(puerto, ip, nuevoCliente);
 						psubasta = new PrincipalSubastaCliente();
-						general.cliente.setVentanaCliente(psubasta);
-						general.setTextPane(psubasta.getPanelSubasta());
-						general.cliente.start();
+						General.cliente.setVentanaCliente(psubasta);
+						general.setPanelSubastaCliente(psubasta.getPanelSubasta());
+						General.cliente.start();
 					}
 					//PENDIENTE
 					psubasta.listConectados.setModel(general.listadoConectados);
@@ -142,7 +142,7 @@ public class PCliente extends JFrame {
 					setVisible(false);
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(new JFrame(), "PCliente / Se produjo un error"+e.getMessage());
-					general.cliente=null;
+					General.cliente=null;
 				}
 
 			}

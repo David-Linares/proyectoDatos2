@@ -36,8 +36,10 @@ public class CServidor extends Thread {
 			//variable nuevaConexiÃ³n que creaste arriba.
 			//(Leer PrincipalSubastaVendedor Linea 108)			
 			while (true) {
+				//Se queda esperando la conexión de un nuevo cliente.
 				Socket nuevoSServidor = sServidor.accept();
-				nuevaConexion = new Conexion(nuevoSServidor, general.getTextPane());
+				System.out.println("Se conectó un nuevo cliente");
+				nuevaConexion = new Conexion(nuevoSServidor, general.getPanelSubastaCliente());
 				general.nuevaConexion(nuevaConexion);
 			}
 

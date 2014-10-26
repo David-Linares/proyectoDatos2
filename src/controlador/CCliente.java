@@ -1,8 +1,10 @@
 package controlador;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
@@ -23,24 +25,24 @@ public class CCliente extends Thread {
 	public CCliente(int puerto, String ip, Cliente clienteConectado) {
 		this.ip = ip;
 		this.puerto = puerto;
-		this.clienteConectado = clienteConectado;
+		this.clienteConectado = clienteConectado;		
 	}
 
 	// OK
 	public void run() {
 		try {
-			System.out.println("Entró al run");
+			System.out.println("entró a CCliente");
 			SCliente = new Socket(ip, puerto);
-			System.out.println("Entró pasó conexión server");
-			enviarDatosCliente(1, clienteConectado);
-			System.out.println("pasó envió de datos");
 			ObjectInputStream entrada = new ObjectInputStream(
 					SCliente.getInputStream());
 			System.out.println("pasó llegada de datos");
+			enviarDatosCliente(1, clienteConectado);
 			conectado = true;
 			while (conectado) {
 				int operacion = entrada.readInt();
-				Object eMensaje = entrada.readObject();
+				Object eMensaje;				
+				eMensaje = entrada.readObject();
+				
 				switch (operacion) {
 				case 1:// Agregar nuevo cliente
 					ventanaCliente.agregarNuevo((Cliente) eMensaje);
@@ -53,13 +55,29 @@ public class CCliente extends Thread {
 					break;
 				}
 			}
-		} catch (Exception e) {
-			System.out.println(e.getCause());
+		} catch (UnknownHostException e) {
+			System.out.println(e);
+			System.out.println(e.getMessage());
 			JOptionPane.showMessageDialog(
 					ventanaCliente,
-					"CCCliente / No se pudo establecer la Conexiï¿½n "
+					"CCCliente / Host desconocido "
 							+ e.getMessage());
-			// TODO: handle exception
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println(e);
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(
+					ventanaCliente,
+					"CCCliente / IOException "
+							+ e.getMessage());
+		} catch (ClassNotFoundException e) {
+			System.out.println(e);
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(
+					ventanaCliente,
+					"CCCliente / ClassNotFound "
+							+ e.getMessage());
 		}
 	}
 
@@ -71,6 +89,7 @@ public class CCliente extends Thread {
 	// ESCRIBE LOS DATOS A LA CONEXION 
 	public void enviarDatosCliente(int operacion, Object valor) {
 		try {
+			//ENVIA LOS DATOS A TRAVÉS DEL HILO
 			ObjectOutputStream salida = new ObjectOutputStream(
 					SCliente.getOutputStream());
 			salida.writeInt(operacion);

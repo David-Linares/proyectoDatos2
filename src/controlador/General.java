@@ -17,13 +17,23 @@ public class General {
 	public static CServidor servidor = null;
 	public static CCliente cliente = null;
 	public static int puerto = 9090;
-	private JTextPane panelSubastaCliente;
+	private JTextPane panelSubastaCliente, panelSubastaVendedor;
 	
-	public JTextPane getTextPane(){
+	
+	
+	public JTextPane getPanelSubastaCliente() {
+		return panelSubastaCliente;
+	}
+
+	public void setPanelSubastaCliente(JTextPane panelSubastaCliente) {
+		this.panelSubastaCliente = panelSubastaCliente;
+	}
+
+	public JTextPane getTextPaneVendedor(){
 		return panelSubastaCliente;
 	}
 	
-	public void setTextPane(JTextPane panelCliente){
+	public void setTextPaneVendedor(JTextPane panelCliente){
 		this.panelSubastaCliente = panelCliente;
 	}
 	

@@ -15,8 +15,6 @@ import modelo.Producto;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 import javax.swing.JTextField;
 
@@ -95,11 +93,11 @@ public class PVendedor extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				General.productoSeleccionado = (Producto) listaProductos.getSelectedItem();
 				PrincipalSubastaVendedor principalSubasta = new PrincipalSubastaVendedor();
-				if (general.servidor == null){
+				if (General.servidor == null){
 					int puerto =Integer.parseInt(textFieldPuerto.getText());
-					general.setTextPane(principalSubasta.getTpMensajesSubasta());
-					general.servidor = new CServidor(puerto); //Poner el TextPane de la clase general.
-					general.servidor.start();
+					general.setTextPaneVendedor(principalSubasta.getTpMensajesSubasta());
+					General.servidor = new CServidor(puerto); //Poner el TextPane de la clase general.
+					General.servidor.start();
 				}
 								
 				setVisible(false);

@@ -14,7 +14,6 @@ import modelo.Cliente;
 public class Conexion extends Thread {
 	
 	private Socket s;
-	public ObjectInputStream entrada;
 	public ObjectOutputStream salida;
 	General general = General.getInstance();
 	public Cliente clienteTemp;
@@ -59,19 +58,21 @@ public class Conexion extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				entrada = new ObjectInputStream(s.getInputStream());
+				System.out.println("entró a conexión");
+				ObjectInputStream entrada = new ObjectInputStream(s.getInputStream());
 				int operacion = entrada.readInt();
 				Object eMensaje = entrada.readObject();		
 				switch (operacion) {
 				case 1:
 					clienteTemp = (Cliente) eMensaje;
 					general.enviarDatos(operacion, eMensaje);
-					this.tpMensajesSubasta.setText(this.tpMensajesSubasta.getText() + clienteTemp.getNombre() + " se conectó \n" );
+					general.getTextPaneVendedor().setText(general.getTextPaneVendedor().getText() + clienteTemp.getNombre() + " se conectó \n");
 					break;
 				case 2:
+					System.out.println("Entró a la condi 2");
 					eMensaje = this.clienteTemp.getNombre() + ": " + eMensaje;
 					general.enviarDatos(operacion, (String) eMensaje);
-					this.tpMensajesSubasta.setText(this.tpMensajesSubasta.getText() + eMensaje  + "\n");
+					general.getTextPaneVendedor().setText(general.getTextPaneVendedor().getText() + (String) eMensaje + "\n");
 					break;
 				case 3:
 					general.desconecta(this);
