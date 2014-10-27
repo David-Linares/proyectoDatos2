@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 
 import modelo.Cliente;
+import modelo.Producto;
 
 public class Conexion extends Thread {
 	
@@ -19,27 +20,11 @@ public class Conexion extends Thread {
 	public Cliente clienteTemp;
 	private JTextPane tpMensajesSubasta;
 	
-	
-
-	// OK
-	
-	public JTextPane getTpMensajesSubasta() {
-		return tpMensajesSubasta;
-	}
-
-	public void setTpMensajesSubasta(JTextPane tpMensajesSubasta) {
-		this.tpMensajesSubasta = tpMensajesSubasta;
-	}
-
-	public Conexion(Socket s) {
-		super();
-		this.s = s;
-	}
-
-	public Conexion(Socket s, JTextPane tpMensajeSubasta ) {
+	public Conexion(Socket s, JTextPane tpMensajeSubasta, Producto productoSubastado) {
 		try {
 			this.s = s;
 			this.tpMensajesSubasta = tpMensajeSubasta;
+			General.setProductoSeleccionado(productoSubastado);
 			salida = new ObjectOutputStream(s.getOutputStream());
 			start();
 		} catch (IOException e) {
@@ -50,6 +35,15 @@ public class Conexion extends Thread {
 		}
 	}
 
+	public JTextPane getTpMensajesSubasta() {
+		return tpMensajesSubasta;
+	}
+
+	public void setTpMensajesSubasta(JTextPane tpMensajesSubasta) {
+		this.tpMensajesSubasta = tpMensajesSubasta;
+	}
+
+
 	public Cliente getClienteTemp() {
 		return clienteTemp;
 	}
@@ -58,12 +52,14 @@ public class Conexion extends Thread {
 	public void run() {
 		while (true) {
 			try {
+				JOptionPane.showMessageDialog(new JFrame(), "Conexión " + General.getProductoSeleccionado());
 				System.out.println("entró a conexión");
 				ObjectInputStream entrada = new ObjectInputStream(s.getInputStream());
 				int operacion = entrada.readInt();
 				Object eMensaje = entrada.readObject();		
 				switch (operacion) {
 				case 1:
+					JOptionPane.showMessageDialog(new JFrame(), "Conexión / Entró a caso 1");
 					clienteTemp = (Cliente) eMensaje;
 					general.enviarDatos(operacion, eMensaje);
 					general.getTextPaneVendedor().setText(general.getTextPaneVendedor().getText() + clienteTemp.getNombre() + " se conectó \n");

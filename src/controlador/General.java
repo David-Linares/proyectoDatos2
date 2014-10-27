@@ -13,13 +13,11 @@ public class General {
 	public static Producto[] productos;
 	private ArrayList<Conexion> conexiones = new ArrayList<Conexion>();
 	public DefaultListModel listadoConectados = new DefaultListModel();
-	public static Producto productoSeleccionado;
+	private static Producto productoSeleccionado;
 	public static CServidor servidor = null;
 	public static CCliente cliente = null;
 	public static int puerto = 9090;
-	private JTextPane panelSubastaCliente, panelSubastaVendedor;
-	
-	
+	private JTextPane panelSubastaCliente, panelSubastaVendedor;	
 	
 	public JTextPane getPanelSubastaCliente() {
 		return panelSubastaCliente;
@@ -62,7 +60,14 @@ public class General {
 		return general;
 	}
 	
-	
+	public static Producto getProductoSeleccionado() {
+		return productoSeleccionado;
+	}
+
+	public static void setProductoSeleccionado(Producto productoSeleccionado) {
+		General.productoSeleccionado = productoSeleccionado;
+	}
+
 	public ArrayList<Conexion> getConexiones() {
 		return conexiones;
 	}

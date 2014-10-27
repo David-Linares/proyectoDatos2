@@ -7,14 +7,12 @@ import vista.PrincipalSubastaVendedor;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextPane;
 
 public class CServidor extends Thread {
 
 	private int puerto;
 	General general = General.getInstance();
 	PrincipalSubastaVendedor ventana;
-	private JTextPane tpMensajesSubasta;
 	
 	//COnstructor con el TextPane que va a contener los mensajes del servidor.
 	public CServidor(int puerto) {
@@ -38,8 +36,9 @@ public class CServidor extends Thread {
 			while (true) {
 				//Se queda esperando la conexión de un nuevo cliente.
 				Socket nuevoSServidor = sServidor.accept();
-				System.out.println("Se conectó un nuevo cliente");
-				nuevaConexion = new Conexion(nuevoSServidor, general.getPanelSubastaCliente());
+				JOptionPane.showMessageDialog(new JFrame(), "Se conectó un cliente");
+				JOptionPane.showMessageDialog(new JFrame(), "CServidor / " + General.getProductoSeleccionado());
+				nuevaConexion = new Conexion(nuevoSServidor, general.getPanelSubastaCliente(), General.getProductoSeleccionado());
 				general.nuevaConexion(nuevaConexion);
 			}
 

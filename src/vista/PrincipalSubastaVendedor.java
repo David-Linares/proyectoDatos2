@@ -4,32 +4,17 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.UnknownHostException;
-
 import javax.swing.SwingConstants;
-
-import controlador.CServidor;
 import controlador.General;
-import modelo.Cliente;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
-import javax.swing.JTextArea;
-
 import java.awt.Font;
-
 import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 
@@ -38,6 +23,7 @@ import javax.swing.JScrollPane;
 public class PrincipalSubastaVendedor extends JFrame{
 
 	private JPanel contentPane;
+	@SuppressWarnings("rawtypes")
 	public JList listConectados = new JList();
 	private JLabel labelIp;
 	private JTextPane tpMensajesSubasta = new JTextPane();
@@ -68,6 +54,7 @@ public class PrincipalSubastaVendedor extends JFrame{
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("unchecked")
 	public PrincipalSubastaVendedor() {
 		tpMensajesSubasta.setEditable(false);
 		setTitle("Subasta");
@@ -102,14 +89,12 @@ public class PrincipalSubastaVendedor extends JFrame{
 		productoSubastado.setBounds(10, 11, 345, 23);
 		contentPane.add(productoSubastado);
 		
-		productoSubastado.setText(general.productoSeleccionado.getNombre() + " = " + general.productoSeleccionado.getValor());
+		productoSubastado.setText(General.getProductoSeleccionado().getNombre() + " = " + General.getProductoSeleccionado().getValor());
 		try {
 			labelIp = new JLabel("IP: "+InetAddress.getLocalHost().getHostAddress());
 			labelIp.setFont(new Font("Dialog", Font.BOLD, 11));
 			labelIp.setBounds(365, 11, 131, 23);
-			contentPane.add(labelIp);
-			
-			
+			contentPane.add(labelIp);			
 			panelScroll.setBounds(10, 45, 345, 254);
 			contentPane.add(panelScroll);
 			} catch (UnknownHostException e) {

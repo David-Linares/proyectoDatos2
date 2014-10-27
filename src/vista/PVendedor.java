@@ -67,6 +67,7 @@ public class PVendedor extends JFrame {
 		lblSeleccioneElProducto.setBounds(12, 41, 198, 20);
 		contentPane.add(lblSeleccioneElProducto);
 
+		@SuppressWarnings({ "unchecked", "rawtypes" })
 		final JComboBox listaProductos = new JComboBox(General.productos);
 		listaProductos.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		lblSeleccioneElProducto.setLabelFor(listaProductos);
@@ -103,8 +104,8 @@ public class PVendedor extends JFrame {
 			// OK
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
-				General.productoSeleccionado = (Producto) listaProductos
-						.getSelectedItem();
+				General.setProductoSeleccionado((Producto) listaProductos
+						.getSelectedItem());
 				PrincipalSubastaVendedor principalSubasta = new PrincipalSubastaVendedor();
 				if (General.servidor == null){
 					int puerto =Integer.parseInt(textFieldPuerto.getText());

@@ -12,9 +12,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
 import modelo.Cliente;
+import modelo.Producto;
 import controlador.General;
-import controlador.Temporizador;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.net.InetAddress;
@@ -32,9 +34,10 @@ public class PrincipalSubastaCliente extends JFrame {
 	private JPanel contentPane;
 	General general = General.getInstance();
 	private JTextField tfMensaje;
+	@SuppressWarnings("rawtypes")
 	public JList listConectados = new JList();
-	private JLabel labelIpcliente;
 	private JTextPane panelSubasta = new JTextPane();
+	private JLabel lblProductoSubastado = new JLabel();
 	private JScrollPane panelScroll = new JScrollPane(panelSubasta);
 
 	/**
@@ -83,12 +86,16 @@ public class PrincipalSubastaCliente extends JFrame {
 		JButton btnAbandonarSubasta = new JButton("Abandonar Subasta");
 		btnAbandonarSubasta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// ok
-				if (general.cliente != null) {
-					general.cliente.enviarDatosCliente(3, null);
-					general.cliente.interrupt();
+				Object[] opciones = {"Si, Deseo Salir.", "No, Deseo Quedarme."};
+				int respuesta = JOptionPane.showOptionDialog(new JFrame(), "Realmente deseas salir de la subasta? \n Una vez sales tienes que esperar\n a una próxima subasta para poder ingresar.", "Salir?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[1]);
+				if (respuesta == JOptionPane.NO_OPTION) {
+					return;
 				}
-				general.cliente = null;
+				if (General.cliente != null) {
+					General.cliente.enviarDatosCliente(3, null);
+					General.cliente.interrupt();
+				}
+				General.cliente = null;
 				setVisible(false);
 				general.listadoConectados.removeAllElements();
 				panelSubasta.setText("");
@@ -100,7 +107,6 @@ public class PrincipalSubastaCliente extends JFrame {
 		btnAbandonarSubasta.setBounds(385, 428, 211, 37);
 		contentPane.add(btnAbandonarSubasta);
 
-		JLabel lblProductoSubastado = new JLabel("New label");
 		lblProductoSubastado.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		lblProductoSubastado.setHorizontalAlignment(SwingConstants.LEFT);
 		lblProductoSubastado.setBounds(10, 66, 156, 15);
@@ -135,13 +141,13 @@ public class PrincipalSubastaCliente extends JFrame {
 		contentPane.add(btnNewButton_1);
 
 		JLabel lblNombreCliente = new JLabel("Nombre: "
-				+ general.cliente.getClienteConectado().getNombre());
+				+ General.cliente.getClienteConectado().getNombre());
 		lblNombreCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		lblNombreCliente.setBounds(10, 12, 172, 15);
 		contentPane.add(lblNombreCliente);
 
 		JLabel lblMontoCliente = new JLabel("Monto Disponible: "
-				+ general.cliente.getClienteConectado().getMonto());
+				+ General.cliente.getClienteConectado().getMonto());
 		lblMontoCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		lblMontoCliente.setBounds(10, 39, 443, 15);
 		contentPane.add(lblMontoCliente);
@@ -167,26 +173,32 @@ public class PrincipalSubastaCliente extends JFrame {
 		}
 
 	}
-	
-	public void enviarMensaje(){
-		if (General.esNumero(tfMensaje.getText())) {
-			general.cliente.enviarMensajeHilo(tfMensaje.getText());
-			tfMensaje.setText("");
-		} else {
-			JOptionPane.showMessageDialog(new JFrame(),
-					"Por favor digite un número valido", "Datos",
-					JOptionPane.ERROR_MESSAGE);
-		}
+
+	public void enviarMensaje() {
+		// if (General.esNumero(tfMensaje.getText())) {
+		General.cliente.enviarMensajeHilo(tfMensaje.getText());
+		tfMensaje.setText("");
+		/*
+		 * } else { JOptionPane.showMessageDialog(new JFrame(),
+		 * "Por favor digite un número valido", "Datos",
+		 * JOptionPane.ERROR_MESSAGE); }
+		 */
 	}
 
 	// OK
+	@SuppressWarnings("unchecked")
 	public void agregarNuevo(Cliente nuevoCliente) {
 		general.listadoConectados.addElement(nuevoCliente.getNombre());
 	}
 
+	public void agregarProductoEnSubasta(Producto productoSubastado) {
+		// this.lblProductoSubastado.setText("Producto en Subasta: \n Nombre: "+productoSubastado.getNombre()+" \n Valor Actual: "+productoSubastado.getValor());
+	}
+
 	// OK
 	public void mensajeRecibido(String nuevoMensaje) {
-		this.panelSubasta.setText(this.panelSubasta.getText() +  nuevoMensaje + "\n");
+		this.panelSubasta.setText(this.panelSubasta.getText() + nuevoMensaje
+				+ "\n");
 	}
 
 	// OK

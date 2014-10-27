@@ -34,7 +34,6 @@ public class PCliente extends JFrame {
 	private JLabel lblMontoInicial;
 	private JLabel lblDatosDeConexin;
 	PrincipalSubastaCliente psubasta;
-	private CCliente cliente = null;
 
 	/**
 	 * Launch the application.
@@ -67,7 +66,7 @@ public class PCliente extends JFrame {
 		tfIp = new JTextField("127.0.0.1");
 		tfIp.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyTyped(java.awt.event.KeyEvent evt) {
+			public void keyTyped(KeyEvent evt) {
 				char car = evt.getKeyChar();
 				if ((car < '0' || car > '9')) {
 					if (car != '.') {
@@ -152,7 +151,9 @@ public class PCliente extends JFrame {
 
 		btnNewButton.addActionListener(new ActionListener() {
 			// Inicia el hilo! - OK
+			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(new JFrame(), "PCliente / click a conectarse");
 				try {
 					int puerto = Integer.parseInt(tfPuerto.getText());
 					String ip = tfIp.getText();

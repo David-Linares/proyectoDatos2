@@ -6,8 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextPane;
 
 import modelo.Cliente;
 import vista.PrincipalSubastaCliente;
@@ -20,7 +20,6 @@ public class CCliente extends Thread {
 	private PrincipalSubastaCliente ventanaCliente;
 	private boolean conectado;
 	private Socket SCliente;
-	private JTextPane panelCliente;
 
 	public CCliente(int puerto, String ip, Cliente clienteConectado) {
 		this.ip = ip;
@@ -31,11 +30,10 @@ public class CCliente extends Thread {
 	// OK
 	public void run() {
 		try {
-			System.out.println("entró a CCliente");
+			JOptionPane.showMessageDialog(new JFrame(), "CCliente " + General.getProductoSeleccionado());
 			SCliente = new Socket(ip, puerto);
 			ObjectInputStream entrada = new ObjectInputStream(
 					SCliente.getInputStream());
-			System.out.println("pasó llegada de datos");
 			enviarDatosCliente(1, clienteConectado);
 			conectado = true;
 			while (conectado) {
@@ -45,6 +43,7 @@ public class CCliente extends Thread {
 				
 				switch (operacion) {
 				case 1:// Agregar nuevo cliente
+					JOptionPane.showMessageDialog(new JFrame(), "CCliente / Entró a caso 1");
 					ventanaCliente.agregarNuevo((Cliente) eMensaje);
 					break;
 				case 2:// Enviar Mensaje
@@ -89,7 +88,8 @@ public class CCliente extends Thread {
 	// ESCRIBE LOS DATOS A LA CONEXION 
 	public void enviarDatosCliente(int operacion, Object valor) {
 		try {
-			//ENVIA LOS DATOS A TRAVÉS DEL HILO
+			JOptionPane.showMessageDialog(new JFrame(), "CCliente / EnviarDatosCliente a enviar los datos");
+			//ENVIA LOS DATOS A TRAVÉS DEL HILO A LA CONEXIÓN.
 			ObjectOutputStream salida = new ObjectOutputStream(
 					SCliente.getOutputStream());
 			salida.writeInt(operacion);
