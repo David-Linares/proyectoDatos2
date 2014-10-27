@@ -20,11 +20,10 @@ public class Conexion extends Thread {
 	public Cliente clienteTemp;
 	private JTextPane tpMensajesSubasta;
 	
-	public Conexion(Socket s, JTextPane tpMensajeSubasta, Producto productoSubastado) {
+	public Conexion(Socket s, JTextPane tpMensajeSubasta) {
 		try {
 			this.s = s;
 			this.tpMensajesSubasta = tpMensajeSubasta;
-			General.setProductoSeleccionado(productoSubastado);
 			salida = new ObjectOutputStream(s.getOutputStream());
 			start();
 		} catch (IOException e) {
@@ -52,27 +51,33 @@ public class Conexion extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				JOptionPane.showMessageDialog(new JFrame(), "Conexión " + General.getProductoSeleccionado());
-				System.out.println("entró a conexión");
+				//JOptionPane.showMessageDialog(new JFrame(), "Conexión " + General.getProductoSeleccionado());
+				entradaDatosConexion(4, General.getProductoSeleccionado());
 				ObjectInputStream entrada = new ObjectInputStream(s.getInputStream());
+				//JOptionPane.showMessageDialog(new JFrame(), "Conexión / Si pasó la entrada");
 				int operacion = entrada.readInt();
 				Object eMensaje = entrada.readObject();		
 				switch (operacion) {
 				case 1:
-					JOptionPane.showMessageDialog(new JFrame(), "Conexión / Entró a caso 1");
+					//JOptionPane.showMessageDialog(new JFrame(), "Conexión / Entró a caso 1");
+					//JOptionPane.showMessageDialog(new JFrame(), "Conexión " + this.productoSubastado);
 					clienteTemp = (Cliente) eMensaje;
 					general.enviarDatos(operacion, eMensaje);
 					general.getTextPaneVendedor().setText(general.getTextPaneVendedor().getText() + clienteTemp.getNombre() + " se conectó \n");
 					break;
 				case 2:
 					System.out.println("Entró a la condi 2");
-					eMensaje = this.clienteTemp.getNombre() + ": " + eMensaje;
+					eMensaje = this.clienteTemp.getNombre() + " ofrece: " + eMensaje;
 					general.enviarDatos(operacion, (String) eMensaje);
 					general.getTextPaneVendedor().setText(general.getTextPaneVendedor().getText() + (String) eMensaje + "\n");
 					break;
 				case 3:
 					general.desconecta(this);
 					this.tpMensajesSubasta.setText(this.tpMensajesSubasta.getText() + clienteTemp.getNombre() + " se desconectó \n");
+					break;
+				case 4:
+					eMensaje = (Producto) eMensaje;
+					general.enviarDatos(operacion, eMensaje);
 					break;
 				}
 
@@ -89,6 +94,7 @@ public class Conexion extends Thread {
 	// ESCRIBE LOS DATOS DE ENTRADA A LA CONEXION
 	public void entradaDatosConexion(int operacion, Object sMensaje) {
 		try {
+			//JOptionPane.showMessageDialog(new JFrame(), "Conexión / salida de datos");
 			salida.writeInt(operacion);
 			salida.writeObject(sMensaje);
 		} catch (Exception e) {

@@ -5,11 +5,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import modelo.Cliente;
+import modelo.Producto;
 import vista.PrincipalSubastaCliente;
 
 public class CCliente extends Thread {
@@ -30,7 +29,7 @@ public class CCliente extends Thread {
 	// OK
 	public void run() {
 		try {
-			JOptionPane.showMessageDialog(new JFrame(), "CCliente " + General.getProductoSeleccionado());
+			
 			SCliente = new Socket(ip, puerto);
 			ObjectInputStream entrada = new ObjectInputStream(
 					SCliente.getInputStream());
@@ -38,12 +37,10 @@ public class CCliente extends Thread {
 			conectado = true;
 			while (conectado) {
 				int operacion = entrada.readInt();
-				Object eMensaje;				
-				eMensaje = entrada.readObject();
-				
+				Object eMensaje = entrada.readObject();
+				//JOptionPane.showMessageDialog(new JFrame(), "CCliente / Pasó entrada y envia los datos de nueva conexión");
 				switch (operacion) {
 				case 1:// Agregar nuevo cliente
-					JOptionPane.showMessageDialog(new JFrame(), "CCliente / Entró a caso 1");
 					ventanaCliente.agregarNuevo((Cliente) eMensaje);
 					break;
 				case 2:// Enviar Mensaje
@@ -51,6 +48,9 @@ public class CCliente extends Thread {
 					break;				
 				case 3:
 					ventanaCliente.borrarCliente(Integer.parseInt((String) eMensaje));
+					break;
+				case 4:
+					ventanaCliente.agregarProductoEnSubasta((Producto) eMensaje);
 					break;
 				}
 			}
@@ -84,11 +84,15 @@ public class CCliente extends Thread {
 	public void enviarMensajeHilo(String sMensaje) {
 		enviarDatosCliente(2, sMensaje);
 	}
+	
+	public void enviarProductoHilo(Producto cambioProducto) {
+		enviarDatosCliente(4, cambioProducto);
+	}
 
 	// ESCRIBE LOS DATOS A LA CONEXION 
 	public void enviarDatosCliente(int operacion, Object valor) {
 		try {
-			JOptionPane.showMessageDialog(new JFrame(), "CCliente / EnviarDatosCliente a enviar los datos");
+			//JOptionPane.showMessageDialog(new JFrame(), "CCliente / EnviarDatosCliente a enviar los datos");
 			//ENVIA LOS DATOS A TRAVÉS DEL HILO A LA CONEXIÓN.
 			ObjectOutputStream salida = new ObjectOutputStream(
 					SCliente.getOutputStream());

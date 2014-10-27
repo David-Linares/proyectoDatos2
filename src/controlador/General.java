@@ -78,6 +78,7 @@ public class General {
 			con.entradaDatosConexion(operacion, sMensaje);
 		}
 	}
+	
 	//NOTIFICA A UN CLIENTE NUEVO TODAS LAS CONEXIONES EXISTENTES
 	public void nuevaConexion(Conexion nuevo){
 		for(Conexion con: conexiones){

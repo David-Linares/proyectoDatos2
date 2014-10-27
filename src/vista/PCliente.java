@@ -153,7 +153,7 @@ public class PCliente extends JFrame {
 			// Inicia el hilo! - OK
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(new JFrame(), "PCliente / click a conectarse");
+				//JOptionPane.showMessageDialog(new JFrame(), "PCliente / click a conectarse");
 				try {
 					int puerto = Integer.parseInt(tfPuerto.getText());
 					String ip = tfIp.getText();

@@ -36,9 +36,9 @@ public class CServidor extends Thread {
 			while (true) {
 				//Se queda esperando la conexión de un nuevo cliente.
 				Socket nuevoSServidor = sServidor.accept();
-				JOptionPane.showMessageDialog(new JFrame(), "Se conectó un cliente");
-				JOptionPane.showMessageDialog(new JFrame(), "CServidor / " + General.getProductoSeleccionado());
-				nuevaConexion = new Conexion(nuevoSServidor, general.getPanelSubastaCliente(), General.getProductoSeleccionado());
+				//JOptionPane.showMessageDialog(new JFrame(), "Se conectó un cliente");
+				//JOptionPane.showMessageDialog(new JFrame(), "CServidor / " + General.getProductoSeleccionado());
+				nuevaConexion = new Conexion(nuevoSServidor, general.getPanelSubastaCliente());
 				general.nuevaConexion(nuevaConexion);
 			}
 
