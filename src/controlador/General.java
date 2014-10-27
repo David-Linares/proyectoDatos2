@@ -12,12 +12,13 @@ public class General {
 	private static General general;
 	public static Producto[] productos;
 	private ArrayList<Conexion> conexiones = new ArrayList<Conexion>();
+	@SuppressWarnings("rawtypes")
 	public DefaultListModel listadoConectados = new DefaultListModel();
 	private static Producto productoSeleccionado;
 	public static CServidor servidor = null;
 	public static CCliente cliente = null;
 	public static int puerto = 9090;
-	private JTextPane panelSubastaCliente, panelSubastaVendedor;	
+	private JTextPane panelSubastaCliente;	
 	
 	public JTextPane getPanelSubastaCliente() {
 		return panelSubastaCliente;
