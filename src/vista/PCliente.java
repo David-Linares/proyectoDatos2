@@ -154,6 +154,8 @@ public class PCliente extends JFrame {
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
 				//JOptionPane.showMessageDialog(new JFrame(), "PCliente / click a conectarse");
+				validacion();
+				
 				try {
 					int puerto = Integer.parseInt(tfPuerto.getText());
 					String ip = tfIp.getText();
@@ -179,6 +181,32 @@ public class PCliente extends JFrame {
 
 		});
 
+	}
+	
+	private void validacion(){
+		String ip = this.tfIp.getText();
+		String puerto = this.tfPuerto.getText();
+		String monto = this.tfMonto.getText();
+		String nombre = this.tfNombreCliente.getText();
+		
+		
+		String mensaje = "";
+		
+		if(ip.equals("")){
+			mensaje += "\u00A1Debe escribir la IP!\n";
+		}
+		if(puerto.equals("")){
+			mensaje += "\u00A1Debe escribir el numero de puerto!\n";
+		}
+		if(monto.equals("")){
+			mensaje += "\u00A1Debe escribir el monto!\n";
+		}
+		if(nombre.equals("")){
+			mensaje += "\u00A1Debe escribir el nombre de usuario!\n";
+		}
+		if(!mensaje.equals("")){
+			JOptionPane.showMessageDialog(null, mensaje, "\u00A1Advertencia!", JOptionPane.WARNING_MESSAGE);
+		}
 	}
 
 }

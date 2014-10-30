@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -104,6 +105,10 @@ public class PVendedor extends JFrame {
 			// OK
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
+				
+				// METODO VALIDACION
+				validacion();
+				
 				General.setProductoSeleccionado((Producto) listaProductos
 						.getSelectedItem());
 				PrincipalSubastaVendedor principalSubasta = new PrincipalSubastaVendedor();
@@ -121,5 +126,30 @@ public class PVendedor extends JFrame {
 			}
 		});
 
+	}
+
+	protected void showMessageDialog(ActionListener actionListener,
+			String string) {
+		// TODO Auto-generated method stub
+		
+	}
+	private void validacion(){
+		String puerto = this.textFieldPuerto.getText();
+		String mensaje = "";
+		
+		
+		if(puerto.equals("")){
+			mensaje = "\u00A1Debe escribir el numero de puerto!\n";
+		}
+		int puertoInt = Integer.parseInt(puerto);
+		if((puertoInt<1024) ){
+			mensaje = "\u00A1Debe escribir el numero de puerto mayor a 1024!\n";
+		}
+		if((puertoInt>9999) ){
+			mensaje = "\u00A1Debe escribir el numero de puerto menor a 9999!\n";
+		}
+		if(!mensaje.equals("")){
+			JOptionPane.showMessageDialog(null, mensaje, "\u00A1Advertencia!", JOptionPane.WARNING_MESSAGE);
+		}
 	}
 }
