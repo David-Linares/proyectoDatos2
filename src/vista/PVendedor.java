@@ -140,14 +140,10 @@ public class PVendedor extends JFrame {
 		
 		if(puerto.equals("")){
 			mensaje = "\u00A1Debe escribir el numero de puerto!\n";
+			return;
 		}
-		int puertoInt = Integer.parseInt(puerto);
-		if((puertoInt<1024) ){
-			mensaje = "\u00A1Debe escribir el numero de puerto mayor a 1024!\n";
-		}
-		if((puertoInt>9999) ){
-			mensaje = "\u00A1Debe escribir el numero de puerto menor a 9999!\n";
-		}
+		
+		
 		if(!mensaje.equals("")){
 			JOptionPane.showMessageDialog(null, mensaje, "\u00A1Advertencia!", JOptionPane.WARNING_MESSAGE);
 		}

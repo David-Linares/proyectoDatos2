@@ -86,7 +86,8 @@ public class PCliente extends JFrame {
 			@Override
 			public void keyTyped(java.awt.event.KeyEvent evt) {
 				char car2 = evt.getKeyChar();
-				if((car2 <'0'||car2>'9')) evt.consume();
+				if ((car2 < '0' || car2 > '9'))
+					evt.consume();
 			}
 		});
 		tfPuerto.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
@@ -106,7 +107,7 @@ public class PCliente extends JFrame {
 			public void keyTyped(java.awt.event.KeyEvent evt) {
 				char car = evt.getKeyChar();
 				if ((car < '0' || car > '9')) {
-						evt.consume();
+					evt.consume();
 				}
 			}
 		});
@@ -153,19 +154,24 @@ public class PCliente extends JFrame {
 			// Inicia el hilo! - OK
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
-				//JOptionPane.showMessageDialog(new JFrame(), "PCliente / click a conectarse");
+				// JOptionPane.showMessageDialog(new JFrame(),
+				// "PCliente / click a conectarse");
 				validacion();
-				
+
 				try {
 					int puerto = Integer.parseInt(tfPuerto.getText());
 					String ip = tfIp.getText();
+					if (!tfNombreCliente.getText().equals("")) {
+						return;
+					}
 					Cliente nuevoCliente = new Cliente(tfNombreCliente
-							.getText(), Double.parseDouble(tfMonto.getText()));		
+							.getText(), Double.parseDouble(tfMonto.getText()));
 					if (General.cliente == null) {
 						General.cliente = new CCliente(puerto, ip, nuevoCliente);
 						psubasta = new PrincipalSubastaCliente();
 						General.cliente.setVentanaCliente(psubasta);
-						general.setPanelSubastaCliente(psubasta.getPanelSubasta());
+						general.setPanelSubastaCliente(psubasta
+								.getPanelSubasta());
 						General.cliente.start();
 					}
 					// PENDIENTE
@@ -173,8 +179,9 @@ public class PCliente extends JFrame {
 					psubasta.setVisible(true);
 					setVisible(false);
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(new JFrame(), "PCliente / Se produjo un error"+e.getMessage());
-					General.cliente=null;
+					JOptionPane.showMessageDialog(new JFrame(),
+							"PCliente / Se produjo un error" + e.getMessage());
+					General.cliente = null;
 				}
 
 			}
@@ -182,31 +189,41 @@ public class PCliente extends JFrame {
 		});
 
 	}
-	
-	private void validacion(){
+
+	private void validacion() {
 		String ip = this.tfIp.getText();
 		String puerto = this.tfPuerto.getText();
 		String monto = this.tfMonto.getText();
 		String nombre = this.tfNombreCliente.getText();
-		
-		
+
 		String mensaje = "";
-		
-		if(ip.equals("")){
-			mensaje += "\u00A1Debe escribir la IP!\n";
+
+		if (ip.equals("")) {
+			mensaje = "\u00A1Debe escribir la IP!\n";
+			JOptionPane.showMessageDialog(null, mensaje, "\u00A1Advertencia!",
+					JOptionPane.WARNING_MESSAGE);
+			return;
 		}
-		if(puerto.equals("")){
-			mensaje += "\u00A1Debe escribir el numero de puerto!\n";
+		if (puerto.equals("")) {
+			mensaje = "\u00A1Debe escribir el numero de puerto!\n";
+			JOptionPane.showMessageDialog(null, mensaje, "\u00A1Advertencia!",
+					JOptionPane.WARNING_MESSAGE);
+			return;
 		}
-		if(monto.equals("")){
-			mensaje += "\u00A1Debe escribir el monto!\n";
+		if (nombre.equals("")) {
+			mensaje = "\u00A1Debe escribir el nombre de usuario!\n";
+			JOptionPane.showMessageDialog(null, mensaje, "\u00A1Advertencia!",
+					JOptionPane.WARNING_MESSAGE);
+			return;
 		}
-		if(nombre.equals("")){
-			mensaje += "\u00A1Debe escribir el nombre de usuario!\n";
+		if (monto.equals("")) {
+			mensaje = "\u00A1Debe escribir el monto!\n";
+			JOptionPane.showMessageDialog(null, mensaje, "\u00A1Advertencia!",
+					JOptionPane.WARNING_MESSAGE);
+			return;
 		}
-		if(!mensaje.equals("")){
-			JOptionPane.showMessageDialog(null, mensaje, "\u00A1Advertencia!", JOptionPane.WARNING_MESSAGE);
-		}
+		return;
+
 	}
 
 }
