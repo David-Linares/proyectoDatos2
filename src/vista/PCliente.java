@@ -163,9 +163,6 @@ public class PCliente extends JFrame {
 					try {
 						int puerto = Integer.parseInt(tfPuerto.getText());
 						String ip = tfIp.getText();
-						if (!tfNombreCliente.getText().equals("")) {
-							return;
-						}
 						Cliente nuevoCliente = new Cliente(tfNombreCliente
 								.getText(), Double.parseDouble(tfMonto
 								.getText()));
@@ -227,6 +224,8 @@ public class PCliente extends JFrame {
 					JOptionPane.WARNING_MESSAGE);
 			return false;
 		} else {
+			JOptionPane.showMessageDialog(null, "OK", "\u00A1Advertencia!",
+					JOptionPane.WARNING_MESSAGE);
 			return true;
 		}
 
