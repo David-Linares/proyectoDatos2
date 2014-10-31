@@ -105,24 +105,30 @@ public class PVendedor extends JFrame {
 			// OK
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
-				
-				// METODO VALIDACION
-				validacion();
-				
-				General.setProductoSeleccionado((Producto) listaProductos
-						.getSelectedItem());
-				PrincipalSubastaVendedor principalSubasta = new PrincipalSubastaVendedor();
-				if (General.servidor == null){
-					int puerto =Integer.parseInt(textFieldPuerto.getText());
-					general.setTextPaneVendedor(principalSubasta.getTpMensajesSubasta());
-					General.servidor = new CServidor(puerto); //Poner el TextPane de la clase general.
-					General.servidor.start();
-				}
 
-				setVisible(false);
-				principalSubasta.listConectados
-						.setModel(general.listadoConectados);
-				principalSubasta.setVisible(true);
+				// METODO VALIDACION
+				if (validacion()) {
+
+					General.setProductoSeleccionado((Producto) listaProductos
+							.getSelectedItem());
+					PrincipalSubastaVendedor principalSubasta = new PrincipalSubastaVendedor();
+					if (General.servidor == null) {
+						int puerto = Integer.parseInt(textFieldPuerto.getText());
+						general.setTextPaneVendedor(principalSubasta
+								.getTpMensajesSubasta());
+						General.servidor = new CServidor(puerto); // Poner el
+																	// TextPane
+																	// de la
+																	// clase
+																	// general.
+						General.servidor.start();
+					}
+
+					setVisible(false);
+					principalSubasta.listConectados
+							.setModel(general.listadoConectados);
+					principalSubasta.setVisible(true);
+				}
 			}
 		});
 
@@ -131,21 +137,20 @@ public class PVendedor extends JFrame {
 	protected void showMessageDialog(ActionListener actionListener,
 			String string) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	private void validacion(){
+
+	private boolean validacion() {
 		String puerto = this.textFieldPuerto.getText();
-		String mensaje = "";
-		
-		
-		if(puerto.equals("")){
-			mensaje = "\u00A1Debe escribir el numero de puerto!\n";
-			return;
+		String mensajeV = "";
+
+		if (puerto.equals("")) {
+			mensajeV = "\u00A1Debe escribir el numero de puerto!\n";
+			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
+					JOptionPane.WARNING_MESSAGE);
+			return false;
 		}
-		
-		
-		if(!mensaje.equals("")){
-			JOptionPane.showMessageDialog(null, mensaje, "\u00A1Advertencia!", JOptionPane.WARNING_MESSAGE);
-		}
+		return true;
+
 	}
 }
