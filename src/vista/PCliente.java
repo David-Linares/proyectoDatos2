@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.InputVerifier;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -156,73 +158,77 @@ public class PCliente extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				// JOptionPane.showMessageDialog(new JFrame(),
 				// "PCliente / click a conectarse");
-				validacion();
+				if (validacion()) {  //problema
 
-				try {
-					int puerto = Integer.parseInt(tfPuerto.getText());
-					String ip = tfIp.getText();
-					if (!tfNombreCliente.getText().equals("")) {
-						return;
+					try {
+						int puerto = Integer.parseInt(tfPuerto.getText());
+						String ip = tfIp.getText();
+						if (!tfNombreCliente.getText().equals("")) {
+							return;
+						}
+						Cliente nuevoCliente = new Cliente(tfNombreCliente
+								.getText(), Double.parseDouble(tfMonto
+								.getText()));
+						if (General.cliente == null) {
+							General.cliente = new CCliente(puerto, ip,
+									nuevoCliente);
+							psubasta = new PrincipalSubastaCliente();
+							General.cliente.setVentanaCliente(psubasta);
+							general.setPanelSubastaCliente(psubasta
+									.getPanelSubasta());
+							General.cliente.start();
+						}
+						// PENDIENTE
+						psubasta.listConectados
+								.setModel(general.listadoConectados);
+						psubasta.setVisible(true);
+						setVisible(false);
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(
+								new JFrame(),
+								"PCliente / Se produjo un error"
+										+ e.getMessage());
+						General.cliente = null;
 					}
-					Cliente nuevoCliente = new Cliente(tfNombreCliente
-							.getText(), Double.parseDouble(tfMonto.getText()));
-					if (General.cliente == null) {
-						General.cliente = new CCliente(puerto, ip, nuevoCliente);
-						psubasta = new PrincipalSubastaCliente();
-						General.cliente.setVentanaCliente(psubasta);
-						general.setPanelSubastaCliente(psubasta
-								.getPanelSubasta());
-						General.cliente.start();
-					}
-					// PENDIENTE
-					psubasta.listConectados.setModel(general.listadoConectados);
-					psubasta.setVisible(true);
-					setVisible(false);
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(new JFrame(),
-							"PCliente / Se produjo un error" + e.getMessage());
-					General.cliente = null;
+
 				}
-
 			}
 
 		});
 
 	}
 
-	private void validacion() {
-		String ip = this.tfIp.getText();
-		String puerto = this.tfPuerto.getText();
-		String monto = this.tfMonto.getText();
-		String nombre = this.tfNombreCliente.getText();
+	private boolean validacion() {
+		String ipV = this.tfIp.getText();
+		String puertoV = this.tfPuerto.getText();
+		String montoV = this.tfMonto.getText();
+		String nombreV = this.tfNombreCliente.getText();
 
-		String mensaje = "";
+		String mensajeV = "";
 
-		if (ip.equals("")) {
-			mensaje = "\u00A1Debe escribir la IP!\n";
-			JOptionPane.showMessageDialog(null, mensaje, "\u00A1Advertencia!",
+		if (ipV.equals("")) {
+			mensajeV = "\u00A1Debe escribir la IP!\n";
+			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
 					JOptionPane.WARNING_MESSAGE);
-			return;
-		}
-		if (puerto.equals("")) {
-			mensaje = "\u00A1Debe escribir el numero de puerto!\n";
-			JOptionPane.showMessageDialog(null, mensaje, "\u00A1Advertencia!",
+			return false;
+		} else if (puertoV.equals("")) {
+			mensajeV = "\u00A1Debe escribir el numero de puerto!\n";
+			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
 					JOptionPane.WARNING_MESSAGE);
-			return;
-		}
-		if (nombre.equals("")) {
-			mensaje = "\u00A1Debe escribir el nombre de usuario!\n";
-			JOptionPane.showMessageDialog(null, mensaje, "\u00A1Advertencia!",
+			return false;
+		} else if (nombreV.equals("")) {
+			mensajeV = "\u00A1Debe escribir el nombre de usuario!\n";
+			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
 					JOptionPane.WARNING_MESSAGE);
-			return;
-		}
-		if (monto.equals("")) {
-			mensaje = "\u00A1Debe escribir el monto!\n";
-			JOptionPane.showMessageDialog(null, mensaje, "\u00A1Advertencia!",
+			return false;
+		} else if (montoV.equals("")) {
+			mensajeV = "\u00A1Debe escribir el monto!\n";
+			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
 					JOptionPane.WARNING_MESSAGE);
-			return;
+			return false;
+		} else {
+			return true;
 		}
-		return;
 
 	}
 
