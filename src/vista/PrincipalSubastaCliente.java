@@ -40,6 +40,8 @@ public class PrincipalSubastaCliente extends JFrame {
 	private JTextPane panelSubasta = new JTextPane();
 	public JLabel lblProductoSubastado = new JLabel();
 	private JScrollPane panelScroll = new JScrollPane(panelSubasta);
+	
+	private JScrollPane scrollLista = new JScrollPane();
 
 	/**
 	 * Launch the application.
@@ -80,9 +82,10 @@ public class PrincipalSubastaCliente extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		listConectados.setBounds(465, 119, 131, 254);
-		listConectados.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
-		contentPane.add(listConectados);
+		scrollLista.setBounds(465, 119, 131, 254);
+		scrollLista.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
+		scrollLista.setViewportView(listConectados);
+		contentPane.add(scrollLista);
 
 		JButton btnAbandonarSubasta = new JButton("Abandonar Subasta");
 		btnAbandonarSubasta.setBounds(385, 428, 211, 37);

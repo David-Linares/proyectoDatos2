@@ -35,6 +35,7 @@ public class PrincipalSubastaVendedor extends JFrame {
 	private JTextPane tpMensajesSubasta = new JTextPane();
 	private JScrollPane panelScroll = new JScrollPane(tpMensajesSubasta);
 	General general = General.getInstance();
+	private JScrollPane scrollLista = new JScrollPane();
 
 	/**
 	 * Launch the application.
@@ -86,10 +87,10 @@ public class PrincipalSubastaVendedor extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		listConectados.setFont(new Font("Dialog", Font.BOLD, 11));
-
-		listConectados.setBounds(365, 45, 131, 254);
-		contentPane.add(listConectados);
+		scrollLista.setFont(new Font("Dialog", Font.BOLD, 11));
+		scrollLista.setBounds(365, 45, 131, 254);
+		scrollLista.setViewportView(listConectados);
+		contentPane.add(scrollLista);
 
 		listConectados.setModel(general.listadoConectados);
 
