@@ -150,7 +150,7 @@ public class PVendedor extends JFrame {
 		if (puerto.equals("")) {
 			mensajeV = "\u00A1Debe escribir el numero de puerto!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
-					JOptionPane.WARNING_MESSAGE);
+					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
 			textFieldPuerto.requestFocus();
 			return false;
 		}

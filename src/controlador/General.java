@@ -3,6 +3,8 @@ package controlador;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JTextPane;
 
@@ -22,6 +24,10 @@ public class General {
 	private JTextPane panelSubastaCliente;	
 	@SuppressWarnings("rawtypes")
 	private JList contenedorConexiones;
+	
+	public Icon getIcon(String nombreIcono){
+		return new ImageIcon("images/"+nombreIcono+".png");
+	}
 	
 	public JTextPane getPanelSubastaCliente() {
 		return panelSubastaCliente;
