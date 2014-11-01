@@ -86,6 +86,8 @@ public class PVendedor extends JFrame {
 			@Override
 			public void keyTyped(KeyEvent evt) {
 				char car = evt.getKeyChar();
+				if (textFieldPuerto.getText().length() >= 5)
+					evt.consume();
 				if ((car < '0' || car > '9')) {
 					evt.consume();
 				}
@@ -149,6 +151,7 @@ public class PVendedor extends JFrame {
 			mensajeV = "\u00A1Debe escribir el numero de puerto!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
 					JOptionPane.WARNING_MESSAGE);
+			textFieldPuerto.requestFocus();
 			return false;
 		}
 		return true;

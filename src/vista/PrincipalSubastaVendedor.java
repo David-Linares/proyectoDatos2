@@ -23,6 +23,7 @@ import java.awt.Font;
 
 import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
+import java.awt.Window.Type;
 
 @SuppressWarnings("serial")
 public class PrincipalSubastaVendedor extends JFrame {
@@ -76,6 +77,7 @@ public class PrincipalSubastaVendedor extends JFrame {
 	 */
 	@SuppressWarnings("unchecked")
 	public PrincipalSubastaVendedor() {
+		setResizable(false);
 		tpMensajesSubasta.setEditable(false);
 		setTitle("Subasta");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -86,6 +86,8 @@ public class PCliente extends JFrame {
 			@Override
 			public void keyTyped(java.awt.event.KeyEvent evt) {
 				char car2 = evt.getKeyChar();
+				if (tfPuerto.getText().length() >= 5)
+					evt.consume();
 				if ((car2 < '0' || car2 > '9'))
 					evt.consume();
 			}
@@ -156,7 +158,7 @@ public class PCliente extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				// JOptionPane.showMessageDialog(new JFrame(),
 				// "PCliente / click a conectarse");
-				if (validacion()) {  //problema
+				if (validacion()) { // problema
 
 					try {
 						int puerto = Integer.parseInt(tfPuerto.getText());
@@ -205,25 +207,29 @@ public class PCliente extends JFrame {
 			mensajeV = "\u00A1Debe escribir la IP!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
 					JOptionPane.WARNING_MESSAGE);
+			tfIp.requestFocus();
 			return false;
 		} else if (puertoV.equals("")) {
 			mensajeV = "\u00A1Debe escribir el numero de puerto!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
 					JOptionPane.WARNING_MESSAGE);
+			tfPuerto.requestFocus();
 			return false;
 		} else if (nombreV.equals("")) {
 			mensajeV = "\u00A1Debe escribir el nombre de usuario!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
 					JOptionPane.WARNING_MESSAGE);
+			tfNombreCliente.requestFocus();
 			return false;
 		} else if (montoV.equals("")) {
 			mensajeV = "\u00A1Debe escribir el monto!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
 					JOptionPane.WARNING_MESSAGE);
+			tfMonto.requestFocus();
 			return false;
 		} else {
-			JOptionPane.showMessageDialog(null, "OK", "\u00A1Advertencia!",
-					JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Ha ingresado a la subasta",
+					"\u00A1Bienvenido!", JOptionPane.INFORMATION_MESSAGE);
 			return true;
 		}
 

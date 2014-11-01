@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import modelo.Cliente;
 import modelo.Producto;
 import controlador.General;
+import controlador.Temporizador;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -161,14 +162,13 @@ public class PrincipalSubastaCliente extends JFrame {
 	public void enviarMensaje() {
 		if (General.esNumero(tfMensaje.getText())) {
 			if (validarMonto()) {
-
 				General.cliente.enviarMensajeHilo(tfMensaje.getText());
 				General.getProductoSeleccionado().setValor(
 						Long.parseLong(tfMensaje.getText()));
 				General.cliente.enviarProductoHilo(General
 						.getProductoSeleccionado());
 				tfMensaje.setText("");
-			}else{
+			} else {
 				return;
 			}
 
@@ -176,6 +176,8 @@ public class PrincipalSubastaCliente extends JFrame {
 			JOptionPane.showMessageDialog(new JFrame(),
 					"Por favor digite un número valido", "Datos",
 					JOptionPane.ERROR_MESSAGE);
+			tfMensaje.setText("");
+			tfMensaje.requestFocus();
 		}
 	}
 
@@ -246,5 +248,9 @@ public class PrincipalSubastaCliente extends JFrame {
 		}
 		return true;
 
+	}
+	
+	public void reloj(){
+		Temporizador.reloj();
 	}
 }
