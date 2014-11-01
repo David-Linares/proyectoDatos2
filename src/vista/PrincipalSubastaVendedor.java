@@ -9,13 +9,18 @@ import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+
 import javax.swing.SwingConstants;
+
 import controlador.General;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+
 import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 
@@ -24,7 +29,7 @@ public class PrincipalSubastaVendedor extends JFrame {
 
 	private JPanel contentPane;
 	@SuppressWarnings("rawtypes")
-	public JList listConectados = new JList();
+	private JList listConectados = new JList();
 	private JLabel labelIp;
 	private JTextPane tpMensajesSubasta = new JTextPane();
 	private JScrollPane panelScroll = new JScrollPane(tpMensajesSubasta);
@@ -45,6 +50,22 @@ public class PrincipalSubastaVendedor extends JFrame {
 			}
 		});
 	}
+
+	
+	
+	@SuppressWarnings("rawtypes")
+	public JList getListConectados() {
+		return listConectados;
+	}
+
+
+
+	@SuppressWarnings("rawtypes")
+	public void setListConectados(JList listConectados) {
+		this.listConectados = listConectados;
+	}
+
+
 
 	public JTextPane getTpMensajesSubasta() {
 		return tpMensajesSubasta;

@@ -116,6 +116,7 @@ public class PVendedor extends JFrame {
 						int puerto = Integer.parseInt(textFieldPuerto.getText());
 						general.setTextPaneVendedor(principalSubasta
 								.getTpMensajesSubasta());
+						general.setContenedorConexiones(principalSubasta.getListConectados());
 						General.servidor = new CServidor(puerto); // Poner el
 																	// TextPane
 																	// de la
@@ -125,7 +126,7 @@ public class PVendedor extends JFrame {
 					}
 
 					setVisible(false);
-					principalSubasta.listConectados
+					general.getContenedorConexiones()
 							.setModel(general.listadoConectados);
 					principalSubasta.setVisible(true);
 				}

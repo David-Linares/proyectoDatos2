@@ -48,6 +48,7 @@ public class Conexion extends Thread {
 	}
 
 	// LE LLEGAN LOS DATOS 
+	@SuppressWarnings("unchecked")
 	public void run() {
 		while (true) {
 			try {
@@ -64,6 +65,7 @@ public class Conexion extends Thread {
 					clienteTemp = (Cliente) eMensaje;
 					general.enviarDatos(operacion, eMensaje);
 					general.getTextPaneVendedor().setText(general.getTextPaneVendedor().getText() + clienteTemp.getNombre() + " se conectó \n");
+					general.listadoConectados.addElement(clienteTemp.getNombre());
 					break;
 				case 2:
 					System.out.println("Entró a la condi 2");
