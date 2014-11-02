@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JTextPane;
 
+import vista.PrincipalSubastaVendedor;
 import modelo.Producto;
 
 public class General {
@@ -21,10 +22,17 @@ public class General {
 	public static CServidor servidor = null;
 	public static CCliente cliente = null;
 	public static int puerto = 9090;
-	private JTextPane panelSubastaCliente;	
-	@SuppressWarnings("rawtypes")
-	private JList contenedorConexiones;
+	private static PrincipalSubastaVendedor ventanaServidor;
+	private JTextPane panelSubastaCliente;
 	
+	public static PrincipalSubastaVendedor getVentanaServidor() {
+		return ventanaServidor;
+	}
+
+	public static void setVentanaServidor(PrincipalSubastaVendedor ventanaServidor) {
+		General.ventanaServidor = ventanaServidor;
+	}
+
 	public Icon getIcon(String nombreIcono){
 		return new ImageIcon("images/"+nombreIcono+".png");
 	}
@@ -36,28 +44,10 @@ public class General {
 	public void setPanelSubastaCliente(JTextPane panelSubastaCliente) {
 		this.panelSubastaCliente = panelSubastaCliente;
 	}
-
-	public JTextPane getTextPaneVendedor(){
-		return panelSubastaCliente;
-	}
-	
-	public void setTextPaneVendedor(JTextPane panelCliente){
-		this.panelSubastaCliente = panelCliente;
-	}
 	
 	
 	//Hay que poner un nuevo textPane que es el que se va a implementar en todas las ventanas nuevas.
 	//Crear una variable de Conexión para el servidor (Leer comentario CServidor Linea 35)
-
-	@SuppressWarnings("rawtypes")
-	public JList getContenedorConexiones() {
-		return contenedorConexiones;
-	}
-
-	@SuppressWarnings("rawtypes")
-	public void setContenedorConexiones(JList contenedorConexiones) {
-		this.contenedorConexiones = contenedorConexiones;
-	}
 
 	private General(){
 		Producto producto1 = new Producto(1, "Bicicleta", 200000);

@@ -36,6 +36,7 @@ public class PrincipalSubastaVendedor extends JFrame {
 	private JScrollPane panelScroll = new JScrollPane(tpMensajesSubasta);
 	General general = General.getInstance();
 	private JScrollPane scrollLista = new JScrollPane();
+	private JLabel lblProductoSubastado;
 
 	/**
 	 * Launch the application.
@@ -72,10 +73,13 @@ public class PrincipalSubastaVendedor extends JFrame {
 	public JTextPane getTpMensajesSubasta() {
 		return tpMensajesSubasta;
 	}
+	
+	public JLabel getLblProductoSubastado() {
+		return lblProductoSubastado;
+	}
 
-	/**
-	 * Create the frame.
-	 */
+
+
 	@SuppressWarnings("unchecked")
 	public PrincipalSubastaVendedor() {
 		setResizable(false);
@@ -103,14 +107,14 @@ public class PrincipalSubastaVendedor extends JFrame {
 		});
 		btnNewButton.setBounds(285, 310, 211, 37);
 		contentPane.add(btnNewButton);
+		
+		lblProductoSubastado = new JLabel();
+		lblProductoSubastado.setFont(new Font("Dialog", Font.BOLD, 11));
+		lblProductoSubastado.setHorizontalAlignment(SwingConstants.CENTER);
+		lblProductoSubastado.setBounds(10, 11, 345, 23);
+		contentPane.add(lblProductoSubastado);
 
-		JLabel productoSubastado = new JLabel("New label");
-		productoSubastado.setFont(new Font("Dialog", Font.BOLD, 11));
-		productoSubastado.setHorizontalAlignment(SwingConstants.CENTER);
-		productoSubastado.setBounds(10, 11, 345, 23);
-		contentPane.add(productoSubastado);
-
-		productoSubastado.setText(General.getProductoSeleccionado().getNombre()
+		lblProductoSubastado.setText(General.getProductoSeleccionado().getNombre()
 				+ " = " + General.getProductoSeleccionado().getValor());
 		try {
 			labelIp = new JLabel("IP: "
