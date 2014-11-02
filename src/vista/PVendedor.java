@@ -148,7 +148,7 @@ public class PVendedor extends JFrame {
 		String mensajeV = "";
 
 		if (puerto.equals("")) {
-			mensajeV = "\u00A1Debe escribir el numero de puerto!\n";
+			mensajeV = "\u00A1Debe escribir el n\u00famero de puerto!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
 					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
 			textFieldPuerto.requestFocus();

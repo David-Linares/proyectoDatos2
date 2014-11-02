@@ -108,6 +108,8 @@ public class PCliente extends JFrame {
 			@Override
 			public void keyTyped(java.awt.event.KeyEvent evt) {
 				char car = evt.getKeyChar();
+				if (tfPuerto.getText().length() >= 18)
+					evt.consume();
 				if ((car < '0' || car > '9')) {
 					evt.consume();
 				}
@@ -164,8 +166,7 @@ public class PCliente extends JFrame {
 						int puerto = Integer.parseInt(tfPuerto.getText());
 						String ip = tfIp.getText();
 						Cliente nuevoCliente = new Cliente(tfNombreCliente
-								.getText(), Double.parseDouble(tfMonto
-								.getText()));
+								.getText(), Long.parseLong(tfMonto.getText()));
 						if (General.cliente == null) {
 							General.cliente = new CCliente(puerto, ip,
 									nuevoCliente);
@@ -210,7 +211,7 @@ public class PCliente extends JFrame {
 			tfIp.requestFocus();
 			return false;
 		} else if (puertoV.equals("")) {
-			mensajeV = "\u00A1Debe escribir el numero de puerto!\n";
+			mensajeV = "\u00A1Debe escribir el n\u00famero de puerto!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
 					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
 			tfPuerto.requestFocus();

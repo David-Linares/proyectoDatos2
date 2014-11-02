@@ -178,7 +178,7 @@ public class PrincipalSubastaCliente extends JFrame {
 		} else {
 			JOptionPane.showMessageDialog(new JFrame(),
 					"Por favor digite un número valido", "Datos",
-					JOptionPane.ERROR_MESSAGE);
+					JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
 			tfMensaje.setText("");
 			tfMensaje.requestFocus();
 		}
@@ -191,7 +191,7 @@ public class PrincipalSubastaCliente extends JFrame {
 						new JFrame(),
 						"Realmente deseas salir de la subasta? \n Una vez sales tienes que esperar\n a una próxima subasta para poder ingresar.",
 						"Salir?", JOptionPane.YES_NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE, null, opciones,
+						JOptionPane.INFORMATION_MESSAGE, general.getIcon("sure"), opciones,
 						opciones[1]);
 		if (respuesta == JOptionPane.NO_OPTION) {
 			return;
@@ -239,13 +239,13 @@ public class PrincipalSubastaCliente extends JFrame {
 		if (monto > General.cliente.getClienteConectado().getMonto()) {
 			JOptionPane.showMessageDialog(new JFrame(),
 					"Valor superior al monto inicial", "Datos",
-					JOptionPane.ERROR_MESSAGE);
+					JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
 			return false;
 
 		} else if (monto < General.getProductoSeleccionado().getValor()) {
 			JOptionPane.showMessageDialog(new JFrame(),
 					"Valor debe ser superior al actual", "Datos",
-					JOptionPane.ERROR_MESSAGE);
+					JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
 			return false;
 
 		}

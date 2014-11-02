@@ -23,7 +23,7 @@ import java.awt.Font;
 
 import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
-import java.awt.Window.Type;
+
 
 @SuppressWarnings("serial")
 public class PrincipalSubastaVendedor extends JFrame {
