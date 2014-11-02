@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 
 import modelo.Producto;
@@ -20,8 +22,7 @@ public class General {
 	private static Producto productoSeleccionado;
 	public static CServidor servidor = null;
 	public static CCliente cliente = null;
-	public static int puerto = 9090;
-	private JTextPane panelSubastaCliente;	
+	private JTextPane panelSubastaCliente;
 	@SuppressWarnings("rawtypes")
 	private JList contenedorConexiones;
 	
@@ -126,12 +127,27 @@ public class General {
 		conexiones.remove(pos);
 	}
 	
-	public static boolean esNumero(String valor){
+	public boolean validarMonto(String valor) {
 		try{
-			Integer.parseInt(valor);
-			return true;
+			long monto = Long.parseLong(valor);
+			
+			if (monto > General.cliente.getClienteConectado().getMonto()) {
+				JOptionPane.showMessageDialog(new JFrame(),
+						"Valor superior al monto inicial", "Datos",
+						JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
+				return false;
+				
+			} else if (monto < General.getProductoSeleccionado().getValor()) {
+				JOptionPane.showMessageDialog(new JFrame(),
+						"Valor debe ser superior al actual", "Datos",
+						JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
+				return false;
+				
+			}
+			return true;			
 		}catch(Exception e){
 			return false;
 		}
+
 	}
 }
