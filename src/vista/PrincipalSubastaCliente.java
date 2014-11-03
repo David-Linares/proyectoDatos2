@@ -40,7 +40,7 @@ public class PrincipalSubastaCliente extends JFrame {
 	private JTextPane panelSubasta = new JTextPane();
 	public JLabel lblProductoSubastado = new JLabel();
 	private JScrollPane panelScroll = new JScrollPane(panelSubasta);
-	
+
 	private JScrollPane scrollLista = new JScrollPane();
 
 	/**
@@ -159,22 +159,16 @@ public class PrincipalSubastaCliente extends JFrame {
 					"SubastaCliente / Se produjo un error en la lectura de IP "
 							+ e.getMessage());
 		}
-
 	}
 
 	public void enviarMensaje() {
-		if (General.esNumero(tfMensaje.getText())) {
-			if (validarMonto()) {
-				General.cliente.enviarMensajeHilo(tfMensaje.getText());
-				General.getProductoSeleccionado().setValor(
-						Long.parseLong(tfMensaje.getText()));
-				General.cliente.enviarProductoHilo(General
-						.getProductoSeleccionado());
-				tfMensaje.setText("");
-			} else {
-				return;
-			}
-
+		if (general.validarMonto(tfMensaje.getText())) {
+			General.cliente.enviarMensajeHilo(tfMensaje.getText());
+			General.getProductoSeleccionado().setValor(
+					Long.parseLong(tfMensaje.getText()));
+			General.cliente.enviarProductoHilo(General
+					.getProductoSeleccionado());
+			tfMensaje.setText("");
 		} else {
 			JOptionPane.showMessageDialog(new JFrame(),
 					"Por favor digite un n\u00famero valido", "Datos",
@@ -191,8 +185,8 @@ public class PrincipalSubastaCliente extends JFrame {
 						new JFrame(),
 						"Realmente deseas salir de la subasta? \n Una vez sales tienes que esperar\n a una pr\u00f3xima subasta para poder ingresar.",
 						"Salir?", JOptionPane.YES_NO_OPTION,
-						JOptionPane.INFORMATION_MESSAGE, general.getIcon("sure"), opciones,
-						opciones[1]);
+						JOptionPane.INFORMATION_MESSAGE,
+						general.getIcon("sure"), opciones, opciones[1]);
 		if (respuesta == JOptionPane.NO_OPTION) {
 			return;
 		}
@@ -232,28 +226,7 @@ public class PrincipalSubastaCliente extends JFrame {
 		general.listadoConectados.remove(posicion);
 	}
 
-	public boolean validarMonto() {
-
-		int monto = Integer.parseInt(this.tfMensaje.getText());
-
-		if (monto > General.cliente.getClienteConectado().getMonto()) {
-			JOptionPane.showMessageDialog(new JFrame(),
-					"Valor superior al monto inicial", "Datos",
-					JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
-			return false;
-
-		} else if (monto < General.getProductoSeleccionado().getValor()) {
-			JOptionPane.showMessageDialog(new JFrame(),
-					"Valor debe ser superior al actual", "Datos",
-					JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
-			return false;
-
-		}
-		return true;
-
-	}
-	
-	public void reloj(){
+	public void reloj() {
 		Temporizador.reloj();
 	}
 }

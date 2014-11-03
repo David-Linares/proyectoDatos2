@@ -27,9 +27,6 @@ public class Principal extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Principal() {
 		getContentPane().setBackground(new Color(0, 0, 0, 0.5f));
 		getContentPane().setForeground(new Color(0, 0, 0));
@@ -65,6 +62,5 @@ public class Principal extends JFrame {
 		});
 		btnNewButton_1.setBounds(12, 66, 338, 42);
 		getContentPane().add(btnNewButton_1);
-
 	}
 }

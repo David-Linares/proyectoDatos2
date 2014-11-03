@@ -116,30 +116,17 @@ public class PVendedor extends JFrame {
 					PrincipalSubastaVendedor principalSubasta = new PrincipalSubastaVendedor();
 					if (General.servidor == null) {
 						int puerto = Integer.parseInt(textFieldPuerto.getText());
-						general.setTextPaneVendedor(principalSubasta
-								.getTpMensajesSubasta());
-						general.setContenedorConexiones(principalSubasta.getListConectados());
-						General.servidor = new CServidor(puerto); // Poner el
-																	// TextPane
-																	// de la
-																	// clase
-																	// general.
+						General.setVentanaServidor(principalSubasta);
+						General.servidor = new CServidor(puerto);
 						General.servidor.start();
 					}
 
 					setVisible(false);
-					general.getContenedorConexiones()
-							.setModel(general.listadoConectados);
+					General.getVentanaServidor().getListConectados().setModel(general.listadoConectados);
 					principalSubasta.setVisible(true);
 				}
 			}
 		});
-
-	}
-
-	protected void showMessageDialog(ActionListener actionListener,
-			String string) {
-		// TODO Auto-generated method stub
 
 	}
 

@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JList;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 
+import vista.PrincipalSubastaVendedor;
+import modelo.Cliente;
 import modelo.Producto;
 
 public class General {
@@ -16,15 +19,21 @@ public class General {
 	public static Producto[] productos;
 	private ArrayList<Conexion> conexiones = new ArrayList<Conexion>();
 	@SuppressWarnings("rawtypes")
-	public DefaultListModel listadoConectados = new DefaultListModel();
+	public static DefaultListModel listadoConectados = new DefaultListModel();
 	private static Producto productoSeleccionado;
 	public static CServidor servidor = null;
 	public static CCliente cliente = null;
-	public static int puerto = 9090;
-	private JTextPane panelSubastaCliente;	
-	@SuppressWarnings("rawtypes")
-	private JList contenedorConexiones;
+	private static PrincipalSubastaVendedor ventanaServidor;
+	private JTextPane panelSubastaCliente;
 	
+	public static PrincipalSubastaVendedor getVentanaServidor() {
+		return ventanaServidor;
+	}
+
+	public static void setVentanaServidor(PrincipalSubastaVendedor ventanaServidor) {
+		General.ventanaServidor = ventanaServidor;
+	}
+
 	public Icon getIcon(String nombreIcono){
 		return new ImageIcon("images/"+nombreIcono+".png");
 	}
@@ -36,28 +45,10 @@ public class General {
 	public void setPanelSubastaCliente(JTextPane panelSubastaCliente) {
 		this.panelSubastaCliente = panelSubastaCliente;
 	}
-
-	public JTextPane getTextPaneVendedor(){
-		return panelSubastaCliente;
-	}
-	
-	public void setTextPaneVendedor(JTextPane panelCliente){
-		this.panelSubastaCliente = panelCliente;
-	}
 	
 	
 	//Hay que poner un nuevo textPane que es el que se va a implementar en todas las ventanas nuevas.
 	//Crear una variable de Conexión para el servidor (Leer comentario CServidor Linea 35)
-
-	@SuppressWarnings("rawtypes")
-	public JList getContenedorConexiones() {
-		return contenedorConexiones;
-	}
-
-	@SuppressWarnings("rawtypes")
-	public void setContenedorConexiones(JList contenedorConexiones) {
-		this.contenedorConexiones = contenedorConexiones;
-	}
 
 	private General(){
 		Producto producto1 = new Producto(1, "Bicicleta", 200000);
@@ -126,12 +117,33 @@ public class General {
 		conexiones.remove(pos);
 	}
 	
-	public static boolean esNumero(String valor){
+	public boolean validarMonto(String valor) {
 		try{
-			Integer.parseInt(valor);
-			return true;
+			long monto = Long.parseLong(valor);
+			
+			if (monto > General.cliente.getClienteConectado().getMonto()) {
+				JOptionPane.showMessageDialog(new JFrame(),
+						"Valor superior al monto inicial", "Datos",
+						JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
+				return false;
+				
+			} else if (monto < General.getProductoSeleccionado().getValor()) {
+				JOptionPane.showMessageDialog(new JFrame(),
+						"Valor debe ser superior al actual", "Datos",
+						JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
+				return false;
+				
+			}
+			return true;			
 		}catch(Exception e){
 			return false;
 		}
+
+	}
+	public static boolean validarExistente(Cliente nuevoCliente){
+		if (listadoConectados.contains(nuevoCliente.getNombre()))
+			return true;
+		else
+			return false;
 	}
 }
