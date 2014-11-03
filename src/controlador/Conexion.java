@@ -75,6 +75,8 @@ public class Conexion extends Thread {
 											+ (String) eMensaje + "\n");
 					break;
 				case 3:
+					General.getVentanaServidor().borrarCliente(
+							(String) eMensaje);
 					general.desconecta(this);
 					General.getVentanaServidor()
 							.getTpMensajesSubasta()
@@ -83,7 +85,6 @@ public class Conexion extends Thread {
 											.getTpMensajesSubasta().getText()
 											+ clienteTemp.getNombre()
 											+ " se desconect\u00f3 \n");
-
 					break;
 				case 4:
 					eMensaje = (Producto) eMensaje;

@@ -178,7 +178,7 @@ public class PCliente extends JFrame {
 						}
 						// PENDIENTE
 						psubasta.listConectados
-								.setModel(general.listadoConectados);
+								.setModel(General.listadoConectados);
 						psubasta.setVisible(true);
 						setVisible(false);
 					} catch (Exception e) {

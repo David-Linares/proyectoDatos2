@@ -122,7 +122,7 @@ public class PVendedor extends JFrame {
 					}
 
 					setVisible(false);
-					General.getVentanaServidor().getListConectados().setModel(general.listadoConectados);
+					General.getVentanaServidor().getListConectados().setModel(General.listadoConectados);
 					principalSubasta.setVisible(true);
 				}
 			}

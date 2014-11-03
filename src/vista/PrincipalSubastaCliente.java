@@ -191,12 +191,12 @@ public class PrincipalSubastaCliente extends JFrame {
 			return;
 		}
 		if (General.cliente != null) {
-			General.cliente.enviarDatosCliente(3, null);
+			General.cliente.enviarDatosCliente(3, General.cliente.getClienteConectado().getNombre());
 			General.cliente.interrupt();
 		}
 		General.cliente = null;
 		setVisible(false);
-		general.listadoConectados.removeAllElements();
+		General.listadoConectados.removeAllElements();
 		panelSubasta.setText("");
 		Principal regreso = new Principal();
 		regreso.setVisible(true);
@@ -205,7 +205,7 @@ public class PrincipalSubastaCliente extends JFrame {
 	// OK
 	@SuppressWarnings("unchecked")
 	public void agregarNuevo(Cliente nuevoCliente) {
-		general.listadoConectados.addElement(nuevoCliente.getNombre());
+		General.listadoConectados.addElement(nuevoCliente.getNombre());
 	}
 
 	public void agregarProductoEnSubasta(Producto productoSubastado) {
@@ -223,7 +223,7 @@ public class PrincipalSubastaCliente extends JFrame {
 
 	// OK
 	public void borrarCliente(int posicion) {
-		general.listadoConectados.remove(posicion);
+		General.listadoConectados.remove(posicion);
 	}
 
 	public void reloj() {

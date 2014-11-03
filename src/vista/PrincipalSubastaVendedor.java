@@ -96,7 +96,7 @@ public class PrincipalSubastaVendedor extends JFrame {
 		scrollLista.setViewportView(listConectados);
 		contentPane.add(scrollLista);
 
-		listConectados.setModel(general.listadoConectados);
+		listConectados.setModel(General.listadoConectados);
 
 		JButton btnNewButton = new JButton("Finalizar Subasta");
 		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 11));
@@ -131,12 +131,13 @@ public class PrincipalSubastaVendedor extends JFrame {
 	}
 
 	public void mensajeRecibido(String nuevoMensaje) {
-		// Con la variable que creaste de conexión de servidor (Leer CServidor
-		// linea 35) llamas el textPane
-		// que tiene esa variable
-		// y le das el método para agregarle el texto, que creo que es
-		// textPane.setText("....");
 		tpMensajesSubasta.setText(tpMensajesSubasta.getText() + nuevoMensaje
 				+ "\n");
+	}
+	
+	public void borrarCliente(String nombre) {
+		int pos = General.listadoConectados.indexOf(nombre);
+		General.listadoConectados.remove(pos);
+		
 	}
 }
