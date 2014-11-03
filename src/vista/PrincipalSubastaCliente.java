@@ -159,12 +159,11 @@ public class PrincipalSubastaCliente extends JFrame {
 					"SubastaCliente / Se produjo un error en la lectura de IP "
 							+ e.getMessage());
 		}
-
 	}
 
 	public void enviarMensaje() {
 		if (general.validarMonto(tfMensaje.getText())) {
-			General.cliente.enviarMensajeHilo(tfMensaje.getText());
+			General.cliente.enviarMensajeHilo(tfMensaje.getText());			
 			General.getProductoSeleccionado().setValor(
 					Long.parseLong(tfMensaje.getText()));
 			General.cliente.enviarProductoHilo(General

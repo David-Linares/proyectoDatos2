@@ -24,7 +24,7 @@ public class CServidor extends Thread {
 		ServerSocket sServidor = null;
 		Conexion nuevaConexion = null;
 		try {
-			sServidor = new ServerSocket(puerto);	
+			sServidor = new ServerSocket(puerto);
 			while (true) {
 				Socket nuevoSServidor = sServidor.accept();
 				nuevaConexion = new Conexion(nuevoSServidor);

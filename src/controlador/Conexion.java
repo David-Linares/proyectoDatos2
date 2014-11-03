@@ -48,6 +48,7 @@ public class Conexion extends Thread {
 				switch (operacion) {
 				case 1:
 					clienteTemp = (Cliente) eMensaje;
+					if(General.validarExistente(clienteTemp))this.s.close();
 					general.enviarDatos(operacion, eMensaje);
 					General.getVentanaServidor()
 							.getTpMensajesSubasta()
@@ -56,7 +57,7 @@ public class Conexion extends Thread {
 											.getTpMensajesSubasta().getText()
 											+ clienteTemp.getNombre()
 											+ " se conectó \n");
-					general.listadoConectados.addElement(clienteTemp
+					General.listadoConectados.addElement(clienteTemp
 							.getNombre());
 					break;
 				case 2:

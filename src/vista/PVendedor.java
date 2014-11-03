@@ -122,17 +122,11 @@ public class PVendedor extends JFrame {
 					}
 
 					setVisible(false);
-					general.getVentanaServidor().getListConectados().setModel(general.listadoConectados);
+					General.getVentanaServidor().getListConectados().setModel(general.listadoConectados);
 					principalSubasta.setVisible(true);
 				}
 			}
 		});
-
-	}
-
-	protected void showMessageDialog(ActionListener actionListener,
-			String string) {
-		// TODO Auto-generated method stub
 
 	}
 

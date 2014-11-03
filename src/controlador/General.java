@@ -6,11 +6,11 @@ import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 
 import vista.PrincipalSubastaVendedor;
+import modelo.Cliente;
 import modelo.Producto;
 
 public class General {
@@ -19,7 +19,7 @@ public class General {
 	public static Producto[] productos;
 	private ArrayList<Conexion> conexiones = new ArrayList<Conexion>();
 	@SuppressWarnings("rawtypes")
-	public DefaultListModel listadoConectados = new DefaultListModel();
+	public static DefaultListModel listadoConectados = new DefaultListModel();
 	private static Producto productoSeleccionado;
 	public static CServidor servidor = null;
 	public static CCliente cliente = null;
@@ -139,5 +139,11 @@ public class General {
 			return false;
 		}
 
+	}
+	public static boolean validarExistente(Cliente nuevoCliente){
+		if (listadoConectados.contains(nuevoCliente.getNombre()))
+			return true;
+		else
+			return false;
 	}
 }
