@@ -64,7 +64,7 @@ public class Conexion extends Thread {
 					//JOptionPane.showMessageDialog(new JFrame(), "Conexión " + this.productoSubastado);
 					clienteTemp = (Cliente) eMensaje;
 					general.enviarDatos(operacion, eMensaje);
-					general.getTextPaneVendedor().setText(general.getTextPaneVendedor().getText() + clienteTemp.getNombre() + " se conectó \n");
+					general.getTextPaneVendedor().setText(general.getTextPaneVendedor().getText() + clienteTemp.getNombre() + " se conect\u00f3 \n");
 					general.listadoConectados.addElement(clienteTemp.getNombre());
 					break;
 				case 2:
@@ -75,7 +75,7 @@ public class Conexion extends Thread {
 					break;
 				case 3:
 					general.desconecta(this);
-					this.tpMensajesSubasta.setText(this.tpMensajesSubasta.getText() + clienteTemp.getNombre() + " se desconectó \n");
+					this.tpMensajesSubasta.setText(this.tpMensajesSubasta.getText() + clienteTemp.getNombre() + " se desconect\u00f3 \n");
 					break;
 				case 4:
 					eMensaje = (Producto) eMensaje;

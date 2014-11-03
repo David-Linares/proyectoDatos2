@@ -177,7 +177,7 @@ public class PrincipalSubastaCliente extends JFrame {
 
 		} else {
 			JOptionPane.showMessageDialog(new JFrame(),
-					"Por favor digite un número valido", "Datos",
+					"Por favor digite un n\u00famero valido", "Datos",
 					JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
 			tfMensaje.setText("");
 			tfMensaje.requestFocus();
@@ -189,7 +189,7 @@ public class PrincipalSubastaCliente extends JFrame {
 		int respuesta = JOptionPane
 				.showOptionDialog(
 						new JFrame(),
-						"Realmente deseas salir de la subasta? \n Una vez sales tienes que esperar\n a una próxima subasta para poder ingresar.",
+						"Realmente deseas salir de la subasta? \n Una vez sales tienes que esperar\n a una pr\u00f3xima subasta para poder ingresar.",
 						"Salir?", JOptionPane.YES_NO_OPTION,
 						JOptionPane.INFORMATION_MESSAGE, general.getIcon("sure"), opciones,
 						opciones[1]);
