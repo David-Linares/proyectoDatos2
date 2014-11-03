@@ -12,13 +12,13 @@ public class Cliente implements Serializable {
 	private static final long serialVersionUID = -1827287870763275550L;
 	
 	private String nombre;
-	private double monto;
+	private long monto;
 		
 	public Cliente() {
 		super();
 	}
 
-	public Cliente(String nombre, double monto) {
+	public Cliente(String nombre, long monto) {
 		super();
 		this.nombre = nombre;
 		this.monto = monto;
@@ -32,11 +32,11 @@ public class Cliente implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public double getMonto() {
+	public long getMonto() {
 		return monto;
 	}
 
-	public void setMonto(double monto) {
+	public void setMonto(long monto) {
 		this.monto = monto;
 	}
 

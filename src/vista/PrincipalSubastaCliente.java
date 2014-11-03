@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import modelo.Cliente;
 import modelo.Producto;
 import controlador.General;
+import controlador.Temporizador;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -39,6 +40,8 @@ public class PrincipalSubastaCliente extends JFrame {
 	private JTextPane panelSubasta = new JTextPane();
 	public JLabel lblProductoSubastado = new JLabel();
 	private JScrollPane panelScroll = new JScrollPane(panelSubasta);
+
+	private JScrollPane scrollLista = new JScrollPane();
 
 	/**
 	 * Launch the application.
@@ -79,9 +82,10 @@ public class PrincipalSubastaCliente extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		listConectados.setBounds(465, 119, 131, 254);
-		listConectados.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
-		contentPane.add(listConectados);
+		scrollLista.setBounds(465, 119, 131, 254);
+		scrollLista.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
+		scrollLista.setViewportView(listConectados);
+		contentPane.add(scrollLista);
 
 		JButton btnAbandonarSubasta = new JButton("Abandonar Subasta");
 		btnAbandonarSubasta.setBounds(385, 428, 211, 37);
@@ -155,20 +159,22 @@ public class PrincipalSubastaCliente extends JFrame {
 					"SubastaCliente / Se produjo un error en la lectura de IP "
 							+ e.getMessage());
 		}
-
 	}
 
 	public void enviarMensaje() {
-		if (General.esNumero(tfMensaje.getText())) {
+		if (general.validarMonto(tfMensaje.getText())) {
 			General.cliente.enviarMensajeHilo(tfMensaje.getText());
-			General.getProductoSeleccionado().setValor(Long.parseLong(tfMensaje.getText())); 
+			General.getProductoSeleccionado().setValor(
+					Long.parseLong(tfMensaje.getText()));
 			General.cliente.enviarProductoHilo(General
 					.getProductoSeleccionado());
 			tfMensaje.setText("");
 		} else {
 			JOptionPane.showMessageDialog(new JFrame(),
-					"Por favor digite un número valido", "Datos",
-					JOptionPane.ERROR_MESSAGE);
+					"Por favor digite un n\u00famero valido", "Datos",
+					JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
+			tfMensaje.setText("");
+			tfMensaje.requestFocus();
 		}
 	}
 
@@ -177,10 +183,10 @@ public class PrincipalSubastaCliente extends JFrame {
 		int respuesta = JOptionPane
 				.showOptionDialog(
 						new JFrame(),
-						"Realmente deseas salir de la subasta? \n Una vez sales tienes que esperar\n a una próxima subasta para poder ingresar.",
+						"Realmente deseas salir de la subasta? \n Una vez sales tienes que esperar\n a una pr\u00f3xima subasta para poder ingresar.",
 						"Salir?", JOptionPane.YES_NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE, null, opciones,
-						opciones[1]);
+						JOptionPane.INFORMATION_MESSAGE,
+						general.getIcon("sure"), opciones, opciones[1]);
 		if (respuesta == JOptionPane.NO_OPTION) {
 			return;
 		}
@@ -218,5 +224,9 @@ public class PrincipalSubastaCliente extends JFrame {
 	// OK
 	public void borrarCliente(int posicion) {
 		general.listadoConectados.remove(posicion);
+	}
+
+	public void reloj() {
+		Temporizador.reloj();
 	}
 }

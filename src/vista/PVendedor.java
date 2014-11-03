@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -85,6 +86,8 @@ public class PVendedor extends JFrame {
 			@Override
 			public void keyTyped(KeyEvent evt) {
 				char car = evt.getKeyChar();
+				if (textFieldPuerto.getText().length() >= 5)
+					evt.consume();
 				if ((car < '0' || car > '9')) {
 					evt.consume();
 				}
@@ -104,22 +107,41 @@ public class PVendedor extends JFrame {
 			// OK
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
-				General.setProductoSeleccionado((Producto) listaProductos
-						.getSelectedItem());
-				PrincipalSubastaVendedor principalSubasta = new PrincipalSubastaVendedor();
-				if (General.servidor == null){
-					int puerto =Integer.parseInt(textFieldPuerto.getText());
-					general.setTextPaneVendedor(principalSubasta.getTpMensajesSubasta());
-					General.servidor = new CServidor(puerto); //Poner el TextPane de la clase general.
-					General.servidor.start();
-				}
 
-				setVisible(false);
-				principalSubasta.listConectados
-						.setModel(general.listadoConectados);
-				principalSubasta.setVisible(true);
+				// METODO VALIDACION
+				if (validacion()) {
+
+					General.setProductoSeleccionado((Producto) listaProductos
+							.getSelectedItem());
+					PrincipalSubastaVendedor principalSubasta = new PrincipalSubastaVendedor();
+					if (General.servidor == null) {
+						int puerto = Integer.parseInt(textFieldPuerto.getText());
+						General.setVentanaServidor(principalSubasta);
+						General.servidor = new CServidor(puerto);
+						General.servidor.start();
+					}
+
+					setVisible(false);
+					General.getVentanaServidor().getListConectados().setModel(general.listadoConectados);
+					principalSubasta.setVisible(true);
+				}
 			}
 		});
+
+	}
+
+	private boolean validacion() {
+		String puerto = this.textFieldPuerto.getText();
+		String mensajeV = "";
+
+		if (puerto.equals("")) {
+			mensajeV = "\u00A1Debe escribir el n\u00famero de puerto!\n";
+			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
+					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
+			textFieldPuerto.requestFocus();
+			return false;
+		}
+		return true;
 
 	}
 }

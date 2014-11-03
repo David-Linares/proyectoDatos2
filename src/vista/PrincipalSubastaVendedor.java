@@ -9,26 +9,34 @@ import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+
 import javax.swing.SwingConstants;
+
 import controlador.General;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+
 import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
+
 
 @SuppressWarnings("serial")
 public class PrincipalSubastaVendedor extends JFrame {
 
 	private JPanel contentPane;
 	@SuppressWarnings("rawtypes")
-	public JList listConectados = new JList();
+	private JList listConectados = new JList();
 	private JLabel labelIp;
 	private JTextPane tpMensajesSubasta = new JTextPane();
 	private JScrollPane panelScroll = new JScrollPane(tpMensajesSubasta);
 	General general = General.getInstance();
+	private JScrollPane scrollLista = new JScrollPane();
+	private JLabel lblProductoSubastado;
 
 	/**
 	 * Launch the application.
@@ -46,15 +54,35 @@ public class PrincipalSubastaVendedor extends JFrame {
 		});
 	}
 
+	
+	
+	@SuppressWarnings("rawtypes")
+	public JList getListConectados() {
+		return listConectados;
+	}
+
+
+
+	@SuppressWarnings("rawtypes")
+	public void setListConectados(JList listConectados) {
+		this.listConectados = listConectados;
+	}
+
+
+
 	public JTextPane getTpMensajesSubasta() {
 		return tpMensajesSubasta;
 	}
+	
+	public JLabel getLblProductoSubastado() {
+		return lblProductoSubastado;
+	}
 
-	/**
-	 * Create the frame.
-	 */
+
+
 	@SuppressWarnings("unchecked")
 	public PrincipalSubastaVendedor() {
+		setResizable(false);
 		tpMensajesSubasta.setEditable(false);
 		setTitle("Subasta");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,10 +91,10 @@ public class PrincipalSubastaVendedor extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		listConectados.setFont(new Font("Dialog", Font.BOLD, 11));
-
-		listConectados.setBounds(365, 45, 131, 254);
-		contentPane.add(listConectados);
+		scrollLista.setFont(new Font("Dialog", Font.BOLD, 11));
+		scrollLista.setBounds(365, 45, 131, 254);
+		scrollLista.setViewportView(listConectados);
+		contentPane.add(scrollLista);
 
 		listConectados.setModel(general.listadoConectados);
 
@@ -79,14 +107,14 @@ public class PrincipalSubastaVendedor extends JFrame {
 		});
 		btnNewButton.setBounds(285, 310, 211, 37);
 		contentPane.add(btnNewButton);
+		
+		lblProductoSubastado = new JLabel();
+		lblProductoSubastado.setFont(new Font("Dialog", Font.BOLD, 11));
+		lblProductoSubastado.setHorizontalAlignment(SwingConstants.CENTER);
+		lblProductoSubastado.setBounds(10, 11, 345, 23);
+		contentPane.add(lblProductoSubastado);
 
-		JLabel productoSubastado = new JLabel("New label");
-		productoSubastado.setFont(new Font("Dialog", Font.BOLD, 11));
-		productoSubastado.setHorizontalAlignment(SwingConstants.CENTER);
-		productoSubastado.setBounds(10, 11, 345, 23);
-		contentPane.add(productoSubastado);
-
-		productoSubastado.setText(General.getProductoSeleccionado().getNombre()
+		lblProductoSubastado.setText(General.getProductoSeleccionado().getNombre()
 				+ " = " + General.getProductoSeleccionado().getValor());
 		try {
 			labelIp = new JLabel("IP: "

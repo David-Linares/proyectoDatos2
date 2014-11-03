@@ -86,7 +86,10 @@ public class PCliente extends JFrame {
 			@Override
 			public void keyTyped(java.awt.event.KeyEvent evt) {
 				char car2 = evt.getKeyChar();
-				if((car2 <'0'||car2>'9')) evt.consume();
+				if (tfPuerto.getText().length() >= 5)
+					evt.consume();
+				if ((car2 < '0' || car2 > '9'))
+					evt.consume();
 			}
 		});
 		tfPuerto.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
@@ -105,8 +108,10 @@ public class PCliente extends JFrame {
 			@Override
 			public void keyTyped(java.awt.event.KeyEvent evt) {
 				char car = evt.getKeyChar();
+				if (tfPuerto.getText().length() >= 18)
+					evt.consume();
 				if ((car < '0' || car > '9')) {
-						evt.consume();
+					evt.consume();
 				}
 			}
 		});
@@ -127,7 +132,7 @@ public class PCliente extends JFrame {
 		lblNewLabel_1.setBounds(90, 93, 109, 23);
 		contentPane.add(lblNewLabel_1);
 
-		lblNombre = new JLabel("Nombre");
+		lblNombre = new JLabel("Nick");
 		lblNombre.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNombre.setBounds(139, 128, 60, 23);
@@ -153,31 +158,82 @@ public class PCliente extends JFrame {
 			// Inicia el hilo! - OK
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
-				//JOptionPane.showMessageDialog(new JFrame(), "PCliente / click a conectarse");
-				try {
-					int puerto = Integer.parseInt(tfPuerto.getText());
-					String ip = tfIp.getText();
-					Cliente nuevoCliente = new Cliente(tfNombreCliente
-							.getText(), Double.parseDouble(tfMonto.getText()));		
-					if (General.cliente == null) {
-						General.cliente = new CCliente(puerto, ip, nuevoCliente);
-						psubasta = new PrincipalSubastaCliente();
-						General.cliente.setVentanaCliente(psubasta);
-						general.setPanelSubastaCliente(psubasta.getPanelSubasta());
-						General.cliente.start();
-					}
-					// PENDIENTE
-					psubasta.listConectados.setModel(general.listadoConectados);
-					psubasta.setVisible(true);
-					setVisible(false);
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(new JFrame(), "PCliente / Se produjo un error"+e.getMessage());
-					General.cliente=null;
-				}
+				// JOptionPane.showMessageDialog(new JFrame(),
+				// "PCliente / click a conectarse");
+				if (validacion()) { // problema
 
+					try {
+						int puerto = Integer.parseInt(tfPuerto.getText());
+						String ip = tfIp.getText();
+						Cliente nuevoCliente = new Cliente(tfNombreCliente
+								.getText(), Long.parseLong(tfMonto.getText()));
+						if (General.cliente == null) {
+							General.cliente = new CCliente(puerto, ip,
+									nuevoCliente);
+							psubasta = new PrincipalSubastaCliente();
+							General.cliente.setVentanaCliente(psubasta);
+							general.setPanelSubastaCliente(psubasta
+									.getPanelSubasta());
+							General.cliente.start();
+						}
+						// PENDIENTE
+						psubasta.listConectados
+								.setModel(general.listadoConectados);
+						psubasta.setVisible(true);
+						setVisible(false);
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(
+								new JFrame(),
+								"PCliente / Se produjo un error"
+										+ e.getMessage());
+						General.cliente = null;
+					}
+
+				}
 			}
 
 		});
+
+	}
+
+	private boolean validacion() {
+		String ipV = this.tfIp.getText();
+		String puertoV = this.tfPuerto.getText();
+		String montoV = this.tfMonto.getText();
+		String nombreV = this.tfNombreCliente.getText();
+
+		String mensajeV = "";
+
+		if (ipV.equals("")) {
+			mensajeV = "\u00A1Debe escribir la IP!\n";
+			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
+					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
+			tfIp.requestFocus();
+			return false;
+		} else if (puertoV.equals("")) {
+			mensajeV = "\u00A1Debe escribir el n\u00famero de puerto!\n";
+			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
+					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
+			tfPuerto.requestFocus();
+			return false;
+		} else if (nombreV.equals("")) {
+			mensajeV = "\u00A1Debe escribir el nombre de usuario!\n";
+			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
+					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
+			tfNombreCliente.requestFocus();
+			return false;
+		} else if (montoV.equals("")) {
+			mensajeV = "\u00A1Debe escribir el monto!\n";
+			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
+					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
+			tfMonto.requestFocus();
+			return false;
+		} else {
+			
+			JOptionPane.showMessageDialog(null, "Ha ingresado a la subasta",
+					"\u00A1Bienvenido!", JOptionPane.INFORMATION_MESSAGE, general.getIcon("confirm"));
+			return true;
+		}
 
 	}
 
