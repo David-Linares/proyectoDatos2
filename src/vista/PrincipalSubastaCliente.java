@@ -225,8 +225,4 @@ public class PrincipalSubastaCliente extends JFrame {
 	public void borrarCliente(int posicion) {
 		General.listadoConectados.remove(posicion);
 	}
-
-	public void reloj() {
-		Temporizador.reloj();
-	}
 }
