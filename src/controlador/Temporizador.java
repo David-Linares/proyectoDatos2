@@ -1,11 +1,9 @@
 package controlador;
 
-public class Temporizador {
-
-	public static void main(String[] args) {
-
-		reloj();
-
+public class Temporizador extends Thread {
+	
+	public Temporizador(){
+		
 	}
 
 	public static void retraso() {
@@ -15,20 +13,19 @@ public class Temporizador {
 		}
 	}
 	
-	public static void reloj(){
-		int minutos = 3;
-		int segundos = 1;
-
-		for (minutos = 2; minutos >= 0; minutos--) {
-			for (segundos = 59; segundos >= 0; segundos--) {
+	public void run(){
+		String tiempo = "";
+		for (int minutos = 2; minutos >= 0; minutos--) {
+			for (int segundos = 59; segundos >= 0; segundos--) {
 				if (segundos < 10) {
-					System.out.println("0" + minutos + ":0" + segundos);
+					tiempo =  "0" + minutos + ":0" + segundos;
+					System.out.println(tiempo);
 					retraso();
 				} else {
-					System.out.println("0" + minutos + ":" + segundos);
+					tiempo = "0" + minutos + ":" + segundos;
 					retraso();
 				}
-
+				General.setTiempo(tiempo);
 			}
 			
 

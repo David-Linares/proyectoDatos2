@@ -13,6 +13,7 @@ import javax.swing.JButton;
 
 import controlador.CServidor;
 import controlador.General;
+import controlador.Temporizador;
 import modelo.Producto;
 
 import java.awt.event.ActionListener;
@@ -68,7 +69,6 @@ public class PVendedor extends JFrame {
 		lblSeleccioneElProducto.setBounds(12, 41, 198, 20);
 		contentPane.add(lblSeleccioneElProducto);
 
-		@SuppressWarnings({ "unchecked", "rawtypes" })
 		final JComboBox listaProductos = new JComboBox(General.productos);
 		listaProductos.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		lblSeleccioneElProducto.setLabelFor(listaProductos);

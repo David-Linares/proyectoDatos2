@@ -16,7 +16,6 @@ import javax.swing.SwingConstants;
 import modelo.Cliente;
 import modelo.Producto;
 import controlador.General;
-import controlador.Temporizador;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -35,11 +34,11 @@ public class PrincipalSubastaCliente extends JFrame {
 	private JPanel contentPane;
 	General general = General.getInstance();
 	private JTextField tfMensaje;
-	@SuppressWarnings("rawtypes")
 	public JList listConectados = new JList();
 	private JTextPane panelSubasta = new JTextPane();
 	public JLabel lblProductoSubastado = new JLabel();
 	private JScrollPane panelScroll = new JScrollPane(panelSubasta);
+	private JLabel lblReloj;
 
 	private JScrollPane scrollLista = new JScrollPane();
 
@@ -138,7 +137,7 @@ public class PrincipalSubastaCliente extends JFrame {
 
 		JLabel lblMontoCliente = new JLabel("Monto Disponible: "
 				+ General.cliente.getClienteConectado().getMonto());
-		lblMontoCliente.setBounds(10, 39, 443, 15);
+		lblMontoCliente.setBounds(10, 39, 172, 15);
 		lblMontoCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		contentPane.add(lblMontoCliente);
 		JLabel lblIpCliente;
@@ -153,6 +152,10 @@ public class PrincipalSubastaCliente extends JFrame {
 			contentPane.add(textPane);
 			panelScroll.setBounds(10, 120, 445, 254);
 			contentPane.add(panelScroll);
+			
+			lblReloj = new JLabel("New label");
+			lblReloj.setBounds(248, 12, 119, 42);
+			contentPane.add(lblReloj);
 
 		} catch (UnknownHostException e) {
 			JOptionPane.showMessageDialog(new JFrame(),
@@ -164,6 +167,7 @@ public class PrincipalSubastaCliente extends JFrame {
 	public void enviarMensaje() {
 		if (general.validarMonto(tfMensaje.getText())) {
 			General.cliente.enviarMensajeHilo(tfMensaje.getText());
+			lblReloj.setText(General.getTiempo());
 			General.getProductoSeleccionado().setValor(
 					Long.parseLong(tfMensaje.getText()));
 			General.cliente.enviarProductoHilo(General
@@ -203,7 +207,6 @@ public class PrincipalSubastaCliente extends JFrame {
 	}
 
 	// OK
-	@SuppressWarnings("unchecked")
 	public void agregarNuevo(Cliente nuevoCliente) {
 		General.listadoConectados.addElement(nuevoCliente.getNombre());
 	}
@@ -224,9 +227,5 @@ public class PrincipalSubastaCliente extends JFrame {
 	// OK
 	public void borrarCliente(int posicion) {
 		General.listadoConectados.remove(posicion);
-	}
-
-	public void reloj() {
-		Temporizador.reloj();
 	}
 }

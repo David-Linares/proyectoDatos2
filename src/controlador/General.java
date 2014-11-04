@@ -22,10 +22,20 @@ public class General {
 	public static DefaultListModel listadoConectados = new DefaultListModel();
 	private static Producto productoSeleccionado;
 	public static CServidor servidor = null;
+	public static Temporizador reloj = null;
 	public static CCliente cliente = null;
+	private static String tiempo;
 	private static PrincipalSubastaVendedor ventanaServidor;
 	private JTextPane panelSubastaCliente;
-	
+
+	public static String getTiempo() {
+		return tiempo;
+	}
+
+	public static void setTiempo(String tiempo) {
+		General.tiempo = tiempo;
+	}
+
 	public static PrincipalSubastaVendedor getVentanaServidor() {
 		return ventanaServidor;
 	}

@@ -39,7 +39,7 @@ public class CCliente extends Thread {
 				int operacion = entrada.readInt();
 				Object eMensaje = entrada.readObject();
 				// JOptionPane.showMessageDialog(new JFrame(),
-				// "CCliente / Pasó entrada y envia los datos de nueva conexión");
+				// "CCliente / Pasï¿½ entrada y envia los datos de nueva conexiï¿½n");
 				switch (operacion) {
 				case 1:// Agregar nuevo cliente
 					ventanaCliente.agregarNuevo((Cliente) eMensaje);
@@ -80,6 +80,8 @@ public class CCliente extends Thread {
 	// OK
 	public void enviarMensajeHilo(String sMensaje) {
 		enviarDatosCliente(2, sMensaje);
+		General.reloj=new Temporizador();
+		General.reloj.start();
 	}
 
 	public void enviarProductoHilo(Producto cambioProducto) {
@@ -89,7 +91,7 @@ public class CCliente extends Thread {
 	// ESCRIBE LOS DATOS A LA CONEXION
 	public void enviarDatosCliente(int operacion, Object valor) {
 		try {
-			// ENVIA LOS DATOS A TRAVÉS DEL HILO A LA CONEXIÓN.
+			// ENVIA LOS DATOS A TRAVï¿½S DEL HILO A LA CONEXIï¿½N.
 			ObjectOutputStream salida = new ObjectOutputStream(
 					SCliente.getOutputStream());
 			salida.writeInt(operacion);
