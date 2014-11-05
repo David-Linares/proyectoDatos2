@@ -158,6 +158,9 @@ public class General {
 		}
 	}
 	
+	
+	
+	
 	//NOTIFICA A UN CLIENTE NUEVO TODAS LAS CONEXIONES EXISTENTES
 	public void nuevaConexion(Conexion nuevo){
 		for(Conexion con: conexiones){
@@ -183,6 +186,35 @@ public class General {
 		}
 		conexiones.remove(pos);
 	}
+	
+	
+	
+	
+	/*
+	 * Iterator recorrido;
+	 int n=0;
+	 int pos = -1;
+	 recorrido = conexiones.Iterator();
+	 while(recorrido.hasNext()){
+	 if (recorrido.next()== cliente){
+	 pos=n;
+	 }
+	 n++;
+	 }
+	 if(pos!=-1){
+		n=0;
+	 recorrido = conexiones.Iterator();
+	 while(recorrido.hasNext()){
+	 if(n!=pos){
+	
+	 recorrido.next().entradaDatosConexion(3, ""+pos)
+	 
+	 }
+	 }
+	 recorrido.remove(ciente);
+	 }
+	 
+	 */
 	
 	public boolean validarMonto(String valor) {
 		try{
