@@ -16,7 +16,6 @@ import javax.swing.SwingConstants;
 import modelo.Cliente;
 import modelo.Producto;
 import controlador.General;
-import controlador.Temporizador;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -40,7 +39,7 @@ public class PrincipalSubastaCliente extends JFrame {
 	private JTextPane panelSubasta = new JTextPane();
 	public JLabel lblProductoSubastado = new JLabel();
 	private JScrollPane panelScroll = new JScrollPane(panelSubasta);
-	
+
 	private JScrollPane scrollLista = new JScrollPane();
 
 	/**
@@ -163,6 +162,7 @@ public class PrincipalSubastaCliente extends JFrame {
 
 	public void enviarMensaje() {
 		if (general.validarMonto(tfMensaje.getText())) {
+
 			General.getCliente().enviarMensajeHilo(tfMensaje.getText());			
 			General.getProductoSeleccionado().setValor(
 					Long.parseLong(tfMensaje.getText()));
@@ -171,7 +171,7 @@ public class PrincipalSubastaCliente extends JFrame {
 			tfMensaje.setText("");
 		} else {
 			JOptionPane.showMessageDialog(new JFrame(),
-					"Por favor digite un n�mero valido", "Datos",
+					"Por favor digite un n\u00famero valido", "Datos",
 					JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
 			tfMensaje.setText("");
 			tfMensaje.requestFocus();
@@ -183,28 +183,32 @@ public class PrincipalSubastaCliente extends JFrame {
 		int respuesta = JOptionPane
 				.showOptionDialog(
 						new JFrame(),
-						"Realmente deseas salir de la subasta? \n Una vez sales tienes que esperar\n a una pr�xima subasta para poder ingresar.",
+						"Realmente deseas salir de la subasta? \n Una vez sales tienes que esperar\n a una pr\u00f3xima subasta para poder ingresar.",
 						"Salir?", JOptionPane.YES_NO_OPTION,
-						JOptionPane.INFORMATION_MESSAGE, general.getIcon("sure"), opciones,
-						opciones[1]);
+						JOptionPane.INFORMATION_MESSAGE,
+						general.getIcon("sure"), opciones, opciones[1]);
 		if (respuesta == JOptionPane.NO_OPTION) {
 			return;
 		}
+
 		if (General.getCliente() != null) {
-			General.getCliente().enviarDatosCliente(3, null);
+			General.getCliente().enviarDatosCliente(3, General.getCliente().getClienteConectado().getNombre());
 			General.getCliente().interrupt();
 		}
 		General.setCliente(null);
 		setVisible(false);
+
 		General.getListadoConectados().removeAllElements();
 		panelSubasta.setText("");
 		Principal regreso = new Principal();
 		regreso.setVisible(true);
-	}
+		}
+	
 
 	// OK
 	@SuppressWarnings("unchecked")
 	public void agregarNuevo(Cliente nuevoCliente) {
+
 		General.getListadoConectados().addElement(nuevoCliente.getNombre());
 	}
 
@@ -226,7 +230,5 @@ public class PrincipalSubastaCliente extends JFrame {
 		General.getListadoConectados().remove(posicion);
 	}
 	
-	public void reloj(){
-		Temporizador.reloj();
-	}
+
 }
