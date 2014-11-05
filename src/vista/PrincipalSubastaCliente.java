@@ -145,7 +145,8 @@ public class PrincipalSubastaCliente extends JFrame {
 		try {
 			lblIpCliente = new JLabel("IP: "
 					+ InetAddress.getLocalHost().getHostAddress().toString());
-			lblIpCliente.setBounds(465, 38, 131, 15);
+			lblIpCliente.setHorizontalAlignment(SwingConstants.CENTER);
+			lblIpCliente.setBounds(465, 29, 131, 15);
 			contentPane.add(lblIpCliente);
 
 			JTextPane textPane = new JTextPane();
@@ -155,6 +156,8 @@ public class PrincipalSubastaCliente extends JFrame {
 			contentPane.add(panelScroll);
 			
 			lblReloj = new JLabel("New label");
+			lblReloj.setFont(new Font("DejaVu Sans", Font.BOLD, 22));
+			lblReloj.setHorizontalAlignment(SwingConstants.CENTER);
 			lblReloj.setBounds(241, 12, 212, 43);
 			contentPane.add(lblReloj);
 
