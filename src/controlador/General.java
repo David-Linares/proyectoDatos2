@@ -118,11 +118,11 @@ public class General {
 
 
 	private General(){
-		Producto producto1 = new Producto(1, "Bicicleta", 200000);
-		Producto producto2 = new Producto(2, "Carro", 35000000);
-		Producto producto3 = new Producto(3, "Guitarra", 400000);
-		Producto producto4 = new Producto(4, "Maleta", 140000);
-		Producto producto5 = new Producto(5, "Calculadora", 100000);
+		Producto producto1 = new Producto(1, "Bicicleta", 200000, "Azul para niño, Halley 19055 Playera Rod 16 con ruedas de apoyo");
+		Producto producto2 = new Producto(2, "Carro", 35000000, "Rojo deportivo modelo 2008 marca chevrolet");
+		Producto producto3 = new Producto(3, "Guitarra", 400000, "Electrica marca vintage color cafe y blanco");
+		Producto producto4 = new Producto(4, "Maleta", 140000, "Marca orion liviana rosada con brillantes");
+		Producto producto5 = new Producto(5, "Calculadora", 100000, "Graficadora marca Casio Claspad 330 ");
 		 productos = new Producto[]{
 				 producto1,
 				 producto2,
