@@ -11,8 +11,8 @@ import javax.swing.JOptionPane;
 public class CServidor extends Thread {
 
 	private int puerto;
-	General general = General.getInstance();
-	PrincipalSubastaVendedor ventana;
+	private General general = General.getInstance();
+	private PrincipalSubastaVendedor ventana;
 	
 	//COnstructor con el TextPane que va a contener los mensajes del servidor.
 	public CServidor(int puerto) {

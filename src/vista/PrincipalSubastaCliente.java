@@ -131,13 +131,13 @@ public class PrincipalSubastaCliente extends JFrame {
 		contentPane.add(btnNewButton_1);
 
 		JLabel lblNombreCliente = new JLabel("Nombre: "
-				+ General.cliente.getClienteConectado().getNombre());
+				+ General.getCliente().getClienteConectado().getNombre());
 		lblNombreCliente.setBounds(10, 12, 172, 15);
 		lblNombreCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		contentPane.add(lblNombreCliente);
 
 		JLabel lblMontoCliente = new JLabel("Monto Disponible: "
-				+ General.cliente.getClienteConectado().getMonto());
+				+ General.getCliente().getClienteConectado().getMonto());
 		lblMontoCliente.setBounds(10, 39, 443, 15);
 		lblMontoCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		contentPane.add(lblMontoCliente);
@@ -163,10 +163,10 @@ public class PrincipalSubastaCliente extends JFrame {
 
 	public void enviarMensaje() {
 		if (general.validarMonto(tfMensaje.getText())) {
-			General.cliente.enviarMensajeHilo(tfMensaje.getText());			
+			General.getCliente().enviarMensajeHilo(tfMensaje.getText());			
 			General.getProductoSeleccionado().setValor(
 					Long.parseLong(tfMensaje.getText()));
-			General.cliente.enviarProductoHilo(General
+			General.getCliente().enviarProductoHilo(General
 					.getProductoSeleccionado());
 			tfMensaje.setText("");
 		} else {
@@ -190,13 +190,13 @@ public class PrincipalSubastaCliente extends JFrame {
 		if (respuesta == JOptionPane.NO_OPTION) {
 			return;
 		}
-		if (General.cliente != null) {
-			General.cliente.enviarDatosCliente(3, null);
-			General.cliente.interrupt();
+		if (General.getCliente() != null) {
+			General.getCliente().enviarDatosCliente(3, null);
+			General.getCliente().interrupt();
 		}
-		General.cliente = null;
+		General.setCliente(null);
 		setVisible(false);
-		general.listadoConectados.removeAllElements();
+		General.getListadoConectados().removeAllElements();
 		panelSubasta.setText("");
 		Principal regreso = new Principal();
 		regreso.setVisible(true);
@@ -205,7 +205,7 @@ public class PrincipalSubastaCliente extends JFrame {
 	// OK
 	@SuppressWarnings("unchecked")
 	public void agregarNuevo(Cliente nuevoCliente) {
-		general.listadoConectados.addElement(nuevoCliente.getNombre());
+		General.getListadoConectados().addElement(nuevoCliente.getNombre());
 	}
 
 	public void agregarProductoEnSubasta(Producto productoSubastado) {
@@ -223,7 +223,7 @@ public class PrincipalSubastaCliente extends JFrame {
 
 	// OK
 	public void borrarCliente(int posicion) {
-		general.listadoConectados.remove(posicion);
+		General.getListadoConectados().remove(posicion);
 	}
 	
 	public void reloj(){

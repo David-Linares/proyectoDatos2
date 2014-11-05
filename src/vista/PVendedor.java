@@ -69,7 +69,7 @@ public class PVendedor extends JFrame {
 		contentPane.add(lblSeleccioneElProducto);
 
 		@SuppressWarnings({ "unchecked", "rawtypes" })
-		final JComboBox listaProductos = new JComboBox(General.productos);
+		final JComboBox listaProductos = new JComboBox(General.getProductos());
 		listaProductos.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		lblSeleccioneElProducto.setLabelFor(listaProductos);
 		listaProductos.setBounds(228, 40, 222, 20);
@@ -114,15 +114,15 @@ public class PVendedor extends JFrame {
 					General.setProductoSeleccionado((Producto) listaProductos
 							.getSelectedItem());
 					PrincipalSubastaVendedor principalSubasta = new PrincipalSubastaVendedor();
-					if (General.servidor == null) {
+					if (General.getServidor() == null) {
 						int puerto = Integer.parseInt(textFieldPuerto.getText());
 						General.setVentanaServidor(principalSubasta);
-						General.servidor = new CServidor(puerto);
-						General.servidor.start();
+						General.setServidor(new CServidor(puerto));
+						General.getServidor().start();
 					}
 
 					setVisible(false);
-					General.getVentanaServidor().getListConectados().setModel(general.listadoConectados);
+					General.getVentanaServidor().getListConectados().setModel(General.getListadoConectados());
 					principalSubasta.setVisible(true);
 				}
 			}

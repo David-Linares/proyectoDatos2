@@ -96,7 +96,7 @@ public class PrincipalSubastaVendedor extends JFrame {
 		scrollLista.setViewportView(listConectados);
 		contentPane.add(scrollLista);
 
-		listConectados.setModel(general.listadoConectados);
+		listConectados.setModel(General.getListadoConectados());
 
 		JButton btnNewButton = new JButton("Finalizar Subasta");
 		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 11));

@@ -156,7 +156,7 @@ public class PCliente extends JFrame {
 
 		btnNewButton.addActionListener(new ActionListener() {
 			// Inicia el hilo! - OK
-			@SuppressWarnings("unchecked")
+			@SuppressWarnings({ "unchecked", "static-access" })
 			public void actionPerformed(ActionEvent arg0) {
 				// JOptionPane.showMessageDialog(new JFrame(),
 				// "PCliente / click a conectarse");
@@ -167,18 +167,18 @@ public class PCliente extends JFrame {
 						String ip = tfIp.getText();
 						Cliente nuevoCliente = new Cliente(tfNombreCliente
 								.getText(), Long.parseLong(tfMonto.getText()));
-						if (General.cliente == null) {
-							General.cliente = new CCliente(puerto, ip,
-									nuevoCliente);
+						if (General.getCliente() == null) {
+							General.setCliente(new CCliente(puerto, ip,
+									nuevoCliente));
 							psubasta = new PrincipalSubastaCliente();
-							General.cliente.setVentanaCliente(psubasta);
+							General.getCliente().setVentanaCliente(psubasta);
 							general.setPanelSubastaCliente(psubasta
 									.getPanelSubasta());
-							General.cliente.start();
+							General.getCliente().start();
 						}
 						// PENDIENTE
 						psubasta.listConectados
-								.setModel(general.listadoConectados);
+								.setModel(general.getListadoConectados());
 						psubasta.setVisible(true);
 						setVisible(false);
 					} catch (Exception e) {
@@ -186,7 +186,7 @@ public class PCliente extends JFrame {
 								new JFrame(),
 								"PCliente / Se produjo un error"
 										+ e.getMessage());
-						General.cliente = null;
+						General.setCliente(null);
 					}
 
 				}

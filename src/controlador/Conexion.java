@@ -14,9 +14,9 @@ import modelo.Producto;
 public class Conexion extends Thread {
 
 	private Socket s;
-	public ObjectOutputStream salida;
-	General general = General.getInstance();
-	public Cliente clienteTemp;
+	private ObjectOutputStream salida;
+	private General general = General.getInstance();
+	private Cliente clienteTemp;
 
 	public Conexion(Socket s) {
 		try {
@@ -57,7 +57,7 @@ public class Conexion extends Thread {
 											.getTpMensajesSubasta().getText()
 											+ clienteTemp.getNombre()
 											+ " se conectó \n");
-					General.listadoConectados.addElement(clienteTemp
+					General.getListadoConectados().addElement(clienteTemp
 							.getNombre());
 					break;
 				case 2:

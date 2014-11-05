@@ -16,16 +16,61 @@ import modelo.Producto;
 public class General {
 
 	private static General general;
-	public static Producto[] productos;
-	private ArrayList<Conexion> conexiones = new ArrayList<Conexion>();
-	@SuppressWarnings("rawtypes")
-	public static DefaultListModel listadoConectados = new DefaultListModel();
-	private static Producto productoSeleccionado;
-	public static CServidor servidor = null;
-	public static CCliente cliente = null;
-	private static PrincipalSubastaVendedor ventanaServidor;
-	private JTextPane panelSubastaCliente;
+	private static Producto[] productos;
+	private static ArrayList<Conexion> conexiones = new ArrayList<Conexion>();
 	
+	@SuppressWarnings("rawtypes")
+	private static DefaultListModel listadoConectados = new DefaultListModel();
+	
+	private static Producto productoSeleccionado;
+	private static CServidor servidor = null;
+	private static CCliente cliente = null;
+	private static PrincipalSubastaVendedor ventanaServidor;
+	private static JTextPane panelSubastaCliente;
+	
+	
+	public static Producto[] getProductos() {
+		return productos;
+	}
+
+
+	public static void setProductos(Producto[] productos) {
+		General.productos = productos;
+	}
+
+
+	@SuppressWarnings("rawtypes")
+	public static DefaultListModel getListadoConectados() {
+		return listadoConectados;
+	}
+
+	
+	@SuppressWarnings("rawtypes")
+	public static void setListadoConectados(DefaultListModel listadoConectados) {
+		General.listadoConectados = listadoConectados;
+	}
+
+		
+	public static CServidor getServidor() {
+		return servidor;
+	}
+
+
+	public static void setServidor(CServidor servidor) {
+		General.servidor = servidor;
+	}
+
+
+	public static CCliente getCliente() {
+		return cliente;
+	}
+
+	public static void setCliente(CCliente cliente) {
+		General.cliente = cliente;
+	}
+
+	
+
 	public static PrincipalSubastaVendedor getVentanaServidor() {
 		return ventanaServidor;
 	}
@@ -42,13 +87,15 @@ public class General {
 		return panelSubastaCliente;
 	}
 
-	public void setPanelSubastaCliente(JTextPane panelSubastaCliente) {
-		this.panelSubastaCliente = panelSubastaCliente;
+	public static void setConexiones(ArrayList<Conexion> conexiones) {
+		General.conexiones = conexiones;
 	}
-	
-	
-	//Hay que poner un nuevo textPane que es el que se va a implementar en todas las ventanas nuevas.
-	//Crear una variable de Conexión para el servidor (Leer comentario CServidor Linea 35)
+
+
+	public static void setPanelSubastaCliente(JTextPane panelSubastaCliente) {
+		General.panelSubastaCliente = panelSubastaCliente;
+	}
+
 
 	private General(){
 		Producto producto1 = new Producto(1, "Bicicleta", 200000);
