@@ -100,6 +100,9 @@ public class Conexion extends Thread {
 											+ General.getProductoSeleccionado()
 													.getValor());
 					break;
+				case 5:
+					general.enviarDatos(operacion,(String) eMensaje);
+					General.setTiempo((String) eMensaje);
 				}
 
 			} catch (IOException e) {

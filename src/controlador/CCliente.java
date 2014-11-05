@@ -55,6 +55,8 @@ public class CCliente extends Thread {
 					ventanaCliente
 							.agregarProductoEnSubasta((Producto) eMensaje);
 					break;
+				case 5:
+					ventanaCliente.mostrarTIempo((String) eMensaje);
 				}
 			}
 		} catch (UnknownHostException e) {
@@ -84,6 +86,9 @@ public class CCliente extends Thread {
 
 	public void enviarProductoHilo(Producto cambioProducto) {
 		enviarDatosCliente(4, cambioProducto);
+	}
+	public void enviarReloj(String tiempo){
+		enviarDatosCliente(5, tiempo);
 	}
 
 	// ESCRIBE LOS DATOS A LA CONEXION

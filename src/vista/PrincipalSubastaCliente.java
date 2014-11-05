@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import modelo.Cliente;
 import modelo.Producto;
 import controlador.General;
+import controlador.Temporizador;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -39,7 +40,7 @@ public class PrincipalSubastaCliente extends JFrame {
 	private JTextPane panelSubasta = new JTextPane();
 	public JLabel lblProductoSubastado = new JLabel();
 	private JScrollPane panelScroll = new JScrollPane(panelSubasta);
-
+	private JLabel lblReloj;
 	private JScrollPane scrollLista = new JScrollPane();
 
 	/**
@@ -131,13 +132,13 @@ public class PrincipalSubastaCliente extends JFrame {
 
 		JLabel lblNombreCliente = new JLabel("Nombre: "
 				+ General.getCliente().getClienteConectado().getNombre());
-		lblNombreCliente.setBounds(10, 12, 172, 15);
+		lblNombreCliente.setBounds(10, 12, 221, 15);
 		lblNombreCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		contentPane.add(lblNombreCliente);
 
 		JLabel lblMontoCliente = new JLabel("Monto Disponible: "
 				+ General.getCliente().getClienteConectado().getMonto());
-		lblMontoCliente.setBounds(10, 39, 443, 15);
+		lblMontoCliente.setBounds(10, 39, 221, 15);
 		lblMontoCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		contentPane.add(lblMontoCliente);
 		JLabel lblIpCliente;
@@ -152,6 +153,10 @@ public class PrincipalSubastaCliente extends JFrame {
 			contentPane.add(textPane);
 			panelScroll.setBounds(10, 120, 445, 254);
 			contentPane.add(panelScroll);
+			
+			lblReloj = new JLabel("New label");
+			lblReloj.setBounds(241, 12, 212, 43);
+			contentPane.add(lblReloj);
 
 		} catch (UnknownHostException e) {
 			JOptionPane.showMessageDialog(new JFrame(),
@@ -160,10 +165,15 @@ public class PrincipalSubastaCliente extends JFrame {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public void enviarMensaje() {
 		if (general.validarMonto(tfMensaje.getText())) {
-
-			General.getCliente().enviarMensajeHilo(tfMensaje.getText());			
+			if(General.getReloj() != null){
+				General.getReloj().stop();
+			}
+			General.setReloj(new Temporizador());
+			General.getReloj().start();			
+			General.getCliente().enviarMensajeHilo(tfMensaje.getText());
 			General.getProductoSeleccionado().setValor(
 					Long.parseLong(tfMensaje.getText()));
 			General.getCliente().enviarProductoHilo(General
@@ -218,6 +228,10 @@ public class PrincipalSubastaCliente extends JFrame {
 				+ productoSubastado.getValor());
 		General.setProductoSeleccionado(productoSubastado);
 	}
+	
+	public void mostrarTIempo(String tiempo){
+		this.lblReloj.setText(tiempo);
+	}
 
 	// OK
 	public void mensajeRecibido(String nuevoMensaje) {
@@ -229,6 +243,4 @@ public class PrincipalSubastaCliente extends JFrame {
 	public void borrarCliente(int posicion) {
 		General.getListadoConectados().remove(posicion);
 	}
-	
-
 }

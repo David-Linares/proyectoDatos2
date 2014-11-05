@@ -18,7 +18,8 @@ public class General {
 	private static General general;
 	private static Producto[] productos;
 	private static ArrayList<Conexion> conexiones = new ArrayList<Conexion>();
-	
+	private static Temporizador reloj = null;
+	private static String tiempo;
 	@SuppressWarnings("rawtypes")
 	private static DefaultListModel listadoConectados = new DefaultListModel();
 	
@@ -28,7 +29,26 @@ public class General {
 	private static PrincipalSubastaVendedor ventanaServidor;
 	private static JTextPane panelSubastaCliente;
 	
-	
+	public static String getTiempo() {
+		return tiempo;
+	}
+
+
+	public static void setTiempo(String tiempo) {
+		General.tiempo = tiempo;
+	}
+
+
+	public static Temporizador getReloj() {
+		return reloj;
+	}
+
+
+	public static void setReloj(Temporizador reloj) {
+		General.reloj = reloj;
+	}
+
+
 	public static Producto[] getProductos() {
 		return productos;
 	}
