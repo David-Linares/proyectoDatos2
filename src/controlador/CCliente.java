@@ -20,18 +20,20 @@ public class CCliente extends Thread {
 	private PrincipalSubastaCliente ventanaCliente;
 	private boolean conectado;
 	private Socket SCliente;
+	private ObjectInputStream entrada;
 
 	public CCliente(int puerto, String ip, Cliente clienteConectado) {
 		this.ip = ip;
 		this.puerto = puerto;
 		this.clienteConectado = clienteConectado;
+		this.entrada = null;
 	}
 
 	// OK
 	public void run() {
 		try {
 			SCliente = new Socket(ip, puerto);
-			ObjectInputStream entrada = new ObjectInputStream(
+			entrada = new ObjectInputStream(
 					SCliente.getInputStream());
 			enviarDatosCliente(1, clienteConectado);
 			conectado = true;
@@ -39,7 +41,7 @@ public class CCliente extends Thread {
 				int operacion = entrada.readInt();
 				Object eMensaje = entrada.readObject();
 				// JOptionPane.showMessageDialog(new JFrame(),
-				// "CCliente / Pasó entrada y envia los datos de nueva conexión");
+				// "CCliente / Pasï¿½ entrada y envia los datos de nueva conexiï¿½n");
 				switch (operacion) {
 				case 1:// Agregar nuevo cliente
 					ventanaCliente.agregarNuevo((Cliente) eMensaje);
@@ -67,8 +69,6 @@ public class CCliente extends Thread {
 
 			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.println(e);
-			System.out.println(e.getMessage());
 			JOptionPane.showMessageDialog(ventanaCliente,
 					"CCCliente / IOException " + e.getMessage());
 		} catch (ClassNotFoundException e) {
@@ -94,7 +94,7 @@ public class CCliente extends Thread {
 	// ESCRIBE LOS DATOS A LA CONEXION
 	public void enviarDatosCliente(int operacion, Object valor) {
 		try {
-			// ENVIA LOS DATOS A TRAVÉS DEL HILO A LA CONEXIÓN.
+			// ENVIA LOS DATOS A TRAVï¿½S DEL HILO A LA CONEXIï¿½N.
 			ObjectOutputStream salida = new ObjectOutputStream(
 					SCliente.getOutputStream());
 			salida.writeInt(operacion);

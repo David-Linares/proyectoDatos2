@@ -64,7 +64,6 @@ public class Conexion extends Thread {
 
 					break;
 				case 2:
-					System.out.println("Entr\u00f3 a la condi 2");
 					eMensaje = this.clienteTemp.getNombre() + " ofrece: "
 							+ eMensaje;
 					general.enviarDatos(operacion, (String) eMensaje);
