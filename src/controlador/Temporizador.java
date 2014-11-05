@@ -1,38 +1,44 @@
 package controlador;
 
 public class Temporizador extends Thread {
-
+	
+	private int minutos;
+	private int segundos;
+	private String tiempo;
+		
 	public Temporizador(){
 		
 	}
 	
+	public Temporizador(int minutos, int segundos){
+		this.minutos = minutos;
+		this.segundos = segundos;
+	}
+	
 	public static void retraso() {
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(200);
 		} catch (InterruptedException e) {
 		}
 	}
 	
 	public void run(){
-		int minutos = 3;
-		int segundos = 1;
-		
-		for (minutos = 2; minutos >= 0; minutos--) {
-			String tiempo;
-			for (segundos = 59; segundos >= 0; segundos--) {
-				if (segundos < 10) {
-					tiempo = "0" + minutos + ":0" + segundos;
+		int n = 0;
+		for (int min = minutos; min >= 0; min--) {
+			if (n==1) segundos = 59; 
+			for (int seg = segundos; seg >= 0; seg--) {
+				if (seg < 10) {
+					tiempo = "0" + min + ":0" + seg;
 					retraso();
 				} else {
-					tiempo = "0" + minutos + ":" + segundos;
+					tiempo = "0" + min + ":" + seg;
 					retraso();
 				}
-				
-			General.setTiempo(tiempo);
-			General.getCliente().enviarReloj(tiempo);
+				System.out.println(tiempo);
+			/*General.setTiempo(tiempo);
+			General.getCliente().enviarReloj(tiempo);*/
 			}
-			
-
+			n++;
 		}
 	}
 
