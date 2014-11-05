@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
 import javax.swing.JOptionPane;
 
 import modelo.Cliente;
@@ -88,8 +89,6 @@ public class CCliente extends Thread {
 	// ESCRIBE LOS DATOS A LA CONEXION
 	public void enviarDatosCliente(int operacion, Object valor) {
 		try {
-			// JOptionPane.showMessageDialog(new JFrame(),
-			// "CCliente / EnviarDatosCliente a enviar los datos");
 			// ENVIA LOS DATOS A TRAVÉS DEL HILO A LA CONEXIÓN.
 			ObjectOutputStream salida = new ObjectOutputStream(
 					SCliente.getOutputStream());

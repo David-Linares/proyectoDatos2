@@ -48,7 +48,8 @@ public class Conexion extends Thread {
 				switch (operacion) {
 				case 1:
 					clienteTemp = (Cliente) eMensaje;
-					if(General.validarExistente(clienteTemp))this.s.close();
+					if (General.validarExistente(clienteTemp))
+						this.s.close();
 					general.enviarDatos(operacion, eMensaje);
 					General.getVentanaServidor()
 							.getTpMensajesSubasta()
@@ -56,12 +57,14 @@ public class Conexion extends Thread {
 									General.getVentanaServidor()
 											.getTpMensajesSubasta().getText()
 											+ clienteTemp.getNombre()
-											+ " se conectó \n");
+
+											+ " se conect\u00f3 \n");
 					General.getListadoConectados().addElement(clienteTemp
 							.getNombre());
+
 					break;
 				case 2:
-					System.out.println("Entró a la condi 2");
+					System.out.println("Entr\u00f3 a la condi 2");
 					eMensaje = this.clienteTemp.getNombre() + " ofrece: "
 							+ eMensaje;
 					general.enviarDatos(operacion, (String) eMensaje);
@@ -73,6 +76,8 @@ public class Conexion extends Thread {
 											+ (String) eMensaje + "\n");
 					break;
 				case 3:
+					General.getVentanaServidor().borrarCliente(
+							(String) eMensaje);
 					general.desconecta(this);
 					General.getVentanaServidor()
 							.getTpMensajesSubasta()
@@ -80,13 +85,20 @@ public class Conexion extends Thread {
 									General.getVentanaServidor()
 											.getTpMensajesSubasta().getText()
 											+ clienteTemp.getNombre()
-											+ " se desconectó \n");
+											+ " se desconect\u00f3 \n");
 					break;
 				case 4:
 					eMensaje = (Producto) eMensaje;
 					general.enviarDatos(operacion, eMensaje);
 					General.setProductoSeleccionado((Producto) eMensaje);
-					General.getVentanaServidor().getLblProductoSubastado().setText(General.getProductoSeleccionado().getNombre()+ " = " + General.getProductoSeleccionado().getValor());
+					General.getVentanaServidor()
+							.getLblProductoSubastado()
+							.setText(
+									General.getProductoSeleccionado()
+											.getNombre()
+											+ " = "
+											+ General.getProductoSeleccionado()
+													.getValor());
 					break;
 				}
 
