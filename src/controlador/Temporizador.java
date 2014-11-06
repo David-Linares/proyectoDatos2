@@ -1,10 +1,15 @@
 package controlador;
 
-public class Temporizador extends Thread {
+import java.io.Serializable;
+
+public class Temporizador extends Thread implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private int minutos;
 	private int segundos;
 	private String tiempo;
+	private int min;
+	private int seg;
 		
 	public Temporizador(){
 		
@@ -24,9 +29,9 @@ public class Temporizador extends Thread {
 	
 	public void run(){
 		int n = 0;
-		for (int min = minutos; min >= 0; min--) {
+		for (min = minutos; min >= 0; min--) {
 			if (n==1) segundos = 59; 
-			for (int seg = segundos; seg >= 0; seg--) {
+			for (seg = segundos; seg >= 0; seg--) {
 				if (seg < 10) {
 					tiempo = "0" + min + ":0" + seg;
 					retraso();
@@ -34,12 +39,29 @@ public class Temporizador extends Thread {
 					tiempo = "0" + min + ":" + seg;
 					retraso();
 				}
-				System.out.println(tiempo);
-			/*General.setTiempo(tiempo);
-			General.getCliente().enviarReloj(tiempo);*/
+				General.getReloj().setMin(min);
+				General.getReloj().setSeg(seg);
+				General.getCliente().enviarReloj(General.getReloj());
 			}
 			n++;
 		}
 	}
+
+	public int getMin() {
+		return min;
+	}
+
+	public void setMin(int min) {
+		this.min = min;
+	}
+
+	public int getSeg() {
+		return seg;
+	}
+
+	public void setSeg(int seg) {
+		this.seg = seg;
+	}
+	
 
 }

@@ -155,7 +155,7 @@ public class PrincipalSubastaCliente extends JFrame {
 			panelScroll.setBounds(10, 120, 445, 254);
 			contentPane.add(panelScroll);
 			
-			lblReloj = new JLabel("New label");
+			lblReloj = new JLabel("");
 			lblReloj.setFont(new Font("DejaVu Sans", Font.BOLD, 22));
 			lblReloj.setHorizontalAlignment(SwingConstants.CENTER);
 			lblReloj.setBounds(241, 12, 212, 43);
@@ -174,8 +174,8 @@ public class PrincipalSubastaCliente extends JFrame {
 			if(General.getReloj() != null){
 				General.getReloj().stop();
 			}
-			General.setReloj(new Temporizador());
-			General.getReloj().start();			
+			General.setReloj(new Temporizador(3,0));
+			General.getReloj().start();
 			General.getCliente().enviarMensajeHilo(tfMensaje.getText());
 			General.getProductoSeleccionado().setValor(
 					Long.parseLong(tfMensaje.getText()));
@@ -232,8 +232,9 @@ public class PrincipalSubastaCliente extends JFrame {
 		General.setProductoSeleccionado(productoSubastado);
 	}
 	
-	public void mostrarTIempo(String tiempo){
-		this.lblReloj.setText(tiempo);
+	public void mostrarTIempo(Temporizador tiempo){
+		this.lblReloj.setText("0"+tiempo.getMin() + ":" + tiempo.getSeg());
+		General.setReloj(tiempo);
 	}
 
 	// OK

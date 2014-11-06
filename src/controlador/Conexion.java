@@ -100,8 +100,10 @@ public class Conexion extends Thread {
 													.getValor());
 					break;
 				case 5:
-					general.enviarDatos(operacion,(String) eMensaje);
-					General.setTiempo((String) eMensaje);
+					Temporizador temp = (Temporizador) eMensaje;
+					general.enviarDatos(operacion,temp);
+					General.setReloj(temp);
+					General.getVentanaServidor().getLblReloj().setText("0"+temp.getMin()+":"+temp.getSeg());
 				}
 
 			} catch (IOException e) {

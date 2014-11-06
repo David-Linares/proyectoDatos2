@@ -38,7 +38,7 @@ public class PrincipalSubastaVendedor extends JFrame {
 	private JScrollPane scrollLista = new JScrollPane();
 	private JLabel lblProductoSubastado;
 	private JLabel lblProductoSeleccionadoDescripcion;
-
+	private JLabel lblReloj;
 	/**
 	 * Launch the application.
 	 */
@@ -77,6 +77,14 @@ public class PrincipalSubastaVendedor extends JFrame {
 	
 	public JLabel getLblProductoSubastado() {
 		return lblProductoSubastado;
+	}
+	
+	public JLabel getLblReloj() {
+		return lblReloj;
+	}
+
+	public void setLblReloj(JLabel lblReloj) {
+		this.lblReloj = lblReloj;
 	}
 
 
@@ -134,6 +142,12 @@ public class PrincipalSubastaVendedor extends JFrame {
 			contentPane.add(labelIp);
 			scrollPanel.setBounds(10, 45, 345, 254);
 			contentPane.add(scrollPanel);
+			
+			lblReloj = new JLabel();
+			lblReloj.setHorizontalAlignment(SwingConstants.CENTER);
+			lblReloj.setFont(new Font("DialogInput", Font.PLAIN, 20));
+			lblReloj.setBounds(10, 310, 155, 37);
+			contentPane.add(lblReloj);
 			
 		} catch (UnknownHostException e) {
 			JOptionPane.showMessageDialog(new JFrame(),
