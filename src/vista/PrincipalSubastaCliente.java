@@ -237,8 +237,15 @@ public class PrincipalSubastaCliente extends JFrame {
 		General.setProductoSeleccionado(productoSubastado);
 	}
 	
-	public void mostrarTIempo(Temporizador tiempo){
-		this.lblReloj.setText("0"+tiempo.getMin() + ":" + tiempo.getSeg());
+	public void mostrarTiempo(Temporizador tiempo){
+		if (tiempo.getSeg() < 10) {
+			this.lblReloj.setText("0"+tiempo.getMin() + ":0" + tiempo.getSeg());
+			if (tiempo.getMin() == 0 && tiempo.getSeg() == 0) {
+				JOptionPane.showMessageDialog(new JFrame(), "La subasta ha finalizado", "Fin de la Subasta", JOptionPane.INFORMATION_MESSAGE, general.getIcon("winner"));
+			}
+		}else{
+			this.lblReloj.setText("0"+tiempo.getMin() + ":" + tiempo.getSeg());
+		}
 		General.setReloj(tiempo);
 	}
 

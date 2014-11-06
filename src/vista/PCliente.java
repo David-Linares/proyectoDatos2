@@ -55,6 +55,7 @@ public class PCliente extends JFrame {
 	 * Create the frame.
 	 */
 	public PCliente() {
+		setTitle("Datos de Conexión");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 454, 279);
@@ -74,6 +75,12 @@ public class PCliente extends JFrame {
 					}
 				}
 			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == 10){
+					entrarSubasta();
+				}
+			}
 		});
 
 		tfIp.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
@@ -91,6 +98,12 @@ public class PCliente extends JFrame {
 				if ((car2 < '0' || car2 > '9'))
 					evt.consume();
 			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == 10){
+					entrarSubasta();
+				}
+			}
 		});
 		tfPuerto.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		tfPuerto.setColumns(10);
@@ -98,6 +111,14 @@ public class PCliente extends JFrame {
 		contentPane.add(tfPuerto);
 
 		tfNombreCliente = new JTextField();
+		tfNombreCliente.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == 10){
+					entrarSubasta();
+				}
+			}
+		});
 		tfNombreCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		tfNombreCliente.setBounds(217, 128, 209, 23);
 		contentPane.add(tfNombreCliente);
@@ -112,6 +133,12 @@ public class PCliente extends JFrame {
 					evt.consume();
 				if ((car < '0' || car > '9')) {
 					evt.consume();
+				}
+			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == 10){
+					entrarSubasta();
 				}
 			}
 		});
@@ -145,7 +172,7 @@ public class PCliente extends JFrame {
 		contentPane.add(lblMontoInicial);
 
 		lblDatosDeConexin = new JLabel("Datos de Conexi\u00f3n");
-		lblDatosDeConexin.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblDatosDeConexin.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 20));
 		lblDatosDeConexin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDatosDeConexin.setBounds(115, 12, 247, 34);
 		contentPane.add(lblDatosDeConexin);
@@ -158,42 +185,44 @@ public class PCliente extends JFrame {
 			// Inicia el hilo! - OK
 			@SuppressWarnings({ "unchecked", "static-access" })
 			public void actionPerformed(ActionEvent arg0) {
-				// JOptionPane.showMessageDialog(new JFrame(),
-				// "PCliente / click a conectarse");
-				if (validacion()) { // problema
-
-					try {
-						int puerto = Integer.parseInt(tfPuerto.getText());
-						String ip = tfIp.getText();
-						Cliente nuevoCliente = new Cliente(tfNombreCliente
-								.getText(), Long.parseLong(tfMonto.getText()));
-						if (General.getCliente() == null) {
-							General.setCliente(new CCliente(puerto, ip,
-									nuevoCliente));
-							psubasta = new PrincipalSubastaCliente();
-							General.getCliente().setVentanaCliente(psubasta);
-							general.setPanelSubastaCliente(psubasta
-									.getPanelSubasta());
-							General.getCliente().start();
-						}
-						// PENDIENTE
-						psubasta.listConectados
-								.setModel(general.getListadoConectados());
-						psubasta.setVisible(true);
-						setVisible(false);
-					} catch (Exception e) {
-						JOptionPane.showMessageDialog(
-								new JFrame(),
-								"PCliente / Se produjo un error"
-										+ e.getMessage());
-						General.setCliente(null);
-					}
-
-				}
+				entrarSubasta();
 			}
 
 		});
 
+	}
+	
+	private void entrarSubasta(){
+		if (validacion()) { // problema
+
+			try {
+				int puerto = Integer.parseInt(tfPuerto.getText());
+				String ip = tfIp.getText();
+				Cliente nuevoCliente = new Cliente(tfNombreCliente
+						.getText(), Long.parseLong(tfMonto.getText()));
+				if (General.getCliente() == null) {
+					General.setCliente(new CCliente(puerto, ip,
+							nuevoCliente));
+					psubasta = new PrincipalSubastaCliente();
+					General.getCliente().setVentanaCliente(psubasta);
+					General.setPanelSubastaCliente(psubasta
+							.getPanelSubasta());
+					General.getCliente().start();
+				}
+				// PENDIENTE
+				psubasta.listConectados
+						.setModel(General.getListadoConectados());
+				psubasta.setVisible(true);
+				setVisible(false);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(
+						new JFrame(),
+						"PCliente / Se produjo un error"
+								+ e.getMessage());
+				General.setCliente(null);
+			}
+
+		}
 	}
 
 	private boolean validacion() {

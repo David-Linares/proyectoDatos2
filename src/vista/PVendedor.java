@@ -23,6 +23,9 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JTextArea;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 @SuppressWarnings("serial")
 public class PVendedor extends JFrame {
@@ -52,10 +55,10 @@ public class PVendedor extends JFrame {
 	 * Create the frame.
 	 */
 	public PVendedor() {
-		setTitle("Producto");
+		setTitle("Principal Vendedor");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 474, 235);
+		setBounds(100, 100, 536, 330);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -65,20 +68,20 @@ public class PVendedor extends JFrame {
 				"Seleccione el producto a Subastar");
 		lblSeleccioneElProducto.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSeleccioneElProducto.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
-		lblSeleccioneElProducto.setBounds(12, 41, 198, 20);
+		lblSeleccioneElProducto.setBounds(12, 47, 198, 20);
 		contentPane.add(lblSeleccioneElProducto);
 
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		final JComboBox listaProductos = new JComboBox(General.getProductos());
 		listaProductos.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		lblSeleccioneElProducto.setLabelFor(listaProductos);
-		listaProductos.setBounds(228, 40, 222, 20);
+		listaProductos.setBounds(228, 47, 294, 30);
 		contentPane.add(listaProductos);
 
 		JLabel lblPuerto = new JLabel("Puerto");
 		lblPuerto.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPuerto.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
-		lblPuerto.setBounds(133, 86, 77, 14);
+		lblPuerto.setBounds(133, 96, 77, 14);
 		contentPane.add(lblPuerto);
 
 		textFieldPuerto = new JTextField();
@@ -95,13 +98,31 @@ public class PVendedor extends JFrame {
 		});
 		textFieldPuerto.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		textFieldPuerto.setText("8090");
-		textFieldPuerto.setBounds(228, 83, 222, 20);
+		textFieldPuerto.setBounds(228, 89, 294, 30);
 		contentPane.add(textFieldPuerto);
 		textFieldPuerto.setColumns(10);
 
 		JButton btnIniciarSubasta = new JButton("Iniciar Subasta");
-		btnIniciarSubasta.setBounds(98, 128, 264, 42);
+		btnIniciarSubasta.setBounds(133, 257, 264, 32);
 		contentPane.add(btnIniciarSubasta);
+		
+		JTextArea tADescripcionProducto = new JTextArea();
+		tADescripcionProducto.setWrapStyleWord(true);
+		tADescripcionProducto.setEditable(false);
+		tADescripcionProducto.setBounds(228, 126, 294, 119);
+		contentPane.add(tADescripcionProducto);
+		
+		JLabel lblDescripcin = new JLabel("Descripción");
+		lblDescripcin.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
+		lblDescripcin.setBounds(140, 127, 70, 15);
+		contentPane.add(lblDescripcin);
+		
+		JLabel lblVentanaPrincipalDe = new JLabel("Ventana Principal de Vendedor");
+		lblVentanaPrincipalDe.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 20));
+		lblVentanaPrincipalDe.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVentanaPrincipalDe.setBounds(12, 0, 510, 35);
+		contentPane.add(lblVentanaPrincipalDe);
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{listaProductos, textFieldPuerto, btnIniciarSubasta}));
 
 		btnIniciarSubasta.addActionListener(new ActionListener() {
 			// OK
@@ -113,17 +134,21 @@ public class PVendedor extends JFrame {
 
 					General.setProductoSeleccionado((Producto) listaProductos
 							.getSelectedItem());
-					PrincipalSubastaVendedor principalSubasta = new PrincipalSubastaVendedor();
 					if (General.getServidor() == null) {
 						int puerto = Integer.parseInt(textFieldPuerto.getText());
-						General.setVentanaServidor(principalSubasta);
-						General.setServidor(new CServidor(puerto));
-						General.getServidor().start();
+						try{
+							General.setServidor(new CServidor(puerto));
+							PrincipalSubastaVendedor principalSubasta = new PrincipalSubastaVendedor();
+							General.setVentanaServidor(principalSubasta);
+							General.getServidor().start();
+							setVisible(false);
+							General.getVentanaServidor().getListConectados().setModel(General.getListadoConectados());
+							principalSubasta.setVisible(true);
+						}catch (Exception e){
+							
+						}
 					}
 
-					setVisible(false);
-					General.getVentanaServidor().getListConectados().setModel(General.getListadoConectados());
-					principalSubasta.setVisible(true);
 				}
 			}
 		});
