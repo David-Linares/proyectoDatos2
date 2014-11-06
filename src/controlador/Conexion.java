@@ -17,6 +17,7 @@ public class Conexion extends Thread {
 	private ObjectOutputStream salida;
 	private General general = General.getInstance();
 	private Cliente clienteTemp;
+	private int contadorId =0;
 
 	public Conexion(Socket s) {
 		try {
@@ -48,8 +49,8 @@ public class Conexion extends Thread {
 				switch (operacion) {
 				case 1:
 					clienteTemp = (Cliente) eMensaje;
-					if (General.validarExistente(clienteTemp))
-						this.s.close();
+					clienteTemp.setId(contadorId);
+					contadorId++;
 					general.enviarDatos(operacion, eMensaje);
 					General.getVentanaServidor()
 							.getTpMensajesSubasta()

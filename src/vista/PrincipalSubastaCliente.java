@@ -96,7 +96,7 @@ public class PrincipalSubastaCliente extends JFrame {
 		});
 		btnAbandonarSubasta.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		contentPane.add(btnAbandonarSubasta);
-		lblProductoSubastado.setBounds(10, 66, 443, 43);
+		lblProductoSubastado.setBounds(10, 78, 443, 31);
 
 		lblProductoSubastado.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		lblProductoSubastado.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -160,6 +160,11 @@ public class PrincipalSubastaCliente extends JFrame {
 			lblReloj.setHorizontalAlignment(SwingConstants.CENTER);
 			lblReloj.setBounds(241, 12, 212, 43);
 			contentPane.add(lblReloj);
+			
+			JLabel lblId = new JLabel("ID: 0");
+			lblId.setFont(new Font("Dialog", Font.BOLD, 11));
+			lblId.setBounds(10, 65, 221, 15);
+			contentPane.add(lblId);
 
 		} catch (UnknownHostException e) {
 			JOptionPane.showMessageDialog(new JFrame(),
