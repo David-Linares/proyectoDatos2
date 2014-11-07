@@ -112,7 +112,7 @@ public class PVendedor extends JFrame {
 		tADescripcionProducto.setBounds(228, 126, 294, 119);
 		contentPane.add(tADescripcionProducto);
 		
-		JLabel lblDescripcin = new JLabel("Descripción");
+		JLabel lblDescripcin = new JLabel("Descripci\u00f3n");
 		lblDescripcin.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		lblDescripcin.setBounds(140, 127, 70, 15);
 		contentPane.add(lblDescripcin);

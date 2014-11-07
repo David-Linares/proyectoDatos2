@@ -1,10 +1,12 @@
 package vista;
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -51,7 +53,9 @@ public class Principal extends JFrame {
 		setResizable(false);
 		//Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("confirm.png"));
 		//setIconImage(icon);
+		
 		setTitle("Bienvenido");
+	//	setIconImage (new ImageIcon(getClass().getResource("images/martillo.png")).getImage());
 		setBounds(100, 100, 376, 158);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -83,6 +87,8 @@ public class Principal extends JFrame {
 		btnNewButton_1.setBounds(12, 66, 338, 42);
 		getContentPane().add(btnNewButton_1);
 	}
+
+	
 
 	public JButton getBtnNuevaSubasta() {
 		return btnNuevaSubasta;

@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -75,6 +76,7 @@ public class PrincipalSubastaCliente extends JFrame {
 		panelSubasta.setEditable(false);
 		setResizable(false);
 		setTitle("Subasta");
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 610, 506);
 		contentPane = new JPanel();

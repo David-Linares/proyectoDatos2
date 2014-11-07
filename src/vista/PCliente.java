@@ -198,7 +198,7 @@ public class PCliente extends JFrame {
 		} else if (General.getListadoConectadosTemp().contains(nombreV)) {
 			mensajeV = "\u00A1El Nick "
 					+ nombreV
-					+ " ya está registrado en la subasta\n Por favor intenta con uno nuevo";
+					+ " ya est\u00e1 registrado en la subasta\n Por favor intenta con uno nuevo";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
 					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
 			tfNombreCliente.setText("");
