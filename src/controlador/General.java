@@ -178,7 +178,6 @@ public class General {
 	
 	
 	
-	
 	//NOTIFICA A UN CLIENTE NUEVO TODAS LAS CONEXIONES EXISTENTES
 	public void nuevaConexion(Conexion nuevo){
 		conexiones.add(nuevo);
