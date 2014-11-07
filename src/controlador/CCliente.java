@@ -59,7 +59,7 @@ public class CCliente extends Thread {
 					break;
 				case 5:
 					Temporizador temp = (Temporizador) eMensaje;
-					ventanaCliente.mostrarTIempo(temp);
+					ventanaCliente.mostrarTiempo(temp);
 				}
 			}
 		} catch (UnknownHostException e) {

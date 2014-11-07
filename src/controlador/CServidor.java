@@ -1,8 +1,10 @@
 package controlador;
 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import vista.Principal;
 import vista.PrincipalSubastaVendedor;
 
 import javax.swing.JFrame;
@@ -26,17 +28,22 @@ public class CServidor extends Thread {
 		try {
 			sServidor = new ServerSocket(puerto);
 			while (true) {
-				Socket nuevoSServidor = sServidor.accept();
-				nuevaConexion = new Conexion(nuevoSServidor);
-				general.nuevaConexion(nuevaConexion);
+				Socket nuevoSServidor;
+				try {
+					nuevoSServidor = sServidor.accept();
+					nuevaConexion = new Conexion(nuevoSServidor);
+					general.nuevaConexion(nuevaConexion);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(ventana, "CServidor / Error al Abrir el Puerto"+e.getMessage());
-		}
-		try {
-			sServidor.close();
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(new JFrame(), "CServidor / Se produjo un error al cerrar el puerto "+e.getMessage());
+		} catch (IOException e1) {
+			JOptionPane.showMessageDialog(ventana, "Ya hay una subasta abierta. \n Por Favor ingresa como cliente.", "Error en Creación de Subasta", JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
+			Principal ventanaPrincipal = new Principal();
+			ventanaPrincipal.getBtnNuevaSubasta().setEnabled(false);
+			ventanaPrincipal.setVisible(true);
+			return;
 		}
 	}
 

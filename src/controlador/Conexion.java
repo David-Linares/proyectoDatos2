@@ -104,7 +104,14 @@ public class Conexion extends Thread {
 					Temporizador temp = (Temporizador) eMensaje;
 					general.enviarDatos(operacion,temp);
 					General.setReloj(temp);
-					General.getVentanaServidor().getLblReloj().setText("0"+temp.getMin()+":"+temp.getSeg());
+					if(temp.getSeg() < 10 ){
+						General.getVentanaServidor().getLblReloj().setText("0"+temp.getMin()+":0"+temp.getSeg());
+						if (temp.getMin() == 0 && temp.getSeg() == 0) {
+							JOptionPane.showMessageDialog(new JFrame(), "La subasta ha finalizado\n EL ganador es "+clienteTemp.getNombre(), "Fin de la Subasta", JOptionPane.INFORMATION_MESSAGE, general.getIcon("winner"));
+						}
+					}else{
+						General.getVentanaServidor().getLblReloj().setText("0"+temp.getMin()+":"+temp.getSeg());
+					}
 				}
 
 			} catch (IOException e) {
