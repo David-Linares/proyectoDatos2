@@ -68,7 +68,7 @@ public class CCliente extends Thread {
 					break;
 				case 5:
 					General.setProductoSeleccionado((Producto)eMensaje);
-					//ventanaCliente.agregarProductoEnSubasta((Producto) eMensaje);
+					ventanaCliente.agregarProductoEnSubasta((Producto) eMensaje);
 					break;
 				case 6:
 					System.out.println("CCLIENTE / entr� ac�");
@@ -100,10 +100,10 @@ public class CCliente extends Thread {
 	}
 
 	public void enviarProductoHilo(Producto cambioProducto) {
-		enviarDatosCliente(4, cambioProducto);
+		enviarDatosCliente(5, cambioProducto);
 	}
 	public void enviarReloj(Temporizador reloj){
-		enviarDatosCliente(5, reloj);
+		enviarDatosCliente(6, reloj);
 	}
 
 	// ESCRIBE LOS DATOS A LA CONEXION
@@ -129,6 +129,7 @@ public class CCliente extends Thread {
 	public void setClienteConectado(Cliente clienteConectado) {
 		this.clienteConectado = clienteConectado;
 		enviarDatosCliente(2, this.clienteConectado);
+		enviarDatosCliente(5, General.getProductoSeleccionado());
 	}
 	public PrincipalSubastaCliente getVentanaCliente() {
 		return ventanaCliente;
