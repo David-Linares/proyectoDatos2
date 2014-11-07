@@ -24,7 +24,6 @@ import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JTextArea;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 
 @SuppressWarnings("serial")
@@ -122,7 +121,6 @@ public class PVendedor extends JFrame {
 		lblVentanaPrincipalDe.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVentanaPrincipalDe.setBounds(12, 0, 510, 35);
 		contentPane.add(lblVentanaPrincipalDe);
-		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{listaProductos, textFieldPuerto, btnIniciarSubasta}));
 
 		btnIniciarSubasta.addActionListener(new ActionListener() {
 			// OK

@@ -26,14 +26,14 @@ public class PCliente extends JFrame {
 
 	General general = General.getInstance();
 	private JPanel contentPane;
-	private JTextField tfIp;
-	private JTextField tfPuerto;
 	private JTextField tfNombreCliente;
 	private JTextField tfMonto;
 	private JLabel lblNombre;
 	private JLabel lblMontoInicial;
 	private JLabel lblDatosDeConexin;
 	PrincipalSubastaCliente psubasta;
+	private JLabel label;
+	private JLabel label_1;
 
 	/**
 	 * Launch the application.
@@ -55,7 +55,7 @@ public class PCliente extends JFrame {
 	 * Create the frame.
 	 */
 	public PCliente() {
-		setTitle("Datos de Conexión");
+		setTitle("Datos del Cliente");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 454, 279);
@@ -63,52 +63,6 @@ public class PCliente extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
-		tfIp = new JTextField("127.0.0.1");
-		tfIp.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent evt) {
-				char car = evt.getKeyChar();
-				if ((car < '0' || car > '9')) {
-					if (car != '.') {
-						evt.consume();
-					}
-				}
-			}
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == 10){
-					entrarSubasta();
-				}
-			}
-		});
-
-		tfIp.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
-		tfIp.setBounds(217, 58, 209, 23);
-		contentPane.add(tfIp);
-		tfIp.setColumns(10);
-
-		tfPuerto = new JTextField("8090");
-		tfPuerto.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(java.awt.event.KeyEvent evt) {
-				char car2 = evt.getKeyChar();
-				if (tfPuerto.getText().length() >= 5)
-					evt.consume();
-				if ((car2 < '0' || car2 > '9'))
-					evt.consume();
-			}
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == 10){
-					entrarSubasta();
-				}
-			}
-		});
-		tfPuerto.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
-		tfPuerto.setColumns(10);
-		tfPuerto.setBounds(217, 93, 209, 23);
-		contentPane.add(tfPuerto);
 
 		tfNombreCliente = new JTextField();
 		tfNombreCliente.addKeyListener(new KeyAdapter() {
@@ -120,12 +74,12 @@ public class PCliente extends JFrame {
 			}
 		});
 		tfNombreCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
-		tfNombreCliente.setBounds(217, 128, 209, 23);
+		tfNombreCliente.setBounds(179, 128, 247, 23);
 		contentPane.add(tfNombreCliente);
 		tfNombreCliente.setColumns(10);
 
 		tfMonto = new JTextField();
-		tfMonto.addKeyListener(new KeyAdapter() {
+		/*tfMonto.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(java.awt.event.KeyEvent evt) {
 				char car = evt.getKeyChar();
@@ -141,47 +95,59 @@ public class PCliente extends JFrame {
 					entrarSubasta();
 				}
 			}
-		});
+		});*/
 		tfMonto.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		tfMonto.setColumns(10);
-		tfMonto.setBounds(217, 163, 209, 23);
+		tfMonto.setBounds(179, 163, 247, 23);
 		contentPane.add(tfMonto);
 
-		JLabel lblNewLabel = new JLabel("Indique la Ip del Servidor");
+		JLabel lblNewLabel = new JLabel("Producto en Subasta");
 		lblNewLabel.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setBounds(45, 58, 154, 23);
+		lblNewLabel.setBounds(10, 48, 154, 34);
 		contentPane.add(lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("Indique el Puerto");
+		JLabel lblNewLabel_1 = new JLabel("Descripci\u00F3n de Producto");
 		lblNewLabel_1.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1.setBounds(90, 93, 109, 23);
+		lblNewLabel_1.setBounds(20, 94, 149, 23);
 		contentPane.add(lblNewLabel_1);
 
-		lblNombre = new JLabel("Nick");
+		lblNombre = new JLabel("Nombre");
 		lblNombre.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNombre.setBounds(139, 128, 60, 23);
+		lblNombre.setBounds(105, 128, 60, 23);
 		contentPane.add(lblNombre);
 
 		lblMontoInicial = new JLabel("Monto Inicial");
 		lblMontoInicial.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		lblMontoInicial.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMontoInicial.setBounds(115, 163, 84, 23);
+		lblMontoInicial.setBounds(87, 163, 84, 23);
 		contentPane.add(lblMontoInicial);
 
-		lblDatosDeConexin = new JLabel("Datos de Conexi\u00f3n");
+		lblDatosDeConexin = new JLabel("Datos del Cliente");
 		lblDatosDeConexin.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 20));
 		lblDatosDeConexin.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDatosDeConexin.setBounds(115, 12, 247, 34);
+		lblDatosDeConexin.setBounds(87, 11, 247, 34);
 		contentPane.add(lblDatosDeConexin);
 
-		JButton btnNewButton = new JButton("Conectarme");
-		btnNewButton.setBounds(105, 198, 224, 34);
-		contentPane.add(btnNewButton);
+		JButton btnIngresarSubasta = new JButton("Ingresar a La Subasta");
+		btnIngresarSubasta.setBounds(115, 205, 224, 34);
+		contentPane.add(btnIngresarSubasta);
+		
+		label = new JLabel();
+		label.setHorizontalAlignment(SwingConstants.TRAILING);
+		label.setFont(new Font("Dialog", Font.BOLD, 11));
+		label.setBounds(179, 59, 247, 23);
+		contentPane.add(label);
+		
+		label_1 = new JLabel();
+		label_1.setHorizontalAlignment(SwingConstants.TRAILING);
+		label_1.setFont(new Font("Dialog", Font.BOLD, 11));
+		label_1.setBounds(179, 94, 247, 23);
+		contentPane.add(label_1);
 
-		btnNewButton.addActionListener(new ActionListener() {
+		btnIngresarSubasta.addActionListener(new ActionListener() {
 			// Inicia el hilo! - OK
 			@SuppressWarnings({ "unchecked", "static-access" })
 			public void actionPerformed(ActionEvent arg0) {
@@ -195,7 +161,7 @@ public class PCliente extends JFrame {
 	private void entrarSubasta(){
 		if (validacion()) { // problema
 
-			try {
+			/*try {
 				int puerto = Integer.parseInt(tfPuerto.getText());
 				String ip = tfIp.getText();
 				Cliente nuevoCliente = new Cliente(tfNombreCliente
@@ -220,13 +186,13 @@ public class PCliente extends JFrame {
 						"PCliente / Se produjo un error"
 								+ e.getMessage());
 				General.setCliente(null);
-			}
+			}*/
 
 		}
 	}
 
 	private boolean validacion() {
-		String ipV = this.tfIp.getText();
+		/*String ipV = this.tfIp.getText();
 		String puertoV = this.tfPuerto.getText();
 		String montoV = this.tfMonto.getText();
 		String nombreV = this.tfNombreCliente.getText();
@@ -261,8 +227,8 @@ public class PCliente extends JFrame {
 			
 			JOptionPane.showMessageDialog(null, "Ha ingresado a la subasta",
 					"\u00A1Bienvenido!", JOptionPane.INFORMATION_MESSAGE, general.getIcon("confirm"));
-			return true;
-		}
+			*/return true;
+		//}
 
 	}
 
