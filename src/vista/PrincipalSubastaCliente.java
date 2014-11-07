@@ -142,6 +142,12 @@ public class PrincipalSubastaCliente extends JFrame {
 		lblMontoCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		contentPane.add(lblMontoCliente);
 		JLabel lblIpCliente;
+		
+		JLabel lblId = new JLabel("ID: " + General.getCliente().getId());
+		lblId.setFont(new Font("Dialog", Font.BOLD, 11));
+		lblId.setBounds(10, 65, 221, 15);
+		contentPane.add(lblId);
+
 		try {
 			lblIpCliente = new JLabel("IP: "
 					+ InetAddress.getLocalHost().getHostAddress().toString());
@@ -161,11 +167,7 @@ public class PrincipalSubastaCliente extends JFrame {
 			lblReloj.setBounds(241, 12, 212, 43);
 			contentPane.add(lblReloj);
 			
-			JLabel lblId = new JLabel("ID: 0");
-			lblId.setFont(new Font("Dialog", Font.BOLD, 11));
-			lblId.setBounds(10, 65, 221, 15);
-			contentPane.add(lblId);
-
+			
 		} catch (UnknownHostException e) {
 			JOptionPane.showMessageDialog(new JFrame(),
 					"SubastaCliente / Se produjo un error en la lectura de IP "
