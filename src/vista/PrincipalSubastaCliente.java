@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import modelo.Cliente;
 import modelo.Producto;
 import controlador.General;
+import controlador.Temporizador;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -28,6 +29,8 @@ import java.awt.Color;
 
 import javax.swing.JTextPane;
 
+import vista.Principal;
+
 @SuppressWarnings("serial")
 public class PrincipalSubastaCliente extends JFrame {
 
@@ -39,7 +42,6 @@ public class PrincipalSubastaCliente extends JFrame {
 	public JLabel lblProductoSubastado = new JLabel();
 	private JScrollPane panelScroll = new JScrollPane(panelSubasta);
 	private JLabel lblReloj;
-
 	private JScrollPane scrollLista = new JScrollPane();
 
 	/**
@@ -95,7 +97,7 @@ public class PrincipalSubastaCliente extends JFrame {
 		});
 		btnAbandonarSubasta.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		contentPane.add(btnAbandonarSubasta);
-		lblProductoSubastado.setBounds(10, 66, 443, 43);
+		lblProductoSubastado.setBounds(10, 78, 443, 31);
 
 		lblProductoSubastado.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		lblProductoSubastado.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -130,21 +132,28 @@ public class PrincipalSubastaCliente extends JFrame {
 		contentPane.add(btnNewButton_1);
 
 		JLabel lblNombreCliente = new JLabel("Nombre: "
-				+ General.cliente.getClienteConectado().getNombre());
-		lblNombreCliente.setBounds(10, 12, 172, 15);
+				+ General.getCliente().getClienteConectado().getNombre());
+		lblNombreCliente.setBounds(10, 12, 221, 15);
 		lblNombreCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		contentPane.add(lblNombreCliente);
 
 		JLabel lblMontoCliente = new JLabel("Monto Disponible: "
-				+ General.cliente.getClienteConectado().getMonto());
-		lblMontoCliente.setBounds(10, 39, 172, 15);
+				+ General.getCliente().getClienteConectado().getMonto());
+		lblMontoCliente.setBounds(10, 39, 221, 15);
 		lblMontoCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		contentPane.add(lblMontoCliente);
 		JLabel lblIpCliente;
+		
+		JLabel lblId = new JLabel("ID: " + General.getCliente().getId());
+		lblId.setFont(new Font("Dialog", Font.BOLD, 11));
+		lblId.setBounds(10, 65, 221, 15);
+		contentPane.add(lblId);
+
 		try {
 			lblIpCliente = new JLabel("IP: "
 					+ InetAddress.getLocalHost().getHostAddress().toString());
-			lblIpCliente.setBounds(465, 38, 131, 15);
+			lblIpCliente.setHorizontalAlignment(SwingConstants.CENTER);
+			lblIpCliente.setBounds(465, 29, 131, 15);
 			contentPane.add(lblIpCliente);
 
 			JTextPane textPane = new JTextPane();
@@ -152,11 +161,11 @@ public class PrincipalSubastaCliente extends JFrame {
 			contentPane.add(textPane);
 			panelScroll.setBounds(10, 120, 445, 254);
 			contentPane.add(panelScroll);
-			
-			lblReloj = new JLabel("New label");
-			lblReloj.setBounds(248, 12, 119, 42);
+			lblReloj = new JLabel("");
+			lblReloj.setFont(new Font("DejaVu Sans", Font.BOLD, 22));
+			lblReloj.setHorizontalAlignment(SwingConstants.CENTER);
+			lblReloj.setBounds(241, 12, 212, 43);
 			contentPane.add(lblReloj);
-
 		} catch (UnknownHostException e) {
 			JOptionPane.showMessageDialog(new JFrame(),
 					"SubastaCliente / Se produjo un error en la lectura de IP "
@@ -164,13 +173,18 @@ public class PrincipalSubastaCliente extends JFrame {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public void enviarMensaje() {
 		if (general.validarMonto(tfMensaje.getText())) {
-			General.cliente.enviarMensajeHilo(tfMensaje.getText());
-			lblReloj.setText(General.getTiempo());
+			if(General.getReloj() != null){
+				General.getReloj().stop();
+			}
+			General.setReloj(new Temporizador(3,0));
+			General.getReloj().start();
+			General.getCliente().enviarMensajeHilo(tfMensaje.getText());
 			General.getProductoSeleccionado().setValor(
 					Long.parseLong(tfMensaje.getText()));
-			General.cliente.enviarProductoHilo(General
+			General.getCliente().enviarProductoHilo(General
 					.getProductoSeleccionado());
 			tfMensaje.setText("");
 		} else {
@@ -194,21 +208,24 @@ public class PrincipalSubastaCliente extends JFrame {
 		if (respuesta == JOptionPane.NO_OPTION) {
 			return;
 		}
-		if (General.cliente != null) {
-			General.cliente.enviarDatosCliente(3, General.cliente.getClienteConectado().getNombre());
-			General.cliente.interrupt();
+
+		if (General.getCliente() != null) {
+			General.getCliente().enviarDatosCliente(3, General.getCliente().getClienteConectado().getNombre());
+			General.getCliente().interrupt();
 		}
-		General.cliente = null;
+		General.setCliente(null);
 		setVisible(false);
-		General.listadoConectados.removeAllElements();
+
+		General.getListadoConectados().removeAllElements();
 		panelSubasta.setText("");
 		Principal regreso = new Principal();
 		regreso.setVisible(true);
-	}
+		}
+	
 
 	// OK
 	public void agregarNuevo(Cliente nuevoCliente) {
-		General.listadoConectados.addElement(nuevoCliente.getNombre());
+		General.getListadoConectados().addElement(nuevoCliente.getNombre());
 	}
 
 	public void agregarProductoEnSubasta(Producto productoSubastado) {
@@ -216,6 +233,18 @@ public class PrincipalSubastaCliente extends JFrame {
 				+ productoSubastado.getNombre() + " \n Valor Actual: "
 				+ productoSubastado.getValor());
 		General.setProductoSeleccionado(productoSubastado);
+	}
+	
+	public void mostrarTiempo(Temporizador tiempo){
+		if (tiempo.getSeg() < 10) {
+			this.lblReloj.setText("0"+tiempo.getMin() + ":0" + tiempo.getSeg());
+			if (tiempo.getMin() == 0 && tiempo.getSeg() == 0) {
+				JOptionPane.showMessageDialog(new JFrame(), "La subasta ha finalizado", "Fin de la Subasta", JOptionPane.INFORMATION_MESSAGE, general.getIcon("winner"));
+			}
+		}else{
+			this.lblReloj.setText("0"+tiempo.getMin() + ":" + tiempo.getSeg());
+		}
+		General.setReloj(tiempo);
 	}
 
 	// OK
@@ -226,6 +255,6 @@ public class PrincipalSubastaCliente extends JFrame {
 
 	// OK
 	public void borrarCliente(int posicion) {
-		General.listadoConectados.remove(posicion);
+		General.getListadoConectados().remove(posicion);
 	}
 }

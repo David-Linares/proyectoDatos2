@@ -13,7 +13,7 @@ public class Cliente implements Serializable {
 	
 	private String nombre;
 	private long monto;
-		
+			
 	public Cliente() {
 		super();
 	}
@@ -22,6 +22,7 @@ public class Cliente implements Serializable {
 		super();
 		this.nombre = nombre;
 		this.monto = monto;
+		
 			}
 
 	public String getNombre() {

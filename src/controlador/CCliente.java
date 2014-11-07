@@ -20,41 +20,53 @@ public class CCliente extends Thread {
 	private PrincipalSubastaCliente ventanaCliente;
 	private boolean conectado;
 	private Socket SCliente;
+	private ObjectInputStream entrada;
 
 	public CCliente(int puerto, String ip, Cliente clienteConectado) {
 		this.ip = ip;
 		this.puerto = puerto;
 		this.clienteConectado = clienteConectado;
+		this.entrada = null;
+	}
+	public CCliente(int puerto, String ip) {
+		this.ip = ip;
+		this.puerto = puerto;
+		this.entrada = null;
 	}
 
 	// OK
 	public void run() {
 		try {
 			SCliente = new Socket(ip, puerto);
-			ObjectInputStream entrada = new ObjectInputStream(
+			entrada = new ObjectInputStream(
 					SCliente.getInputStream());
-			enviarDatosCliente(1, clienteConectado);
+			if(clienteConectado!=null){
+				enviarDatosCliente(1, clienteConectado);
+			}
 			conectado = true;
 			while (conectado) {
 				int operacion = entrada.readInt();
 				Object eMensaje = entrada.readObject();
-				// JOptionPane.showMessageDialog(new JFrame(),
-				// "CCliente / Pas� entrada y envia los datos de nueva conexi�n");
-				switch (operacion) {
+
+			switch (operacion) {
 				case 1:// Agregar nuevo cliente
-					ventanaCliente.agregarNuevo((Cliente) eMensaje);
+					//ventanaCliente.agregarNuevo((Cliente) eMensaje);
 					break;
-				case 2:// Enviar Mensaje
+				case 3:// Enviar Mensaje
 					ventanaCliente.mensajeRecibido((String) eMensaje);
 					break;
-				case 3:
+				case 4:
 					ventanaCliente.borrarCliente(Integer
 							.parseInt((String) eMensaje));
 					break;
-				case 4:
-					ventanaCliente
-							.agregarProductoEnSubasta((Producto) eMensaje);
+				case 5:
+					General.setProductoSeleccionado((Producto)eMensaje);
+					//ventanaCliente.agregarProductoEnSubasta((Producto) eMensaje);
 					break;
+				case 6:
+					System.out.println("CCLIENTE / entr� ac�");
+					Temporizador temp = (Temporizador) eMensaje;
+					ventanaCliente.mostrarTiempo(temp);
 				}
 			}
 		} catch (UnknownHostException e) {
@@ -65,8 +77,6 @@ public class CCliente extends Thread {
 
 			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.println(e);
-			System.out.println(e.getMessage());
 			JOptionPane.showMessageDialog(ventanaCliente,
 					"CCCliente / IOException " + e.getMessage());
 		} catch (ClassNotFoundException e) {
@@ -80,12 +90,13 @@ public class CCliente extends Thread {
 	// OK
 	public void enviarMensajeHilo(String sMensaje) {
 		enviarDatosCliente(2, sMensaje);
-		General.reloj=new Temporizador();
-		General.reloj.start();
 	}
 
 	public void enviarProductoHilo(Producto cambioProducto) {
 		enviarDatosCliente(4, cambioProducto);
+	}
+	public void enviarReloj(Temporizador reloj){
+		enviarDatosCliente(5, reloj);
 	}
 
 	// ESCRIBE LOS DATOS A LA CONEXION
