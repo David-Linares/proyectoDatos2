@@ -25,14 +25,16 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JTextArea;
 import java.awt.Component;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 @SuppressWarnings("serial")
 public class PVendedor extends JFrame {
 
 	private JPanel contentPane;
-
 	General general = General.getInstance();
 	private JTextField textFieldPuerto;
+	private JTextArea tADescripcionProducto;
 
 	/**
 	 * Launch the application.
@@ -72,6 +74,12 @@ public class PVendedor extends JFrame {
 
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		final JComboBox listaProductos = new JComboBox(General.getProductos());
+		listaProductos.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				Producto item = (Producto) e.getItem();
+				tADescripcionProducto.setText(item.getDescripcion());
+			}
+		});
 		listaProductos.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		lblSeleccioneElProducto.setLabelFor(listaProductos);
 		listaProductos.setBounds(228, 47, 294, 30);
@@ -105,7 +113,7 @@ public class PVendedor extends JFrame {
 		btnIniciarSubasta.setBounds(133, 257, 264, 32);
 		contentPane.add(btnIniciarSubasta);
 		
-		JTextArea tADescripcionProducto = new JTextArea();
+		tADescripcionProducto = new JTextArea();
 		tADescripcionProducto.setLineWrap(true);
 		tADescripcionProducto.setWrapStyleWord(true);
 		tADescripcionProducto.setEditable(false);

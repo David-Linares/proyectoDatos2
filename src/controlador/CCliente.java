@@ -48,9 +48,13 @@ public class CCliente extends Thread {
 				Object eMensaje = entrada.readObject();
 			switch (operacion) {
 				case 1: //Recibe los datos que tiene el servidor para actualizar los datos del cliente.
-					ArrayList<?> datos = (ArrayList<?>) eMensaje;
-					General.setListadoConectadosTemp((DefaultListModel) datos.get(0));
-					General.setProductoSeleccionado((Producto) datos.get(1));
+					if (eMensaje instanceof ArrayList) {
+						ArrayList<?> datos = (ArrayList<?>) eMensaje;
+						General.setListadoConectadosTemp((DefaultListModel) datos.get(0));
+						General.setProductoSeleccionado((Producto) datos.get(1));						
+					}else if(eMensaje instanceof Conexion){
+						General.setConexionTemp((Conexion) eMensaje);
+					}
 					break;
 				case 2:// Agregar nuevo cliente
 					ventanaCliente.agregarNuevo((Cliente) eMensaje);

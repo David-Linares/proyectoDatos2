@@ -54,6 +54,7 @@ public class Conexion extends Thread {
 
 				// Recibir una conexion sin Cliente
 				case 1:
+					general.enviarDatos(operacion, eMensaje);
 					break;
 
 				case 2:

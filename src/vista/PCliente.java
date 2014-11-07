@@ -169,8 +169,10 @@ public class PCliente extends JFrame {
 					psubasta = new PrincipalSubastaCliente();
 					General.getCliente().setVentanaCliente(psubasta);
 					General.setPanelSubastaCliente(psubasta.getPanelSubasta());
+					general.nuevaConexion(General.getConexionTemp());
 				}
-				psubasta.listConectados
+				General.setListadoConectados(General.getListadoConectadosTemp());
+				psubasta.getListConectados()
 						.setModel(General.getListadoConectados());
 				psubasta.setVisible(true);
 				setVisible(false);
