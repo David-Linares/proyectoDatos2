@@ -228,7 +228,6 @@ public class PrincipalSubastaCliente extends JFrame {
 	// OK
 	@SuppressWarnings("unchecked")
 	public void agregarNuevo(Cliente nuevoCliente) {
-
 		General.getListadoConectados().addElement(nuevoCliente.getNombre());
 	}
 

@@ -32,7 +32,7 @@ public class CServidor extends Thread {
 				try {
 					nuevoSServidor = sServidor.accept();
 					nuevaConexion = new Conexion(nuevoSServidor);
-					general.nuevaConexion(nuevaConexion);
+					//general.nuevaConexion(nuevaConexion);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

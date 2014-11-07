@@ -106,6 +106,7 @@ public class PVendedor extends JFrame {
 		contentPane.add(btnIniciarSubasta);
 		
 		JTextArea tADescripcionProducto = new JTextArea();
+		tADescripcionProducto.setLineWrap(true);
 		tADescripcionProducto.setWrapStyleWord(true);
 		tADescripcionProducto.setEditable(false);
 		tADescripcionProducto.setBounds(228, 126, 294, 119);

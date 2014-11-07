@@ -28,6 +28,11 @@ public class CCliente extends Thread {
 		this.clienteConectado = clienteConectado;
 		this.entrada = null;
 	}
+	public CCliente(int puerto, String ip) {
+		this.ip = ip;
+		this.puerto = puerto;
+		this.entrada = null;
+	}
 
 	// OK
 	public void run() {
@@ -35,29 +40,30 @@ public class CCliente extends Thread {
 			SCliente = new Socket(ip, puerto);
 			entrada = new ObjectInputStream(
 					SCliente.getInputStream());
-			enviarDatosCliente(1, clienteConectado);
+			if(clienteConectado!=null){
+				enviarDatosCliente(1, clienteConectado);
+			}
 			conectado = true;
 			while (conectado) {
 				int operacion = entrada.readInt();
 				Object eMensaje = entrada.readObject();
-				// JOptionPane.showMessageDialog(new JFrame(),
-				// "CCliente / Pasï¿½ entrada y envia los datos de nueva conexiï¿½n");
-				switch (operacion) {
+			switch (operacion) {
 				case 1:// Agregar nuevo cliente
-					ventanaCliente.agregarNuevo((Cliente) eMensaje);
+					//ventanaCliente.agregarNuevo((Cliente) eMensaje);
 					break;
-				case 2:// Enviar Mensaje
+				case 3:// Enviar Mensaje
 					ventanaCliente.mensajeRecibido((String) eMensaje);
 					break;
-				case 3:
+				case 4:
 					ventanaCliente.borrarCliente(Integer
 							.parseInt((String) eMensaje));
 					break;
-				case 4:
-					ventanaCliente
-							.agregarProductoEnSubasta((Producto) eMensaje);
-					break;
 				case 5:
+					General.setProductoSeleccionado((Producto)eMensaje);
+					//ventanaCliente.agregarProductoEnSubasta((Producto) eMensaje);
+					break;
+				case 6:
+					System.out.println("CCLIENTE / entrò acà");
 					Temporizador temp = (Temporizador) eMensaje;
 					ventanaCliente.mostrarTiempo(temp);
 				}

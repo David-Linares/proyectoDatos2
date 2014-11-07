@@ -76,8 +76,8 @@ public class Principal extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
-				PCliente pcliente = new PCliente();
-				pcliente.setVisible(true);
+				PConexion pconexion = new PConexion();
+				pconexion.setVisible(true);
 			}
 		});
 		btnNewButton_1.setBounds(12, 66, 338, 42);

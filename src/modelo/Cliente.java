@@ -13,16 +13,7 @@ public class Cliente implements Serializable {
 	
 	private String nombre;
 	private long monto;
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	private int id;
-		
+			
 	public Cliente() {
 		super();
 	}
