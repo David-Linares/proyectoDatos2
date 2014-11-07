@@ -1,5 +1,3 @@
 #Omite todos los archivos .class del proyecto.
 *.class
-#Omite el classPath para no dañar la configuración de otros equipos
-.classpath
 /bin
