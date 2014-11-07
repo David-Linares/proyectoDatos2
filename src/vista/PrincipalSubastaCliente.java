@@ -37,7 +37,7 @@ public class PrincipalSubastaCliente extends JFrame {
 	General general = General.getInstance();
 	private JTextField tfMensaje;
 	@SuppressWarnings("rawtypes")
-	public JList listConectados = new JList();
+	private JList listConectados = new JList();
 	private JTextPane panelSubasta = new JTextPane();
 	public JLabel lblProductoSubastado = new JLabel();
 	private JScrollPane panelScroll = new JScrollPane(panelSubasta);
@@ -262,4 +262,13 @@ public class PrincipalSubastaCliente extends JFrame {
 	public void borrarCliente(int posicion) {
 		General.getListadoConectados().remove(posicion);
 	}
+
+	public JList getListConectados() {
+		return listConectados;
+	}
+
+	public void setListConectados(JList listConectados) {
+		this.listConectados = listConectados;
+	}	
+	
 }

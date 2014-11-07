@@ -48,9 +48,13 @@ public class CCliente extends Thread {
 				Object eMensaje = entrada.readObject();
 			switch (operacion) {
 				case 1: //Recibe los datos que tiene el servidor para actualizar los datos del cliente.
-					ArrayList<?> datos = (ArrayList<?>) eMensaje;
-					General.setListadoConectadosTemp((DefaultListModel) datos.get(0));
-					General.setProductoSeleccionado((Producto) datos.get(1));
+					if (eMensaje instanceof ArrayList) {
+						ArrayList<?> datos = (ArrayList<?>) eMensaje;
+						General.setListadoConectadosTemp((DefaultListModel) datos.get(0));
+						General.setProductoSeleccionado((Producto) datos.get(1));						
+					}else if(eMensaje instanceof Conexion){
+						General.setConexionTemp((Conexion) eMensaje);
+					}
 					break;
 				case 2:// Agregar nuevo cliente
 					ventanaCliente.agregarNuevo((Cliente) eMensaje);
@@ -64,7 +68,7 @@ public class CCliente extends Thread {
 					break;
 				case 5:
 					General.setProductoSeleccionado((Producto)eMensaje);
-					//ventanaCliente.agregarProductoEnSubasta((Producto) eMensaje);
+					ventanaCliente.agregarProductoEnSubasta((Producto) eMensaje);
 					break;
 				case 6:
 					System.out.println("CCLIENTE / entr� ac�");
@@ -96,10 +100,10 @@ public class CCliente extends Thread {
 	}
 
 	public void enviarProductoHilo(Producto cambioProducto) {
-		enviarDatosCliente(4, cambioProducto);
+		enviarDatosCliente(5, cambioProducto);
 	}
 	public void enviarReloj(Temporizador reloj){
-		enviarDatosCliente(5, reloj);
+		enviarDatosCliente(6, reloj);
 	}
 
 	// ESCRIBE LOS DATOS A LA CONEXION
@@ -125,6 +129,7 @@ public class CCliente extends Thread {
 	public void setClienteConectado(Cliente clienteConectado) {
 		this.clienteConectado = clienteConectado;
 		enviarDatosCliente(2, this.clienteConectado);
+		enviarDatosCliente(5, General.getProductoSeleccionado());
 	}
 	public PrincipalSubastaCliente getVentanaCliente() {
 		return ventanaCliente;
