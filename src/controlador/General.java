@@ -22,13 +22,32 @@ public class General {
 	private static String tiempo;
 	@SuppressWarnings("rawtypes")
 	private static DefaultListModel listadoConectados = new DefaultListModel();
-	
+	private static DefaultListModel listadoConectadosTemp = new DefaultListModel(); //Listado temporal del servidor.
+	private static Conexion conexionTemp;
 	private static Producto productoSeleccionado;
 	private static CServidor servidor = null;
 	private static CCliente cliente = null;
 	private static PrincipalSubastaVendedor ventanaServidor;
 	private static JTextPane panelSubastaCliente;
 	
+	public static Conexion getConexionTemp() {
+		return conexionTemp;
+	}
+
+	public static void setConexionTemp(Conexion conexionTemp) {
+		General.conexionTemp = conexionTemp;
+	}
+
+	public static DefaultListModel getListadoConectadosTemp() {
+		return listadoConectadosTemp;
+	}
+
+	public static void setListadoConectadosTemp(
+			DefaultListModel listadoConectadosTemp) {
+		General.listadoConectadosTemp = listadoConectadosTemp;
+	}
+
+
 	public static String getTiempo() {
 		return tiempo;
 	}
@@ -164,9 +183,10 @@ public class General {
 	//NOTIFICA A UN CLIENTE NUEVO TODAS LAS CONEXIONES EXISTENTES
 	public void nuevaConexion(Conexion nuevo){
 		for(Conexion con: conexiones){
-			nuevo.entradaDatosConexion(1, con.getClienteTemp());
+			nuevo.entradaDatosConexion(2, con.getClienteTemp());
 		}
 		conexiones.add(nuevo);
+		
 	}
 	
 	//DESCONECTA Y ELIMINA LA CONEXION DE UN CLIENTE

@@ -32,10 +32,10 @@ public class CServidor extends Thread {
 				try {
 					nuevoSServidor = sServidor.accept();
 					nuevaConexion = new Conexion(nuevoSServidor);
+					General.setConexionTemp(nuevaConexion);
 					//general.nuevaConexion(nuevaConexion);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(ventana, "CServidor / Se produjo un error en la nueva conexión");
 				}
 			}
 		} catch (IOException e1) {

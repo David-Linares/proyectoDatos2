@@ -118,10 +118,10 @@ public class PConexion extends JFrame {
 				if (General.getCliente() == null) {
 					General.setCliente(new CCliente(puerto, ip));
 					General.getCliente().start();
-					PCliente pcliente = new PCliente();
-					setVisible(false);
-					pcliente.setVisible(true);
 				}
+				PCliente pcliente = new PCliente();
+				setVisible(false);
+				pcliente.setVisible(true);
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(new JFrame(),
 						"PConexion / Se produjo un error " + e.getMessage());

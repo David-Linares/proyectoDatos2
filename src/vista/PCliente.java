@@ -11,22 +11,24 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
-import controlador.CCliente;
 import controlador.General;
-import modelo.Cliente;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.JTextArea;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
-import java.awt.Component;
 
-@SuppressWarnings("serial")
+import javax.swing.JTextArea;
+
+import modelo.Cliente;
+
 public class PCliente extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	General general = General.getInstance();
 	private JPanel contentPane;
 	private JTextField tfNombreCliente;
@@ -70,7 +72,7 @@ public class PCliente extends JFrame {
 		tfNombreCliente.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == 10){
+				if (e.getKeyCode() == 10) {
 					entrarSubasta();
 				}
 			}
@@ -81,23 +83,16 @@ public class PCliente extends JFrame {
 		tfNombreCliente.setColumns(10);
 
 		tfMonto = new JTextField();
-		/*tfMonto.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(java.awt.event.KeyEvent evt) {
-				char car = evt.getKeyChar();
-				if (tfPuerto.getText().length() >= 18)
-					evt.consume();
-				if ((car < '0' || car > '9')) {
-					evt.consume();
-				}
-			}
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == 10){
-					entrarSubasta();
-				}
-			}
-		});*/
+		/*
+		 * tfMonto.addKeyListener(new KeyAdapter() {
+		 * 
+		 * @Override public void keyTyped(java.awt.event.KeyEvent evt) { char
+		 * car = evt.getKeyChar(); if (tfPuerto.getText().length() >= 18)
+		 * evt.consume(); if ((car < '0' || car > '9')) { evt.consume(); } }
+		 * 
+		 * @Override public void keyPressed(KeyEvent e) { if (e.getKeyCode() ==
+		 * 10){ entrarSubasta(); } } });
+		 */
 		tfMonto.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		tfMonto.setColumns(10);
 		tfMonto.setBounds(179, 225, 259, 29);
@@ -128,7 +123,8 @@ public class PCliente extends JFrame {
 		contentPane.add(lblMontoInicial);
 
 		lblDatosDeConexin = new JLabel("Datos del Cliente");
-		lblDatosDeConexin.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 20));
+		lblDatosDeConexin.setFont(new Font("DejaVu Sans", Font.BOLD
+				| Font.ITALIC, 20));
 		lblDatosDeConexin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDatosDeConexin.setBounds(96, 11, 247, 34);
 		contentPane.add(lblDatosDeConexin);
@@ -136,13 +132,14 @@ public class PCliente extends JFrame {
 		JButton btnIngresarSubasta = new JButton("Ingresar a La Subasta");
 		btnIngresarSubasta.setBounds(105, 265, 224, 34);
 		contentPane.add(btnIngresarSubasta);
-		
-		label = new JLabel(General.getProductoSeleccionado().getNombre() + " = "+General.getProductoSeleccionado().getValor());
+
+		label = new JLabel(General.getProductoSeleccionado().getNombre()
+				+ " = " + General.getProductoSeleccionado().getValor());
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("Dialog", Font.BOLD, 16));
 		label.setBounds(179, 48, 259, 34);
 		contentPane.add(label);
-		
+
 		JTextArea textArea = new JTextArea();
 		textArea.append(General.getProductoSeleccionado().getDescripcion());
 		textArea.setWrapStyleWord(true);
@@ -150,7 +147,6 @@ public class PCliente extends JFrame {
 		textArea.setEditable(false);
 		textArea.setBounds(179, 93, 259, 81);
 		contentPane.add(textArea);
-		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{tfNombreCliente, tfMonto, textArea, btnIngresarSubasta}));
 
 		btnIngresarSubasta.addActionListener(new ActionListener() {
 			// Inicia el hilo! - OK
@@ -162,64 +158,50 @@ public class PCliente extends JFrame {
 		});
 
 	}
-	
-	private void entrarSubasta(){
-		if (validacion()) { // problema
 
-			/*try {
-				int puerto = Integer.parseInt(tfPuerto.getText());
-				String ip = tfIp.getText();
-				Cliente nuevoCliente = new Cliente(tfNombreCliente
-						.getText(), Long.parseLong(tfMonto.getText()));
-				if (General.getCliente() == null) {
-					General.setCliente(new CCliente(puerto, ip,
-							nuevoCliente));
+	private void entrarSubasta() {
+		if (validacion()) {
+			try {
+				Cliente nuevoCliente = new Cliente(tfNombreCliente.getText(),
+						Long.parseLong(tfMonto.getText()));
+				if (General.getCliente() != null) {
+					General.getCliente().setClienteConectado(nuevoCliente);
 					psubasta = new PrincipalSubastaCliente();
 					General.getCliente().setVentanaCliente(psubasta);
-					General.setPanelSubastaCliente(psubasta
-							.getPanelSubasta());
-					General.getCliente().start();
+					General.setPanelSubastaCliente(psubasta.getPanelSubasta());
 				}
-				// PENDIENTE
 				psubasta.listConectados
 						.setModel(General.getListadoConectados());
 				psubasta.setVisible(true);
 				setVisible(false);
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(
-						new JFrame(),
-						"PCliente / Se produjo un error"
-								+ e.getMessage());
+				JOptionPane.showMessageDialog(new JFrame(),
+						"PCliente / Se produjo un error" + e.getMessage());
 				General.setCliente(null);
-			}*/
+			}
 
 		}
 	}
-	
+
 	private boolean validacion() {
-		/*String ipV = this.tfIp.getText();
-		String puertoV = this.tfPuerto.getText();
 		String montoV = this.tfMonto.getText();
 		String nombreV = this.tfNombreCliente.getText();
 
 		String mensajeV = "";
 
-		if (ipV.equals("")) {
-			mensajeV = "\u00A1Debe escribir la IP!\n";
-			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
-					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
-			tfIp.requestFocus();
-			return false;
-		} else if (puertoV.equals("")) {
-			mensajeV = "\u00A1Debe escribir el n\u00famero de puerto!\n";
-			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
-					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
-			tfPuerto.requestFocus();
-			return false;
-		} else if (nombreV.equals("")) {
+		if (nombreV.equals("")) {
 			mensajeV = "\u00A1Debe escribir el nombre de usuario!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
 					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
+			tfNombreCliente.requestFocus();
+			return false;
+		} else if (General.getListadoConectadosTemp().contains(nombreV)) {
+			mensajeV = "\u00A1El Nick "
+					+ nombreV
+					+ " ya está registrado en la subasta\n Por favor intenta con uno nuevo";
+			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
+					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
+			tfNombreCliente.setText("");
 			tfNombreCliente.requestFocus();
 			return false;
 		} else if (montoV.equals("")) {
@@ -229,11 +211,11 @@ public class PCliente extends JFrame {
 			tfMonto.requestFocus();
 			return false;
 		} else {
-			
-			JOptionPane.showMessageDialog(null, "Ha ingresado a la subasta",
-					"\u00A1Bienvenido!", JOptionPane.INFORMATION_MESSAGE, general.getIcon("confirm"));
-			*/return true;
-		//}
+			JOptionPane.showMessageDialog(null, "Bienvenido a la subasta",
+					"\u00A1Bienvenido!", JOptionPane.INFORMATION_MESSAGE,
+					general.getIcon("confirm"));
+			return true;
+		}
 
 	}
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -41,7 +42,10 @@ public class Conexion extends Thread {
 		while (true) {
 			try {
 				//entradaDatosConexion(5, General.getProductoSeleccionado());
-				entradaDatosConexion(1, null);
+				ArrayList datosServidor = new ArrayList();
+				datosServidor.add(General.getListadoConectados());
+				datosServidor.add(General.getProductoSeleccionado());
+				entradaDatosConexion(1, datosServidor);
 				ObjectInputStream entrada = new ObjectInputStream(
 						s.getInputStream());
 				int operacion = entrada.readInt();
@@ -50,8 +54,6 @@ public class Conexion extends Thread {
 
 				// Recibir una conexion sin Cliente
 				case 1:
-					JOptionPane.showMessageDialog(new JFrame(), General.getProductoSeleccionado());
-					JOptionPane.showMessageDialog(new JFrame(), General.getListadoConectados().size());
 					break;
 
 				case 2:
@@ -143,7 +145,7 @@ public class Conexion extends Thread {
 		}
 	}
 
-	// ESCRIBE LOS DATOS DE ENTRADA A LA CONEXION
+	// ESCRIBE LOS DATOS DE ENTRADA AL CLIENTE
 	public void entradaDatosConexion(int operacion, Object sMensaje) {
 		try {
 			salida.writeInt(operacion);

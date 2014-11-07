@@ -5,7 +5,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 import modelo.Cliente;
@@ -40,16 +42,18 @@ public class CCliente extends Thread {
 			SCliente = new Socket(ip, puerto);
 			entrada = new ObjectInputStream(
 					SCliente.getInputStream());
-			if(clienteConectado!=null){
-				enviarDatosCliente(1, clienteConectado);
-			}
 			conectado = true;
 			while (conectado) {
 				int operacion = entrada.readInt();
 				Object eMensaje = entrada.readObject();
 			switch (operacion) {
-				case 1:// Agregar nuevo cliente
-					//ventanaCliente.agregarNuevo((Cliente) eMensaje);
+				case 1: //Recibe los datos que tiene el servidor para actualizar los datos del cliente.
+					ArrayList<?> datos = (ArrayList<?>) eMensaje;
+					General.setListadoConectadosTemp((DefaultListModel) datos.get(0));
+					General.setProductoSeleccionado((Producto) datos.get(1));
+					break;
+				case 2:// Agregar nuevo cliente
+					ventanaCliente.agregarNuevo((Cliente) eMensaje);
 					break;
 				case 3:// Enviar Mensaje
 					ventanaCliente.mensajeRecibido((String) eMensaje);
@@ -63,7 +67,7 @@ public class CCliente extends Thread {
 					//ventanaCliente.agregarProductoEnSubasta((Producto) eMensaje);
 					break;
 				case 6:
-					System.out.println("CCLIENTE / entrò acà");
+					System.out.println("CCLIENTE / entrï¿½ acï¿½");
 					Temporizador temp = (Temporizador) eMensaje;
 					ventanaCliente.mostrarTiempo(temp);
 				}
@@ -117,7 +121,11 @@ public class CCliente extends Thread {
 	public Cliente getClienteConectado() {
 		return this.clienteConectado;
 	}
-
+	
+	public void setClienteConectado(Cliente clienteConectado) {
+		this.clienteConectado = clienteConectado;
+		enviarDatosCliente(2, this.clienteConectado);
+	}
 	public PrincipalSubastaCliente getVentanaCliente() {
 		return ventanaCliente;
 	}
