@@ -47,6 +47,8 @@ public class Conexion extends Thread {
 				ArrayList datosServidor = new ArrayList();
 				datosServidor.add(General.getListadoConectados());
 				datosServidor.add(General.getProductoSeleccionado());
+				datosServidor.add(general.getConexiones());
+				datosServidor.add(General.getConexionTemp());
 				//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Envía los datos que hay en el servidor de producto y de clientes");
 				entradaDatosConexion(1, datosServidor);
 				ObjectInputStream entrada = new ObjectInputStream(

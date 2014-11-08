@@ -33,7 +33,6 @@ public class CServidor extends Thread {
 					//JOptionPane.showMessageDialog(new JFrame(), "CServidor / Entró un nuevo cliente");
 					nuevaConexion = new Conexion(nuevoSServidor);
 					General.setConexionTemp(nuevaConexion);
-					general.nuevaConexionTemp(nuevaConexion);
 				} catch (IOException e) {
 					JOptionPane.showMessageDialog(ventana, "CServidor / Se produjo un error en la nueva conexiÃ³n");
 				}

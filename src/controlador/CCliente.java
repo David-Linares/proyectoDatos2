@@ -37,7 +37,7 @@ public class CCliente extends Thread {
 	}
 
 	// OK
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void run() {
 		try {
 			//JOptionPane.showMessageDialog(new JFrame(), "CCliente / Entró a Run de Cliente");
@@ -56,10 +56,10 @@ public class CCliente extends Thread {
 						ArrayList<?> datos = (ArrayList<?>) eMensaje;
 						General.setListadoConectados((DefaultListModel) datos.get(0));
 						General.setProductoSeleccionado((Producto) datos.get(1));
+						General.setConexiones((ArrayList<Conexion>) datos.get(2));
+						General.setConexionTemp((Conexion) datos.get(3));
 						General.getVentanaDatosCliente().getLblProductoSubastaCliente().setText(General.getProductoSeleccionado().getNombre() + " = " + General.getProductoSeleccionado().getValor());
 						General.getVentanaDatosCliente().gettADescripcionProducto().setText(General.getProductoSeleccionado().getDescripcion());
-					}else if(eMensaje instanceof Conexion){
-						General.setConexionTemp((Conexion) eMensaje);
 					}
 					break;
 				case 2:// Agregar nuevo cliente
