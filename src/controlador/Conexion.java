@@ -3,6 +3,7 @@ package controlador;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -12,8 +13,10 @@ import javax.swing.JOptionPane;
 import modelo.Cliente;
 import modelo.Producto;
 
-public class Conexion extends Thread {
+public class Conexion extends Thread implements Serializable{
 
+	
+	private static final long serialVersionUID = 1L;
 	private Socket s;
 	private ObjectOutputStream salida;
 	private General general = General.getInstance();
@@ -41,7 +44,7 @@ public class Conexion extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entró a Run de conexión");
+				//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entrï¿½ a Run de conexiï¿½n");
 				//entradaDatosConexion(5, General.getProductoSeleccionado());
 				@SuppressWarnings("rawtypes")
 				ArrayList datosServidor = new ArrayList();
@@ -49,18 +52,18 @@ public class Conexion extends Thread {
 				datosServidor.add(General.getProductoSeleccionado());
 				datosServidor.add(general.getConexiones());
 				datosServidor.add(General.getConexionTemp());
-				//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Envía los datos que hay en el servidor de producto y de clientes");
+				//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Envï¿½a los datos que hay en el servidor de producto y de clientes");
 				entradaDatosConexion(1, datosServidor);
 				ObjectInputStream entrada = new ObjectInputStream(
 						s.getInputStream());
-				//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entraron Datos a conexión");
+				//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entraron Datos a conexiï¿½n");
 				int operacion = entrada.readInt();
 				Object eMensaje = entrada.readObject();
 				switch (operacion) {
 
 				// Recibir una conexion sin Cliente
 				case 1:
-					//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entró al case 1 y va a enviar datos nuevamente");
+					//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entrï¿½ al case 1 y va a enviar datos nuevamente");
 					general.enviarDatos(operacion, eMensaje);
 					break;
 
@@ -156,7 +159,7 @@ public class Conexion extends Thread {
 	// ESCRIBE LOS DATOS DE ENTRADA AL CLIENTE
 	public void entradaDatosConexion(int operacion, Object sMensaje) {
 		try {
-			//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entró a la función que envía los datos");
+			//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entrï¿½ a la funciï¿½n que envï¿½a los datos");
 			salida.writeInt(operacion);
 			salida.writeObject(sMensaje);
 		} catch (Exception e) {

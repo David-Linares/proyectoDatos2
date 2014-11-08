@@ -40,7 +40,7 @@ public class CCliente extends Thread {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void run() {
 		try {
-			//JOptionPane.showMessageDialog(new JFrame(), "CCliente / Entró a Run de Cliente");
+			//JOptionPane.showMessageDialog(new JFrame(), "CCliente / Entrï¿½ a Run de Cliente");
 			SCliente = new Socket(ip, puerto);
 			entrada = new ObjectInputStream(
 					SCliente.getInputStream());
@@ -51,9 +51,9 @@ public class CCliente extends Thread {
 			Object eMensaje = entrada.readObject();
 			switch (operacion) {
 				case 1: //Recibe los datos que tiene el servidor para actualizar los datos del cliente.
-					//JOptionPane.showMessageDialog(new JFrame(), "CCliente / Entró al case 1 y divide los datos de llegada");
+					//JOptionPane.showMessageDialog(new JFrame(), "CCliente / Entrï¿½ al case 1 y divide los datos de llegada");
 					if (eMensaje instanceof ArrayList) {
-						ArrayList<?> datos = (ArrayList<?>) eMensaje;
+						ArrayList datos = (ArrayList) eMensaje;
 						General.setListadoConectados((DefaultListModel) datos.get(0));
 						General.setProductoSeleccionado((Producto) datos.get(1));
 						General.setConexiones((ArrayList<Conexion>) datos.get(2));

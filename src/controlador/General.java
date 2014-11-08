@@ -1,5 +1,6 @@
 package controlador;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -13,8 +14,9 @@ import vista.PCliente;
 import vista.PrincipalSubastaVendedor;
 import modelo.Producto;
 
-public class General {
+public class General implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	/*Variables*/
 	private static General general;
 	private static Producto[] productos;
@@ -171,7 +173,7 @@ public class General {
 
 	//RECORRE TODAS LAS CONEXIONES EXISTENTES Y ENVIA A CONEXION UNA NUEVA ENTRADA DE DATOS
 	public void enviarDatos(int operacion, Object sMensaje){
-		JOptionPane.showMessageDialog(new JFrame(), "General / Entró a la función de difundir datos a las conexiones");
+		JOptionPane.showMessageDialog(new JFrame(), "General / Entrï¿½ a la funciï¿½n de difundir datos a las conexiones");
 		for(Conexion con : conexiones){
 			con.entradaDatosConexion(operacion, sMensaje);
 		}
