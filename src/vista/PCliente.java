@@ -37,7 +37,8 @@ public class PCliente extends JFrame {
 	private JLabel lblMontoInicial;
 	private JLabel lblDatosDeConexin;
 	PrincipalSubastaCliente psubasta;
-	private JLabel label;
+	private JLabel lblProductoSubastaCliente;
+	private JTextArea tADescripcionProducto;
 
 	/**
 	 * Launch the application.
@@ -133,24 +134,21 @@ public class PCliente extends JFrame {
 		btnIngresarSubasta.setBounds(105, 265, 224, 34);
 		contentPane.add(btnIngresarSubasta);
 
-		label = new JLabel(General.getProductoSeleccionado().getNombre()
-				+ " = " + General.getProductoSeleccionado().getValor());
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setFont(new Font("Dialog", Font.BOLD, 16));
-		label.setBounds(179, 48, 259, 34);
-		contentPane.add(label);
+		lblProductoSubastaCliente = new JLabel("");
+		lblProductoSubastaCliente.setHorizontalAlignment(SwingConstants.CENTER);
+		lblProductoSubastaCliente.setFont(new Font("Dialog", Font.BOLD, 16));
+		lblProductoSubastaCliente.setBounds(179, 48, 259, 34);
+		contentPane.add(lblProductoSubastaCliente);
 
-		JTextArea textArea = new JTextArea();
-		textArea.append(General.getProductoSeleccionado().getDescripcion());
-		textArea.setWrapStyleWord(true);
-		textArea.setLineWrap(true);
-		textArea.setEditable(false);
-		textArea.setBounds(179, 93, 259, 81);
-		contentPane.add(textArea);
+		tADescripcionProducto = new JTextArea();
+		tADescripcionProducto.setWrapStyleWord(true);
+		tADescripcionProducto.setLineWrap(true);
+		tADescripcionProducto.setEditable(false);
+		tADescripcionProducto.setBounds(179, 93, 259, 81);
+		contentPane.add(tADescripcionProducto);
 
 		btnIngresarSubasta.addActionListener(new ActionListener() {
 			// Inicia el hilo! - OK
-			@SuppressWarnings({ "unchecked", "static-access" })
 			public void actionPerformed(ActionEvent arg0) {
 				entrarSubasta();
 			}
@@ -159,6 +157,7 @@ public class PCliente extends JFrame {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	private void entrarSubasta() {
 		if (validacion()) {
 			try {
@@ -171,9 +170,7 @@ public class PCliente extends JFrame {
 					General.setPanelSubastaCliente(psubasta.getPanelSubasta());
 					general.nuevaConexion(General.getConexionTemp());
 				}
-				General.setListadoConectados(General.getListadoConectadosTemp());
-				psubasta.getListConectados()
-						.setModel(General.getListadoConectados());
+				psubasta.getListConectados().setModel(General.getListadoConectados());
 				psubasta.setVisible(true);
 				setVisible(false);
 			} catch (Exception e) {
@@ -197,7 +194,7 @@ public class PCliente extends JFrame {
 					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
 			tfNombreCliente.requestFocus();
 			return false;
-		} else if (General.getListadoConectadosTemp().contains(nombreV)) {
+		} else if (General.getListadoConectados().contains(nombreV)) {
 			mensajeV = "\u00A1El Nick "
 					+ nombreV
 					+ " ya est\u00e1 registrado en la subasta\n Por favor intenta con uno nuevo";
@@ -220,4 +217,23 @@ public class PCliente extends JFrame {
 		}
 
 	}
+
+	public JLabel getLblProductoSubastaCliente() {
+		return lblProductoSubastaCliente;
+	}
+
+	public void setLblProductoSubastaCliente(JLabel lblProductoSubastaCliente) {
+		this.lblProductoSubastaCliente = lblProductoSubastaCliente;
+	}
+
+	public JTextArea gettADescripcionProducto() {
+		return tADescripcionProducto;
+	}
+
+	public void settADescripcionProducto(JTextArea tADescripcionProducto) {
+		this.tADescripcionProducto = tADescripcionProducto;
+	}
+	
+	
+
 }

@@ -37,21 +37,27 @@ public class CCliente extends Thread {
 	}
 
 	// OK
+	@SuppressWarnings("rawtypes")
 	public void run() {
 		try {
+			//JOptionPane.showMessageDialog(new JFrame(), "CCliente / Entró a Run de Cliente");
 			SCliente = new Socket(ip, puerto);
 			entrada = new ObjectInputStream(
 					SCliente.getInputStream());
+			//JOptionPane.showMessageDialog(new JFrame(), "CCliente / Nueva entrada de datos");
 			conectado = true;
 			while (conectado) {
-				int operacion = entrada.readInt();
-				Object eMensaje = entrada.readObject();
+			int operacion = entrada.readInt();
+			Object eMensaje = entrada.readObject();
 			switch (operacion) {
 				case 1: //Recibe los datos que tiene el servidor para actualizar los datos del cliente.
+					//JOptionPane.showMessageDialog(new JFrame(), "CCliente / Entró al case 1 y divide los datos de llegada");
 					if (eMensaje instanceof ArrayList) {
 						ArrayList<?> datos = (ArrayList<?>) eMensaje;
-						General.setListadoConectadosTemp((DefaultListModel) datos.get(0));
-						General.setProductoSeleccionado((Producto) datos.get(1));						
+						General.setListadoConectados((DefaultListModel) datos.get(0));
+						General.setProductoSeleccionado((Producto) datos.get(1));
+						General.getVentanaDatosCliente().getLblProductoSubastaCliente().setText(General.getProductoSeleccionado().getNombre() + " = " + General.getProductoSeleccionado().getValor());
+						General.getVentanaDatosCliente().gettADescripcionProducto().setText(General.getProductoSeleccionado().getDescripcion());
 					}else if(eMensaje instanceof Conexion){
 						General.setConexionTemp((Conexion) eMensaje);
 					}

@@ -41,19 +41,24 @@ public class Conexion extends Thread {
 	public void run() {
 		while (true) {
 			try {
+				//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entró a Run de conexión");
 				//entradaDatosConexion(5, General.getProductoSeleccionado());
+				@SuppressWarnings("rawtypes")
 				ArrayList datosServidor = new ArrayList();
 				datosServidor.add(General.getListadoConectados());
 				datosServidor.add(General.getProductoSeleccionado());
+				//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Envía los datos que hay en el servidor de producto y de clientes");
 				entradaDatosConexion(1, datosServidor);
 				ObjectInputStream entrada = new ObjectInputStream(
 						s.getInputStream());
+				//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entraron Datos a conexión");
 				int operacion = entrada.readInt();
 				Object eMensaje = entrada.readObject();
 				switch (operacion) {
 
 				// Recibir una conexion sin Cliente
 				case 1:
+					//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entró al case 1 y va a enviar datos nuevamente");
 					general.enviarDatos(operacion, eMensaje);
 					break;
 
@@ -149,6 +154,7 @@ public class Conexion extends Thread {
 	// ESCRIBE LOS DATOS DE ENTRADA AL CLIENTE
 	public void entradaDatosConexion(int operacion, Object sMensaje) {
 		try {
+			//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entró a la función que envía los datos");
 			salida.writeInt(operacion);
 			salida.writeObject(sMensaje);
 		} catch (Exception e) {

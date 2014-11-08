@@ -9,12 +9,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 
+import vista.PCliente;
 import vista.PrincipalSubastaVendedor;
-import modelo.Cliente;
 import modelo.Producto;
 
 public class General {
-
+	
+	/*Variables*/
 	private static General general;
 	private static Producto[] productos;
 	private static ArrayList<Conexion> conexiones = new ArrayList<Conexion>();
@@ -22,11 +23,12 @@ public class General {
 	private static String tiempo;
 	@SuppressWarnings("rawtypes")
 	private static DefaultListModel listadoConectados = new DefaultListModel();
-	private static DefaultListModel listadoConectadosTemp = new DefaultListModel(); //Listado temporal del servidor.
 	private static Conexion conexionTemp;
 	private static Producto productoSeleccionado;
 	private static CServidor servidor = null;
 	private static CCliente cliente = null;
+	/*Ventanas*/
+	private static PCliente ventanaDatosCliente;
 	private static PrincipalSubastaVendedor ventanaServidor;
 	private static JTextPane panelSubastaCliente;
 	
@@ -52,6 +54,14 @@ public class General {
 		return general;
 	}
 	
+	public static PCliente getVentanaDatosCliente() {
+		return ventanaDatosCliente;
+	}
+
+	public static void setVentanaDatosCliente(PCliente ventanaDatosCliente) {
+		General.ventanaDatosCliente = ventanaDatosCliente;
+	}
+
 	public static Conexion getConexionTemp() {
 		return conexionTemp;
 	}
@@ -59,16 +69,6 @@ public class General {
 	public static void setConexionTemp(Conexion conexionTemp) {
 		General.conexionTemp = conexionTemp;
 	}
-
-	public static DefaultListModel getListadoConectadosTemp() {
-		return listadoConectadosTemp;
-	}
-
-	public static void setListadoConectadosTemp(
-			DefaultListModel listadoConectadosTemp) {
-		General.listadoConectadosTemp = listadoConectadosTemp;
-	}
-
 
 	public static String getTiempo() {
 		return tiempo;
@@ -171,6 +171,7 @@ public class General {
 
 	//RECORRE TODAS LAS CONEXIONES EXISTENTES Y ENVIA A CONEXION UNA NUEVA ENTRADA DE DATOS
 	public void enviarDatos(int operacion, Object sMensaje){
+		JOptionPane.showMessageDialog(new JFrame(), "General / Entró a la función de difundir datos a las conexiones");
 		for(Conexion con : conexiones){
 			con.entradaDatosConexion(operacion, sMensaje);
 		}
@@ -180,10 +181,10 @@ public class General {
 	
 	//NOTIFICA A UN CLIENTE NUEVO TODAS LAS CONEXIONES EXISTENTES
 	public void nuevaConexion(Conexion nuevo){
-		conexiones.add(nuevo);
 		for(Conexion con: conexiones){
 			nuevo.entradaDatosConexion(2, con.getClienteTemp());
 		}
+		conexiones.add(nuevo);
 		
 	}
 	
