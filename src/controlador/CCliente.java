@@ -43,16 +43,16 @@ public class CCliente extends Thread {
 		try {
 			JOptionPane.showMessageDialog(new JFrame(), "CCliente / Entr� a Run de Cliente");
 			SCliente = new Socket(ip, puerto);
+			enviarDatosCliente(1, null);
 			entrada = new ObjectInputStream(
 					SCliente.getInputStream());
-			JOptionPane.showMessageDialog(new JFrame(), "CCliente / Nueva entrada de datos");
 			conectado = true;
 			while (conectado) {
-			int operacion = entrada.readInt();
-			Object eMensaje = entrada.readObject();
+				int operacion = entrada.readInt();
+				Object eMensaje = entrada.readObject();
 			switch (operacion) {
 				case 1: //Recibe los datos que tiene el servidor para actualizar los datos del cliente.
-					JOptionPane.showMessageDialog(new JFrame(), "CCliente / Entr� al case 1 y divide los datos de llegada");
+					JOptionPane.showMessageDialog(new JFrame() , eMensaje);
 					if (eMensaje instanceof ArrayList) {
 						ArrayList datos = (ArrayList) eMensaje;
 						General.setListadoConectados((DefaultListModel) datos.get(0));
@@ -136,7 +136,6 @@ public class CCliente extends Thread {
 	public void setClienteConectado(Cliente clienteConectado) {
 		this.clienteConectado = clienteConectado;
 		enviarDatosCliente(2, this.clienteConectado);
-		enviarDatosCliente(5, General.getProductoSeleccionado());
 	}
 	public PrincipalSubastaCliente getVentanaCliente() {
 		return ventanaCliente;

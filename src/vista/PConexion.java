@@ -118,7 +118,11 @@ public class PConexion extends JFrame {
 				String ip = tfIp.getText();
 				if (General.getCliente() == null) {
 					General.setCliente(new CCliente(puerto, ip));
+					PCliente pcliente = new PCliente();
+					General.setVentanaDatosCliente(pcliente);
 					General.getCliente().start();
+					setVisible(false);
+					pcliente.setVisible(true);
 				}
 				//JOptionPane.showMessageDialog(new JFrame(), "PConexion / Pasó el Run de Cliente y va a crear la nueva ventana");
 			} catch (Exception e) {
@@ -126,10 +130,6 @@ public class PConexion extends JFrame {
 						"PConexion / Se produjo un error " + e.getMessage());
 				General.setCliente(null);
 			}
-			PCliente pcliente = new PCliente();
-			General.setVentanaDatosCliente(pcliente);
-			setVisible(false);
-			pcliente.setVisible(true);
 		}
 	}
 

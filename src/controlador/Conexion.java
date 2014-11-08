@@ -35,37 +35,37 @@ public class Conexion extends Thread{
 	public Cliente getClienteTemp() {
 		return clienteTemp;
 	}
+	
+	public void setClienteTemp(Cliente clienteNuevo){
+		this.clienteTemp = clienteNuevo;
+	}
 
 	// LE LLEGAN LOS DATOS
 	@SuppressWarnings("unchecked")
 	public void run() {
 		while (true) {
 			try {
-				//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entr� a Run de conexi�n");
 				//entradaDatosConexion(5, General.getProductoSeleccionado());
-				@SuppressWarnings("rawtypes")
-				ArrayList datosServidor = new ArrayList();
-				datosServidor.add(General.getListadoConectados());
-				datosServidor.add(General.getProductoSeleccionado());
-				datosServidor.add(general.getConexiones());
-				//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Env�a los datos que hay en el servidor de producto y de clientes");
-				entradaDatosConexion(1, datosServidor);
+				JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entr� a Run de conexi�n");
 				ObjectInputStream entrada = new ObjectInputStream(
 						s.getInputStream());
-				//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entraron Datos a conexi�n");
+				JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entraron Datos a conexi�n");
 				int operacion = entrada.readInt();
 				Object eMensaje = entrada.readObject();
 				switch (operacion) {
-
 				// Recibir una conexion sin Cliente
 				case 1:
-					//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entr� al case 1 y va a enviar datos nuevamente");
-					general.enviarDatos(operacion, eMensaje);
+					@SuppressWarnings("rawtypes")
+					ArrayList datosServidor = new ArrayList();
+					datosServidor.add(General.getListadoConectados());
+					datosServidor.add(General.getProductoSeleccionado());
+					datosServidor.add(general.getConexiones());
+					entradaDatosConexion(1, datosServidor);
 					break;
 
 				case 2:
 					clienteTemp = (Cliente) eMensaje;
-
+					general.nuevaConexion(this);
 					general.enviarDatos(operacion, eMensaje);
 					General.getVentanaServidor()
 							.getTpMensajesSubasta()
@@ -155,7 +155,7 @@ public class Conexion extends Thread{
 	// ESCRIBE LOS DATOS DE ENTRADA AL CLIENTE
 	public void entradaDatosConexion(int operacion, Object sMensaje) {
 		try {
-			//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entr� a la funci�n que env�a los datos");
+			JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entr� a la funci�n que env�a los datos");
 			salida.writeInt(operacion);
 			salida.writeObject(sMensaje);
 		} catch (Exception e) {
@@ -165,5 +165,6 @@ public class Conexion extends Thread{
 							+ e.getMessage());
 		}
 	}
-
+	
+	
 }
