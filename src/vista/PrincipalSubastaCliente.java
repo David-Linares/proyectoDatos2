@@ -140,11 +140,6 @@ public class PrincipalSubastaCliente extends JFrame {
 		lblMontoCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		contentPane.add(lblMontoCliente);
 		JLabel lblIpCliente;
-		
-		JLabel lblId = new JLabel("ID: " + General.getCliente().getId());
-		lblId.setFont(new Font("Dialog", Font.BOLD, 11));
-		lblId.setBounds(10, 65, 221, 15);
-		contentPane.add(lblId);
 
 		try {
 			lblIpCliente = new JLabel("IP: "

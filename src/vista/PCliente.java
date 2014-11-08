@@ -195,7 +195,7 @@ public class PCliente extends JFrame {
 
 		String mensajeV = "";
 
-		int montoEntero;
+		long montoEntero;
 		if (nombreV.equals("")) {
 			mensajeV = "\u00A1Debe escribir el nombre de usuario!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
@@ -219,10 +219,10 @@ public class PCliente extends JFrame {
 			return false;
 		} else
 			
-			montoEntero = Integer.parseInt(montoV);
+			montoEntero = Long.parseLong(montoV);
 			
 			if (montoEntero<=General.getProductoSeleccionado().getValor()) {
-				mensajeV = "\u00A1Debe MONTO MENOR AL VALOR ACTUAL!\n";
+				mensajeV = "\u00A1El monto debe ser mayor al valor actual!\n";
 				JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
 						JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
 				
