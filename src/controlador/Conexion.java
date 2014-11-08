@@ -46,10 +46,8 @@ public class Conexion extends Thread{
 		while (true) {
 			try {
 				//entradaDatosConexion(5, General.getProductoSeleccionado());
-				JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entr� a Run de conexi�n");
 				ObjectInputStream entrada = new ObjectInputStream(
 						s.getInputStream());
-				JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entraron Datos a conexi�n");
 				int operacion = entrada.readInt();
 				Object eMensaje = entrada.readObject();
 				switch (operacion) {
@@ -155,7 +153,6 @@ public class Conexion extends Thread{
 	// ESCRIBE LOS DATOS DE ENTRADA AL CLIENTE
 	public void entradaDatosConexion(int operacion, Object sMensaje) {
 		try {
-			JOptionPane.showMessageDialog(new JFrame(), "Conexion / Entr� a la funci�n que env�a los datos");
 			salida.writeInt(operacion);
 			salida.writeObject(sMensaje);
 		} catch (Exception e) {

@@ -41,7 +41,6 @@ public class CCliente extends Thread {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void run() {
 		try {
-			JOptionPane.showMessageDialog(new JFrame(), "CCliente / Entr� a Run de Cliente");
 			SCliente = new Socket(ip, puerto);
 			enviarDatosCliente(1, null);
 			entrada = new ObjectInputStream(
