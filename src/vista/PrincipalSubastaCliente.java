@@ -44,10 +44,6 @@ public class PrincipalSubastaCliente extends JFrame {
 	private JLabel lblReloj;
 	private JScrollPane scrollLista = new JScrollPane();
 
-	/**
-	 * Launch the application.
-	 */
-
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

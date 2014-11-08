@@ -8,6 +8,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import modelo.Cliente;
@@ -40,26 +41,27 @@ public class CCliente extends Thread {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void run() {
 		try {
-			//JOptionPane.showMessageDialog(new JFrame(), "CCliente / Entr� a Run de Cliente");
+			JOptionPane.showMessageDialog(new JFrame(), "CCliente / Entr� a Run de Cliente");
 			SCliente = new Socket(ip, puerto);
 			entrada = new ObjectInputStream(
 					SCliente.getInputStream());
-			//JOptionPane.showMessageDialog(new JFrame(), "CCliente / Nueva entrada de datos");
+			JOptionPane.showMessageDialog(new JFrame(), "CCliente / Nueva entrada de datos");
 			conectado = true;
 			while (conectado) {
 			int operacion = entrada.readInt();
 			Object eMensaje = entrada.readObject();
 			switch (operacion) {
 				case 1: //Recibe los datos que tiene el servidor para actualizar los datos del cliente.
-					//JOptionPane.showMessageDialog(new JFrame(), "CCliente / Entr� al case 1 y divide los datos de llegada");
+					JOptionPane.showMessageDialog(new JFrame(), "CCliente / Entr� al case 1 y divide los datos de llegada");
 					if (eMensaje instanceof ArrayList) {
 						ArrayList datos = (ArrayList) eMensaje;
 						General.setListadoConectados((DefaultListModel) datos.get(0));
 						General.setProductoSeleccionado((Producto) datos.get(1));
 						General.setConexiones((ArrayList<Conexion>) datos.get(2));
-						General.setConexionTemp((Conexion) datos.get(3));
 						General.getVentanaDatosCliente().getLblProductoSubastaCliente().setText(General.getProductoSeleccionado().getNombre() + " = " + General.getProductoSeleccionado().getValor());
 						General.getVentanaDatosCliente().gettADescripcionProducto().setText(General.getProductoSeleccionado().getDescripcion());
+					}else if(eMensaje instanceof Conexion){
+						General.setConexionTemp((Conexion) eMensaje);
 					}
 					break;
 				case 2:// Agregar nuevo cliente
@@ -102,7 +104,7 @@ public class CCliente extends Thread {
 
 	// OK
 	public void enviarMensajeHilo(String sMensaje) {
-		enviarDatosCliente(2, sMensaje);
+		enviarDatosCliente(3, sMensaje);
 	}
 
 	public void enviarProductoHilo(Producto cambioProducto) {
@@ -115,7 +117,6 @@ public class CCliente extends Thread {
 	// ESCRIBE LOS DATOS A LA CONEXION
 	public void enviarDatosCliente(int operacion, Object valor) {
 		try {
-			// ENVIA LOS DATOS A TRAV�S DEL HILO A LA CONEXI�N.
 			ObjectOutputStream salida = new ObjectOutputStream(
 					SCliente.getOutputStream());
 			salida.writeInt(operacion);

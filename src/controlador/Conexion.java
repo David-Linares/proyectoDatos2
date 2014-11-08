@@ -3,7 +3,6 @@ package controlador;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -13,10 +12,8 @@ import javax.swing.JOptionPane;
 import modelo.Cliente;
 import modelo.Producto;
 
-public class Conexion extends Thread implements Serializable{
+public class Conexion extends Thread{
 
-	
-	private static final long serialVersionUID = 1L;
 	private Socket s;
 	private ObjectOutputStream salida;
 	private General general = General.getInstance();
@@ -51,7 +48,6 @@ public class Conexion extends Thread implements Serializable{
 				datosServidor.add(General.getListadoConectados());
 				datosServidor.add(General.getProductoSeleccionado());
 				datosServidor.add(general.getConexiones());
-				datosServidor.add(General.getConexionTemp());
 				//JOptionPane.showMessageDialog(new JFrame(), "Conexion / Env�a los datos que hay en el servidor de producto y de clientes");
 				entradaDatosConexion(1, datosServidor);
 				ObjectInputStream entrada = new ObjectInputStream(

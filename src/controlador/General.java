@@ -173,7 +173,6 @@ public class General implements Serializable {
 
 	//RECORRE TODAS LAS CONEXIONES EXISTENTES Y ENVIA A CONEXION UNA NUEVA ENTRADA DE DATOS
 	public void enviarDatos(int operacion, Object sMensaje){
-		JOptionPane.showMessageDialog(new JFrame(), "General / Entr� a la funci�n de difundir datos a las conexiones");
 		for(Conexion con : conexiones){
 			con.entradaDatosConexion(operacion, sMensaje);
 		}
@@ -192,7 +191,7 @@ public class General implements Serializable {
 	
 	public void nuevaConexionTemp(Conexion nuevoTemp){
 		for(Conexion con: conexiones){
-			nuevoTemp.entradaDatosConexion(1, con);
+			con.entradaDatosConexion(1, nuevoTemp);
 		}		
 	}
 	

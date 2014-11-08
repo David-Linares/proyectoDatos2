@@ -25,9 +25,6 @@ import modelo.Cliente;
 
 public class PCliente extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	General general = General.getInstance();
 	private JPanel contentPane;
@@ -84,16 +81,26 @@ public class PCliente extends JFrame {
 		tfNombreCliente.setColumns(10);
 
 		tfMonto = new JTextField();
-		/*
-		 * tfMonto.addKeyListener(new KeyAdapter() {
-		 * 
-		 * @Override public void keyTyped(java.awt.event.KeyEvent evt) { char
-		 * car = evt.getKeyChar(); if (tfPuerto.getText().length() >= 18)
-		 * evt.consume(); if ((car < '0' || car > '9')) { evt.consume(); } }
-		 * 
-		 * @Override public void keyPressed(KeyEvent e) { if (e.getKeyCode() ==
-		 * 10){ entrarSubasta(); } } });
-		 */
+
+		tfMonto.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyTyped(java.awt.event.KeyEvent evt) {
+				char car = evt.getKeyChar();
+				if (tfMonto.getText().length() >= 18)
+					evt.consume();
+				if ((car < '0' || car > '9')) {
+					evt.consume();
+				}
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == 10) {
+					entrarSubasta();
+				}
+			}
+		});
 		tfMonto.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
 		tfMonto.setColumns(10);
 		tfMonto.setBounds(179, 225, 259, 29);
@@ -168,9 +175,9 @@ public class PCliente extends JFrame {
 					psubasta = new PrincipalSubastaCliente();
 					General.getCliente().setVentanaCliente(psubasta);
 					General.setPanelSubastaCliente(psubasta.getPanelSubasta());
-					general.nuevaConexion(General.getConexionTemp());
 				}
-				psubasta.getListConectados().setModel(General.getListadoConectados());
+				psubasta.getListConectados().setModel(
+						General.getListadoConectados());
 				psubasta.setVisible(true);
 				setVisible(false);
 			} catch (Exception e) {
@@ -233,7 +240,5 @@ public class PCliente extends JFrame {
 	public void settADescripcionProducto(JTextArea tADescripcionProducto) {
 		this.tADescripcionProducto = tADescripcionProducto;
 	}
-	
-	
 
 }
