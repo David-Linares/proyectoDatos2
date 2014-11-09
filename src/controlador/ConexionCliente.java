@@ -36,7 +36,7 @@ public class ConexionCliente extends Thread {
 
 	// OK
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void run() {
+	public synchronized void run() {
 		try {
 			SCliente = new Socket(ip, puerto);
 			enviarDatosCliente(1, null);
