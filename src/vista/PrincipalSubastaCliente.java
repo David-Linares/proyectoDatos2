@@ -94,12 +94,15 @@ public class PrincipalSubastaCliente extends JFrame {
 		});
 		btnAbandonarSubasta.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		contentPane.add(btnAbandonarSubasta);
-		lblProductoSubastado.setBounds(10, 78, 443, 31);
+		lblProductoSubastado.setBounds(10, 38, 443, 31);
 
 		lblProductoSubastado.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		lblProductoSubastado.setHorizontalAlignment(SwingConstants.TRAILING);
 		contentPane.add(lblProductoSubastado);
 
+		lblProductoSubastado.setText(General.getProductoSeleccionado().getNombre()
+				+ " = " + General.getProductoSeleccionado().getValor());
+		
 		tfMensaje = new JTextField();
 		tfMensaje.setBounds(10, 385, 443, 31);
 		tfMensaje.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
@@ -144,7 +147,7 @@ public class PrincipalSubastaCliente extends JFrame {
 
 		JLabel lblMontoCliente = new JLabel("Monto Disponible: "
 				+ General.getCliente().getClienteConectado().getMonto());
-		lblMontoCliente.setBounds(10, 39, 221, 15);
+		lblMontoCliente.setBounds(241, 12, 221, 15);
 		lblMontoCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
 		contentPane.add(lblMontoCliente);
 		JLabel lblIpCliente;
@@ -153,7 +156,7 @@ public class PrincipalSubastaCliente extends JFrame {
 			lblIpCliente = new JLabel("IP: "
 					+ InetAddress.getLocalHost().getHostAddress().toString());
 			lblIpCliente.setHorizontalAlignment(SwingConstants.CENTER);
-			lblIpCliente.setBounds(465, 29, 131, 15);
+			lblIpCliente.setBounds(465, 67, 131, 15);
 			contentPane.add(lblIpCliente);
 
 			JTextPane textPane = new JTextPane();
@@ -168,6 +171,14 @@ public class PrincipalSubastaCliente extends JFrame {
 			lblReloj.setBounds(241, 12, 212, 43);
 			contentPane.add(lblReloj);
 			
+			JLabel lblDescripcionProducto = new JLabel();
+			lblDescripcionProducto.setText((String) null);
+			lblDescripcionProducto.setHorizontalAlignment(SwingConstants.CENTER);
+			lblDescripcionProducto.setFont(new Font("Dialog", Font.ITALIC, 10));
+			lblDescripcionProducto.setBounds(10, 72, 443, 37);
+			contentPane.add(lblDescripcionProducto);
+			
+			lblDescripcionProducto.setText(General.getProductoSeleccionado().getDescripcion());
 			
 		} catch (UnknownHostException e) {
 			JOptionPane.showMessageDialog(new JFrame(),
@@ -269,5 +280,4 @@ public class PrincipalSubastaCliente extends JFrame {
 	public void setListConectados(JList listConectados) {
 		this.listConectados = listConectados;
 	}	
-	
 }

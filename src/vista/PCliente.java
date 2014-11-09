@@ -25,7 +25,6 @@ import modelo.Cliente;
 
 public class PCliente extends JFrame {
 
-	private static final long serialVersionUID = 1L;
 	General general = General.getInstance();
 	private JPanel contentPane;
 	private JTextField tfNombreCliente;

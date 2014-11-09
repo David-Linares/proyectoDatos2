@@ -28,7 +28,6 @@ public class PConexion extends JFrame {
 	 * 
 	 */
 	PrincipalSubastaCliente psubasta;
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField tfIp;
 	private JTextField tfPuerto;

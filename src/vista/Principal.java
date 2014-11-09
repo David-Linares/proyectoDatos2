@@ -2,19 +2,17 @@ package vista;
 import java.awt.EventQueue;
 
 
+
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
 
 
-@SuppressWarnings("serial")
 public class Principal extends JFrame {
 	
 	private JButton btnNuevaSubasta;
@@ -33,6 +31,7 @@ public class Principal extends JFrame {
 	}
 
 	public Principal() {
+
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (ClassNotFoundException e) {
@@ -62,7 +61,7 @@ public class Principal extends JFrame {
 		btnNuevaSubasta = new JButton("Crear nueva Subasta");
 		btnNuevaSubasta.setForeground(new Color(255, 255, 255));
 		btnNuevaSubasta.setBackground(new Color(0, 0, 0));
-		btnNuevaSubasta.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
+		btnNuevaSubasta.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnNuevaSubasta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
@@ -76,7 +75,7 @@ public class Principal extends JFrame {
 		JButton btnNewButton_1 = new JButton("Entrar a la Subasta");
 		btnNewButton_1.setForeground(new Color(255, 255, 255));
 		btnNewButton_1.setBackground(new Color(0, 0, 0));
-		btnNewButton_1.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
+		btnNewButton_1.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
