@@ -25,6 +25,7 @@ import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import java.awt.Color;
 
 
 @SuppressWarnings("serial")
@@ -93,45 +94,56 @@ public class VendedorSubasta extends JFrame {
 
 	@SuppressWarnings("unchecked")
 	public VendedorSubasta() {
+		setFont(new Font("Calibri", Font.BOLD, 12));
 		setResizable(false);
+		tpMensajesSubastaVendedor.setForeground(new Color(51, 102, 255));
+		tpMensajesSubastaVendedor.setFont(new Font("SansSerif", Font.BOLD, 12));
 		tpMensajesSubastaVendedor.setEditable(false);
 		setTitle("Subasta");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 563, 452);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(100,149,237));
+		contentPane.setForeground(new Color(100,149,237));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		scrollLista.setFont(new Font("Dialog", Font.BOLD, 11));
 		scrollLista.setBounds(418, 116, 131, 254);
+		listConectados.setForeground(new Color(51, 102, 255));
+		listConectados.setFont(new Font("SansSerif", Font.BOLD, 12));
 		scrollLista.setViewportView(listConectados);
 		contentPane.add(scrollLista);
 
 		listConectados.setModel(General.getListadoConectados());
 
 		JButton btnNewButton = new JButton("Finalizar Subasta");
-		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 11));
+		btnNewButton.setBackground(new Color(255, 255, 255));
+		btnNewButton.setForeground(new Color(51, 102, 255));
+		btnNewButton.setFont(new Font("Kristen ITC", Font.BOLD, 15));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
 			}
 		});
-		btnNewButton.setBounds(384, 382, 165, 29);
+		btnNewButton.setBounds(352, 382, 197, 29);
 		contentPane.add(btnNewButton);
 		
 		lblProductoSubastado = new JLabel();
-		lblProductoSubastado.setFont(new Font("DejaVu Sans", Font.BOLD, 14));
+		lblProductoSubastado.setForeground(new Color(255, 255, 255));
+		lblProductoSubastado.setFont(new Font("Kristen ITC", Font.BOLD, 15));
 		lblProductoSubastado.setHorizontalAlignment(SwingConstants.CENTER);
-		lblProductoSubastado.setBounds(10, 7, 356, 23);
+		lblProductoSubastado.setBounds(10, 11, 396, 35);
 		contentPane.add(lblProductoSubastado);
 
 		lblProductoSubastado.setText(General.getProductoSeleccionado().getNombre()
 				+ " = " + General.getProductoSeleccionado().getValor());
 		
 		lblProductoSeleccionadoDescripcion = new JLabel();
-		lblProductoSeleccionadoDescripcion.setFont(new Font("DejaVu Sans", Font.ITALIC, 10));
+		lblProductoSeleccionadoDescripcion.setForeground(new Color(255, 255, 255));
+		lblProductoSeleccionadoDescripcion.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 15));
 		lblProductoSeleccionadoDescripcion.setHorizontalAlignment(SwingConstants.CENTER);
-		lblProductoSeleccionadoDescripcion.setBounds(10, 42, 356, 53);
+		lblProductoSeleccionadoDescripcion.setBounds(10, 54, 396, 51);
 		contentPane.add(lblProductoSeleccionadoDescripcion);
 		
 		lblProductoSeleccionadoDescripcion.setText(General.getProductoSeleccionado().getDescripcion());
@@ -139,17 +151,19 @@ public class VendedorSubasta extends JFrame {
 		try {
 			labelIp = new JLabel("IP: "
 					+ InetAddress.getLocalHost().getHostAddress());
+			labelIp.setForeground(new Color(255, 255, 255));
 			labelIp.setHorizontalAlignment(SwingConstants.CENTER);
-			labelIp.setFont(new Font("Dialog", Font.BOLD, 11));
-			labelIp.setBounds(418, 57, 131, 23);
+			labelIp.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 15));
+			labelIp.setBounds(418, 54, 121, 51);
 			contentPane.add(labelIp);
 			scrollPanel.setBounds(10, 116, 396, 254);
 			contentPane.add(scrollPanel);
 			
 			lblReloj = new JLabel();
+			lblReloj.setForeground(new Color(255, 255, 255));
 			lblReloj.setHorizontalAlignment(SwingConstants.CENTER);
 			lblReloj.setFont(new Font("DialogInput", Font.PLAIN, 20));
-			lblReloj.setBounds(394, 7, 155, 37);
+			lblReloj.setBounds(418, 11, 121, 35);
 			contentPane.add(lblReloj);
 			
 		} catch (UnknownHostException e) {
