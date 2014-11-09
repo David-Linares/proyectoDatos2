@@ -42,13 +42,13 @@ public class Temporizador extends Thread implements Serializable {
 				}
 				General.getVentanaServidor().getLblReloj().setText(tiempo);
 				if (min == 2 && seg == 0) {
-					mensaje = "A LA 1!! TE QUEDAN 2 MINUTOS PARA UN NUEVO OFRECIMIENTO.";
+					mensaje = "MENSAJE DE SERVIDOR: A LA 1!! TE QUEDAN 2 MINUTOS PARA UN NUEVO OFRECIMIENTO.";
 					General.enviarDatos(3,mensaje);
 				}else if(min == 1 && seg == 0){
-					mensaje = "A LAS 2!! TE QUEDA 1 MINUTO PARA UN NUEVO OFRECIMIENTO.";
+					mensaje = "MENSAJE DE SERVIDOR: A LAS 2!! TE QUEDA 1 MINUTO PARA UN NUEVO OFRECIMIENTO.";
 					General.enviarDatos(3,mensaje);
 				}else if(min == 0 && seg == 0){
-					mensaje = "A LAS 3!! La subasta ha finalizado!";
+					mensaje = "MENSAJE DE SERVIDOR: A LAS 3!! La subasta ha finalizado!";
 					General.enviarDatos(3,mensaje);
 					General.enviarDatos(6,General.getConexionTemp().getClienteTemp().getNombre());
 				}
