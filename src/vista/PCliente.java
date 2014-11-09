@@ -172,7 +172,6 @@ public class PCliente extends JFrame {
 						Long.parseLong(tfMonto.getText()));
 				if (General.getCliente() != null) {
 					General.getCliente().setClienteConectado(nuevoCliente);
-					General.getConexionTemp().setClienteTemp(nuevoCliente);
 					psubasta = new PrincipalSubastaCliente();
 					General.getCliente().setVentanaCliente(psubasta);
 					General.setPanelSubastaCliente(psubasta.getPanelSubasta());
