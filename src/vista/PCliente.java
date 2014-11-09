@@ -183,7 +183,7 @@ public class PCliente extends JFrame {
 				setVisible(false);
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(new JFrame(),
-						"PCliente / Se produjo un error" + e.getMessage());
+						"PCliente / Se produjo un error " + e.getMessage());
 				General.setCliente(null);
 			}
 

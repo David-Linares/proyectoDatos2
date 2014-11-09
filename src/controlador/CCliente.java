@@ -59,10 +59,12 @@ public class CCliente extends Thread {
 						General.getVentanaDatosCliente().getLblProductoSubastaCliente().setText(General.getProductoSeleccionado().getNombre() + " = " + General.getProductoSeleccionado().getValor());
 						General.getVentanaDatosCliente().gettADescripcionProducto().setText(General.getProductoSeleccionado().getDescripcion());
 					}else if(eMensaje instanceof Conexion){
+						JOptionPane.showMessageDialog(new JFrame(), eMensaje);
 						General.setConexionTemp((Conexion) eMensaje);
 					}
 					break;
 				case 2:// Agregar nuevo cliente
+					JOptionPane.showMessageDialog(new JFrame(), ventanaCliente);
 					ventanaCliente.agregarNuevo((Cliente) eMensaje);
 					break;
 				case 3:// Enviar Mensaje
@@ -133,8 +135,8 @@ public class CCliente extends Thread {
 	
 	public void setClienteConectado(Cliente clienteConectado) {
 		this.clienteConectado = clienteConectado;
-		General.nuevaConexion(General.getConexionTemp());
 		enviarDatosCliente(2, this.clienteConectado);
+		General.nuevaConexion(General.getConexionTemp());
 	}
 	public PrincipalSubastaCliente getVentanaCliente() {
 		return ventanaCliente;

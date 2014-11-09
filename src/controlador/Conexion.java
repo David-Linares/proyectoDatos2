@@ -63,6 +63,8 @@ public class Conexion extends Thread{
 
 				case 2:
 					clienteTemp = (Cliente) eMensaje;
+					General.getConexionTemp().setClienteTemp(clienteTemp);
+					General.nuevaConexion(General.getConexionTemp());
 					general.enviarDatos(operacion, eMensaje);
 					General.getVentanaServidor()
 							.getTpMensajesSubasta()
