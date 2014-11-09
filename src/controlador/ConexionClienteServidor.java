@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 
 import modelo.Cliente;
 import modelo.Producto;
-import modelo.Temporizador;
 
 public class ConexionClienteServidor extends Thread{
 
@@ -46,8 +45,6 @@ public class ConexionClienteServidor extends Thread{
 	public void run() {
 		while (true) {
 			try {
-				//entradaDatosConexion(5, General.getProductoSeleccionado());
-				System.out.println("Conexion / Inicio RUn de Conexión");
 				ObjectInputStream entrada = new ObjectInputStream(
 						s.getInputStream());
 				int operacion = entrada.readInt();
@@ -65,10 +62,7 @@ public class ConexionClienteServidor extends Thread{
 
 				case 2:
 					clienteTemp = (Cliente) eMensaje;
-					System.out.println("Conexion / Entró al case 2 y entró el cliente = "+clienteTemp);
-					System.out.println("Conexion / la variable Conexión TEMP = "+General.getConexionTemp());
 					General.getConexionTemp().setClienteTemp(clienteTemp);
-					System.out.println("Conexion / la variable Conexión TEMP = "+General.getConexionTemp()+" después de Agregarle el cliente");
 					General.nuevaConexion(General.getConexionTemp());
 					general.enviarDatos(operacion, eMensaje);
 					General.getVentanaServidor()
@@ -119,30 +113,11 @@ public class ConexionClienteServidor extends Thread{
 													.getValor());
 					break;
 				case 6:
-					Temporizador temp = (Temporizador) eMensaje;
-					general.enviarDatos(operacion, temp);
-					General.setReloj(temp);
-					if (temp.getSeg() < 10) {
-						General.getVentanaServidor()
-								.getLblReloj()
-								.setText(
-										"0" + temp.getMin() + ":0"
-												+ temp.getSeg());
-						if (temp.getMin() == 0 && temp.getSeg() == 0) {
-							JOptionPane.showMessageDialog(new JFrame(),
-									"La subasta ha finalizado\n EL ganador es "
-											+ clienteTemp.getNombre(),
-									"Fin de la Subasta",
-									JOptionPane.INFORMATION_MESSAGE,
-									general.getIcon("winner"));
-						}
-					} else {
-						General.getVentanaServidor()
-								.getLblReloj()
-								.setText(
-										"0" + temp.getMin() + ":"
-												+ temp.getSeg());
-					}
+					Temporizador reloj = new Temporizador(3,0);						
+					if(General.getReloj() != null)
+						General.getReloj().stop();
+					General.setReloj(reloj);
+					reloj.start();
 				}
 
 			} catch (IOException e) {
@@ -158,7 +133,6 @@ public class ConexionClienteServidor extends Thread{
 	// ESCRIBE LOS DATOS DE ENTRADA AL CLIENTE
 	public void entradaDatosConexion(int operacion, Object sMensaje) {
 		try {
-			System.out.println("Conexión / entró a enviarle datos al cliente = "+sMensaje);
 			salida.writeInt(operacion);
 			salida.writeObject(sMensaje);
 		} catch (Exception e) {

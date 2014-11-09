@@ -1,8 +1,6 @@
-package modelo;
+package controlador;
 
 import java.io.Serializable;
-
-import controlador.General;
 
 public class Temporizador extends Thread implements Serializable {
 	
@@ -41,9 +39,7 @@ public class Temporizador extends Thread implements Serializable {
 					tiempo = "0" + min + ":" + seg;
 					retraso();
 				}
-				General.getReloj().setMin(min);
-				General.getReloj().setSeg(seg);
-				General.getCliente().enviarReloj(General.getReloj());
+				General.getVentanaServidor().getLblReloj().setText(tiempo);
 			}
 			n++;
 		}
@@ -63,6 +59,14 @@ public class Temporizador extends Thread implements Serializable {
 
 	public void setSeg(int seg) {
 		this.seg = seg;
+	}
+
+	public String getTiempo() {
+		return tiempo;
+	}
+
+	public void setTiempo(String tiempo) {
+		this.tiempo = tiempo;
 	}
 	
 

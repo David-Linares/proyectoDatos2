@@ -1,6 +1,5 @@
 package controlador;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -13,7 +12,6 @@ import javax.swing.JTextPane;
 import vista.DatosCliente;
 import vista.VendedorSubasta;
 import modelo.Producto;
-import modelo.Temporizador;
 
 @SuppressWarnings("rawtypes")
 public class General{

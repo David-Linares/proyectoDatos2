@@ -15,8 +15,8 @@ import javax.swing.SwingConstants;
 
 import modelo.Cliente;
 import modelo.Producto;
-import modelo.Temporizador;
 import controlador.General;
+import controlador.Temporizador;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
 
 import modelo.Cliente;
 import modelo.Producto;
-import modelo.Temporizador;
 import vista.ClienteSubasta;
 
 public class ConexionCliente extends Thread {
@@ -58,8 +57,6 @@ public class ConexionCliente extends Thread {
 					General.getVentanaDatosCliente().gettADescripcionProducto().setText(General.getProductoSeleccionado().getDescripcion());
 					break;
 				case 2:// Agregar nuevo cliente
-					System.out.println("CCliente / Entró al caso 2 y llegó = "+(Cliente) eMensaje);
-					System.out.println("CCliente / la variable de cliente conectado = "+clienteConectado);
 					ventanaCliente.agregarNuevo((Cliente) eMensaje);
 					break;
 				case 3:// Enviar Mensaje
@@ -74,7 +71,6 @@ public class ConexionCliente extends Thread {
 					ventanaCliente.agregarProductoEnSubasta((Producto) eMensaje);
 					break;
 				case 6:
-					System.out.println("CCLIENTE / entr� ac�");
 					Temporizador temp = (Temporizador) eMensaje;
 					ventanaCliente.mostrarTiempo(temp);
 				}
@@ -100,13 +96,11 @@ public class ConexionCliente extends Thread {
 	// OK
 	public void enviarMensajeHilo(String sMensaje) {
 		enviarDatosCliente(3, sMensaje);
+		enviarDatosCliente(6, null);
 	}
 
 	public void enviarProductoHilo(Producto cambioProducto) {
 		enviarDatosCliente(5, cambioProducto);
-	}
-	public void enviarReloj(Temporizador reloj){
-		enviarDatosCliente(6, reloj);
 	}
 
 	// ESCRIBE LOS DATOS A LA CONEXION
