@@ -51,7 +51,6 @@ public class CCliente extends Thread {
 				Object eMensaje = entrada.readObject();
 			switch (operacion) {
 				case 1: //Recibe los datos que tiene el servidor para actualizar los datos del cliente.
-					JOptionPane.showMessageDialog(new JFrame() , eMensaje);
 					if (eMensaje instanceof ArrayList) {
 						ArrayList datos = (ArrayList) eMensaje;
 						General.setListadoConectados((DefaultListModel) datos.get(0));
@@ -134,6 +133,7 @@ public class CCliente extends Thread {
 	
 	public void setClienteConectado(Cliente clienteConectado) {
 		this.clienteConectado = clienteConectado;
+		General.nuevaConexion(General.getConexionTemp());
 		enviarDatosCliente(2, this.clienteConectado);
 	}
 	public PrincipalSubastaCliente getVentanaCliente() {

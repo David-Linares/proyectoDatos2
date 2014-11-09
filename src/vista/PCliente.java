@@ -172,6 +172,7 @@ public class PCliente extends JFrame {
 						Long.parseLong(tfMonto.getText()));
 				if (General.getCliente() != null) {
 					General.getCliente().setClienteConectado(nuevoCliente);
+					General.getConexionTemp().setClienteTemp(nuevoCliente);
 					psubasta = new PrincipalSubastaCliente();
 					General.getCliente().setVentanaCliente(psubasta);
 					General.setPanelSubastaCliente(psubasta.getPanelSubasta());
@@ -218,16 +219,17 @@ public class PCliente extends JFrame {
 			tfMonto.requestFocus();
 			return false;
 		} else
-			
+
 			montoEntero = Long.parseLong(montoV);
-			
-			if (montoEntero<=General.getProductoSeleccionado().getValor()) {
-				mensajeV = "\u00A1El monto debe ser mayor al valor actual!\n";
-				JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
-						JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
-				
-				return false;
-		}else {
+
+		if (montoEntero <= General.getProductoSeleccionado().getValor()) {
+			mensajeV = "\u00A1El monto debe ser mayor al valor actual del producto ("
+					+ General.getProductoSeleccionado().getValor() + ")!\n";
+			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
+					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
+
+			return false;
+		} else {
 			JOptionPane.showMessageDialog(null, "Bienvenido a la subasta",
 					"\u00A1Bienvenido!", JOptionPane.INFORMATION_MESSAGE,
 					general.getIcon("confirm"));

@@ -32,7 +32,6 @@ public class CServidor extends Thread {
 				Socket nuevoSServidor;
 				try {
 					nuevoSServidor = sServidor.accept();
-					JOptionPane.showMessageDialog(new JFrame(), "CServidor / Entró un nuevo cliente");
 					nuevaConexion = new Conexion(nuevoSServidor);
 					general.nuevaConexionTemp(nuevaConexion);
 				} catch (IOException e) {

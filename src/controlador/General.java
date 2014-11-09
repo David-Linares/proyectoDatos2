@@ -181,7 +181,7 @@ public class General implements Serializable {
 	
 	
 	//NOTIFICA A UN CLIENTE NUEVO TODAS LAS CONEXIONES EXISTENTES
-	public void nuevaConexion(Conexion nuevo){
+	public static void nuevaConexion(Conexion nuevo){
 		for(Conexion con: conexiones){
 			nuevo.entradaDatosConexion(2, con.getClienteTemp());
 		}
