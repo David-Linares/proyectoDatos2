@@ -14,17 +14,17 @@ import vista.PCliente;
 import vista.PrincipalSubastaVendedor;
 import modelo.Producto;
 
-public class General implements Serializable {
+@SuppressWarnings("rawtypes")
+public class General{
 	
-	private static final long serialVersionUID = 1L;
 	/*Variables*/
 	private static General general;
 	private static Producto[] productos;
 	private static ArrayList<Conexion> conexiones = new ArrayList<Conexion>();
 	private static Temporizador reloj = null;
 	private static String tiempo;
-	@SuppressWarnings("rawtypes")
 	private static DefaultListModel listadoConectados = new DefaultListModel();
+	private static DefaultListModel listadoConectadosTemp = new DefaultListModel();
 	private static Conexion conexionTemp;
 	private static Producto productoSeleccionado;
 	private static CServidor servidor = null;
@@ -56,6 +56,15 @@ public class General implements Serializable {
 		return general;
 	}
 	
+	public static DefaultListModel getListadoConectadosTemp() {
+		return listadoConectadosTemp;
+	}
+
+	public static void setListadoConectadosTemp(
+			DefaultListModel listadoConectadosTemp) {
+		General.listadoConectadosTemp = listadoConectadosTemp;
+	}
+
 	public static PCliente getVentanaDatosCliente() {
 		return ventanaDatosCliente;
 	}
@@ -69,6 +78,7 @@ public class General implements Serializable {
 	}
 
 	public static void setConexionTemp(Conexion conexionTemp) {
+		System.out.println("General / Se Guardó la variable de Conexión Temporal.");
 		General.conexionTemp = conexionTemp;
 	}
 
@@ -182,17 +192,13 @@ public class General implements Serializable {
 	
 	//NOTIFICA A UN CLIENTE NUEVO TODAS LAS CONEXIONES EXISTENTES
 	public static void nuevaConexion(Conexion nuevo){
+		System.out.println("General / Entró una nueva conexión y se va a recorrer las conexiones ");
+		System.out.println("General / la variable Conexiónes = "+conexiones);
 		for(Conexion con: conexiones){
 			nuevo.entradaDatosConexion(2, con.getClienteTemp());
 		}
 		conexiones.add(nuevo);
-		
-	}
-	
-	public void nuevaConexionTemp(Conexion nuevoTemp){
-		for(Conexion con: conexiones){
-			con.entradaDatosConexion(1, nuevoTemp);
-		}		
+		System.out.println("General / la variable Conexiónes = "+conexiones+" después de agregarle el nuevo.");		
 	}
 	
 	//DESCONECTA Y ELIMINA LA CONEXION DE UN CLIENTE

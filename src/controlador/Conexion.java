@@ -46,10 +46,12 @@ public class Conexion extends Thread{
 		while (true) {
 			try {
 				//entradaDatosConexion(5, General.getProductoSeleccionado());
+				System.out.println("Conexion / Inicio RUn de Conexión");
 				ObjectInputStream entrada = new ObjectInputStream(
 						s.getInputStream());
 				int operacion = entrada.readInt();
 				Object eMensaje = entrada.readObject();
+				System.out.println("Conexión / ope = "+operacion+" entrada = "+eMensaje);
 				switch (operacion) {
 				// Recibir una conexion sin Cliente
 				case 1:
@@ -57,12 +59,16 @@ public class Conexion extends Thread{
 					ArrayList datosServidor = new ArrayList();
 					datosServidor.add(General.getListadoConectados());
 					datosServidor.add(General.getProductoSeleccionado());
-					datosServidor.add(general.getConexiones());
-					entradaDatosConexion(1, datosServidor);
+					entradaDatosConexion(operacion, datosServidor);
 					break;
 
 				case 2:
 					clienteTemp = (Cliente) eMensaje;
+					System.out.println("Conexion / Entró al case 2 y entró el cliente = "+clienteTemp);
+					System.out.println("Conexion / la variable Conexión TEMP = "+General.getConexionTemp());
+					General.getConexionTemp().setClienteTemp(clienteTemp);
+					System.out.println("Conexion / la variable Conexión TEMP = "+General.getConexionTemp()+" después de Agregarle el cliente");
+					General.nuevaConexion(General.getConexionTemp());
 					general.enviarDatos(operacion, eMensaje);
 					General.getVentanaServidor()
 							.getTpMensajesSubasta()
@@ -74,7 +80,6 @@ public class Conexion extends Thread{
 											+ " se conect\u00f3 \n");
 					General.getListadoConectados().addElement(
 							clienteTemp.getNombre());
-
 					break;
 				case 3:
 					eMensaje = this.clienteTemp.getNombre() + " ofrece: "
@@ -152,15 +157,24 @@ public class Conexion extends Thread{
 	// ESCRIBE LOS DATOS DE ENTRADA AL CLIENTE
 	public void entradaDatosConexion(int operacion, Object sMensaje) {
 		try {
+			System.out.println("Conexión / entró a enviarle datos al cliente = "+sMensaje);
 			salida.writeInt(operacion);
 			salida.writeObject(sMensaje);
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(
-					new JFrame(),
-					"Conexion / Se produjo un error en la llegada "
-							+ e.getMessage());
+			e.printStackTrace();
+			//JOptionPane.showMessageDialog(
+				//	new JFrame(),
+					//"Conexion / Se produjo un error en la llegada "
+						//	+ e.getMessage());
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "Conexion [s=" + s + ", salida=" + salida + ", general="
+				+ general + ", clienteTemp=" + clienteTemp + "]";
+	}
+	
 	
 	
 }

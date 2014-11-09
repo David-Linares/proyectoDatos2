@@ -22,20 +22,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+@SuppressWarnings("serial")
 public class PConexion extends JFrame {
 
-	/**
-	 * 
-	 */
+	
 	PrincipalSubastaCliente psubasta;
 	private JPanel contentPane;
 	private JTextField tfIp;
 	private JTextField tfPuerto;
 	General general = General.getInstance();
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -133,9 +129,10 @@ public class PConexion extends JFrame {
 	private void iniciarConexion() {
 		if (validacion()) {
 			try {
-				//JOptionPane.showMessageDialog(new JFrame(), "PConexion / Entró a Iniciar Conexión");
+				//JOptionPane.showMessageDialog(new JFrame(), "PConexion / Entrï¿½ a Iniciar Conexiï¿½n");
 				int puerto = Integer.parseInt(tfPuerto.getText());
 				String ip = tfIp.getText();
+				System.out.println("PConexion / " + General.getCliente());
 				if (General.getCliente() == null) {
 					General.setCliente(new CCliente(puerto, ip));
 					PCliente pcliente = new PCliente();
@@ -144,11 +141,12 @@ public class PConexion extends JFrame {
 					setVisible(false);
 					pcliente.setVisible(true);
 				}
-				//JOptionPane.showMessageDialog(new JFrame(), "PConexion / Pasó el Run de Cliente y va a crear la nueva ventana");
+				//JOptionPane.showMessageDialog(new JFrame(), "PConexion / Pasï¿½ el Run de Cliente y va a crear la nueva ventana");
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(new JFrame(),
-						"PConexion / Se produjo un error " + e.getMessage());
-				General.setCliente(null);
+				//JOptionPane.showMessageDialog(new JFrame(),
+						//"PConexion / Se produjo un error " + e.getMessage());
+				//General.setCliente(null);
+						e.printStackTrace();
 			}
 		}
 	}
