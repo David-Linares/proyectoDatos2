@@ -99,7 +99,7 @@ public class VendedorSubasta extends JFrame {
 		tpMensajesSubastaVendedor.setForeground(new Color(51, 102, 255));
 		tpMensajesSubastaVendedor.setFont(new Font("SansSerif", Font.BOLD, 12));
 		tpMensajesSubastaVendedor.setEditable(false);
-		setTitle("Subasta");
+		setTitle("Subasta Vendedor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 563, 452);
 		contentPane = new JPanel();

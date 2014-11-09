@@ -68,43 +68,54 @@ public class ClienteSubasta extends JFrame {
 	 * Create the frame.
 	 */
 	public ClienteSubasta() {
+		setFont(new Font("Calibri", Font.BOLD, 12));
+		panelSubasta.setForeground(new Color(0, 153, 255));
+		panelSubasta.setFont(new Font("SansSerif", Font.BOLD, 12));
 		panelSubasta.setEditable(false);
 		setResizable(false);
-		setTitle("Subasta");
+		setTitle("Subasta Cliente: " + General.getCliente().getClienteConectado().getNombre());
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 610, 506);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(211, 211, 211));
+		contentPane.setForeground(new Color(255, 255, 255));
+		contentPane.setBackground(new Color(100,149,237));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		scrollLista.setBounds(465, 119, 131, 254);
 		scrollLista.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
+		listConectados.setFont(new Font("SansSerif", Font.BOLD, 12));
+		listConectados.setForeground(new Color(0, 153, 255));
 		scrollLista.setViewportView(listConectados);
 		contentPane.add(scrollLista);
 
 		JButton btnAbandonarSubasta = new JButton("Abandonar Subasta");
+		btnAbandonarSubasta.setBackground(new Color(255, 255, 255));
+		btnAbandonarSubasta.setForeground(new Color(0, 153, 255));
 		btnAbandonarSubasta.setBounds(385, 428, 211, 37);
 		btnAbandonarSubasta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				salirSubasta();
 			}
 		});
-		btnAbandonarSubasta.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
+		btnAbandonarSubasta.setFont(new Font("Kristen ITC", Font.BOLD, 15));
 		contentPane.add(btnAbandonarSubasta);
-		lblProductoSubastado.setBounds(10, 38, 443, 31);
+		lblProductoSubastado.setForeground(new Color(255, 255, 255));
+		lblProductoSubastado.setBounds(10, 38, 586, 31);
 
-		lblProductoSubastado.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
-		lblProductoSubastado.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblProductoSubastado.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 15));
+		lblProductoSubastado.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblProductoSubastado);
 
-		lblProductoSubastado.setText(General.getProductoSeleccionado().getNombre()
-				+ " = " + General.getProductoSeleccionado().getValor());
+		lblProductoSubastado.setText("Producto en Subasta: \n Nombre: "
+				+ 	General.getProductoSeleccionado().getNombre() + " \n Valor Actual: "
+				+ General.getProductoSeleccionado().getValor() );
 		
 		tfMensaje = new JTextField();
+		tfMensaje.setForeground(new Color(0, 153, 255));
 		tfMensaje.setBounds(10, 385, 443, 31);
-		tfMensaje.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
+		tfMensaje.setFont(new Font("SansSerif", Font.BOLD, 12));
 		tfMensaje.addKeyListener(new KeyAdapter() {
 			@Override
 			// OK
@@ -127,8 +138,10 @@ public class ClienteSubasta extends JFrame {
 		tfMensaje.setColumns(10);
 
 		JButton btnNewButton_1 = new JButton("Enviar");
+		btnNewButton_1.setBackground(new Color(255, 255, 255));
+		btnNewButton_1.setForeground(new Color(0, 153, 255));
 		btnNewButton_1.setBounds(465, 384, 131, 31);
-		btnNewButton_1.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
+		btnNewButton_1.setFont(new Font("Kristen ITC", Font.BOLD, 15));
 		btnNewButton_1.addActionListener(new ActionListener() {
 
 			// ACCION DEL EVENTO AL ENVIAR UN MENSAJE
@@ -138,24 +151,21 @@ public class ClienteSubasta extends JFrame {
 		});
 		contentPane.add(btnNewButton_1);
 
-		JLabel lblNombreCliente = new JLabel("Nombre: "
-				+ General.getCliente().getClienteConectado().getNombre());
-		lblNombreCliente.setBounds(10, 12, 221, 15);
-		lblNombreCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
-		contentPane.add(lblNombreCliente);
-
 		JLabel lblMontoCliente = new JLabel("Monto Disponible: "
 				+ General.getCliente().getClienteConectado().getMonto());
-		lblMontoCliente.setBounds(241, 12, 221, 15);
-		lblMontoCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
+		lblMontoCliente.setForeground(new Color(255, 255, 255));
+		lblMontoCliente.setBounds(10, 13, 443, 21);
+		lblMontoCliente.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 15));
 		contentPane.add(lblMontoCliente);
 		JLabel lblIpCliente;
 
 		try {
 			lblIpCliente = new JLabel("IP: "
 					+ InetAddress.getLocalHost().getHostAddress().toString());
-			lblIpCliente.setHorizontalAlignment(SwingConstants.CENTER);
-			lblIpCliente.setBounds(465, 67, 131, 15);
+			lblIpCliente.setHorizontalAlignment(SwingConstants.TRAILING);
+			lblIpCliente.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 14));
+			lblIpCliente.setForeground(new Color(255, 255, 255));
+			lblIpCliente.setBounds(465, 8, 131, 31);
 			contentPane.add(lblIpCliente);
 
 			JTextPane textPane = new JTextPane();
@@ -171,13 +181,14 @@ public class ClienteSubasta extends JFrame {
 			contentPane.add(lblReloj);
 			
 			JLabel lblDescripcionProducto = new JLabel();
+			lblDescripcionProducto.setForeground(new Color(255, 255, 255));
 			lblDescripcionProducto.setText((String) null);
 			lblDescripcionProducto.setHorizontalAlignment(SwingConstants.CENTER);
-			lblDescripcionProducto.setFont(new Font("Dialog", Font.ITALIC, 10));
-			lblDescripcionProducto.setBounds(10, 72, 443, 37);
+			lblDescripcionProducto.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 13));
+			lblDescripcionProducto.setBounds(20, 71, 586, 37);
 			contentPane.add(lblDescripcionProducto);
 			
-			lblDescripcionProducto.setText(General.getProductoSeleccionado().getDescripcion());
+			lblDescripcionProducto.setText("Descipción del Producto "+	General.getProductoSeleccionado().getDescripcion());
 			
 		} catch (UnknownHostException e) {
 			JOptionPane.showMessageDialog(new JFrame(),

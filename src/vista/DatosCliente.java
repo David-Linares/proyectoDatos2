@@ -22,6 +22,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JTextArea;
 
 import modelo.Cliente;
+import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class DatosCliente extends JFrame {
@@ -57,16 +58,19 @@ public class DatosCliente extends JFrame {
 	 * Create the frame.
 	 */
 	public DatosCliente() {
+		setFont(new Font("Calibri", Font.BOLD, 12));
 		setTitle("Datos del Cliente");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 454, 339);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(100,149,237));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		tfNombreCliente = new JTextField();
+		tfNombreCliente.setForeground(new Color(51, 102, 255));
 		tfNombreCliente.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -75,12 +79,13 @@ public class DatosCliente extends JFrame {
 				}
 			}
 		});
-		tfNombreCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
+		tfNombreCliente.setFont(new Font("SansSerif", Font.BOLD, 12));
 		tfNombreCliente.setBounds(179, 185, 259, 29);
 		contentPane.add(tfNombreCliente);
 		tfNombreCliente.setColumns(10);
 
 		tfMonto = new JTextField();
+		tfMonto.setForeground(new Color(51, 102, 255));
 
 		tfMonto.addKeyListener(new KeyAdapter() {
 
@@ -101,53 +106,64 @@ public class DatosCliente extends JFrame {
 				}
 			}
 		});
-		tfMonto.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
+		tfMonto.setFont(new Font("SansSerif", Font.BOLD, 12));
 		tfMonto.setColumns(10);
 		tfMonto.setBounds(179, 225, 259, 29);
 		contentPane.add(tfMonto);
 
 		JLabel lblNewLabel = new JLabel("Producto en Subasta");
-		lblNewLabel.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setBounds(10, 48, 154, 34);
 		contentPane.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Descripci\u00F3n de Producto");
-		lblNewLabel_1.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
+		lblNewLabel_1.setForeground(new Color(255, 255, 255));
+		lblNewLabel_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1.setBounds(20, 94, 149, 23);
+		lblNewLabel_1.setBounds(10, 93, 159, 34);
 		contentPane.add(lblNewLabel_1);
 
 		lblNombre = new JLabel("Nick");
-		lblNombre.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
+		lblNombre.setForeground(new Color(255, 255, 255));
+		lblNombre.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
 		lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNombre.setBounds(109, 188, 60, 23);
+		lblNombre.setBounds(10, 177, 159, 34);
 		contentPane.add(lblNombre);
 
 		lblMontoInicial = new JLabel("Monto Inicial");
-		lblMontoInicial.setFont(new Font("DejaVu Sans", Font.BOLD, 10));
+		lblMontoInicial.setForeground(new Color(255, 255, 255));
+		lblMontoInicial.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
 		lblMontoInicial.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMontoInicial.setBounds(85, 228, 84, 23);
+		lblMontoInicial.setBounds(20, 217, 149, 34);
 		contentPane.add(lblMontoInicial);
 
 		lblDatosDeConexin = new JLabel("Datos del Cliente");
-		lblDatosDeConexin.setFont(new Font("DejaVu Sans", Font.BOLD
-				| Font.ITALIC, 20));
+		lblDatosDeConexin.setForeground(new Color(255, 255, 255));
+		lblDatosDeConexin.setFont(new Font("Kristen ITC", Font.BOLD, 18));
 		lblDatosDeConexin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDatosDeConexin.setBounds(96, 11, 247, 34);
 		contentPane.add(lblDatosDeConexin);
 
 		JButton btnIngresarSubasta = new JButton("Ingresar a La Subasta");
+		btnIngresarSubasta.setBackground(new Color(255, 255, 255));
+		btnIngresarSubasta.setForeground(new Color(51, 102, 255));
+		btnIngresarSubasta.setFont(new Font("Kristen ITC", Font.BOLD, 15));
 		btnIngresarSubasta.setBounds(105, 265, 224, 34);
 		contentPane.add(btnIngresarSubasta);
 
 		lblProductoSubastaCliente = new JLabel("");
+		lblProductoSubastaCliente.setBackground(new Color(255, 255, 255));
+		lblProductoSubastaCliente.setForeground(new Color(255, 255, 255));
 		lblProductoSubastaCliente.setHorizontalAlignment(SwingConstants.CENTER);
-		lblProductoSubastaCliente.setFont(new Font("Dialog", Font.BOLD, 16));
+		lblProductoSubastaCliente.setFont(new Font("SansSerif", Font.BOLD, 13));
 		lblProductoSubastaCliente.setBounds(179, 48, 259, 34);
 		contentPane.add(lblProductoSubastaCliente);
 
 		tADescripcionProducto = new JTextArea();
+		tADescripcionProducto.setForeground(new Color(51, 102, 255));
+		tADescripcionProducto.setFont(new Font("SansSerif", Font.BOLD, 12));
 		tADescripcionProducto.setWrapStyleWord(true);
 		tADescripcionProducto.setLineWrap(true);
 		tADescripcionProducto.setEditable(false);
@@ -168,7 +184,7 @@ public class DatosCliente extends JFrame {
 	private void entrarSubasta() {
 		if (validacion()) {
 			try {
-				Cliente nuevoCliente = new Cliente(tfNombreCliente.getText(),
+				Cliente nuevoCliente = new Cliente(tfNombreCliente.getText().toLowerCase().trim(),
 						Long.parseLong(tfMonto.getText()));
 				System.out.println("PCliente / Se creó un nuevo cliente = "+nuevoCliente);
 				System.out.println("PCliente / la variable getCliente = "+General.getCliente());
@@ -197,7 +213,7 @@ public class DatosCliente extends JFrame {
 
 	private boolean validacion() {
 		String montoV = this.tfMonto.getText();
-		String nombreV = this.tfNombreCliente.getText();
+		String nombreV = this.tfNombreCliente.getText().toLowerCase().trim();
 
 		String mensajeV = "";
 

@@ -57,7 +57,7 @@ public class DatosVendedor extends JFrame {
 	 */
 	public DatosVendedor() {
 		setFont(new Font("Calibri", Font.BOLD, 12));
-		setTitle("Principal Vendedor");
+		setTitle("Datos Vendedor");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 536, 330);
