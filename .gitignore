@@ -1,3 +1,4 @@
 #Omite todos los archivos .class del proyecto.
 *.class
 /bin
+.settings/
