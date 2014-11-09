@@ -10,8 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 
-import vista.PCliente;
-import vista.PrincipalSubastaVendedor;
+import vista.DatosCliente;
+import vista.VendedorSubasta;
 import modelo.Producto;
 
 @SuppressWarnings("rawtypes")
@@ -20,18 +20,18 @@ public class General{
 	/*Variables*/
 	private static General general;
 	private static Producto[] productos;
-	private static ArrayList<Conexion> conexiones = new ArrayList<Conexion>();
+	private static ArrayList<ConexionClienteServidor> conexiones = new ArrayList<ConexionClienteServidor>();
 	private static Temporizador reloj = null;
 	private static String tiempo;
 	private static DefaultListModel listadoConectados = new DefaultListModel();
 	private static DefaultListModel listadoConectadosTemp = new DefaultListModel();
-	private static Conexion conexionTemp;
+	private static ConexionClienteServidor conexionTemp;
 	private static Producto productoSeleccionado;
-	private static CServidor servidor = null;
-	private static CCliente cliente = null;
+	private static ConexionServidor servidor = null;
+	private static ConexionCliente cliente = null;
 	/*Ventanas*/
-	private static PCliente ventanaDatosCliente;
-	private static PrincipalSubastaVendedor ventanaServidor;
+	private static DatosCliente ventanaDatosCliente;
+	private static VendedorSubasta ventanaServidor;
 	private static JTextPane panelSubastaCliente;
 	
 	private General(){
@@ -65,19 +65,19 @@ public class General{
 		General.listadoConectadosTemp = listadoConectadosTemp;
 	}
 
-	public static PCliente getVentanaDatosCliente() {
+	public static DatosCliente getVentanaDatosCliente() {
 		return ventanaDatosCliente;
 	}
 
-	public static void setVentanaDatosCliente(PCliente ventanaDatosCliente) {
+	public static void setVentanaDatosCliente(DatosCliente ventanaDatosCliente) {
 		General.ventanaDatosCliente = ventanaDatosCliente;
 	}
 
-	public static Conexion getConexionTemp() {
+	public static ConexionClienteServidor getConexionTemp() {
 		return conexionTemp;
 	}
 
-	public static void setConexionTemp(Conexion conexionTemp) {
+	public static void setConexionTemp(ConexionClienteServidor conexionTemp) {
 		System.out.println("General / Se Guardó la variable de Conexión Temporal.");
 		General.conexionTemp = conexionTemp;
 	}
@@ -124,31 +124,31 @@ public class General{
 	}
 
 		
-	public static CServidor getServidor() {
+	public static ConexionServidor getServidor() {
 		return servidor;
 	}
 
 
-	public static void setServidor(CServidor servidor) {
+	public static void setServidor(ConexionServidor servidor) {
 		General.servidor = servidor;
 	}
 
 
-	public static CCliente getCliente() {
+	public static ConexionCliente getCliente() {
 		return cliente;
 	}
 
-	public static void setCliente(CCliente cliente) {
+	public static void setCliente(ConexionCliente cliente) {
 		General.cliente = cliente;
 	}
 
 	
 
-	public static PrincipalSubastaVendedor getVentanaServidor() {
+	public static VendedorSubasta getVentanaServidor() {
 		return ventanaServidor;
 	}
 
-	public static void setVentanaServidor(PrincipalSubastaVendedor ventanaServidor) {
+	public static void setVentanaServidor(VendedorSubasta ventanaServidor) {
 		General.ventanaServidor = ventanaServidor;
 	}
 
@@ -160,7 +160,7 @@ public class General{
 		return panelSubastaCliente;
 	}
 
-	public static void setConexiones(ArrayList<Conexion> conexiones) {
+	public static void setConexiones(ArrayList<ConexionClienteServidor> conexiones) {
 		General.conexiones = conexiones;
 	}
 
@@ -177,13 +177,13 @@ public class General{
 		General.productoSeleccionado = productoSeleccionado;
 	}
 
-	public ArrayList<Conexion> getConexiones() {
+	public ArrayList<ConexionClienteServidor> getConexiones() {
 		return conexiones;
 	}
 
 	//RECORRE TODAS LAS CONEXIONES EXISTENTES Y ENVIA A CONEXION UNA NUEVA ENTRADA DE DATOS
 	public void enviarDatos(int operacion, Object sMensaje){
-		for(Conexion con : conexiones){
+		for(ConexionClienteServidor con : conexiones){
 			con.entradaDatosConexion(operacion, sMensaje);
 		}
 	}
@@ -191,10 +191,10 @@ public class General{
 	
 	
 	//NOTIFICA A UN CLIENTE NUEVO TODAS LAS CONEXIONES EXISTENTES
-	public static void nuevaConexion(Conexion nuevo){
+	public static void nuevaConexion(ConexionClienteServidor nuevo){
 		System.out.println("General / Entró una nueva conexión y se va a recorrer las conexiones ");
 		System.out.println("General / la variable Conexiónes = "+conexiones);
-		for(Conexion con: conexiones){
+		for(ConexionClienteServidor con: conexiones){
 			nuevo.entradaDatosConexion(2, con.getClienteTemp());
 		}
 		conexiones.add(nuevo);
@@ -202,7 +202,7 @@ public class General{
 	}
 	
 	//DESCONECTA Y ELIMINA LA CONEXION DE UN CLIENTE
-	public void desconecta(Conexion cliente){
+	public void desconecta(ConexionClienteServidor cliente){
 		int pos = -1;
 		for(int n= 0; n<conexiones.size(); n++){
 			if(conexiones.get(n) == cliente){

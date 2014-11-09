@@ -65,7 +65,7 @@ public class Principal extends JFrame {
 		btnNuevaSubasta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
-				PVendedor pvendedor = new PVendedor();
+				DatosVendedor pvendedor = new DatosVendedor();
 				pvendedor.setVisible(true);
 			}
 		});
@@ -79,7 +79,7 @@ public class Principal extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
-				PConexion pconexion = new PConexion();
+				DatosClienteConexion pconexion = new DatosClienteConexion();
 				pconexion.setVisible(true);
 			}
 		});
