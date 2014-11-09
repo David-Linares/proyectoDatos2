@@ -73,7 +73,7 @@ public class ClienteSubasta extends JFrame {
 		panelSubasta.setFont(new Font("SansSerif", Font.BOLD, 12));
 		panelSubasta.setEditable(false);
 		setResizable(false);
-		setTitle("Subasta Cliente: " + General.getCliente().getClienteConectado().getNombre());
+		setTitle("Subasta Cliente: " + General.getCliente().getClienteConectado().getNombre().toLowerCase().toLowerCase().trim());
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 610, 506);
