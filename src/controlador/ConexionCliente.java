@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 
 import modelo.Cliente;
 import modelo.Producto;
+import modelo.Temporizador;
 import vista.ClienteSubasta;
 
 public class ConexionCliente extends Thread {

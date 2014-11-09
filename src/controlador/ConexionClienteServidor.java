@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import modelo.Cliente;
 import modelo.Producto;
+import modelo.Temporizador;
 
 public class ConexionClienteServidor extends Thread{
 

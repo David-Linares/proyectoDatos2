@@ -1,6 +1,8 @@
-package controlador;
+package modelo;
 
 import java.io.Serializable;
+
+import controlador.General;
 
 public class Temporizador extends Thread implements Serializable {
 	

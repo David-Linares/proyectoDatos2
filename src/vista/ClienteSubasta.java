@@ -15,8 +15,8 @@ import javax.swing.SwingConstants;
 
 import modelo.Cliente;
 import modelo.Producto;
+import modelo.Temporizador;
 import controlador.General;
-import controlador.Temporizador;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -189,21 +189,13 @@ public class ClienteSubasta extends JFrame {
 	@SuppressWarnings("deprecation")
 	public void enviarMensaje() {
 		if (general.validarMonto(tfMensaje.getText())) {
-			if(General.getReloj() != null){
-				General.getReloj().stop();
-			}
-			General.setReloj(new Temporizador(3,0));
-			General.getReloj().start();
 			General.getCliente().enviarMensajeHilo(tfMensaje.getText());
 			General.getProductoSeleccionado().setValor(
 					Long.parseLong(tfMensaje.getText()));
 			General.getCliente().enviarProductoHilo(General
 					.getProductoSeleccionado());
 			tfMensaje.setText("");
-		} 
-		
-		else {
-			
+		}else {			
 			tfMensaje.setText("");
 			tfMensaje.requestFocus();
 		} 
@@ -223,7 +215,7 @@ public class ClienteSubasta extends JFrame {
 		}
 
 		if (General.getCliente() != null) {
-			General.getCliente().enviarDatosCliente(3, General.getCliente().getClienteConectado().getNombre());
+			General.getCliente().enviarDatosCliente(4, General.getCliente().getClienteConectado().getNombre());
 			General.getCliente().interrupt();
 		}
 		General.setCliente(null);
@@ -239,9 +231,7 @@ public class ClienteSubasta extends JFrame {
 	// OK
 	@SuppressWarnings("unchecked")
 	public void agregarNuevo(Cliente nuevoCliente) {
-		System.out.println("Principal Subasta Cliente / llegó un cliente para agregar = "+nuevoCliente);
 		General.getListadoConectados().addElement(nuevoCliente.getNombre());
-		System.out.println("Principal Subasta Cliente / La variable listado conectados después de agregarle el nuevo cliente= "+General.getListadoConectados());
 	}
 
 	public void agregarProductoEnSubasta(Producto productoSubastado) {
