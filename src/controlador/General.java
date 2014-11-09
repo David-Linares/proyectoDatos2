@@ -231,7 +231,7 @@ public class General{
 						JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
 				return false;
 				
-			} else if (monto < General.getProductoSeleccionado().getValor()) {
+			} else if (monto <= General.getProductoSeleccionado().getValor()) {
 				JOptionPane.showMessageDialog(new JFrame(),
 						"Valor debe ser superior al actual", "Datos",
 						JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
