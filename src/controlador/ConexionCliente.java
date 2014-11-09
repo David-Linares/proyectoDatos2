@@ -6,10 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-
 import modelo.Cliente;
 import modelo.Producto;
 import vista.ClienteSubasta;
@@ -70,9 +68,9 @@ public class ConexionCliente extends Thread {
 					General.setProductoSeleccionado((Producto)eMensaje);
 					ventanaCliente.agregarProductoEnSubasta((Producto) eMensaje);
 					break;
-				case 6:
-					Temporizador temp = (Temporizador) eMensaje;
-					ventanaCliente.mostrarTiempo(temp);
+				case 6: //Finalizó la subasta.
+					ventanaCliente.finSubasta((String) eMensaje);
+					break;
 				}
 			}
 		} catch (UnknownHostException e) {

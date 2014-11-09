@@ -121,7 +121,6 @@ public class General{
 	public static void setListadoConectados(DefaultListModel listadoConectados) {
 		General.listadoConectados = listadoConectados;
 	}
-
 		
 	public static ConexionServidor getServidor() {
 		return servidor;
@@ -181,7 +180,7 @@ public class General{
 	}
 
 	//RECORRE TODAS LAS CONEXIONES EXISTENTES Y ENVIA A CONEXION UNA NUEVA ENTRADA DE DATOS
-	public void enviarDatos(int operacion, Object sMensaje){
+	public static void enviarDatos(int operacion, Object sMensaje){
 		for(ConexionClienteServidor con : conexiones){
 			con.entradaDatosConexion(operacion, sMensaje);
 		}

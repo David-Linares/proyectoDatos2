@@ -15,8 +15,6 @@ import javax.swing.SwingConstants;
 
 import modelo.Cliente;
 import modelo.Producto;
-import controlador.General;
-import controlador.Temporizador;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -28,6 +26,8 @@ import java.awt.Font;
 import java.awt.Color;
 
 import javax.swing.JTextPane;
+
+import controlador.General;
 
 @SuppressWarnings("serial")
 public class ClienteSubasta extends JFrame {
@@ -241,29 +241,19 @@ public class ClienteSubasta extends JFrame {
 		General.setProductoSeleccionado(productoSubastado);
 	}
 	
-	public void mostrarTiempo(Temporizador tiempo){
-		if (tiempo.getSeg() < 10) {
-			this.lblReloj.setText("0"+tiempo.getMin() + ":0" + tiempo.getSeg());
-			if (tiempo.getMin() == 0 && tiempo.getSeg() == 0) {
-				JOptionPane.showMessageDialog(new JFrame(), "La subasta ha finalizado", "Fin de la Subasta", JOptionPane.INFORMATION_MESSAGE, general.getIcon("winner"));
-			}
-		}else{
-			this.lblReloj.setText("0"+tiempo.getMin() + ":" + tiempo.getSeg());
-		}
-		General.setReloj(tiempo);
-	}
-
-	// OK
 	public void mensajeRecibido(String nuevoMensaje) {
 		this.panelSubasta.setText(this.panelSubasta.getText() + nuevoMensaje
 				+ "\n");
 	}
 
-	// OK
 	public void borrarCliente(int posicion) {
 		General.getListadoConectados().remove(posicion);
 	}
-
+	
+	public void finSubasta(String ganador){
+		JOptionPane.showMessageDialog(this, "La subasta ha finalizado \n El ganador es "+ganador, "Ganador", JOptionPane.INFORMATION_MESSAGE, general.getIcon("winner"));
+	}
+	
 	public JList getListConectados() {
 		return listConectados;
 	}
