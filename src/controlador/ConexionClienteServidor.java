@@ -42,7 +42,7 @@ public class ConexionClienteServidor extends Thread{
 
 	// LE LLEGAN LOS DATOS
 	@SuppressWarnings("unchecked")
-	public void run() {
+	public synchronized void run() {
 		while (true) {
 			try {
 				ObjectInputStream entrada = new ObjectInputStream(
