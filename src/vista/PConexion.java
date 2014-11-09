@@ -82,6 +82,14 @@ public class PConexion extends JFrame {
 					iniciarConexion();
 				}
 			}
+			public void keyTyped(java.awt.event.KeyEvent evt) {
+				char car = evt.getKeyChar();
+				if ((car < '0' || car > '9')) {
+					if((car != '.')){
+					evt.consume();}
+				}
+				
+			}
 		});
 		tfIp.setFont(new Font("Dialog", Font.BOLD, 10));
 		tfIp.setColumns(10);
@@ -95,16 +103,29 @@ public class PConexion extends JFrame {
 		contentPane.add(lblPuertoConexion);
 
 		tfPuerto = new JTextField("8090");
+		tfPuerto.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(java.awt.event.KeyEvent evt) {
+				char car = evt.getKeyChar();
+				if (tfPuerto.getText().length() >= 5)
+					evt.consume();
+				if ((car < '0' || car > '9')) {
+					evt.consume();
+				}
+			}
+		});
 		tfPuerto.setFont(new Font("Dialog", Font.BOLD, 10));
 		tfPuerto.setColumns(10);
 		tfPuerto.setBounds(200, 92, 209, 23);
 		contentPane.add(tfPuerto);
+		
 
 		JButton btnConectarme = new JButton("Conectarme");
 		btnConectarme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				iniciarConexion();
 			}
+			
 		});
 		btnConectarme.setBounds(102, 136, 224, 34);
 		contentPane.add(btnConectarme);

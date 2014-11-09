@@ -112,6 +112,14 @@ public class PrincipalSubastaCliente extends JFrame {
 					enviarMensaje();
 				}
 			}
+			public void keyTyped(java.awt.event.KeyEvent evt) {
+				char car = evt.getKeyChar();
+				if (tfMensaje.getText().length() >= 18)
+					evt.consume();
+				if ((car < '0' || car > '9')) {
+					evt.consume();
+				}
+			}
 		});
 		contentPane.add(tfMensaje);
 		tfMensaje.setColumns(10);
@@ -182,13 +190,13 @@ public class PrincipalSubastaCliente extends JFrame {
 			General.getCliente().enviarProductoHilo(General
 					.getProductoSeleccionado());
 			tfMensaje.setText("");
-		} else {
-			JOptionPane.showMessageDialog(new JFrame(),
-					"Por favor digite un n\u00famero valido", "Datos",
-					JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
+		} 
+		
+		else {
+			
 			tfMensaje.setText("");
 			tfMensaje.requestFocus();
-		}
+		} 
 	}
 
 	public void salirSubasta() {

@@ -35,7 +35,7 @@ public class General implements Serializable {
 	private static JTextPane panelSubastaCliente;
 	
 	private General(){
-		Producto producto1 = new Producto(1, "Bicicleta", 200000, "Azul para ni�o, Marco giro con ruedas de apoyo");
+		Producto producto1 = new Producto(1, "Bicicleta", 200000, "Azul para ni\u00f1o, Marco giro con ruedas de apoyo");
 		Producto producto2 = new Producto(2, "Carro", 35000000, "Rojo deportivo modelo 2008 marca chevrolet");
 		Producto producto3 = new Producto(3, "Guitarra", 400000, "Electrica marca vintage color cafe y blanco");
 		Producto producto4 = new Producto(4, "Maleta", 140000, "Marca orion liviana rosada con brillantes");
@@ -231,6 +231,7 @@ public class General implements Serializable {
 				JOptionPane.showMessageDialog(new JFrame(),
 						"Valor debe ser superior al actual", "Datos",
 						JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
+						
 				return false;
 				
 			}

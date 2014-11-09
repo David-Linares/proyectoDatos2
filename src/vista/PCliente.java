@@ -252,4 +252,12 @@ public class PCliente extends JFrame {
 		this.tADescripcionProducto = tADescripcionProducto;
 	}
 
+	public void keyTyped(java.awt.event.KeyEvent evt) {
+		char car = evt.getKeyChar();
+		if (tfMonto.getText().length() >= 18)
+			evt.consume();
+		if ((car < '0' || car > '9')) {
+			evt.consume();
+		}
+	}
 }
