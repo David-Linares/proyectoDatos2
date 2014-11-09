@@ -23,9 +23,9 @@ import javax.swing.JTextArea;
 
 import modelo.Cliente;
 
+@SuppressWarnings("serial")
 public class PCliente extends JFrame {
 
-	private static final long serialVersionUID = 1L;
 	General general = General.getInstance();
 	private JPanel contentPane;
 	private JTextField tfNombreCliente;
@@ -170,20 +170,26 @@ public class PCliente extends JFrame {
 			try {
 				Cliente nuevoCliente = new Cliente(tfNombreCliente.getText(),
 						Long.parseLong(tfMonto.getText()));
+				System.out.println("PCliente / Se creó un nuevo cliente = "+nuevoCliente);
+				System.out.println("PCliente / la variable getCliente = "+General.getCliente());
 				if (General.getCliente() != null) {
 					General.getCliente().setClienteConectado(nuevoCliente);
 					psubasta = new PrincipalSubastaCliente();
-					General.getCliente().setVentanaCliente(psubasta);
 					General.setPanelSubastaCliente(psubasta.getPanelSubasta());
+					General.getCliente().setVentanaCliente(psubasta);
+					System.out.println("PCliente / la variable getCliente = "+General.getCliente()+" después de agregarle el cliente");
+					System.out.println("PCliente / la variable getCliente = "+General.getCliente()+" después de agregarle la ventana");
 				}
+				System.out.println("PCliente / la variable listadoConectados = "+General.getListadoConectados());
 				psubasta.getListConectados().setModel(
 						General.getListadoConectados());
 				psubasta.setVisible(true);
 				setVisible(false);
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(new JFrame(),
-						"PCliente / Se produjo un error " + e.getMessage());
-				General.setCliente(null);
+				//JOptionPane.showMessageDialog(new JFrame(),
+					//	"PCliente / Se produjo un error " + e.getMessage());
+				//General.setCliente(null);
+				e.printStackTrace();
 			}
 
 		}
@@ -202,7 +208,7 @@ public class PCliente extends JFrame {
 					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
 			tfNombreCliente.requestFocus();
 			return false;
-		} else if (General.getListadoConectados().contains(nombreV)) {
+		} else if (General.getListadoConectadosTemp().contains(nombreV)) {
 			mensajeV = "\u00A1El Nick "
 					+ nombreV
 					+ " ya est\u00e1 registrado en la subasta\n Por favor intenta con uno nuevo";

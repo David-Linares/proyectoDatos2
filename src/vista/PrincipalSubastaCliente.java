@@ -5,7 +5,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -229,7 +228,9 @@ public class PrincipalSubastaCliente extends JFrame {
 	// OK
 	@SuppressWarnings("unchecked")
 	public void agregarNuevo(Cliente nuevoCliente) {
+		System.out.println("Principal Subasta Cliente / llegó un cliente para agregar = "+nuevoCliente);
 		General.getListadoConectados().addElement(nuevoCliente.getNombre());
+		System.out.println("Principal Subasta Cliente / La variable listado conectados después de agregarle el nuevo cliente= "+General.getListadoConectados());
 	}
 
 	public void agregarProductoEnSubasta(Producto productoSubastado) {

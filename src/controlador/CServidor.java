@@ -6,8 +6,6 @@ import java.net.Socket;
 
 import vista.Principal;
 import vista.PrincipalSubastaVendedor;
-
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class CServidor extends Thread {
@@ -29,10 +27,11 @@ public class CServidor extends Thread {
 		try {
 			sServidor = new ServerSocket(puerto);
 			while (true) {
-				Socket nuevoSServidor;
 				try {
-					nuevoSServidor = sServidor.accept();
-					nuevaConexion = new Conexion(nuevoSServidor);
+					Socket nuevoSServidor = sServidor.accept();
+					System.out.println("CServidor / Se conectó un nuevo cliente ");
+					System.out.println("CServidor / variable Conexion TEMP "+General.getConexionTemp());
+					nuevaConexion = new Conexion(nuevoSServidor);					
 					General.setConexionTemp(nuevaConexion);
 				} catch (IOException e) {
 					JOptionPane.showMessageDialog(ventana, "CServidor / Se produjo un error en la nueva conexión");

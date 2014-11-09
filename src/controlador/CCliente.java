@@ -8,7 +8,6 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import modelo.Cliente;
@@ -51,20 +50,15 @@ public class CCliente extends Thread {
 				Object eMensaje = entrada.readObject();
 			switch (operacion) {
 				case 1: //Recibe los datos que tiene el servidor para actualizar los datos del cliente.
-					if (eMensaje instanceof ArrayList) {
-						ArrayList datos = (ArrayList) eMensaje;
-						General.setListadoConectados((DefaultListModel) datos.get(0));
-						General.setProductoSeleccionado((Producto) datos.get(1));
-						General.setConexiones((ArrayList<Conexion>) datos.get(2));
-						General.getVentanaDatosCliente().getLblProductoSubastaCliente().setText(General.getProductoSeleccionado().getNombre() + " = " + General.getProductoSeleccionado().getValor());
-						General.getVentanaDatosCliente().gettADescripcionProducto().setText(General.getProductoSeleccionado().getDescripcion());
-					}else if(eMensaje instanceof Conexion){
-						JOptionPane.showMessageDialog(new JFrame(), eMensaje);
-						General.setConexionTemp((Conexion) eMensaje);
-					}
+					ArrayList datos = (ArrayList) eMensaje;
+					General.setListadoConectadosTemp((DefaultListModel) datos.get(0));
+					General.setProductoSeleccionado((Producto) datos.get(1));
+					General.getVentanaDatosCliente().getLblProductoSubastaCliente().setText(General.getProductoSeleccionado().getNombre() + " = " + General.getProductoSeleccionado().getValor());
+					General.getVentanaDatosCliente().gettADescripcionProducto().setText(General.getProductoSeleccionado().getDescripcion());
 					break;
 				case 2:// Agregar nuevo cliente
-					JOptionPane.showMessageDialog(new JFrame(), ventanaCliente);
+					System.out.println("CCliente / Entró al caso 2 y llegó = "+(Cliente) eMensaje);
+					System.out.println("CCliente / la variable de cliente conectado = "+clienteConectado);
 					ventanaCliente.agregarNuevo((Cliente) eMensaje);
 					break;
 				case 3:// Enviar Mensaje
@@ -135,8 +129,6 @@ public class CCliente extends Thread {
 	
 	public void setClienteConectado(Cliente clienteConectado) {
 		this.clienteConectado = clienteConectado;
-		enviarDatosCliente(2, this.clienteConectado);
-		General.nuevaConexion(General.getConexionTemp());
 	}
 	public PrincipalSubastaCliente getVentanaCliente() {
 		return ventanaCliente;
@@ -144,6 +136,7 @@ public class CCliente extends Thread {
 
 	public void setVentanaCliente(PrincipalSubastaCliente ventanaCliente) {
 		this.ventanaCliente = ventanaCliente;
+		enviarDatosCliente(2, this.clienteConectado);
 	}
 
 }
