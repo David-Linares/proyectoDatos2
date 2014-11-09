@@ -34,17 +34,24 @@ public class General{
 	private static JTextPane panelSubastaCliente;
 	
 	private General(){
-		Producto producto1 = new Producto(1, "Bicicleta", 200000, "Azul para ni\u00f1o, Marco giro con ruedas de apoyo");
-		Producto producto2 = new Producto(2, "Carro", 35000000, "Rojo deportivo modelo 2008 marca chevrolet");
+		Producto producto1 = new Producto(1, "Bicicleta", 200000, "Para ni\u00f1o, marco gios numero 28 con ruedas de apoyo");
+		Producto producto2 = new Producto(2, "Carro", 35000000, "Rojo deportivo modelo 2008 marca chevrolet, motor 1800, coupe, modificado");
 		Producto producto3 = new Producto(3, "Guitarra", 400000, "Electrica marca vintage color cafe y blanco");
-		Producto producto4 = new Producto(4, "Maleta", 140000, "Marca orion liviana rosada con brillantes");
-		Producto producto5 = new Producto(5, "Calculadora", 100000, "Graficadora marca Casio Claspad 330 ");
-		 productos = new Producto[]{
+		Producto producto4 = new Producto(4, "Morral", 140000, "Marca orion liviana rosada con brillantes decorativos");
+		Producto producto5 = new Producto(5, "Teatro en casa", 400000, "Home Cinema LG BH4030S BlueRay 3D 5.1, 5 bocinas");
+		Producto producto6 = new Producto(6, "Televisor", 1200000,"Smart TV LED LG 32LB5610 de 42'' ULTRA HD con camara, sensor de movimiento y comandos de voz");
+		Producto producto7 = new Producto(7, "Casa", 30000000,"Inmueble ubicado en el norte de Bogota, con 130 metros cuadrados, cercano a vias principales, buena iluminacion");
+		Producto producto8 = new Producto(8, "Piano", 180000, "Teclado de marmol, madera de sauce, modelo 1978");
+		
+		productos = new Producto[]{
 				 producto1,
 				 producto2,
 				 producto3,
 				 producto4,
-				 producto5
+				 producto5,
+				 producto6,
+				 producto7,
+				 producto8
 		 };
 	}
 
