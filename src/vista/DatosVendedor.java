@@ -24,7 +24,6 @@ import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JTextArea;
-import java.awt.Component;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.Color;
@@ -129,6 +128,7 @@ public class DatosVendedor extends JFrame {
 		tADescripcionProducto.setLineWrap(true);
 		tADescripcionProducto.setWrapStyleWord(true);
 		tADescripcionProducto.setEditable(false);
+		tADescripcionProducto.setText(General.getProductos()[0].getDescripcion());
 		tADescripcionProducto.setBounds(228, 126, 294, 119);
 		contentPane.add(tADescripcionProducto);
 		
