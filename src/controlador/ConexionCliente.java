@@ -6,8 +6,10 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+
 import modelo.Cliente;
 import modelo.Producto;
 import vista.ClienteSubasta;
@@ -36,7 +38,7 @@ public class ConexionCliente extends Thread {
 
 	// OK
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public synchronized void run() {
+	public void run() {
 		try {
 			SCliente = new Socket(ip, puerto);
 			enviarDatosCliente(1, null);

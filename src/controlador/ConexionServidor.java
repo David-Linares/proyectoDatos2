@@ -21,7 +21,7 @@ public class ConexionServidor extends Thread {
 	
 	//OK
 	@SuppressWarnings("resource")
-	public synchronized void run() {
+	public void run() {
 		ServerSocket sServidor = null;
 		ConexionClienteServidor nuevaConexion = null;
 		try {

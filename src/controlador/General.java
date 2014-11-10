@@ -192,22 +192,22 @@ public class General{
 
 	//RECORRE TODAS LAS CONEXIONES EXISTENTES Y ENVIA A CONEXION UNA NUEVA ENTRADA DE DATOS
 	public static void enviarDatos(int operacion, Object sMensaje){
+		JOptionPane.showMessageDialog(new JFrame(), "General / Se va a enviar datos "+sMensaje);
+		JOptionPane.showMessageDialog(new JFrame(), "General / COnexiones "+conexiones);
 		for(ConexionClienteServidor con : conexiones){
 			con.entradaDatosConexion(operacion, sMensaje);
 		}
-	}
-	
-	
+	}	
 	
 	//NOTIFICA A UN CLIENTE NUEVO TODAS LAS CONEXIONES EXISTENTES
 	public static void nuevaConexion(ConexionClienteServidor nuevo){
-		System.out.println("General / Entr√≥ una nueva conexi√≥n y se va a recorrer las conexiones ");
-		System.out.println("General / la variable Conexi√≥nes = "+conexiones);
+		JOptionPane.showMessageDialog(new JFrame(), "General / LlegÛ una nueva conexiÛn para guadar");
+		JOptionPane.showMessageDialog(new JFrame(), "General / antes "+conexiones);
 		for(ConexionClienteServidor con: conexiones){
 			nuevo.entradaDatosConexion(2, con.getClienteTemp());
 		}
 		conexiones.add(nuevo);
-		System.out.println("General / la variable Conexi√≥nes = "+conexiones+" despu√©s de agregarle el nuevo.");		
+		JOptionPane.showMessageDialog(new JFrame(), "General / DespuÈs "+conexiones.size());
 	}
 	
 	//DESCONECTA Y ELIMINA LA CONEXION DE UN CLIENTE
