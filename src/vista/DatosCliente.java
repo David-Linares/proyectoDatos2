@@ -66,7 +66,7 @@ public class DatosCliente extends JFrame {
 		setFont(new Font("Calibri", Font.BOLD, 12));
 		setTitle("Datos del Cliente");
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().createImage("images/customer.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(DatosCliente.class.getResource("/images/customer.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 454, 339);
 		contentPane = new JPanel();

@@ -82,8 +82,7 @@ public class ClienteSubasta extends JFrame {
 		setTitle("Subasta Cliente: " + General.getCliente().getClienteConectado().getNombre().toLowerCase().toLowerCase().trim());
 	
 		setDefaultCloseOperation(0);
-		setIconImage(Toolkit.getDefaultToolkit().createImage("images/customer.png"));
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ClienteSubasta.class.getResource("/images/customer.png")));
 		setBounds(100, 100, 610, 506);
 		contentPane = new JPanel();
 		contentPane.setForeground(new Color(255, 255, 255));

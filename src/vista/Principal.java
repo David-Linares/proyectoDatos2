@@ -55,12 +55,9 @@ public class Principal extends JFrame {
 		getContentPane().setBackground(new Color(100, 149, 237));
 		getContentPane().setForeground(new Color(0, 0, 0));
 		setResizable(false);
-		//Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("confirm.png"));
-		//setIconImage(icon);
 		
 		setTitle("Bienvenido");
 		setBounds(100, 100, 376, 158);
-		//setIconImage(Toolkit.getDefaultToolkit().createImage("images/martillo.png")); 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/images/martillo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
