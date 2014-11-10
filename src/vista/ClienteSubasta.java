@@ -77,8 +77,10 @@ public class ClienteSubasta extends JFrame {
 		panelSubasta.setEditable(false);
 		setResizable(false);
 		setTitle("Subasta Cliente: " + General.getCliente().getClienteConectado().getNombre().toLowerCase().toLowerCase().trim());
+	
+		setDefaultCloseOperation(0);
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 610, 506);
 		contentPane = new JPanel();
 		contentPane.setForeground(new Color(255, 255, 255));
