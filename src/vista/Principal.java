@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
@@ -59,7 +60,8 @@ public class Principal extends JFrame {
 		
 		setTitle("Bienvenido");
 		setBounds(100, 100, 376, 158);
-		setIconImage(Toolkit.getDefaultToolkit().createImage("images/martillo.png")); 
+		//setIconImage(Toolkit.getDefaultToolkit().createImage("images/martillo.png")); 
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/images/martillo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		btnNuevaSubasta = new JButton("Crear nueva Subasta");

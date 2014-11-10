@@ -24,10 +24,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 import javax.swing.JTextPane;
 
 import controlador.General;
+
 import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
@@ -80,7 +82,7 @@ public class ClienteSubasta extends JFrame {
 		setTitle("Subasta Cliente: " + General.getCliente().getClienteConectado().getNombre().toLowerCase().toLowerCase().trim());
 	
 		setDefaultCloseOperation(0);
-		
+		setIconImage(Toolkit.getDefaultToolkit().createImage("images/customer.png"));
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 610, 506);
 		contentPane = new JPanel();
