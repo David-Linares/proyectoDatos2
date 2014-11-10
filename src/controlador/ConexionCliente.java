@@ -6,8 +6,10 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+
 import modelo.Cliente;
 import modelo.Producto;
 import vista.ClienteSubasta;
@@ -15,51 +17,91 @@ import vista.ClienteSubasta;
 public class ConexionCliente extends Thread {
 
 	private Cliente clienteConectado;
-	private int puerto;
-	private String ip;
+	private int puertoCliente;
+	private String ipCliente;
 	private ClienteSubasta ventanaCliente;
-	private boolean conectado;
-	private Socket SCliente;
-	private ObjectInputStream entrada;
+	private boolean verificaConectado;
+	private Socket SocketCliente;
+	private ObjectInputStream objetoEntrada;
 
-	public ConexionCliente(int puerto, String ip, Cliente clienteConectado) {
-		this.ip = ip;
-		this.puerto = puerto;
+	
+	/* CONSTRUCTOR DE ConexionCliente, QUE RECIBE COMO PARÁMETRO 
+	UN PUERTO TIPO INT, UNA IP DE TIPO STRING, Y UN CLIENTECONECTADO 
+	DE TIPO CLIENTE*/
+		public ConexionCliente(int puerto, String ip, Cliente clienteConectado) {
+		this.ipCliente = ip;
+		this.puertoCliente = puerto;
 		this.clienteConectado = clienteConectado;
-		this.entrada = null;
+		this.objetoEntrada = null;
 	}
+	
+	/* CONSTRUCTOR DE ConexionCliente, QUE RECIBE COMO PARÁMETRO 
+	UN PUERTO TIPO INT Y UNA IP DE TIPO STRING*/
 	public ConexionCliente(int puerto, String ip) {
-		this.ip = ip;
-		this.puerto = puerto;
-		this.entrada = null;
+		this.ipCliente = ip;
+		this.puertoCliente = puerto;
+		this.objetoEntrada = null;
 	}
 
-	// OK
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public Cliente getClienteConectado() {
+		return this.clienteConectado;
+	}
+	
+	public void setClienteConectado(Cliente clienteConectado) {
+		this.clienteConectado = clienteConectado;
+	}
+	public ClienteSubasta getVentanaCliente() {
+		return ventanaCliente;
+	}
+
+	public void setVentanaCliente(ClienteSubasta ventanaCliente) {
+		this.ventanaCliente = ventanaCliente;
+		enviarDatosCliente(2, this.clienteConectado);
+	}
+	
+	/*MÉTODO run(), SE INICIALIZA UNA VEZ ES UTILIZADO EL .start()
+	SE CREA UN SOCKET CON PUERTO E IP, SE CREA UNA ESPERA DE ENTRADA DE DATOS AL SOCKET 
+	ADEMAS UTILIZA EL MÉTODO enviarDatos() PARA ESCRIBIRLE AL SERVIDOR 
+	INFORMANDO QUE HAY UN NUEVA CONEXION - SOLO CON EL 1*/
+	@SuppressWarnings("rawtypes")
 	public synchronized void run() {
 		try {
-			SCliente = new Socket(ip, puerto);
+			SocketCliente = new Socket(ipCliente, puertoCliente);
+			objetoEntrada = new ObjectInputStream(SocketCliente.getInputStream());
 			enviarDatosCliente(1, null);
-			entrada = new ObjectInputStream(
-					SCliente.getInputStream());
-			conectado = true;
-			while (conectado) {
-				int operacion = entrada.readInt();
-				Object eMensaje = entrada.readObject();
+			verificaConectado = true;
+			while (verificaConectado) {
+				//LEE Y SEPARA LA ENTRADA DE DATOS SEGUN EL TIPO
+				int operacion = objetoEntrada.readInt();
+				Object eMensaje = objetoEntrada.readObject();
 			switch (operacion) {
-				case 1: //Recibe los datos que tiene el servidor para actualizar los datos del cliente.
+				/* RECIBE EL ARRAYLIST QUE LLEGA DE ConexionClienteServidor
+				 CON LA INFORMACION DE LISTADO DE CONECTADOS Y EL PRODUCTO
+			    PARA ACTUALIZARLO AL CLIENTE EN ELA VENTANA DatosCliente
+			    LA CONEXION DEL CLIENTE LA CREA EN UN LISTADO DE CONECTADOS TEMPORAL
+			    */
+				case 1: 
 					ArrayList datos = (ArrayList) eMensaje;
 					General.setListadoConectadosTemp((DefaultListModel) datos.get(0));
 					General.setProductoSeleccionado((Producto) datos.get(1));
 					General.getVentanaDatosCliente().getLblProductoSubastaCliente().setText(General.getProductoSeleccionado().getNombre() + " = " + General.getProductoSeleccionado().getValor());
 					General.getVentanaDatosCliente().gettADescripcionProducto().setText(General.getProductoSeleccionado().getDescripcion());
 					break;
-				case 2:// Agregar nuevo cliente
+					
+				/*AGREGAR UN NUEVO CLIENTE - RECIBE EL CLIENTE Y LO AGREGA AL MODELOS DE LISTADO 
+				 DE CONECTADOS */
+				case 2:
 					ventanaCliente.agregarNuevo((Cliente) eMensaje);
 					break;
-				case 3:// Enviar Mensaje
+					
+				/*RECIBE UN MENSAJE Y LO ENVÍA A LA VENTANA DEL CLIENTE  
+				 */
+				case 3: 
 					ventanaCliente.mensajeRecibido((String) eMensaje);
 					break;
+					
+				/*ELIMINA EL CLIENTE DEL LISTADO DE CONECTADOS
+				 */
 				case 4:
 					ventanaCliente.borrarCliente(Integer
 							.parseInt((String) eMensaje));
@@ -101,35 +143,20 @@ public class ConexionCliente extends Thread {
 		enviarDatosCliente(5, cambioProducto);
 	}
 
-	// ESCRIBE LOS DATOS A LA CONEXION
+	/* SE ENVIAN DATOS A LA CLASE ConexionClienteServidor,  
+	 PARA QUE SE EJECUTE UNA ACCIÓN SEGUN EL CASO - OPERACION */
 	public void enviarDatosCliente(int operacion, Object valor) {
 		try {
-			ObjectOutputStream salida = new ObjectOutputStream(
-					SCliente.getOutputStream());
+			ObjectOutputStream salida = new ObjectOutputStream(SocketCliente.getOutputStream());
 			salida.writeInt(operacion);
 			salida.writeObject(valor);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(
 					ventanaCliente,
-					"CCCliente / Se produjo un error al enviar el mensaje "
-							+ e.getMessage());
+					"Se produjo un error al enviar el mensaje " + e.getMessage());
 		}
 	}
 
-	public Cliente getClienteConectado() {
-		return this.clienteConectado;
-	}
 	
-	public void setClienteConectado(Cliente clienteConectado) {
-		this.clienteConectado = clienteConectado;
-	}
-	public ClienteSubasta getVentanaCliente() {
-		return ventanaCliente;
-	}
-
-	public void setVentanaCliente(ClienteSubasta ventanaCliente) {
-		this.ventanaCliente = ventanaCliente;
-		enviarDatosCliente(2, this.clienteConectado);
-	}
 
 }

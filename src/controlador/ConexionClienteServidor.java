@@ -51,8 +51,11 @@ public class ConexionClienteServidor extends Thread{
 				Object eMensaje = entrada.readObject();
 				System.out.println("Conexión / ope = "+operacion+" entrada = "+eMensaje);
 				switch (operacion) {
-				// Recibir una conexion sin Cliente
+				
+				
 				case 1:
+					/* RECIBE UNA CLASE CONEXION SIN CLIENTE
+					 SE CREA EL ARRAYLIST PARA ENIAR DATOS A ConexionCliente */
 					@SuppressWarnings("rawtypes")
 					ArrayList datosServidor = new ArrayList();
 					datosServidor.add(General.getListadoConectados());
@@ -130,7 +133,7 @@ public class ConexionClienteServidor extends Thread{
 		}
 	}
 
-	// ESCRIBE LOS DATOS DE ENTRADA AL CLIENTE
+	// ESCRIBE LOS DATOS DE ENTRADA AL CLIENTE - CLASE ConexionCliente
 	public void entradaDatosConexion(int operacion, Object sMensaje) {
 		try {
 			salida.writeInt(operacion);

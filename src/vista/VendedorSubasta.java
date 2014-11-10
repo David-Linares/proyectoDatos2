@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.EventQueue;
 import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -23,9 +24,9 @@ import java.awt.Font;
 
 import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+
 import java.awt.Color;
+
 import javax.swing.JTextArea;
 
 
@@ -44,6 +45,8 @@ public class VendedorSubasta extends JFrame {
 	private JLabel lblReloj;
 	private JTextArea tAProductoDescripcion = new JTextArea(); 
 	private JScrollPane scrollProductoDescripcion = new JScrollPane(tAProductoDescripcion);
+	@SuppressWarnings("unused")
+	private Principal regreso;
 	
 	/**
 	 * Launch the application.
@@ -127,8 +130,16 @@ public class VendedorSubasta extends JFrame {
 		btnNewButton.setForeground(new Color(51, 102, 255));
 		btnNewButton.setFont(new Font("Kristen ITC", Font.BOLD, 15));
 		btnNewButton.addActionListener(new ActionListener() {
+		
 			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
+				//System.exit(0);
+			
+				Principal regreso = new Principal();
+				setVisible(false);
+				
+				regreso.setVisible(true);
+				dispose();
+				
 			}
 		});
 		btnNewButton.setBounds(352, 382, 197, 29);
@@ -138,7 +149,7 @@ public class VendedorSubasta extends JFrame {
 		lblProductoSubastado.setForeground(new Color(255, 255, 255));
 		lblProductoSubastado.setFont(new Font("Kristen ITC", Font.BOLD, 15));
 		lblProductoSubastado.setHorizontalAlignment(SwingConstants.CENTER);
-		lblProductoSubastado.setBounds(10, 11, 396, 35);
+		lblProductoSubastado.setBounds(10, 11, 396, 42);
 		contentPane.add(lblProductoSubastado);
 
 		lblProductoSubastado.setText(General.getProductoSeleccionado().getNombre()
@@ -150,7 +161,7 @@ public class VendedorSubasta extends JFrame {
 			labelIp.setForeground(new Color(255, 255, 255));
 			labelIp.setHorizontalAlignment(SwingConstants.CENTER);
 			labelIp.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 15));
-			labelIp.setBounds(418, 54, 121, 51);
+			labelIp.setBounds(418, 54, 121, 56);
 			contentPane.add(labelIp);
 			scrollPanel.setAutoscrolls(true);
 			scrollPanel.setBounds(10, 116, 396, 254);
@@ -160,7 +171,7 @@ public class VendedorSubasta extends JFrame {
 			lblReloj.setForeground(new Color(255, 255, 255));
 			lblReloj.setHorizontalAlignment(SwingConstants.CENTER);
 			lblReloj.setFont(new Font("SansSerif", Font.BOLD, 18));
-			lblReloj.setBounds(418, 11, 121, 35);
+			lblReloj.setBounds(418, 11, 121, 42);
 			contentPane.add(lblReloj);
 			
 			
@@ -173,7 +184,7 @@ public class VendedorSubasta extends JFrame {
 			tAProductoDescripcion.setLineWrap(true);
 			tAProductoDescripcion.setForeground(new Color(255, 255, 255));
 			tAProductoDescripcion.setEditable(false);
-			scrollProductoDescripcion.setBounds(10, 57, 396, 48);
+			scrollProductoDescripcion.setBounds(10, 57, 396, 56);
 			contentPane.add(scrollProductoDescripcion);
 			tAProductoDescripcion.setText("Descripción de Producto: "+General.getProductoSeleccionado().getDescripcion());
 		
