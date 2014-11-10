@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -60,6 +61,7 @@ public class DatosVendedor extends JFrame {
 		setFont(new Font("Calibri", Font.BOLD, 12));
 		setTitle("Datos Vendedor");
 		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().createImage("images/martillo.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 536, 330);
 		contentPane = new JPanel();

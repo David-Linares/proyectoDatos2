@@ -1,7 +1,7 @@
 package vista;
 
 import java.awt.EventQueue;
-
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -104,6 +104,7 @@ public class VendedorSubasta extends JFrame {
 		tpMensajesSubastaVendedor.setEditable(false);
 		setTitle("Subasta Vendedor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setIconImage(Toolkit.getDefaultToolkit().createImage("images/martillo.png"));
 		setBounds(100, 100, 563, 452);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(100,149,237));

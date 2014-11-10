@@ -3,6 +3,8 @@ import java.awt.EventQueue;
 
 
 
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.UIManager;
@@ -56,8 +58,8 @@ public class Principal extends JFrame {
 		//setIconImage(icon);
 		
 		setTitle("Bienvenido");
-	//	setIconImage (new ImageIcon(getClass().getResource("images/martillo.png")).getImage());
 		setBounds(100, 100, 376, 158);
+		setIconImage(Toolkit.getDefaultToolkit().createImage("images/martillo.png")); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		btnNuevaSubasta = new JButton("Crear nueva Subasta");
