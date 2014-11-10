@@ -86,7 +86,6 @@ public class General{
 	}
 
 	public static void setConexionTemp(ConexionClienteServidor conexionTemp) {
-		System.out.println("General / Se GuardÃ³ la variable de ConexiÃ³n Temporal.");
 		General.conexionTemp = conexionTemp;
 	}
 
@@ -192,8 +191,8 @@ public class General{
 
 	//RECORRE TODAS LAS CONEXIONES EXISTENTES Y ENVIA A CONEXION UNA NUEVA ENTRADA DE DATOS
 	public static void enviarDatos(int operacion, Object sMensaje){
-		JOptionPane.showMessageDialog(new JFrame(), "General / Se va a enviar datos "+sMensaje);
-		JOptionPane.showMessageDialog(new JFrame(), "General / COnexiones "+conexiones);
+		//JOptionPane.showMessageDialog(new JFrame(), "General / Se va a enviar datos "+sMensaje);
+		//JOptionPane.showMessageDialog(new JFrame(), "General / COnexiones "+conexiones);
 		for(ConexionClienteServidor con : conexiones){
 			con.entradaDatosConexion(operacion, sMensaje);
 		}
@@ -201,13 +200,13 @@ public class General{
 	
 	//NOTIFICA A UN CLIENTE NUEVO TODAS LAS CONEXIONES EXISTENTES
 	public static void nuevaConexion(ConexionClienteServidor nuevo){
-		JOptionPane.showMessageDialog(new JFrame(), "General / Llegó una nueva conexión para guadar");
-		JOptionPane.showMessageDialog(new JFrame(), "General / antes "+conexiones);
+		//JOptionPane.showMessageDialog(new JFrame(), "General / Llegï¿½ una nueva conexiï¿½n para guadar");
+		//JOptionPane.showMessageDialog(new JFrame(), "General / antes "+conexiones);
 		for(ConexionClienteServidor con: conexiones){
 			nuevo.entradaDatosConexion(2, con.getClienteTemp());
 		}
 		conexiones.add(nuevo);
-		JOptionPane.showMessageDialog(new JFrame(), "General / Después "+conexiones.size());
+		//JOptionPane.showMessageDialog(new JFrame(), "General / Despuï¿½s "+conexiones.size());
 	}
 	
 	//DESCONECTA Y ELIMINA LA CONEXION DE UN CLIENTE
