@@ -192,17 +192,15 @@ public class DatosCliente extends JFrame {
 			try {
 				Cliente nuevoCliente = new Cliente(tfNombreCliente.getText().toLowerCase().trim(),
 						Long.parseLong(tfMonto.getText()));
-				System.out.println("PCliente / Se cre√≥ un nuevo cliente = "+nuevoCliente);
-				System.out.println("PCliente / la variable getCliente = "+General.getCliente());
 				if (General.getCliente() != null) {
+					//JOptionPane.showMessageDialog(new JFrame(), "DC / EntrÛ a asignarle el cliente ");
 					General.getCliente().setClienteConectado(nuevoCliente);
+					//JOptionPane.showMessageDialog(new JFrame(), "DC / Le asignÛ el cliente"+General.getCliente().getClienteConectado().getNombre());
 					psubasta = new ClienteSubasta();
 					General.setPanelSubastaCliente(psubasta.getPanelSubasta());
 					General.getCliente().setVentanaCliente(psubasta);
-					System.out.println("PCliente / la variable getCliente = "+General.getCliente()+" despu√©s de agregarle el cliente");
-					System.out.println("PCliente / la variable getCliente = "+General.getCliente()+" despu√©s de agregarle la ventana");
 				}
-				System.out.println("PCliente / la variable listadoConectados = "+General.getListadoConectados());
+				//JOptionPane.showMessageDialog(new JFrame(), "Datos cliente / "+General.getListadoConectados());
 				psubasta.getListConectados().setModel(
 						General.getListadoConectados());
 				psubasta.setVisible(true);
@@ -258,7 +256,7 @@ public class DatosCliente extends JFrame {
 			return false;
 		} else {
 			JOptionPane.showMessageDialog(null, "Bienvenido a la subasta",
-					"\u00A1Bienvenido!", JOptionPane.INFORMATION_MESSAGE,
+					"\u00A1Bienvenido! "+nombreV, JOptionPane.INFORMATION_MESSAGE,
 					general.getIcon("confirm"));
 			return true;
 		}

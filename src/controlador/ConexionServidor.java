@@ -22,7 +22,7 @@ public class ConexionServidor extends Thread {
 	
 	//OK
 	@SuppressWarnings("resource")
-	public synchronized void run() {
+	public void run() {
 		ServerSocket sServidor = null;
 		ConexionClienteServidor nuevaConexion = null;
 		try {
@@ -30,8 +30,6 @@ public class ConexionServidor extends Thread {
 			while (true) {
 				
 					Socket nuevoSServidor = sServidor.accept();
-					System.out.println("CServidor / Se conectó un nuevo cliente ");
-					System.out.println("CServidor / variable Conexion TEMP "+General.getConexionTemp());
 					nuevaConexion = new ConexionClienteServidor(nuevoSServidor);					
 					General.setConexionTemp(nuevaConexion);
 				
