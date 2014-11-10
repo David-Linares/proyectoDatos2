@@ -50,6 +50,7 @@ public class DatosClienteConexion extends JFrame {
 	 * Create the frame.
 	 */
 	public DatosClienteConexion() {
+		setResizable(false);
 		setFont(new Font("Calibri", Font.BOLD, 12));
 		setTitle("Datos de Conexi\u00F3n Cliente");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -42,6 +42,7 @@ public class General{
 		Producto producto6 = new Producto(6, "Televisor", 1200000,"Smart TV LED LG 32LB5610 de 42'' ULTRA HD con camara, sensor de movimiento y comandos de voz");
 		Producto producto7 = new Producto(7, "Casa", 30000000,"Inmueble ubicado en el norte de Bogota, con 130 metros cuadrados, cercano a vias principales, buena iluminacion");
 		Producto producto8 = new Producto(8, "Piano", 180000, "Teclado de marmol, madera de sauce, modelo 1978");
+		Producto producto9 = new Producto(9, "Prueba", 100000000, "sadkvmksdlamv sakodjvl askmdvl  lasdkvml sak mv lsadkmv lsak mv lskdmv lskmvskld slkdmvlksdv lskdmvl skmdv l sakdmvlsakdvm  sldkvmslkmvslk vsalkdmvlskdvm lsdkmvlskdvmdslk lskdmvlk sdokvjsadoi soidjvosidvj saoidjvo sivjds osadjvosid vkawarjgoi alkejglk ajkfgj aksfj glaskjlkvgfjg laskfj fsjdlgvkjsf aslfjglkdfjglkjdsf laskfjglk ");
 		
 		productos = new Producto[]{
 				 producto1,
@@ -51,7 +52,8 @@ public class General{
 				 producto5,
 				 producto6,
 				 producto7,
-				 producto8
+				 producto8,
+				 producto9
 		 };
 	}
 

@@ -28,6 +28,7 @@ import java.awt.Color;
 import javax.swing.JTextPane;
 
 import controlador.General;
+import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
 public class ClienteSubasta extends JFrame {
@@ -42,6 +43,8 @@ public class ClienteSubasta extends JFrame {
 	private JScrollPane panelScroll = new JScrollPane(panelSubasta);
 	private JLabel lblReloj;
 	private JScrollPane scrollLista = new JScrollPane();
+	private JTextArea tAProductoDescripcion = new JTextArea();
+	private JScrollPane scrollProductoDescripcion= new JScrollPane(tAProductoDescripcion);
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -179,16 +182,20 @@ public class ClienteSubasta extends JFrame {
 			lblReloj.setHorizontalAlignment(SwingConstants.CENTER);
 			lblReloj.setBounds(241, 12, 212, 43);
 			contentPane.add(lblReloj);
+			tAProductoDescripcion.setBackground(new Color(100,149,237));
 			
-			JLabel lblDescripcionProducto = new JLabel();
-			lblDescripcionProducto.setForeground(new Color(255, 255, 255));
-			lblDescripcionProducto.setText((String) null);
-			lblDescripcionProducto.setHorizontalAlignment(SwingConstants.CENTER);
-			lblDescripcionProducto.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 13));
-			lblDescripcionProducto.setBounds(20, 71, 586, 37);
-			contentPane.add(lblDescripcionProducto);
 			
-			lblDescripcionProducto.setText("Descipción del Producto "+	General.getProductoSeleccionado().getDescripcion());
+			tAProductoDescripcion.setWrapStyleWord(true);
+			tAProductoDescripcion.setText((String) null);
+			tAProductoDescripcion.setLineWrap(true);
+			tAProductoDescripcion.setForeground(new Color(255, 255, 255));
+			tAProductoDescripcion.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+			tAProductoDescripcion.setEditable(false);
+			tAProductoDescripcion.setBorder(null);
+			scrollProductoDescripcion.setBackground(new Color(100, 149, 237));
+			scrollProductoDescripcion.setBounds(10, 66, 586, 46);
+			contentPane.add(scrollProductoDescripcion);
+			tAProductoDescripcion.setText("Descripcion de Producto: " + General.getProductoSeleccionado().getDescripcion());
 			
 		} catch (UnknownHostException e) {
 			JOptionPane.showMessageDialog(new JFrame(),
@@ -246,7 +253,7 @@ public class ClienteSubasta extends JFrame {
 	}
 
 	public void agregarProductoEnSubasta(Producto productoSubastado) {
-		this.lblProductoSubastado.setText("Producto en Subasta: \n Nombre: "
+		this.tAProductoDescripcion.setText("Producto en Subasta: \n Nombre: "
 				+ productoSubastado.getNombre() + " \n Valor Actual: "
 				+ productoSubastado.getValor());
 		General.setProductoSeleccionado(productoSubastado);

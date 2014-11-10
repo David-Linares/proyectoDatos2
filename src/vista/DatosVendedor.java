@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -23,7 +24,9 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JTextArea;
+
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.Color;
@@ -34,11 +37,11 @@ public class DatosVendedor extends JFrame {
 	private JPanel contentPane;
 	General general = General.getInstance();
 	private JTextField textFieldPuerto;
-	private JTextArea tADescripcionProducto;
+	private JTextArea tADescripcionProducto =new JTextArea();
+	private JScrollPane scrollTextArea = new JScrollPane(tADescripcionProducto);
+	
 
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -52,9 +55,7 @@ public class DatosVendedor extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	
 	public DatosVendedor() {
 		setFont(new Font("Calibri", Font.BOLD, 12));
 		setTitle("Datos Vendedor");
@@ -122,15 +123,15 @@ public class DatosVendedor extends JFrame {
 		btnIniciarSubasta.setBounds(133, 257, 264, 32);
 		contentPane.add(btnIniciarSubasta);
 		
-		tADescripcionProducto = new JTextArea();
+	
 		tADescripcionProducto.setForeground(new Color(51, 102, 255));
-		tADescripcionProducto.setFont(new Font("SansSerif", Font.BOLD, 12));
+		scrollTextArea.setFont(new Font("SansSerif", Font.BOLD, 12));
 		tADescripcionProducto.setLineWrap(true);
 		tADescripcionProducto.setWrapStyleWord(true);
 		tADescripcionProducto.setEditable(false);
 		tADescripcionProducto.setText(General.getProductos()[0].getDescripcion());
-		tADescripcionProducto.setBounds(228, 126, 294, 119);
-		contentPane.add(tADescripcionProducto);
+		scrollTextArea.setBounds(228, 126, 294, 119);
+		contentPane.add(scrollTextArea);
 		
 		JLabel lblDescripcin = new JLabel("Descripci\u00F3n del Producto a Subastar");
 		lblDescripcin.setForeground(new Color(255, 255, 255));

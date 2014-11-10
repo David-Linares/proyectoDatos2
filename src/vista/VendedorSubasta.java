@@ -26,6 +26,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import java.awt.Color;
+import javax.swing.JTextArea;
 
 
 @SuppressWarnings("serial")
@@ -40,8 +41,10 @@ public class VendedorSubasta extends JFrame {
 	General general = General.getInstance();
 	private JScrollPane scrollLista = new JScrollPane();
 	private JLabel lblProductoSubastado;
-	private JLabel lblProductoSeleccionadoDescripcion;
 	private JLabel lblReloj;
+	private JTextArea tAProductoDescripcion = new JTextArea(); 
+	private JScrollPane scrollProductoDescripcion = new JScrollPane(tAProductoDescripcion);
+	
 	/**
 	 * Launch the application.
 	 */
@@ -108,6 +111,7 @@ public class VendedorSubasta extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		scrollLista.setAutoscrolls(true);
 		scrollLista.setFont(new Font("Dialog", Font.BOLD, 11));
 		scrollLista.setBounds(418, 116, 131, 254);
 		listConectados.setForeground(new Color(51, 102, 255));
@@ -139,15 +143,6 @@ public class VendedorSubasta extends JFrame {
 		lblProductoSubastado.setText(General.getProductoSeleccionado().getNombre()
 				+ " = " + General.getProductoSeleccionado().getValor());
 		
-		lblProductoSeleccionadoDescripcion = new JLabel();
-		lblProductoSeleccionadoDescripcion.setForeground(new Color(255, 255, 255));
-		lblProductoSeleccionadoDescripcion.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 15));
-		lblProductoSeleccionadoDescripcion.setHorizontalAlignment(SwingConstants.CENTER);
-		lblProductoSeleccionadoDescripcion.setBounds(10, 54, 396, 51);
-		contentPane.add(lblProductoSeleccionadoDescripcion);
-		
-		lblProductoSeleccionadoDescripcion.setText(General.getProductoSeleccionado().getDescripcion());
-		
 		try {
 			labelIp = new JLabel("IP: "
 					+ InetAddress.getLocalHost().getHostAddress());
@@ -156,15 +151,31 @@ public class VendedorSubasta extends JFrame {
 			labelIp.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 15));
 			labelIp.setBounds(418, 54, 121, 51);
 			contentPane.add(labelIp);
+			scrollPanel.setAutoscrolls(true);
 			scrollPanel.setBounds(10, 116, 396, 254);
 			contentPane.add(scrollPanel);
 			
 			lblReloj = new JLabel();
 			lblReloj.setForeground(new Color(255, 255, 255));
 			lblReloj.setHorizontalAlignment(SwingConstants.CENTER);
-			lblReloj.setFont(new Font("DialogInput", Font.PLAIN, 20));
+			lblReloj.setFont(new Font("SansSerif", Font.BOLD, 18));
 			lblReloj.setBounds(418, 11, 121, 35);
 			contentPane.add(lblReloj);
+			
+			
+			scrollProductoDescripcion.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+			scrollProductoDescripcion.setBackground(new Color(100,149,237));
+			tAProductoDescripcion.setBorder(null);
+			tAProductoDescripcion.setBackground(new Color(100,149,237));
+			tAProductoDescripcion.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+			tAProductoDescripcion.setWrapStyleWord(true);
+			tAProductoDescripcion.setLineWrap(true);
+			tAProductoDescripcion.setForeground(new Color(255, 255, 255));
+			tAProductoDescripcion.setEditable(false);
+			scrollProductoDescripcion.setBounds(10, 57, 396, 48);
+			contentPane.add(scrollProductoDescripcion);
+			tAProductoDescripcion.setText("Descripción de Producto: "+General.getProductoSeleccionado().getDescripcion());
+		
 			
 		} catch (UnknownHostException e) {
 			JOptionPane.showMessageDialog(new JFrame(),

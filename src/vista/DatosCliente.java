@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -22,6 +23,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JTextArea;
 
 import modelo.Cliente;
+
 import java.awt.Color;
 
 @SuppressWarnings("serial")
@@ -36,7 +38,9 @@ public class DatosCliente extends JFrame {
 	private JLabel lblDatosDeConexin;
 	ClienteSubasta psubasta;
 	private JLabel lblProductoSubastaCliente;
-	private JTextArea tADescripcionProducto;
+	private JTextArea tADescripcionProducto= new JTextArea();
+	private JScrollPane scrollTextArea = new JScrollPane(tADescripcionProducto);
+
 
 	/**
 	 * Launch the application.
@@ -161,14 +165,14 @@ public class DatosCliente extends JFrame {
 		lblProductoSubastaCliente.setBounds(179, 48, 259, 34);
 		contentPane.add(lblProductoSubastaCliente);
 
-		tADescripcionProducto = new JTextArea();
+
 		tADescripcionProducto.setForeground(new Color(51, 102, 255));
-		tADescripcionProducto.setFont(new Font("SansSerif", Font.BOLD, 12));
+		scrollTextArea.setFont(new Font("SansSerif", Font.BOLD, 12));
 		tADescripcionProducto.setWrapStyleWord(true);
 		tADescripcionProducto.setLineWrap(true);
 		tADescripcionProducto.setEditable(false);
-		tADescripcionProducto.setBounds(179, 93, 259, 81);
-		contentPane.add(tADescripcionProducto);
+		scrollTextArea.setBounds(179, 93, 259, 81);
+		contentPane.add(scrollTextArea);
 
 		btnIngresarSubasta.addActionListener(new ActionListener() {
 			// Inicia el hilo! - OK
