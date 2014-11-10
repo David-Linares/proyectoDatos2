@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -53,6 +54,7 @@ public class DatosClienteConexion extends JFrame {
 		setResizable(false);
 		setFont(new Font("Calibri", Font.BOLD, 12));
 		setTitle("Datos de Conexi\u00F3n Cliente");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(DatosClienteConexion.class.getResource("/images/customer.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 447, 220);
 		contentPane = new JPanel();

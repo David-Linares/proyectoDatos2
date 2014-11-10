@@ -104,7 +104,7 @@ public class VendedorSubasta extends JFrame {
 		tpMensajesSubastaVendedor.setEditable(false);
 		setTitle("Subasta Vendedor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setIconImage(Toolkit.getDefaultToolkit().createImage("images/martillo.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VendedorSubasta.class.getResource("/images/martillo.png")));
 		setBounds(100, 100, 563, 452);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(100,149,237));
