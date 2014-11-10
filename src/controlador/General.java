@@ -160,7 +160,9 @@ public class General{
 	}
 
 	public Icon getIcon(String nombreIcono){
-		return new ImageIcon("images/"+nombreIcono+".png");
+		return new ImageIcon("src/images/"+nombreIcono+".png");
+		
+
 	}
 	
 	public JTextPane getPanelSubastaCliente() {
