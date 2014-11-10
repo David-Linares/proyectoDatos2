@@ -63,8 +63,9 @@ public class ConexionCliente extends Thread {
 	SE CREA UN SOCKET CON PUERTO E IP, SE CREA UNA ESPERA DE ENTRADA DE DATOS AL SOCKET 
 	ADEMAS UTILIZA EL MÉTODO enviarDatos() PARA ESCRIBIRLE AL SERVIDOR 
 	INFORMANDO QUE HAY UN NUEVA CONEXION - SOLO CON EL 1*/
-	@SuppressWarnings("rawtypes")
+	
 	public synchronized void run() {
+
 		try {
 			SocketCliente = new Socket(ipCliente, puertoCliente);
 			objetoEntrada = new ObjectInputStream(SocketCliente.getInputStream());
