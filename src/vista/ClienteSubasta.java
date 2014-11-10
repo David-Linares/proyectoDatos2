@@ -76,6 +76,7 @@ public class ClienteSubasta extends JFrame {
 		panelSubasta.setFont(new Font("SansSerif", Font.BOLD, 12));
 		panelSubasta.setEditable(false);
 		setResizable(false);
+	
 		setTitle("Subasta Cliente: " + General.getCliente().getClienteConectado().getNombre().toLowerCase().toLowerCase().trim());
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -195,7 +196,7 @@ public class ClienteSubasta extends JFrame {
 			scrollProductoDescripcion.setBackground(new Color(100, 149, 237));
 			scrollProductoDescripcion.setBounds(10, 66, 586, 46);
 			contentPane.add(scrollProductoDescripcion);
-			tAProductoDescripcion.setText("Descripcion de Producto: " + General.getProductoSeleccionado().getDescripcion());
+			tAProductoDescripcion.setText("Descripci\u00f3n de Producto: " + General.getProductoSeleccionado().getDescripcion());
 			
 		} catch (UnknownHostException e) {
 			JOptionPane.showMessageDialog(new JFrame(),
