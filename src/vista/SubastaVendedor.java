@@ -106,7 +106,7 @@ public class SubastaVendedor extends JFrame {
 		tpMensajesSubastaVendedor.setFont(new Font("SansSerif", Font.BOLD, 12));
 		tpMensajesSubastaVendedor.setEditable(false);
 		setTitle("Subasta Vendedor");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(0);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(SubastaVendedor.class.getResource("/images/martillo.png")));
 		setBounds(100, 100, 563, 452);
 		contentPane = new JPanel();
@@ -138,7 +138,7 @@ public class SubastaVendedor extends JFrame {
 				setVisible(false);
 				
 				regreso.setVisible(true);
-				dispose();
+				
 				
 			}
 		});

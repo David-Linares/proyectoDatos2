@@ -21,7 +21,6 @@ public class ConexionServidor extends Thread {
 	}
 	
 	//OK
-	@SuppressWarnings("resource")
 	public void run() {
 		ServerSocket sServidor = null;
 		ConexionClienteServidor nuevaConexion = null;
@@ -39,6 +38,7 @@ public class ConexionServidor extends Thread {
 			Principal ventanaPrincipal = new Principal();
 			ventanaPrincipal.getBtnNuevaSubasta().setEnabled(false);
 			ventanaPrincipal.setVisible(true);
+			e1.printStackTrace();
 			}
 		try {
             sServidor.close();
