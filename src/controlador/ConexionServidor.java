@@ -36,9 +36,7 @@ public class ConexionServidor extends Thread {
 			}
 		} catch (IOException e1) {
 			JOptionPane.showMessageDialog(ventana, "Ya hay una subasta abierta. \n Por Favor ingresa como cliente.", "Error en creaci\u00f3n de Subasta", JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
-			Principal ventanaPrincipal = new Principal();
-			ventanaPrincipal.getBtnNuevaSubasta().setEnabled(false);
-			ventanaPrincipal.setVisible(true);
+			System.exit(0);
 		try {
             sServidor.close();
         }catch(IOException e2){

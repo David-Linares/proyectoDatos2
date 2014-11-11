@@ -16,6 +16,7 @@ import java.awt.Font;
 import java.awt.Color;
 
 
+@SuppressWarnings("serial")
 public class Principal extends JFrame {
 	
 	private JButton btnNuevaSubasta;

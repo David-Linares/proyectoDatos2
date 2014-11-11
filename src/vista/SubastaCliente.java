@@ -239,14 +239,14 @@ public class SubastaCliente extends JFrame {
 		if (General.getCliente() != null) {
 			General.getCliente().enviarDatosCliente(4, General.getCliente().getClienteConectado().getNombre());
 			General.getCliente().interrupt();
+			
 		}
 		General.setCliente(null);
 		setVisible(false);
 
 		General.getListadoConectados().removeAllElements();
 		panelSubasta.setText("");
-		//Principal regreso = new Principal();
-		//regreso.setVisible(true);
+		System.exit(0);
 		}
 	
 
