@@ -208,14 +208,14 @@ public class SubastaCliente extends JFrame {
 							+ e.getMessage());
 		}
 	}
-
+	/*TRAE EL VALOR QUE SE DIGITO EN EL TEXTFIELD Y SI ES VALIDO 
+	SE VA A ENVIAR 
+	*/
 	public void enviarMensaje() {
 		if (general.validarMonto(tfMensaje.getText())) {
 			General.getCliente().enviarMensajeHilo(tfMensaje.getText());
-			General.getProductoSeleccionado().setValor(
-					Long.parseLong(tfMensaje.getText()));
-			General.getCliente().enviarProductoHilo(General
-					.getProductoSeleccionado());
+			General.getProductoSeleccionado().setValor(Long.parseLong(tfMensaje.getText()));
+			General.getCliente().enviarProductoHilo(General.getProductoSeleccionado());
 			tfMensaje.setText("");
 		}else {			
 			tfMensaje.setText("");

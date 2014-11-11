@@ -96,23 +96,22 @@ public class ConexionCliente extends Thread {
 					ventanaCliente.agregarNuevo((Cliente) eMensaje);
 					break;
 					
-				/*RECIBE UN MENSAJE Y LO ENVÕA A LA VENTANA DEL CLIENTE  
-				 */
+				/*RECIBE UN MENSAJE Y LO ENVÕA A LA VENTANA DEL CLIENTE */
 				case 3: 
 					ventanaCliente.mensajeRecibido((String) eMensaje);
 					break;
-					
-				/*ELIMINA EL CLIENTE DEL LISTADO DE CONECTADOS
-				 */
+				/*ELIMINA EL CLIENTE DEL LISTADO DE CONECTADOS*/
 				case 4:
 					ventanaCliente.borrarCliente(Integer
 							.parseInt((String) eMensaje));
 					break;
+				/*ACTUALIZA EL VALOR DEL PRODUCTO AL CLIENTE*/	
 				case 5:
 					General.setProductoSeleccionado((Producto)eMensaje);
 					ventanaCliente.agregarProductoEnSubasta((Producto) eMensaje);
 					break;
-				case 6: //Finaliz√≥ la subasta.
+				/*NOTIFICA DE UN FIN DE SUBASTA CLIENTE */	
+				case 6: 
 					ventanaCliente.finSubasta((String) eMensaje);
 					break;
 				}
