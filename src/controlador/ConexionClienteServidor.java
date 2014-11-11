@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -11,14 +12,14 @@ import javax.swing.JOptionPane;
 import modelo.Cliente;
 import modelo.Producto;
 
-public class Conexion extends Thread {
+public class ConexionClienteServidor extends Thread{
 
 	private Socket s;
 	private ObjectOutputStream salida;
 	private General general = General.getInstance();
 	private Cliente clienteTemp;
 
-	public Conexion(Socket s) {
+	public ConexionClienteServidor(Socket s) {
 		try {
 			this.s = s;
 			salida = new ObjectOutputStream(s.getOutputStream());
@@ -34,30 +35,42 @@ public class Conexion extends Thread {
 	public Cliente getClienteTemp() {
 		return clienteTemp;
 	}
+	
+	public void setClienteTemp(Cliente clienteNuevo){
+		this.clienteTemp = clienteNuevo;
+	}
 
 	// LE LLEGAN LOS DATOS
 	@SuppressWarnings("unchecked")
 	public void run() {
 		while (true) {
 			try {
-				//entradaDatosConexion(5, General.getProductoSeleccionado());
-				entradaDatosConexion(1, null);
 				ObjectInputStream entrada = new ObjectInputStream(
 						s.getInputStream());
 				int operacion = entrada.readInt();
 				Object eMensaje = entrada.readObject();
+				System.out.println("ConexiÃ³n / ope = "+operacion+" entrada = "+eMensaje);
 				switch (operacion) {
-
-				// Recibir una conexion sin Cliente
+				
+				
 				case 1:
-					JOptionPane.showMessageDialog(new JFrame(), General.getProductoSeleccionado());
-					JOptionPane.showMessageDialog(new JFrame(), General.getListadoConectados().size());
+					/* RECIBE UNA CLASE CONEXION SIN CLIENTE
+					 SE CREA EL ARRAYLIST PARA ENIAR DATOS A ConexionCliente */
+					@SuppressWarnings("rawtypes")
+					ArrayList datosServidor = new ArrayList();
+					datosServidor.add(General.getListadoConectados());
+					datosServidor.add(General.getProductoSeleccionado());
+					entradaDatosConexion(operacion, datosServidor);
 					break;
 
 				case 2:
+					//JOptionPane.showMessageDialog(new JFrame(), "COnexion Cliente Servidor / Entró al case 2");
 					clienteTemp = (Cliente) eMensaje;
-
-					general.enviarDatos(operacion, eMensaje);
+					//JOptionPane.showMessageDialog(new JFrame(), "Conexion Cliente Servidor / "+General.getConexionTemp());
+					General.getConexionTemp().setClienteTemp(clienteTemp);
+					//JOptionPane.showMessageDialog(new JFrame(), "Conexion Cliente Servidor / se le asignó "+clienteTemp.getNombre());
+					General.nuevaConexion(General.getConexionTemp());
+					General.enviarDatos(operacion, eMensaje);
 					General.getVentanaServidor()
 							.getTpMensajesSubasta()
 							.setText(
@@ -68,12 +81,11 @@ public class Conexion extends Thread {
 											+ " se conect\u00f3 \n");
 					General.getListadoConectados().addElement(
 							clienteTemp.getNombre());
-
 					break;
 				case 3:
 					eMensaje = this.clienteTemp.getNombre() + " ofrece: "
 							+ eMensaje;
-					general.enviarDatos(operacion, (String) eMensaje);
+					General.enviarDatos(operacion, (String) eMensaje);
 					General.getVentanaServidor()
 							.getTpMensajesSubasta()
 							.setText(
@@ -95,7 +107,7 @@ public class Conexion extends Thread {
 					break;
 				case 5:
 					eMensaje = (Producto) eMensaje;
-					general.enviarDatos(operacion, eMensaje);
+					General.enviarDatos(operacion, eMensaje);
 					General.setProductoSeleccionado((Producto) eMensaje);
 					General.getVentanaServidor()
 							.getLblProductoSubastado()
@@ -107,30 +119,11 @@ public class Conexion extends Thread {
 													.getValor());
 					break;
 				case 6:
-					Temporizador temp = (Temporizador) eMensaje;
-					general.enviarDatos(operacion, temp);
-					General.setReloj(temp);
-					if (temp.getSeg() < 10) {
-						General.getVentanaServidor()
-								.getLblReloj()
-								.setText(
-										"0" + temp.getMin() + ":0"
-												+ temp.getSeg());
-						if (temp.getMin() == 0 && temp.getSeg() == 0) {
-							JOptionPane.showMessageDialog(new JFrame(),
-									"La subasta ha finalizado\n EL ganador es "
-											+ clienteTemp.getNombre(),
-									"Fin de la Subasta",
-									JOptionPane.INFORMATION_MESSAGE,
-									general.getIcon("winner"));
-						}
-					} else {
-						General.getVentanaServidor()
-								.getLblReloj()
-								.setText(
-										"0" + temp.getMin() + ":"
-												+ temp.getSeg());
-					}
+					Temporizador reloj = new Temporizador(3,0);						
+					if(General.getReloj() != null)
+						General.getReloj().stop();
+					General.setReloj(reloj);
+					reloj.start();
 				}
 
 			} catch (IOException e) {
@@ -143,17 +136,26 @@ public class Conexion extends Thread {
 		}
 	}
 
-	// ESCRIBE LOS DATOS DE ENTRADA A LA CONEXION
+	// ESCRIBE LOS DATOS DE ENTRADA AL CLIENTE - CLASE ConexionCliente
 	public void entradaDatosConexion(int operacion, Object sMensaje) {
 		try {
 			salida.writeInt(operacion);
 			salida.writeObject(sMensaje);
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(
-					new JFrame(),
-					"Conexion / Se produjo un error en la llegada "
-							+ e.getMessage());
+			e.printStackTrace();
+			//JOptionPane.showMessageDialog(
+				//	new JFrame(),
+					//"Conexion / Se produjo un error en la llegada "
+						//	+ e.getMessage());
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "Conexion [s=" + s + ", salida=" + salida + ", general="
+				+ general + ", clienteTemp=" + clienteTemp + "]";
+	}
+	
+	
+	
 }

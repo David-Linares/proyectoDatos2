@@ -15,8 +15,6 @@ import javax.swing.SwingConstants;
 
 import modelo.Cliente;
 import modelo.Producto;
-import controlador.General;
-import controlador.Temporizador;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -26,33 +24,44 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 import javax.swing.JTextPane;
 
+<<<<<<< HEAD:src/vista/PrincipalSubastaCliente.java
 import vista.Principal;
+=======
+import controlador.General;
+
+import javax.swing.JTextArea;
+>>>>>>> a3c0c6401614060b6032747a5c03111058a110a5:src/vista/ClienteSubasta.java
 
 @SuppressWarnings("serial")
-public class PrincipalSubastaCliente extends JFrame {
+public class ClienteSubasta extends JFrame {
 
 	private JPanel contentPane;
 	General general = General.getInstance();
 	private JTextField tfMensaje;
+<<<<<<< HEAD:src/vista/PrincipalSubastaCliente.java
 	public JList listConectados = new JList();
+=======
+	@SuppressWarnings("rawtypes")
+	private JList listConectados = new JList();
+>>>>>>> a3c0c6401614060b6032747a5c03111058a110a5:src/vista/ClienteSubasta.java
 	private JTextPane panelSubasta = new JTextPane();
 	public JLabel lblProductoSubastado = new JLabel();
 	private JScrollPane panelScroll = new JScrollPane(panelSubasta);
 	private JLabel lblReloj;
 	private JScrollPane scrollLista = new JScrollPane();
-
-	/**
-	 * Launch the application.
-	 */
+	private JTextArea tAProductoDescripcion = new JTextArea();
+	private JScrollPane scrollProductoDescripcion= new JScrollPane(tAProductoDescripcion);
+	private Principal regreso;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PrincipalSubastaCliente frame = new PrincipalSubastaCliente();
+					ClienteSubasta frame = new ClienteSubasta();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -72,40 +81,57 @@ public class PrincipalSubastaCliente extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PrincipalSubastaCliente() {
+	public ClienteSubasta() {
+		setFont(new Font("Calibri", Font.BOLD, 12));
+		panelSubasta.setForeground(new Color(0, 153, 255));
+		panelSubasta.setFont(new Font("SansSerif", Font.BOLD, 12));
 		panelSubasta.setEditable(false);
 		setResizable(false);
-		setTitle("Subasta");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	
+		setTitle("Subasta Cliente: " + General.getCliente().getClienteConectado().getNombre().toLowerCase().toLowerCase().trim());
+	
+		setDefaultCloseOperation(0);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ClienteSubasta.class.getResource("/images/customer.png")));
 		setBounds(100, 100, 610, 506);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(211, 211, 211));
+		contentPane.setForeground(new Color(255, 255, 255));
+		contentPane.setBackground(new Color(100,149,237));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		scrollLista.setBounds(465, 119, 131, 254);
 		scrollLista.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
+		listConectados.setFont(new Font("SansSerif", Font.BOLD, 12));
+		listConectados.setForeground(new Color(0, 153, 255));
 		scrollLista.setViewportView(listConectados);
 		contentPane.add(scrollLista);
 
 		JButton btnAbandonarSubasta = new JButton("Abandonar Subasta");
+		btnAbandonarSubasta.setBackground(new Color(255, 255, 255));
+		btnAbandonarSubasta.setForeground(new Color(0, 153, 255));
 		btnAbandonarSubasta.setBounds(385, 428, 211, 37);
 		btnAbandonarSubasta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				salirSubasta();
 			}
 		});
-		btnAbandonarSubasta.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
+		btnAbandonarSubasta.setFont(new Font("Kristen ITC", Font.BOLD, 15));
 		contentPane.add(btnAbandonarSubasta);
-		lblProductoSubastado.setBounds(10, 78, 443, 31);
+		lblProductoSubastado.setForeground(new Color(255, 255, 255));
+		lblProductoSubastado.setBounds(10, 38, 586, 31);
 
-		lblProductoSubastado.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
-		lblProductoSubastado.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblProductoSubastado.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 15));
+		lblProductoSubastado.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblProductoSubastado);
 
+		lblProductoSubastado.setText("Producto en Subasta: \n Nombre: "
+				+ 	General.getProductoSeleccionado().getNombre() + " \n Valor Actual: "
+				+ General.getProductoSeleccionado().getValor() );
+		
 		tfMensaje = new JTextField();
+		tfMensaje.setForeground(new Color(0, 153, 255));
 		tfMensaje.setBounds(10, 385, 443, 31);
-		tfMensaje.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
+		tfMensaje.setFont(new Font("SansSerif", Font.BOLD, 12));
 		tfMensaje.addKeyListener(new KeyAdapter() {
 			@Override
 			// OK
@@ -115,13 +141,23 @@ public class PrincipalSubastaCliente extends JFrame {
 					enviarMensaje();
 				}
 			}
+			public void keyTyped(java.awt.event.KeyEvent evt) {
+				char car = evt.getKeyChar();
+				if (tfMensaje.getText().length() >= 18)
+					evt.consume();
+				if ((car < '0' || car > '9')) {
+					evt.consume();
+				}
+			}
 		});
 		contentPane.add(tfMensaje);
 		tfMensaje.setColumns(10);
 
 		JButton btnNewButton_1 = new JButton("Enviar");
+		btnNewButton_1.setBackground(new Color(255, 255, 255));
+		btnNewButton_1.setForeground(new Color(0, 153, 255));
 		btnNewButton_1.setBounds(465, 384, 131, 31);
-		btnNewButton_1.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
+		btnNewButton_1.setFont(new Font("Kristen ITC", Font.BOLD, 15));
 		btnNewButton_1.addActionListener(new ActionListener() {
 
 			// ACCION DEL EVENTO AL ENVIAR UN MENSAJE
@@ -131,29 +167,21 @@ public class PrincipalSubastaCliente extends JFrame {
 		});
 		contentPane.add(btnNewButton_1);
 
-		JLabel lblNombreCliente = new JLabel("Nombre: "
-				+ General.getCliente().getClienteConectado().getNombre());
-		lblNombreCliente.setBounds(10, 12, 221, 15);
-		lblNombreCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
-		contentPane.add(lblNombreCliente);
-
 		JLabel lblMontoCliente = new JLabel("Monto Disponible: "
 				+ General.getCliente().getClienteConectado().getMonto());
-		lblMontoCliente.setBounds(10, 39, 221, 15);
-		lblMontoCliente.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
+		lblMontoCliente.setForeground(new Color(255, 255, 255));
+		lblMontoCliente.setBounds(10, 13, 443, 21);
+		lblMontoCliente.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 15));
 		contentPane.add(lblMontoCliente);
 		JLabel lblIpCliente;
-		
-		JLabel lblId = new JLabel("ID: " + General.getCliente().getId());
-		lblId.setFont(new Font("Dialog", Font.BOLD, 11));
-		lblId.setBounds(10, 65, 221, 15);
-		contentPane.add(lblId);
 
 		try {
 			lblIpCliente = new JLabel("IP: "
 					+ InetAddress.getLocalHost().getHostAddress().toString());
-			lblIpCliente.setHorizontalAlignment(SwingConstants.CENTER);
-			lblIpCliente.setBounds(465, 29, 131, 15);
+			lblIpCliente.setHorizontalAlignment(SwingConstants.TRAILING);
+			lblIpCliente.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 14));
+			lblIpCliente.setForeground(new Color(255, 255, 255));
+			lblIpCliente.setBounds(465, 8, 131, 31);
 			contentPane.add(lblIpCliente);
 
 			JTextPane textPane = new JTextPane();
@@ -166,6 +194,24 @@ public class PrincipalSubastaCliente extends JFrame {
 			lblReloj.setHorizontalAlignment(SwingConstants.CENTER);
 			lblReloj.setBounds(241, 12, 212, 43);
 			contentPane.add(lblReloj);
+<<<<<<< HEAD:src/vista/PrincipalSubastaCliente.java
+=======
+			tAProductoDescripcion.setBackground(new Color(100,149,237));
+			
+			
+			tAProductoDescripcion.setWrapStyleWord(true);
+			tAProductoDescripcion.setText((String) null);
+			tAProductoDescripcion.setLineWrap(true);
+			tAProductoDescripcion.setForeground(new Color(255, 255, 255));
+			tAProductoDescripcion.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+			tAProductoDescripcion.setEditable(false);
+			tAProductoDescripcion.setBorder(null);
+			scrollProductoDescripcion.setBackground(new Color(100, 149, 237));
+			scrollProductoDescripcion.setBounds(10, 66, 586, 51);
+			contentPane.add(scrollProductoDescripcion);
+			tAProductoDescripcion.setText("Descripci\u00f3n de Producto: " + General.getProductoSeleccionado().getDescripcion());
+			
+>>>>>>> a3c0c6401614060b6032747a5c03111058a110a5:src/vista/ClienteSubasta.java
 		} catch (UnknownHostException e) {
 			JOptionPane.showMessageDialog(new JFrame(),
 					"SubastaCliente / Se produjo un error en la lectura de IP "
@@ -173,27 +219,18 @@ public class PrincipalSubastaCliente extends JFrame {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	public void enviarMensaje() {
 		if (general.validarMonto(tfMensaje.getText())) {
-			if(General.getReloj() != null){
-				General.getReloj().stop();
-			}
-			General.setReloj(new Temporizador(3,0));
-			General.getReloj().start();
 			General.getCliente().enviarMensajeHilo(tfMensaje.getText());
 			General.getProductoSeleccionado().setValor(
 					Long.parseLong(tfMensaje.getText()));
 			General.getCliente().enviarProductoHilo(General
 					.getProductoSeleccionado());
 			tfMensaje.setText("");
-		} else {
-			JOptionPane.showMessageDialog(new JFrame(),
-					"Por favor digite un n\u00famero valido", "Datos",
-					JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
+		}else {			
 			tfMensaje.setText("");
 			tfMensaje.requestFocus();
-		}
+		} 
 	}
 
 	public void salirSubasta() {
@@ -210,7 +247,7 @@ public class PrincipalSubastaCliente extends JFrame {
 		}
 
 		if (General.getCliente() != null) {
-			General.getCliente().enviarDatosCliente(3, General.getCliente().getClienteConectado().getNombre());
+			General.getCliente().enviarDatosCliente(4, General.getCliente().getClienteConectado().getNombre());
 			General.getCliente().interrupt();
 		}
 		General.setCliente(null);
@@ -218,8 +255,8 @@ public class PrincipalSubastaCliente extends JFrame {
 
 		General.getListadoConectados().removeAllElements();
 		panelSubasta.setText("");
-		Principal regreso = new Principal();
-		regreso.setVisible(true);
+		//Principal regreso = new Principal();
+		//regreso.setVisible(true);
 		}
 	
 
@@ -235,26 +272,36 @@ public class PrincipalSubastaCliente extends JFrame {
 		General.setProductoSeleccionado(productoSubastado);
 	}
 	
-	public void mostrarTiempo(Temporizador tiempo){
-		if (tiempo.getSeg() < 10) {
-			this.lblReloj.setText("0"+tiempo.getMin() + ":0" + tiempo.getSeg());
-			if (tiempo.getMin() == 0 && tiempo.getSeg() == 0) {
-				JOptionPane.showMessageDialog(new JFrame(), "La subasta ha finalizado", "Fin de la Subasta", JOptionPane.INFORMATION_MESSAGE, general.getIcon("winner"));
-			}
-		}else{
-			this.lblReloj.setText("0"+tiempo.getMin() + ":" + tiempo.getSeg());
-		}
-		General.setReloj(tiempo);
-	}
-
-	// OK
 	public void mensajeRecibido(String nuevoMensaje) {
 		this.panelSubasta.setText(this.panelSubasta.getText() + nuevoMensaje
 				+ "\n");
 	}
 
-	// OK
 	public void borrarCliente(int posicion) {
 		General.getListadoConectados().remove(posicion);
 	}
+	
+	public void finSubasta(String ganador){
+
+		JOptionPane.showMessageDialog(this, "La subasta ha finalizado \n El ganador es "+ganador, "Ganador", JOptionPane.INFORMATION_MESSAGE, general.getIcon("winner"));
+		this.dispose();
+		Principal regreso = new Principal();
+		regreso.setVisible(true);
+
+		//Object[] opciones = { "Aceptar" };
+		//int respuesta = JOptionPane.showOptionDialog(new JFrame(),"La subasta ha finalizado \n El ganador es "+ganador,"Ganador", JOptionPane.YES_OPTION,JOptionPane.INFORMATION_MESSAGE,general.getIcon("winner"), opciones, opciones[0]);
+		//if (respuesta == JOptionPane.YES_OPTION) {
+			//General.getCliente().enviarDatosCliente(4, General.getCliente().getClienteConectado().getNombre());
+			//General.getCliente().interrupt();
+			//System.exit(0);
+		}
+
+	
+	public JList getListConectados() {
+		return listConectados;
+	}
+
+	public void setListConectados(JList listConectados) {
+		this.listConectados = listConectados;
+	}	
 }

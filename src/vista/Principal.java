@@ -1,6 +1,10 @@
 package vista;
 import java.awt.EventQueue;
 
+
+
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.UIManager;
@@ -12,7 +16,6 @@ import java.awt.Font;
 import java.awt.Color;
 
 
-@SuppressWarnings("serial")
 public class Principal extends JFrame {
 	
 	private JButton btnNuevaSubasta;
@@ -31,6 +34,9 @@ public class Principal extends JFrame {
 	}
 
 	public Principal() {
+		setForeground(new Color(30, 144, 255));
+		setFont(new Font("Calibri", Font.BOLD, 12));
+
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (ClassNotFoundException e) {
@@ -46,23 +52,23 @@ public class Principal extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		getContentPane().setBackground(new Color(0, 0, 0, 0.5f));
+		getContentPane().setBackground(new Color(100, 149, 237));
 		getContentPane().setForeground(new Color(0, 0, 0));
 		setResizable(false);
-		//Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("confirm.png"));
-		//setIconImage(icon);
+		
 		setTitle("Bienvenido");
 		setBounds(100, 100, 376, 158);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/images/martillo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		btnNuevaSubasta = new JButton("Crear nueva Subasta");
-		btnNuevaSubasta.setForeground(new Color(255, 255, 255));
-		btnNuevaSubasta.setBackground(new Color(0, 0, 0));
-		btnNuevaSubasta.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
+		btnNuevaSubasta.setForeground(new Color(51, 102, 255));
+		btnNuevaSubasta.setBackground(new Color(255, 255, 255));
+		btnNuevaSubasta.setFont(new Font("Kristen ITC", Font.BOLD, 15));
 		btnNuevaSubasta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
-				PVendedor pvendedor = new PVendedor();
+				DatosVendedor pvendedor = new DatosVendedor();
 				pvendedor.setVisible(true);
 			}
 		});
@@ -70,19 +76,21 @@ public class Principal extends JFrame {
 		getContentPane().add(btnNuevaSubasta);
 		
 		JButton btnNewButton_1 = new JButton("Entrar a la Subasta");
-		btnNewButton_1.setForeground(new Color(255, 255, 255));
-		btnNewButton_1.setBackground(new Color(0, 0, 0));
-		btnNewButton_1.setFont(new Font("DejaVu Sans", Font.BOLD, 11));
+		btnNewButton_1.setForeground(new Color(51, 102, 255));
+		btnNewButton_1.setBackground(new Color(255, 255, 255));
+		btnNewButton_1.setFont(new Font("Kristen ITC", Font.BOLD, 15));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
-				PConexion pconexion = new PConexion();
+				DatosClienteConexion pconexion = new DatosClienteConexion();
 				pconexion.setVisible(true);
 			}
 		});
 		btnNewButton_1.setBounds(12, 66, 338, 42);
 		getContentPane().add(btnNewButton_1);
 	}
+
+	
 
 	public JButton getBtnNuevaSubasta() {
 		return btnNuevaSubasta;

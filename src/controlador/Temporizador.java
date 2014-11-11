@@ -4,9 +4,10 @@ import java.io.Serializable;
 public class Temporizador extends Thread implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	private String tiempo;
+	private String mensaje;
 	private int minutos;
 	private int segundos;
-	private String tiempo;
 	private int min;
 	private int seg;
 	public Temporizador(){
@@ -37,9 +38,18 @@ public class Temporizador extends Thread implements Serializable {
 					tiempo = "0" + min + ":" + seg;
 					retraso();
 				}
-				General.getReloj().setMin(min);
-				General.getReloj().setSeg(seg);
-				General.getCliente().enviarReloj(General.getReloj());
+				General.getVentanaServidor().getLblReloj().setText(tiempo);
+				if (min == 2 && seg == 0) {
+					mensaje = "MENSAJE DE SERVIDOR: A LA 1!! TE QUEDAN 2 MINUTOS PARA UN NUEVO OFRECIMIENTO.";
+					General.enviarDatos(3,mensaje);
+				}else if(min == 1 && seg == 0){
+					mensaje = "MENSAJE DE SERVIDOR: A LAS 2!! TE QUEDA 1 MINUTO PARA UN NUEVO OFRECIMIENTO.";
+					General.enviarDatos(3,mensaje);
+				}else if(min == 0 && seg == 0){
+					mensaje = "MENSAJE DE SERVIDOR: A LAS 3!! La subasta ha finalizado!";
+					General.enviarDatos(3,mensaje);
+					General.enviarDatos(6,General.getConexionTemp().getClienteTemp().getNombre());
+				}
 			}
 			n++;
 		}
