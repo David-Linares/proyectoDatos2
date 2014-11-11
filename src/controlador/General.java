@@ -32,9 +32,6 @@ public class General{
 	private static DatosCliente ventanaDatosCliente;
 	private static VendedorSubasta ventanaServidor;
 	private static JTextPane panelSubastaCliente;
-<<<<<<< HEAD
-=======
-	
 	private General(){
 		Producto producto1 = new Producto(1, "Bicicleta", 200000, "Para ni\u00f1o, marco gios numero 28 con ruedas de apoyo");
 		Producto producto2 = new Producto(2, "Carro", 35000000, "Rojo deportivo modelo 2008 marca chevrolet, motor 1800, coupe, modificado");
@@ -90,8 +87,6 @@ public class General{
 	public static void setConexionTemp(ConexionClienteServidor conexionTemp) {
 		General.conexionTemp = conexionTemp;
 	}
-
->>>>>>> a3c0c6401614060b6032747a5c03111058a110a5
 	public static String getTiempo() {
 		return tiempo;
 	}
@@ -145,15 +140,9 @@ public class General{
 
 	public static void setCliente(ConexionCliente cliente) {
 		General.cliente = cliente;
-	}
-<<<<<<< HEAD
-	public static PrincipalSubastaVendedor getVentanaServidor() {
-=======
-
-	
+	}	
 
 	public static VendedorSubasta getVentanaServidor() {
->>>>>>> a3c0c6401614060b6032747a5c03111058a110a5
 		return ventanaServidor;
 	}
 

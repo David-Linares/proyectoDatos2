@@ -27,14 +27,8 @@ import java.awt.Color;
 import java.awt.Toolkit;
 
 import javax.swing.JTextPane;
-
-<<<<<<< HEAD:src/vista/PrincipalSubastaCliente.java
-import vista.Principal;
-=======
 import controlador.General;
-
 import javax.swing.JTextArea;
->>>>>>> a3c0c6401614060b6032747a5c03111058a110a5:src/vista/ClienteSubasta.java
 
 @SuppressWarnings("serial")
 public class ClienteSubasta extends JFrame {
@@ -42,12 +36,8 @@ public class ClienteSubasta extends JFrame {
 	private JPanel contentPane;
 	General general = General.getInstance();
 	private JTextField tfMensaje;
-<<<<<<< HEAD:src/vista/PrincipalSubastaCliente.java
-	public JList listConectados = new JList();
-=======
 	@SuppressWarnings("rawtypes")
 	private JList listConectados = new JList();
->>>>>>> a3c0c6401614060b6032747a5c03111058a110a5:src/vista/ClienteSubasta.java
 	private JTextPane panelSubasta = new JTextPane();
 	public JLabel lblProductoSubastado = new JLabel();
 	private JScrollPane panelScroll = new JScrollPane(panelSubasta);
@@ -194,8 +184,6 @@ public class ClienteSubasta extends JFrame {
 			lblReloj.setHorizontalAlignment(SwingConstants.CENTER);
 			lblReloj.setBounds(241, 12, 212, 43);
 			contentPane.add(lblReloj);
-<<<<<<< HEAD:src/vista/PrincipalSubastaCliente.java
-=======
 			tAProductoDescripcion.setBackground(new Color(100,149,237));
 			
 			
@@ -210,8 +198,6 @@ public class ClienteSubasta extends JFrame {
 			scrollProductoDescripcion.setBounds(10, 66, 586, 51);
 			contentPane.add(scrollProductoDescripcion);
 			tAProductoDescripcion.setText("Descripci\u00f3n de Producto: " + General.getProductoSeleccionado().getDescripcion());
-			
->>>>>>> a3c0c6401614060b6032747a5c03111058a110a5:src/vista/ClienteSubasta.java
 		} catch (UnknownHostException e) {
 			JOptionPane.showMessageDialog(new JFrame(),
 					"SubastaCliente / Se produjo un error en la lectura de IP "
