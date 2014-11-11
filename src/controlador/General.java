@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 
 import vista.DatosCliente;
-import vista.VendedorSubasta;
+import vista.SubastaVendedor;
 import modelo.Producto;
 
 @SuppressWarnings("rawtypes")
@@ -30,7 +30,7 @@ public class General{
 	private static ConexionCliente cliente = null;
 	/*Ventanas*/
 	private static DatosCliente ventanaDatosCliente;
-	private static VendedorSubasta ventanaServidor;
+	private static SubastaVendedor ventanaServidor;
 	private static JTextPane panelSubastaCliente;
 	
 	private General(){
@@ -150,11 +150,11 @@ public class General{
 
 	
 
-	public static VendedorSubasta getVentanaServidor() {
+	public static SubastaVendedor getVentanaServidor() {
 		return ventanaServidor;
 	}
 
-	public static void setVentanaServidor(VendedorSubasta ventanaServidor) {
+	public static void setVentanaServidor(SubastaVendedor ventanaServidor) {
 		General.ventanaServidor = ventanaServidor;
 	}
 

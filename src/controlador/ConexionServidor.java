@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import vista.Principal;
-import vista.VendedorSubasta;
+import vista.SubastaVendedor;
 
 import javax.swing.JOptionPane;
 
@@ -13,7 +13,7 @@ public class ConexionServidor extends Thread {
 
 	private int puerto;
 	private General general = General.getInstance();
-	private VendedorSubasta ventana;
+	private SubastaVendedor ventana;
 	
 	//COnstructor con el TextPane que va a contener los mensajes del servidor.
 	public ConexionServidor(int puerto) {

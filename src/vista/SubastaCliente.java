@@ -33,7 +33,7 @@ import controlador.General;
 import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
-public class ClienteSubasta extends JFrame {
+public class SubastaCliente extends JFrame {
 
 	private JPanel contentPane;
 	General general = General.getInstance();
@@ -53,7 +53,7 @@ public class ClienteSubasta extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ClienteSubasta frame = new ClienteSubasta();
+					SubastaCliente frame = new SubastaCliente();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -73,7 +73,7 @@ public class ClienteSubasta extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ClienteSubasta() {
+	public SubastaCliente() {
 		setFont(new Font("Calibri", Font.BOLD, 12));
 		panelSubasta.setForeground(new Color(0, 153, 255));
 		panelSubasta.setFont(new Font("SansSerif", Font.BOLD, 12));
@@ -83,7 +83,7 @@ public class ClienteSubasta extends JFrame {
 		setTitle("Subasta Cliente: " + General.getCliente().getClienteConectado().getNombre().toLowerCase().toLowerCase().trim());
 	
 		setDefaultCloseOperation(0);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ClienteSubasta.class.getResource("/images/customer.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SubastaCliente.class.getResource("/images/customer.png")));
 		setBounds(100, 100, 610, 506);
 		contentPane = new JPanel();
 		contentPane.setForeground(new Color(255, 255, 255));
@@ -274,17 +274,16 @@ public class ClienteSubasta extends JFrame {
 	
 	public void finSubasta(String ganador){
 
-		JOptionPane.showMessageDialog(this, "La subasta ha finalizado \n El ganador es "+ganador, "Ganador", JOptionPane.INFORMATION_MESSAGE, general.getIcon("winner"));
-		this.dispose();
-		Principal regreso = new Principal();
-		regreso.setVisible(true);
-
-		//Object[] opciones = { "Aceptar" };
-		//int respuesta = JOptionPane.showOptionDialog(new JFrame(),"La subasta ha finalizado \n El ganador es "+ganador,"Ganador", JOptionPane.YES_OPTION,JOptionPane.INFORMATION_MESSAGE,general.getIcon("winner"), opciones, opciones[0]);
-		//if (respuesta == JOptionPane.YES_OPTION) {
-			//General.getCliente().enviarDatosCliente(4, General.getCliente().getClienteConectado().getNombre());
-			//General.getCliente().interrupt();
-			//System.exit(0);
+		
+		Object[] opciones = { "Aceptar" };
+		int respuesta = JOptionPane.showOptionDialog(new JFrame(),"La subasta ha finalizado \n El ganador es "+ganador,"Ganador", JOptionPane.YES_OPTION,JOptionPane.INFORMATION_MESSAGE,general.getIcon("winner"), opciones, opciones[0]);
+		if (respuesta == JOptionPane.YES_OPTION) {
+			General.getCliente().enviarDatosCliente(4, General.getCliente().getClienteConectado().getNombre());
+			General.getCliente().interrupt();
+			this.dispose();
+			Principal regreso = new Principal();
+			regreso.setVisible(true);
+		}
 		}
 
 	
