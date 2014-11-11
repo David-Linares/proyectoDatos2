@@ -33,7 +33,7 @@ import controlador.General;
 import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
-public class ClienteSubasta extends JFrame {
+public class SubastaCliente extends JFrame {
 
 	private JPanel contentPane;
 	General general = General.getInstance();
@@ -53,7 +53,7 @@ public class ClienteSubasta extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ClienteSubasta frame = new ClienteSubasta();
+					SubastaCliente frame = new SubastaCliente();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -73,7 +73,7 @@ public class ClienteSubasta extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ClienteSubasta() {
+	public SubastaCliente() {
 		setFont(new Font("Calibri", Font.BOLD, 12));
 		panelSubasta.setForeground(new Color(0, 153, 255));
 		panelSubasta.setFont(new Font("SansSerif", Font.BOLD, 12));
@@ -83,7 +83,7 @@ public class ClienteSubasta extends JFrame {
 		setTitle("Subasta Cliente: " + General.getCliente().getClienteConectado().getNombre().toLowerCase().toLowerCase().trim());
 	
 		setDefaultCloseOperation(0);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ClienteSubasta.class.getResource("/images/customer.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SubastaCliente.class.getResource("/images/customer.png")));
 		setBounds(100, 100, 610, 506);
 		contentPane = new JPanel();
 		contentPane.setForeground(new Color(255, 255, 255));

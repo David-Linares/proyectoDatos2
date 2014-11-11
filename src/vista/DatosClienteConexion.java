@@ -28,7 +28,7 @@ import java.awt.Color;
 public class DatosClienteConexion extends JFrame {
 
 	
-	ClienteSubasta psubasta;
+	SubastaCliente psubasta;
 	private JPanel contentPane;
 	private JTextField tfIp;
 	private JTextField tfPuerto;

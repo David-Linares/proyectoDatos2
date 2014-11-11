@@ -31,7 +31,7 @@ import javax.swing.JTextArea;
 
 
 @SuppressWarnings("serial")
-public class VendedorSubasta extends JFrame {
+public class SubastaVendedor extends JFrame {
 
 	private JPanel contentPane;
 	@SuppressWarnings("rawtypes")
@@ -55,7 +55,7 @@ public class VendedorSubasta extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VendedorSubasta frame = new VendedorSubasta();
+					SubastaVendedor frame = new SubastaVendedor();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -99,7 +99,7 @@ public class VendedorSubasta extends JFrame {
 
 
 	@SuppressWarnings("unchecked")
-	public VendedorSubasta() {
+	public SubastaVendedor() {
 		setFont(new Font("Calibri", Font.BOLD, 12));
 		setResizable(false);
 		tpMensajesSubastaVendedor.setForeground(new Color(51, 102, 255));
@@ -107,7 +107,7 @@ public class VendedorSubasta extends JFrame {
 		tpMensajesSubastaVendedor.setEditable(false);
 		setTitle("Subasta Vendedor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VendedorSubasta.class.getResource("/images/martillo.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SubastaVendedor.class.getResource("/images/martillo.png")));
 		setBounds(100, 100, 563, 452);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(100,149,237));

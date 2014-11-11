@@ -37,7 +37,7 @@ public class DatosCliente extends JFrame {
 	private JLabel lblNombre;
 	private JLabel lblMontoInicial;
 	private JLabel lblDatosDeConexin;
-	ClienteSubasta psubasta;
+	SubastaCliente psubasta;
 	private JLabel lblProductoSubastaCliente;
 	private JTextArea tADescripcionProducto= new JTextArea();
 	private JScrollPane scrollTextArea = new JScrollPane(tADescripcionProducto);
@@ -196,7 +196,7 @@ public class DatosCliente extends JFrame {
 					//JOptionPane.showMessageDialog(new JFrame(), "DC / Entró a asignarle el cliente ");
 					General.getCliente().setClienteConectado(nuevoCliente);
 					//JOptionPane.showMessageDialog(new JFrame(), "DC / Le asignó el cliente"+General.getCliente().getClienteConectado().getNombre());
-					psubasta = new ClienteSubasta();
+					psubasta = new SubastaCliente();
 					General.setPanelSubastaCliente(psubasta.getPanelSubasta());
 					General.getCliente().setVentanaCliente(psubasta);
 				}

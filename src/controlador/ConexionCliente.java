@@ -12,14 +12,14 @@ import javax.swing.JOptionPane;
 
 import modelo.Cliente;
 import modelo.Producto;
-import vista.ClienteSubasta;
+import vista.SubastaCliente;
 
 public class ConexionCliente extends Thread {
 
 	private Cliente clienteConectado;
 	private int puertoCliente;
 	private String ipCliente;
-	private ClienteSubasta ventanaCliente;
+	private SubastaCliente ventanaCliente;
 	private boolean verificaConectado;
 	private Socket SocketCliente;
 	private ObjectInputStream objetoEntrada;
@@ -50,11 +50,11 @@ public class ConexionCliente extends Thread {
 	public void setClienteConectado(Cliente clienteConectado) {
 		this.clienteConectado = clienteConectado;
 	}
-	public ClienteSubasta getVentanaCliente() {
+	public SubastaCliente getVentanaCliente() {
 		return ventanaCliente;
 	}
 
-	public void setVentanaCliente(ClienteSubasta ventanaCliente) {
+	public void setVentanaCliente(SubastaCliente ventanaCliente) {
 		this.ventanaCliente = ventanaCliente;
 		enviarDatosCliente(2, this.clienteConectado);
 	}
