@@ -4,23 +4,23 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import vista.Principal;
 import vista.SubastaVendedor;
 
 import javax.swing.JOptionPane;
 
 public class ConexionServidor extends Thread {
 
+	/*ATRIBUTOS*/
 	private int puerto;
 	private General general = General.getInstance();
 	private SubastaVendedor ventana;
 	
-	//COnstructor con el TextPane que va a contener los mensajes del servidor.
+	/*CONSTRUCTOR DE LA CLASE QUE RECIBE UN PUERTO*/
 	public ConexionServidor(int puerto) {
 		this.puerto = puerto;
 	}
 	
-	//OK
+	/*METODO A LA ESPERA DE MÀS CONEXIONES*/
 	public void run() {
 		ServerSocket sServidor = null;
 		ConexionClienteServidor nuevaConexion = null;

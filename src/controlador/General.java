@@ -24,10 +24,10 @@ public class General {
 	private static String tiempo;
 	private static DefaultListModel listadoConectados = new DefaultListModel();
 	private static DefaultListModel listadoConectadosTemp = new DefaultListModel();
-	private static ConexionClienteServidor conexionTemp;
 	private static Producto productoSeleccionado;
-	private static ConexionServidor servidor = null;
-	private static ConexionCliente cliente = null;
+	private static ConexionClienteServidor conexionTemp;
+	private static ConexionServidor cServidor = null;
+	private static ConexionCliente cCliente = null;
 
 	/* VENTANAS */
 	private static DatosCliente ventanaDatosCliente;
@@ -64,7 +64,9 @@ public class General {
 
 		};
 	}
-
+	/*MÉTODO ENCARGADO DE CREAR SOLO UNA INSTANCIA A LA VEZ DE LA CLASE
+	ES SINCRONIZADO CON EL FIN DE MANEJAR QUE LOS HILOS QUE ACCEDAN A LA CLASE 
+	SEA DE FORMA ORDENADA*/
 	public static synchronized General getInstance() {
 		if (general == null)
 			general = new General();
@@ -130,19 +132,19 @@ public class General {
 	}
 
 	public static ConexionServidor getServidor() {
-		return servidor;
+		return cServidor;
 	}
 
 	public static void setServidor(ConexionServidor servidor) {
-		General.servidor = servidor;
+		General.cServidor = servidor;
 	}
 
 	public static ConexionCliente getCliente() {
-		return cliente;
+		return cCliente;
 	}
 
 	public static void setCliente(ConexionCliente cliente) {
-		General.cliente = cliente;
+		General.cCliente = cliente;
 	}
 
 	public static SubastaVendedor getVentanaServidor() {
@@ -226,7 +228,7 @@ public class General {
 		try {
 			long monto = Long.parseLong(valor);
 
-			if (monto > General.cliente.getClienteConectado().getMonto()) {
+			if (monto > General.cCliente.getClienteConectado().getMonto()) {
 				JOptionPane.showMessageDialog(new JFrame(),
 						"Valor superior al monto inicial", "Datos",
 						JOptionPane.INFORMATION_MESSAGE,

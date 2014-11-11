@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Temporizador extends Thread implements Serializable {
 	
+	/*ATRIBUTOS*/
 	private static final long serialVersionUID = 1L;
 	private String tiempo;
 	private String mensaje;
@@ -12,22 +13,38 @@ public class Temporizador extends Thread implements Serializable {
 	private int min;
 	private int seg;
 		
-	public Temporizador(){
-		
-	}
-	
+	/*CONSTRUCTOR DE LA CLASE
+	 RECIBE POR PARAMETROS 2 ENTEROS QUE VAN A SER LOS MINUTOS Y SEGUNDOS*/
 	public Temporizador(int minutos, int segundos){
 		this.minutos = minutos;
 		this.segundos = segundos;
 	}
-	
-	public static void retraso() {
-		try {
-			Thread.sleep(200);
-		} catch (InterruptedException e) {
-		}
+	public int getMin() {
+		return min;
+	}
+
+	public void setMin(int min) {
+		this.min = min;
+	}
+
+	public int getSeg() {
+		return seg;
+	}
+
+	public void setSeg(int seg) {
+		this.seg = seg;
+	}
+
+	public String getTiempo() {
+		return tiempo;
+	}
+
+	public void setTiempo(String tiempo) {
+		this.tiempo = tiempo;
 	}
 	
+	/*RELIZA EL CONTEO DEL TIEMPO, NOTIFICA AL SERVIDOR Y TODOS LOS CLIENTES CUANDO HA TRANSCURRIDO
+	1, 2 Y TRES MINUTOS Y QUIEN ES EL GANADOR*/
 	public void run(){
 		int n = 0;
 		for (min = minutos; min >= 0; min--) {
@@ -57,29 +74,13 @@ public class Temporizador extends Thread implements Serializable {
 		}
 	}
 
-	public int getMin() {
-		return min;
-	}
-
-	public void setMin(int min) {
-		this.min = min;
-	}
-
-	public int getSeg() {
-		return seg;
-	}
-
-	public void setSeg(int seg) {
-		this.seg = seg;
-	}
-
-	public String getTiempo() {
-		return tiempo;
-	}
-
-	public void setTiempo(String tiempo) {
-		this.tiempo = tiempo;
+	/*DETERMINA QUE TAN RÁPIDO VA A CONTAR EL TIEMPO DEL RELOJ*/
+	public static void retraso() {
+		try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+		}
 	}
 	
-
+	
 }

@@ -6,18 +6,16 @@ import java.io.Serializable;
 
 public class Cliente implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1827287870763275550L;
-	
+	/*ATRIBUTOS*/
 	private String nombre;
 	private long monto;
-			
+	
+	/*CONSTRUCTOR DE LA CLSE*/
 	public Cliente() {
 		super();
 	}
-
+	/*CONSTRUCTOR DE LA CLSE*/
 	public Cliente(String nombre, long monto) {
 		super();
 		this.nombre = nombre;

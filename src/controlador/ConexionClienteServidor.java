@@ -71,8 +71,8 @@ public class ConexionClienteServidor extends Thread{
 					entradaDatosConexion(operacion, datosServidor);
 					break;
 
-				/*
-				 */	
+				/*SE CREA UN CLIENTE Y UNA CONEXION QUE SERÀ NOTIFICADA AL SERVIDOR, AGREGADA AL LISTADO DE CONECTADOS
+				 Y NOTICA A TODAS LAS CONEXIONES LA NUEVA CONEXION*/	
 				case 2:
 					//JOptionPane.showMessageDialog(new JFrame(), "COnexion Cliente Servidor / Entró al case 2");
 					clienteTemp = (Cliente) eMensaje;
@@ -84,27 +84,34 @@ public class ConexionClienteServidor extends Thread{
 					General.getVentanaServidor().getTpMensajesSubasta().setText(General.getVentanaServidor().getTpMensajesSubasta().getText()+ clienteTemp.getNombre()											+ " se conect\u00f3 \n");
 					General.getListadoConectados().addElement(clienteTemp.getNombre());
 					break;
-				/* 
-				 */
+					
+				/* ENVÌA A LA VENTADA DEL SERVIDOR EL NUEVO OFRECIMIENTO DE UN CLIENTE Y 
+				 NOTIFICA A TODOS LOS CLIENTES DE ESE MISMO OFRECIMIENTO*/
 				case 3:
 					eMensaje = this.clienteTemp.getNombre() + " ofrece: "
 							+ eMensaje;
 					General.enviarDatos(operacion, (String) eMensaje);
 					General.getVentanaServidor().getTpMensajesSubasta().setText(General.getVentanaServidor().getTpMensajesSubasta().getText()+ (String) eMensaje + "\n");
 					break;
+				/*NOTIFICA AL SERVIDOR QUE UN CLIENTE SE HA DESCONECTADO Y DEL LISTADO DEL SERVIDOR ELIMINA EL CLIENTE*/
 				case 4:
 					General.getVentanaServidor().borrarCliente((String) eMensaje);general.desconecta(this);
 					General.getVentanaServidor().getTpMensajesSubasta().setText(General.getVentanaServidor().getTpMensajesSubasta().getText()+ clienteTemp.getNombre()+ " se desconect\u00f3 \n");
 					break;
+				/*NOTIFICA A TODAS LAS CONEXIONES EL PRODUCTO SELECCIONADO
+				 Y ENVÌA AL SERVIDOR EL PRODUCTO QUE SE HA SELECCIONADO*/	
 				case 5:
 					eMensaje = (Producto) eMensaje;
 					General.enviarDatos(operacion, eMensaje);
 					General.setProductoSeleccionado((Producto) eMensaje);
 					General.getVentanaServidor().getLblProductoSubastado().setText(General.getProductoSeleccionado().getNombre()+ " = "+ General.getProductoSeleccionado().getValor());
 					break;
+				/* INICIALIZA EL RELOJ UNA VEZ HAY UN OFRECIMIENTO Y 
+				 CUANDO ES 3 NOTIFICA QUE LA SUBASTA SE HA ACABADO */
 				case 6:
 					Temporizador reloj = new Temporizador(3,0);						
 					if(General.getReloj() != null)
+	
 						General.getReloj().stop();
 					General.setReloj(reloj);
 					reloj.start();

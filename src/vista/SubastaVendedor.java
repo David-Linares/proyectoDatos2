@@ -199,7 +199,7 @@ public class SubastaVendedor extends JFrame {
 		tpMensajesSubastaVendedor.setText(tpMensajesSubastaVendedor.getText() + nuevoMensaje
 				+ "\n");
 	}
-	
+	/*RECIBE UN NOMBRE DE UN CLIENTE, TRAE LA POSICION DEL MISMO Y LO ELIMINA DEL LISTADO DE CONECTADOS*/
 	public void borrarCliente(String nombre) {
 		int pos = General.getListadoConectados().indexOf(nombre);
 		General.getListadoConectados().remove(pos);
