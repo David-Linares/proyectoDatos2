@@ -14,14 +14,17 @@ import modelo.Producto;
 
 public class ConexionClienteServidor extends Thread{
 
-	private Socket s;
+	/*ATRIBUTOS*/
+	private Socket socketClienteServidor;
 	private ObjectOutputStream salida;
 	private General general = General.getInstance();
 	private Cliente clienteTemp;
 
+	/*CONSTRUCTOR DE LA CLASE
+	 RECIBE UN SOCKET Y PREPARA UNA SALIDA DE DATOS*/
 	public ConexionClienteServidor(Socket s) {
 		try {
-			this.s = s;
+			this.socketClienteServidor = s;
 			salida = new ObjectOutputStream(s.getOutputStream());
 			start();
 		} catch (IOException e) {
@@ -39,23 +42,28 @@ public class ConexionClienteServidor extends Thread{
 	public void setClienteTemp(Cliente clienteNuevo){
 		this.clienteTemp = clienteNuevo;
 	}
+	
+	public String toString() {
+		return "Conexion [s=" + socketClienteServidor + ", salida=" + salida + ", general="
+				+ general + ", clienteTemp=" + clienteTemp + "]";
+	}
+	
 
-	// LE LLEGAN LOS DATOS
-	@SuppressWarnings("unchecked")
+	/*RECIBE TODOS LOS DATOS QUE LLEGAN DE CLIENTE Y LE RESPONDE SEGUN EL CASO*/
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	public void run() {
 		while (true) {
 			try {
 				ObjectInputStream entrada = new ObjectInputStream(
-						s.getInputStream());
+						socketClienteServidor.getInputStream());
 				int operacion = entrada.readInt();
 				Object eMensaje = entrada.readObject();
-				System.out.println("ConexiÃ³n / ope = "+operacion+" entrada = "+eMensaje);
+				//System.out.println("ConexiÃ³n / ope = "+operacion+" entrada = "+eMensaje);
 				switch (operacion) {
 				
-				
+				/* RECIBE UNA CLASE CONEXION SIN CLIENTE
+				 SE CREA EL ARRAYLIST PARA ENIAR DATOS A ConexionCliente */
 				case 1:
-					/* RECIBE UNA CLASE CONEXION SIN CLIENTE
-					 SE CREA EL ARRAYLIST PARA ENIAR DATOS A ConexionCliente */
 					@SuppressWarnings("rawtypes")
 					ArrayList datosServidor = new ArrayList();
 					datosServidor.add(General.getListadoConectados());
@@ -63,6 +71,8 @@ public class ConexionClienteServidor extends Thread{
 					entradaDatosConexion(operacion, datosServidor);
 					break;
 
+				/*
+				 */	
 				case 2:
 					//JOptionPane.showMessageDialog(new JFrame(), "COnexion Cliente Servidor / Entró al case 2");
 					clienteTemp = (Cliente) eMensaje;
@@ -71,52 +81,26 @@ public class ConexionClienteServidor extends Thread{
 					//JOptionPane.showMessageDialog(new JFrame(), "Conexion Cliente Servidor / se le asignó "+clienteTemp.getNombre());
 					General.nuevaConexion(General.getConexionTemp());
 					General.enviarDatos(operacion, eMensaje);
-					General.getVentanaServidor()
-							.getTpMensajesSubasta()
-							.setText(
-									General.getVentanaServidor()
-											.getTpMensajesSubasta().getText()
-											+ clienteTemp.getNombre()
-
-											+ " se conect\u00f3 \n");
-					General.getListadoConectados().addElement(
-							clienteTemp.getNombre());
+					General.getVentanaServidor().getTpMensajesSubasta().setText(General.getVentanaServidor().getTpMensajesSubasta().getText()+ clienteTemp.getNombre()											+ " se conect\u00f3 \n");
+					General.getListadoConectados().addElement(clienteTemp.getNombre());
 					break;
+				/* 
+				 */
 				case 3:
 					eMensaje = this.clienteTemp.getNombre() + " ofrece: "
 							+ eMensaje;
 					General.enviarDatos(operacion, (String) eMensaje);
-					General.getVentanaServidor()
-							.getTpMensajesSubasta()
-							.setText(
-									General.getVentanaServidor()
-											.getTpMensajesSubasta().getText()
-											+ (String) eMensaje + "\n");
+					General.getVentanaServidor().getTpMensajesSubasta().setText(General.getVentanaServidor().getTpMensajesSubasta().getText()+ (String) eMensaje + "\n");
 					break;
 				case 4:
-					General.getVentanaServidor().borrarCliente(
-							(String) eMensaje);
-					general.desconecta(this);
-					General.getVentanaServidor()
-							.getTpMensajesSubasta()
-							.setText(
-									General.getVentanaServidor()
-											.getTpMensajesSubasta().getText()
-											+ clienteTemp.getNombre()
-											+ " se desconect\u00f3 \n");
+					General.getVentanaServidor().borrarCliente((String) eMensaje);general.desconecta(this);
+					General.getVentanaServidor().getTpMensajesSubasta().setText(General.getVentanaServidor().getTpMensajesSubasta().getText()+ clienteTemp.getNombre()+ " se desconect\u00f3 \n");
 					break;
 				case 5:
 					eMensaje = (Producto) eMensaje;
 					General.enviarDatos(operacion, eMensaje);
 					General.setProductoSeleccionado((Producto) eMensaje);
-					General.getVentanaServidor()
-							.getLblProductoSubastado()
-							.setText(
-									General.getProductoSeleccionado()
-											.getNombre()
-											+ " = "
-											+ General.getProductoSeleccionado()
-													.getValor());
+					General.getVentanaServidor().getLblProductoSubastado().setText(General.getProductoSeleccionado().getNombre()+ " = "+ General.getProductoSeleccionado().getValor());
 					break;
 				case 6:
 					Temporizador reloj = new Temporizador(3,0);						
@@ -150,11 +134,6 @@ public class ConexionClienteServidor extends Thread{
 		}
 	}
 
-	@Override
-	public String toString() {
-		return "Conexion [s=" + s + ", salida=" + salida + ", general="
-				+ general + ", clienteTemp=" + clienteTemp + "]";
-	}
 	
 	
 	

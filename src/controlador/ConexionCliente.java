@@ -16,6 +16,7 @@ import vista.SubastaCliente;
 
 public class ConexionCliente extends Thread {
 
+	/*ATRIBUTOS*/
 	private Cliente clienteConectado;
 	private int puertoCliente;
 	private String ipCliente;
@@ -63,7 +64,7 @@ public class ConexionCliente extends Thread {
 	SE CREA UN SOCKET CON PUERTO E IP, SE CREA UNA ESPERA DE ENTRADA DE DATOS AL SOCKET 
 	ADEMAS UTILIZA EL MÉTODO enviarDatos() PARA ESCRIBIRLE AL SERVIDOR 
 	INFORMANDO QUE HAY UN NUEVA CONEXION - SOLO CON EL 1*/
-	
+	@SuppressWarnings("rawtypes")
 	public synchronized void run() {
 
 		try {
@@ -77,11 +78,10 @@ public class ConexionCliente extends Thread {
 				Object eMensaje = objetoEntrada.readObject();
 			switch (operacion) {
 				
-			/* RECIBE EL ARRAYLIST QUE LLEGA DE ConexionClienteServidor
+	     		/* RECIBE EL ARRAYLIST QUE LLEGA DE ConexionClienteServidor
 				 CON LA INFORMACION DE LISTADO DE CONECTADOS Y EL PRODUCTO
 			    PARA ACTUALIZARLO AL CLIENTE EN ELA VENTANA DatosCliente
-			    LA CONEXION DEL CLIENTE LA CREA EN UN LISTADO DE CONECTADOS TEMPORAL
-			    */
+			    LA CONEXION DEL CLIENTE LA CREA EN UN LISTADO DE CONECTADOS TEMPORAL*/
 				case 1: 
 					ArrayList datos = (ArrayList) eMensaje;
 					General.setListadoConectadosTemp((DefaultListModel) datos.get(0));
@@ -89,13 +89,11 @@ public class ConexionCliente extends Thread {
 					General.getVentanaDatosCliente().getLblProductoSubastaCliente().setText(General.getProductoSeleccionado().getNombre() + " = " + General.getProductoSeleccionado().getValor());
 					General.getVentanaDatosCliente().gettADescripcionProducto().setText(General.getProductoSeleccionado().getDescripcion());
 					break;
-					
 				/*AGREGAR UN NUEVO CLIENTE - RECIBE EL CLIENTE Y LO AGREGA AL MODELOS DE LISTADO 
 				 DE CONECTADOS */
 				case 2:
 					ventanaCliente.agregarNuevo((Cliente) eMensaje);
 					break;
-					
 				/*RECIBE UN MENSAJE Y LO ENVÍA A LA VENTANA DEL CLIENTE */
 				case 3: 
 					ventanaCliente.mensajeRecibido((String) eMensaje);
@@ -134,12 +132,13 @@ public class ConexionCliente extends Thread {
 		}
 	}
 
-	// OK
+	/*RECIBE EL MONTO DEL NUEVO OFRECIMIENTO DEL CLIENTE E INICIA EL RELOG CADA VEZ QUE LE LLEGA UN MENSAJE */
 	public void enviarMensajeHilo(String sMensaje) {
 		enviarDatosCliente(3, sMensaje);
 		enviarDatosCliente(6, null);
 	}
-
+	
+	/*ACTUALIZA EL PRODUCTO CON EL NUEVO VALOR */
 	public void enviarProductoHilo(Producto cambioProducto) {
 		enviarDatosCliente(5, cambioProducto);
 	}
