@@ -76,7 +76,8 @@ public class ConexionCliente extends Thread {
 				int operacion = objetoEntrada.readInt();
 				Object eMensaje = objetoEntrada.readObject();
 			switch (operacion) {
-				/* RECIBE EL ARRAYLIST QUE LLEGA DE ConexionClienteServidor
+				
+			/* RECIBE EL ARRAYLIST QUE LLEGA DE ConexionClienteServidor
 				 CON LA INFORMACION DE LISTADO DE CONECTADOS Y EL PRODUCTO
 			    PARA ACTUALIZARLO AL CLIENTE EN ELA VENTANA DatosCliente
 			    LA CONEXION DEL CLIENTE LA CREA EN UN LISTADO DE CONECTADOS TEMPORAL
