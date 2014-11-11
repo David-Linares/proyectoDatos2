@@ -31,21 +31,35 @@ import java.awt.Color;
 public class DatosCliente extends JFrame {
 
 	General general = General.getInstance();
+	SubastaCliente panelSubastaCliente;
+	
 	private JPanel contentPane;
-	private JTextField tfNombreCliente;
-	private JTextField tfMonto;
-	private JLabel lblNombre;
+	private JLabel lblNick;
 	private JLabel lblMontoInicial;
 	private JLabel lblDatosDeConexin;
-	SubastaCliente psubasta;
 	private JLabel lblProductoSubastaCliente;
-	private JTextArea tADescripcionProducto= new JTextArea();
-	private JScrollPane scrollTextArea = new JScrollPane(tADescripcionProducto);
+	private JTextField tfMontoCliente;
+	private JTextField tfNickCliente;
+	private JTextArea tADescripcionProductoCliente= new JTextArea();
+	private JScrollPane scrollTextArea = new JScrollPane(tADescripcionProductoCliente);
 
+	public JLabel getLblProductoSubastaCliente() {
+		return lblProductoSubastaCliente;
+	}
 
-	/**
-	 * Launch the application.
-	 */
+	public void setLblProductoSubastaCliente(JLabel lblProductoSubastaCliente) {
+		this.lblProductoSubastaCliente = lblProductoSubastaCliente;
+	}
+
+	public JTextArea gettADescripcionProducto() {
+		return tADescripcionProductoCliente;
+	}
+
+	public void settADescripcionProducto(JTextArea tADescripcionProducto) {
+		this.tADescripcionProductoCliente = tADescripcionProducto;
+	}
+
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -59,15 +73,13 @@ public class DatosCliente extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	/*CREAR EL MARCO*/
 	public DatosCliente() {
 		setFont(new Font("Calibri", Font.BOLD, 12));
 		setTitle("Datos del Cliente");
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(DatosCliente.class.getResource("/images/customer.png")));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(0);
 		setBounds(100, 100, 454, 339);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(100,149,237));
@@ -75,68 +87,66 @@ public class DatosCliente extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		tfNombreCliente = new JTextField();
-		tfNombreCliente.setForeground(new Color(51, 102, 255));
-		tfNombreCliente.addKeyListener(new KeyAdapter() {
-			@Override
+		tfNickCliente = new JTextField();
+		tfNickCliente.setForeground(new Color(51, 102, 255));
+		tfNickCliente.addKeyListener(new KeyAdapter() {
+			/*EVENTO EN EL NICK DEL CLIENTE AL DARLE ENTER E INGRESAR A LA SUBASTA*/
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == 10) {
 					entrarSubasta();
 				}
 			}
 		});
-		tfNombreCliente.setFont(new Font("SansSerif", Font.BOLD, 12));
-		tfNombreCliente.setBounds(179, 185, 259, 29);
-		contentPane.add(tfNombreCliente);
-		tfNombreCliente.setColumns(10);
+		tfNickCliente.setFont(new Font("SansSerif", Font.BOLD, 12));
+		tfNickCliente.setBounds(179, 185, 259, 29);
+		tfNickCliente.setColumns(10);
+		contentPane.add(tfNickCliente);
 
-		tfMonto = new JTextField();
-		tfMonto.setForeground(new Color(51, 102, 255));
-
-		tfMonto.addKeyListener(new KeyAdapter() {
-
-			@Override
+		tfMontoCliente = new JTextField();
+		tfMontoCliente.setForeground(new Color(51, 102, 255));
+		tfMontoCliente.addKeyListener(new KeyAdapter() {
+			
+			/*EVENTO EN EL MONTOCLIENTE VALIDA QUE NO SEA MAYOR A 18 Y SOLO SEAN NÚMEROS*/
 			public void keyTyped(java.awt.event.KeyEvent evt) {
 				char car = evt.getKeyChar();
-				if (tfMonto.getText().length() >= 18)
+				if (tfMontoCliente.getText().length() >= 18)
 					evt.consume();
 				if ((car < '0' || car > '9')) {
 					evt.consume();
 				}
 			}
-
-			@Override
+			/*EVENTO EN EL MONTOCLIENTE SI SE LE DA ENTER E INGRESA A LA SUBASTA*/
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == 10) {
 					entrarSubasta();
 				}
 			}
 		});
-		tfMonto.setFont(new Font("SansSerif", Font.BOLD, 12));
-		tfMonto.setColumns(10);
-		tfMonto.setBounds(179, 225, 259, 29);
-		contentPane.add(tfMonto);
+		tfMontoCliente.setFont(new Font("SansSerif", Font.BOLD, 12));
+		tfMontoCliente.setColumns(10);
+		tfMontoCliente.setBounds(179, 225, 259, 29);
+		contentPane.add(tfMontoCliente);
 
-		JLabel lblNewLabel = new JLabel("Producto en Subasta");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setBounds(10, 48, 154, 34);
-		contentPane.add(lblNewLabel);
+		JLabel lblProductoSubasta = new JLabel("Producto en Subasta");
+		lblProductoSubasta.setForeground(new Color(255, 255, 255));
+		lblProductoSubasta.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		lblProductoSubasta.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblProductoSubasta.setBounds(10, 48, 154, 34);
+		contentPane.add(lblProductoSubasta);
 
-		JLabel lblNewLabel_1 = new JLabel("Descripci\u00F3n de Producto");
-		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1.setBounds(10, 93, 159, 34);
-		contentPane.add(lblNewLabel_1);
+		JLabel lblDescripcionProducto = new JLabel("Descripci\u00F3n de Producto");
+		lblDescripcionProducto.setForeground(new Color(255, 255, 255));
+		lblDescripcionProducto.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		lblDescripcionProducto.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblDescripcionProducto.setBounds(10, 93, 159, 34);
+		contentPane.add(lblDescripcionProducto);
 
-		lblNombre = new JLabel("Nick");
-		lblNombre.setForeground(new Color(255, 255, 255));
-		lblNombre.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
-		lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNombre.setBounds(10, 177, 159, 34);
-		contentPane.add(lblNombre);
+		lblNick = new JLabel("Nick");
+		lblNick.setForeground(new Color(255, 255, 255));
+		lblNick.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		lblNick.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNick.setBounds(10, 177, 159, 34);
+		contentPane.add(lblNick);
 
 		lblMontoInicial = new JLabel("Monto Inicial");
 		lblMontoInicial.setForeground(new Color(255, 255, 255));
@@ -152,13 +162,6 @@ public class DatosCliente extends JFrame {
 		lblDatosDeConexin.setBounds(96, 11, 247, 34);
 		contentPane.add(lblDatosDeConexin);
 
-		JButton btnIngresarSubasta = new JButton("Ingresar a La Subasta");
-		btnIngresarSubasta.setBackground(new Color(255, 255, 255));
-		btnIngresarSubasta.setForeground(new Color(51, 102, 255));
-		btnIngresarSubasta.setFont(new Font("Kristen ITC", Font.BOLD, 15));
-		btnIngresarSubasta.setBounds(105, 265, 224, 34);
-		contentPane.add(btnIngresarSubasta);
-
 		lblProductoSubastaCliente = new JLabel("");
 		lblProductoSubastaCliente.setBackground(new Color(255, 255, 255));
 		lblProductoSubastaCliente.setForeground(new Color(255, 255, 255));
@@ -166,18 +169,24 @@ public class DatosCliente extends JFrame {
 		lblProductoSubastaCliente.setFont(new Font("SansSerif", Font.BOLD, 13));
 		lblProductoSubastaCliente.setBounds(179, 48, 259, 34);
 		contentPane.add(lblProductoSubastaCliente);
-
-
-		tADescripcionProducto.setForeground(new Color(51, 102, 255));
+		
+		tADescripcionProductoCliente.setForeground(new Color(51, 102, 255));
 		scrollTextArea.setFont(new Font("SansSerif", Font.BOLD, 12));
-		tADescripcionProducto.setWrapStyleWord(true);
-		tADescripcionProducto.setLineWrap(true);
-		tADescripcionProducto.setEditable(false);
+		tADescripcionProductoCliente.setWrapStyleWord(true);
+		tADescripcionProductoCliente.setLineWrap(true);
+		tADescripcionProductoCliente.setEditable(false);
 		scrollTextArea.setBounds(179, 93, 259, 81);
 		contentPane.add(scrollTextArea);
 
-		btnIngresarSubasta.addActionListener(new ActionListener() {
-			// Inicia el hilo! - OK
+		JButton btnIngresarSubastaCliente = new JButton("Ingresar a La Subasta");
+		btnIngresarSubastaCliente.setBackground(new Color(255, 255, 255));
+		btnIngresarSubastaCliente.setForeground(new Color(51, 102, 255));
+		btnIngresarSubastaCliente.setFont(new Font("Kristen ITC", Font.BOLD, 15));
+		btnIngresarSubastaCliente.setBounds(105, 265, 224, 34);
+		contentPane.add(btnIngresarSubastaCliente);
+		btnIngresarSubastaCliente.addActionListener(new ActionListener() {
+			
+			/*SE CREA EL HILO DE ACUERDO A LA INFORMACION QUE DIGITO Y CADA UNA DE SUS VALIDACIONES*/
 			public void actionPerformed(ActionEvent arg0) {
 				entrarSubasta();
 			}
@@ -185,25 +194,27 @@ public class DatosCliente extends JFrame {
 		});
 
 	}
-
+	/*SE CREA UN NUEVO CLIENTE SEGUN LA INFORMACION DIGITADA
+	 SI LA CONEXION NO ESTA NULA ENTONCES A ESA CONEXION SE LE ASIGNA ESE CLIENTE COMO CLIENTECONECTADO, 
+	 SE CREA LA VENTANA DE SUBASTACLIENTE  
+	 
+	 */
 	@SuppressWarnings("unchecked")
 	private void entrarSubasta() {
 		if (validacion()) {
 			try {
-				Cliente nuevoCliente = new Cliente(tfNombreCliente.getText().toLowerCase().trim(),
-						Long.parseLong(tfMonto.getText()));
-				if (General.getCliente() != null) {
+				Cliente nuevoCliente = new Cliente(tfNickCliente.getText().toLowerCase().trim(),Long.parseLong(tfMontoCliente.getText()));
+				if (General.getConexCliente() != null) {
 					//JOptionPane.showMessageDialog(new JFrame(), "DC / Entró a asignarle el cliente ");
-					General.getCliente().setClienteConectado(nuevoCliente);
+					General.getConexCliente().setClienteConectado(nuevoCliente);
 					//JOptionPane.showMessageDialog(new JFrame(), "DC / Le asignó el cliente"+General.getCliente().getClienteConectado().getNombre());
-					psubasta = new SubastaCliente();
-					General.setPanelSubastaCliente(psubasta.getPanelSubasta());
-					General.getCliente().setVentanaCliente(psubasta);
+					panelSubastaCliente = new SubastaCliente();
+					General.setPanelSubastaCliente(panelSubastaCliente.getPanelSubasta());
+					General.getConexCliente().setVentanaCliente(panelSubastaCliente);
 				}
 				//JOptionPane.showMessageDialog(new JFrame(), "Datos cliente / "+General.getListadoConectados());
-				psubasta.getListConectados().setModel(
-						General.getListadoConectados());
-				psubasta.setVisible(true);
+				panelSubastaCliente.getListConectados().setModel(General.getListadoConectados());
+				panelSubastaCliente.setVisible(true);
 				setVisible(false);
 			} catch (Exception e) {
 				//JOptionPane.showMessageDialog(new JFrame(),
@@ -215,18 +226,22 @@ public class DatosCliente extends JFrame {
 		}
 	}
 
+	/*VALIDACIONES 
+	 VERIFICA SI DIGITO UN NICK Y MONTO
+	 SI EL NICK YA SE ENCUENTRA REGISTRADO 
+	 Y SI EL MONTO CON EL QUE QUIERE INGRESAR ES MAYOR AL ACTUAL DEL PRODUCTO*/
 	private boolean validacion() {
-		String montoV = this.tfMonto.getText();
-		String nombreV = this.tfNombreCliente.getText().toLowerCase().trim();
+		String montoV = this.tfMontoCliente.getText();
+		String nombreV = this.tfNickCliente.getText().toLowerCase().trim();
 
 		String mensajeV = "";
 
 		long montoEntero;
 		if (nombreV.equals("")) {
-			mensajeV = "\u00A1Debe escribir el nombre de usuario!\n";
+			mensajeV = "\u00A1Debe escribir el nick de usuario!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
 					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
-			tfNombreCliente.requestFocus();
+			tfNickCliente.requestFocus();
 			return false;
 		} else if (General.getListadoConectadosTemp().contains(nombreV)) {
 			mensajeV = "\u00A1El Nick "
@@ -234,14 +249,14 @@ public class DatosCliente extends JFrame {
 					+ " ya est\u00e1 registrado en la subasta\n Por favor intenta con uno nuevo";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
 					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
-			tfNombreCliente.setText("");
-			tfNombreCliente.requestFocus();
+			tfNickCliente.setText("");
+			tfNickCliente.requestFocus();
 			return false;
 		} else if (montoV.equals("")) {
 			mensajeV = "\u00A1Debe escribir el monto!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
 					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
-			tfMonto.requestFocus();
+			tfMontoCliente.requestFocus();
 			return false;
 		} else
 
@@ -263,28 +278,6 @@ public class DatosCliente extends JFrame {
 
 	}
 
-	public JLabel getLblProductoSubastaCliente() {
-		return lblProductoSubastaCliente;
-	}
-
-	public void setLblProductoSubastaCliente(JLabel lblProductoSubastaCliente) {
-		this.lblProductoSubastaCliente = lblProductoSubastaCliente;
-	}
-
-	public JTextArea gettADescripcionProducto() {
-		return tADescripcionProducto;
-	}
-
-	public void settADescripcionProducto(JTextArea tADescripcionProducto) {
-		this.tADescripcionProducto = tADescripcionProducto;
-	}
-
-	public void keyTyped(java.awt.event.KeyEvent evt) {
-		char car = evt.getKeyChar();
-		if (tfMonto.getText().length() >= 18)
-			evt.consume();
-		if ((car < '0' || car > '9')) {
-			evt.consume();
-		}
-	}
+	
+	
 }

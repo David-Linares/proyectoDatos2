@@ -44,7 +44,7 @@ public class Temporizador extends Thread implements Serializable {
 	}
 	
 	/*RELIZA EL CONTEO DEL TIEMPO, NOTIFICA AL SERVIDOR Y TODOS LOS CLIENTES CUANDO HA TRANSCURRIDO
-	1, 2 Y TRES MINUTOS Y QUIEN ES EL GANADOR*/
+	1, 2 Y 3 MINUTOS Y QUIEN ES EL GANADOR*/
 	public void run(){
 		int n = 0;
 		for (min = minutos; min >= 0; min--) {

@@ -21,6 +21,14 @@ public class Principal extends JFrame {
 	
 	private JButton btnNuevaSubasta;
 	
+	public JButton getBtnNuevaSubasta() {
+		return btnNuevaSubasta;
+	}
+
+	public void setBtnNuevaSubasta(JButton btnNuevaSubasta) {
+		this.btnNuevaSubasta = btnNuevaSubasta;
+	}	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -93,11 +101,5 @@ public class Principal extends JFrame {
 
 	
 
-	public JButton getBtnNuevaSubasta() {
-		return btnNuevaSubasta;
-	}
-
-	public void setBtnNuevaSubasta(JButton btnNuevaSubasta) {
-		this.btnNuevaSubasta = btnNuevaSubasta;
-	}	
+	
 }

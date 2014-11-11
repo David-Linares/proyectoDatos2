@@ -146,12 +146,12 @@ public class DatosClienteConexion extends JFrame {
 				//JOptionPane.showMessageDialog(new JFrame(), "PConexion / Entr� a Iniciar Conexi�n");
 				int puerto = Integer.parseInt(tfPuerto.getText());
 				String ip = tfIp.getText();
-				System.out.println("PConexion / " + General.getCliente());
-				if (General.getCliente() == null) {
-					General.setCliente(new ConexionCliente(puerto, ip));
+				System.out.println("PConexion / " + General.getConexCliente());
+				if (General.getConexCliente() == null) {
+					General.setConexCliente(new ConexionCliente(puerto, ip));
 					DatosCliente pcliente = new DatosCliente();
 					General.setVentanaDatosCliente(pcliente);
-					General.getCliente().start();
+					General.getConexCliente().start();
 					setVisible(false);
 					pcliente.setVisible(true);
 				}

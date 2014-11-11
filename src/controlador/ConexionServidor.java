@@ -11,13 +11,13 @@ import javax.swing.JOptionPane;
 public class ConexionServidor extends Thread {
 
 	/*ATRIBUTOS*/
-	private int puerto;
+	private int puertoServidor;
 	private General general = General.getInstance();
-	private SubastaVendedor ventana;
+	private SubastaVendedor ventanaSubastaVendedor;
 	
 	/*CONSTRUCTOR DE LA CLASE QUE RECIBE UN PUERTO*/
 	public ConexionServidor(int puerto) {
-		this.puerto = puerto;
+		this.puertoServidor = puerto;
 	}
 	
 	/*METODO A LA ESPERA DE MÀS CONEXIONES*/
@@ -25,7 +25,7 @@ public class ConexionServidor extends Thread {
 		ServerSocket sServidor = null;
 		ConexionClienteServidor nuevaConexion = null;
 		try {
-			sServidor = new ServerSocket(puerto);
+			sServidor = new ServerSocket(puertoServidor);
 			while (true) {
 					Socket nuevoSServidor = sServidor.accept();
 					nuevaConexion = new ConexionClienteServidor(nuevoSServidor);
@@ -33,12 +33,12 @@ public class ConexionServidor extends Thread {
 				
 			}
 		} catch (IOException e1) {
-			JOptionPane.showMessageDialog(ventana, "Ya hay una subasta abierta. \n Por Favor ingresa como cliente.", "Error en creaci\u00f3n de Subasta", JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
+			JOptionPane.showMessageDialog(ventanaSubastaVendedor, "Ya hay una subasta abierta. \n Por Favor ingresa como cliente.", "Error en creaci\u00f3n de Subasta", JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
 			System.exit(0);
 		try {
             sServidor.close();
         }catch(IOException e2){
-         JOptionPane.showMessageDialog(ventana, "CServidor / no se cerró el puerto + e2.getMessage()");	
+         JOptionPane.showMessageDialog(ventanaSubastaVendedor, "CServidor / no se cerró el puerto + e2.getMessage()");	
         }
 	
 

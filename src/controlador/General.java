@@ -18,16 +18,16 @@ public class General {
 
 	/* ATRIBUTOS */
 	private static General general;
-	private static Producto[] productos;
+	private static Producto[] arrayProductos;
 	private static ArrayList<ConexionClienteServidor> conexiones = new ArrayList<ConexionClienteServidor>();
 	private static Temporizador reloj = null;
 	private static String tiempo;
 	private static DefaultListModel listadoConectados = new DefaultListModel();
 	private static DefaultListModel listadoConectadosTemp = new DefaultListModel();
 	private static Producto productoSeleccionado;
-	private static ConexionClienteServidor conexionTemp;
-	private static ConexionServidor cServidor = null;
-	private static ConexionCliente cCliente = null;
+	private static ConexionClienteServidor conexionTemporal;
+	private static ConexionServidor conexServidor = null;
+	private static ConexionCliente conexCliente = null;
 
 	/* VENTANAS */
 	private static DatosCliente ventanaDatosCliente;
@@ -59,7 +59,7 @@ public class General {
 		Producto producto8 = new Producto(8, "Piano", 180000,
 				"Teclado de marmol, madera de sauce, modelo 1978");
 
-		productos = new Producto[] { producto1, producto2, producto3,
+		arrayProductos = new Producto[] { producto1, producto2, producto3,
 				producto4, producto5, producto6, producto7, producto8,
 
 		};
@@ -92,11 +92,11 @@ public class General {
 	}
 
 	public static ConexionClienteServidor getConexionTemp() {
-		return conexionTemp;
+		return conexionTemporal;
 	}
 
 	public static void setConexionTemp(ConexionClienteServidor conexionTemp) {
-		General.conexionTemp = conexionTemp;
+		General.conexionTemporal = conexionTemp;
 	}
 
 	public static String getTiempo() {
@@ -116,11 +116,11 @@ public class General {
 	}
 
 	public static Producto[] getProductos() {
-		return productos;
+		return arrayProductos;
 	}
 
 	public static void setProductos(Producto[] productos) {
-		General.productos = productos;
+		General.arrayProductos = productos;
 	}
 
 	public static DefaultListModel getListadoConectados() {
@@ -132,19 +132,19 @@ public class General {
 	}
 
 	public static ConexionServidor getServidor() {
-		return cServidor;
+		return conexServidor;
 	}
 
 	public static void setServidor(ConexionServidor servidor) {
-		General.cServidor = servidor;
+		General.conexServidor = servidor;
 	}
 
-	public static ConexionCliente getCliente() {
-		return cCliente;
+	public static ConexionCliente getConexCliente() {
+		return conexCliente;
 	}
 
-	public static void setCliente(ConexionCliente cliente) {
-		General.cCliente = cliente;
+	public static void setConexCliente(ConexionCliente cliente) {
+		General.conexCliente = cliente;
 	}
 
 	public static SubastaVendedor getVentanaServidor() {
@@ -228,7 +228,7 @@ public class General {
 		try {
 			long monto = Long.parseLong(valor);
 
-			if (monto > General.cCliente.getClienteConectado().getMonto()) {
+			if (monto > General.conexCliente.getClienteConectado().getMonto()) {
 				JOptionPane.showMessageDialog(new JFrame(),
 						"Valor superior al monto inicial", "Datos",
 						JOptionPane.INFORMATION_MESSAGE,
