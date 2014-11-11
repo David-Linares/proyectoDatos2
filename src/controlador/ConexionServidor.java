@@ -33,21 +33,20 @@ public class ConexionServidor extends Thread {
 					General.setConexionTemp(nuevaConexion);
 				
 			}
-		}catch (IOException e1) {
-			JOptionPane.showMessageDialog(ventana, "Ya hay una subasta abierta. \n Por Favor ingresa como cliente.", "Error en CreaciÃ³n de Subasta", JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
+		} catch (IOException e1) {
+			JOptionPane.showMessageDialog(ventana, "Ya hay una subasta abierta. \n Por Favor ingresa como cliente.", "Error en creaci\u00f3n de Subasta", JOptionPane.INFORMATION_MESSAGE, general.getIcon("error"));
 			Principal ventanaPrincipal = new Principal();
 			ventanaPrincipal.getBtnNuevaSubasta().setEnabled(false);
 			ventanaPrincipal.setVisible(true);
-			e1.printStackTrace();
 			}
+
 		try {
             sServidor.close();
         }catch(IOException e2){
          JOptionPane.showMessageDialog(ventana, "CServidor / no se cerró el puerto + e2.getMessage()");	
         }
 	
-	}
-	
-	
 
+	
+	}
 }
