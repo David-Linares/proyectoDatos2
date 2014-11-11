@@ -47,6 +47,7 @@ public class ClienteSubasta extends JFrame {
 	private JScrollPane scrollLista = new JScrollPane();
 	private JTextArea tAProductoDescripcion = new JTextArea();
 	private JScrollPane scrollProductoDescripcion= new JScrollPane(tAProductoDescripcion);
+	private Principal regreso;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -197,7 +198,7 @@ public class ClienteSubasta extends JFrame {
 			tAProductoDescripcion.setEditable(false);
 			tAProductoDescripcion.setBorder(null);
 			scrollProductoDescripcion.setBackground(new Color(100, 149, 237));
-			scrollProductoDescripcion.setBounds(10, 66, 586, 46);
+			scrollProductoDescripcion.setBounds(10, 66, 586, 51);
 			contentPane.add(scrollProductoDescripcion);
 			tAProductoDescripcion.setText("Descripci\u00f3n de Producto: " + General.getProductoSeleccionado().getDescripcion());
 			
@@ -208,7 +209,6 @@ public class ClienteSubasta extends JFrame {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	public void enviarMensaje() {
 		if (general.validarMonto(tfMensaje.getText())) {
 			General.getCliente().enviarMensajeHilo(tfMensaje.getText());
@@ -245,8 +245,8 @@ public class ClienteSubasta extends JFrame {
 
 		General.getListadoConectados().removeAllElements();
 		panelSubasta.setText("");
-		Principal regreso = new Principal();
-		regreso.setVisible(true);
+		//Principal regreso = new Principal();
+		//regreso.setVisible(true);
 		}
 	
 
@@ -257,7 +257,7 @@ public class ClienteSubasta extends JFrame {
 	}
 
 	public void agregarProductoEnSubasta(Producto productoSubastado) {
-		this.tAProductoDescripcion.setText("Producto en Subasta: \n Nombre: "
+		this.lblProductoSubastado.setText("Producto en Subasta: \n Nombre: "
 				+ productoSubastado.getNombre() + " \n Valor Actual: "
 				+ productoSubastado.getValor());
 		General.setProductoSeleccionado(productoSubastado);
@@ -273,8 +273,20 @@ public class ClienteSubasta extends JFrame {
 	}
 	
 	public void finSubasta(String ganador){
+
 		JOptionPane.showMessageDialog(this, "La subasta ha finalizado \n El ganador es "+ganador, "Ganador", JOptionPane.INFORMATION_MESSAGE, general.getIcon("winner"));
-	}
+		this.dispose();
+		Principal regreso = new Principal();
+		regreso.setVisible(true);
+
+		//Object[] opciones = { "Aceptar" };
+		//int respuesta = JOptionPane.showOptionDialog(new JFrame(),"La subasta ha finalizado \n El ganador es "+ganador,"Ganador", JOptionPane.YES_OPTION,JOptionPane.INFORMATION_MESSAGE,general.getIcon("winner"), opciones, opciones[0]);
+		//if (respuesta == JOptionPane.YES_OPTION) {
+			//General.getCliente().enviarDatosCliente(4, General.getCliente().getClienteConectado().getNombre());
+			//General.getCliente().interrupt();
+			//System.exit(0);
+		}
+
 	
 	public JList getListConectados() {
 		return listConectados;

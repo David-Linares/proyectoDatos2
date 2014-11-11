@@ -42,7 +42,7 @@ public class ConexionClienteServidor extends Thread{
 
 	// LE LLEGAN LOS DATOS
 	@SuppressWarnings("unchecked")
-	public synchronized void run() {
+	public void run() {
 		while (true) {
 			try {
 				ObjectInputStream entrada = new ObjectInputStream(
@@ -51,8 +51,11 @@ public class ConexionClienteServidor extends Thread{
 				Object eMensaje = entrada.readObject();
 				System.out.println("ConexiÃ³n / ope = "+operacion+" entrada = "+eMensaje);
 				switch (operacion) {
-				// Recibir una conexion sin Cliente
+				
+				
 				case 1:
+					/* RECIBE UNA CLASE CONEXION SIN CLIENTE
+					 SE CREA EL ARRAYLIST PARA ENIAR DATOS A ConexionCliente */
 					@SuppressWarnings("rawtypes")
 					ArrayList datosServidor = new ArrayList();
 					datosServidor.add(General.getListadoConectados());
@@ -61,10 +64,13 @@ public class ConexionClienteServidor extends Thread{
 					break;
 
 				case 2:
+					//JOptionPane.showMessageDialog(new JFrame(), "COnexion Cliente Servidor / Entró al case 2");
 					clienteTemp = (Cliente) eMensaje;
+					//JOptionPane.showMessageDialog(new JFrame(), "Conexion Cliente Servidor / "+General.getConexionTemp());
 					General.getConexionTemp().setClienteTemp(clienteTemp);
+					//JOptionPane.showMessageDialog(new JFrame(), "Conexion Cliente Servidor / se le asignó "+clienteTemp.getNombre());
 					General.nuevaConexion(General.getConexionTemp());
-					general.enviarDatos(operacion, eMensaje);
+					General.enviarDatos(operacion, eMensaje);
 					General.getVentanaServidor()
 							.getTpMensajesSubasta()
 							.setText(
@@ -79,7 +85,7 @@ public class ConexionClienteServidor extends Thread{
 				case 3:
 					eMensaje = this.clienteTemp.getNombre() + " ofrece: "
 							+ eMensaje;
-					general.enviarDatos(operacion, (String) eMensaje);
+					General.enviarDatos(operacion, (String) eMensaje);
 					General.getVentanaServidor()
 							.getTpMensajesSubasta()
 							.setText(
@@ -101,7 +107,7 @@ public class ConexionClienteServidor extends Thread{
 					break;
 				case 5:
 					eMensaje = (Producto) eMensaje;
-					general.enviarDatos(operacion, eMensaje);
+					General.enviarDatos(operacion, eMensaje);
 					General.setProductoSeleccionado((Producto) eMensaje);
 					General.getVentanaServidor()
 							.getLblProductoSubastado()
@@ -130,7 +136,7 @@ public class ConexionClienteServidor extends Thread{
 		}
 	}
 
-	// ESCRIBE LOS DATOS DE ENTRADA AL CLIENTE
+	// ESCRIBE LOS DATOS DE ENTRADA AL CLIENTE - CLASE ConexionCliente
 	public void entradaDatosConexion(int operacion, Object sMensaje) {
 		try {
 			salida.writeInt(operacion);
