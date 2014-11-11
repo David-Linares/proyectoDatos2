@@ -274,17 +274,16 @@ public class ClienteSubasta extends JFrame {
 	
 	public void finSubasta(String ganador){
 
-		JOptionPane.showMessageDialog(this, "La subasta ha finalizado \n El ganador es "+ganador, "Ganador", JOptionPane.INFORMATION_MESSAGE, general.getIcon("winner"));
-		this.dispose();
-		Principal regreso = new Principal();
-		regreso.setVisible(true);
-
-		//Object[] opciones = { "Aceptar" };
-		//int respuesta = JOptionPane.showOptionDialog(new JFrame(),"La subasta ha finalizado \n El ganador es "+ganador,"Ganador", JOptionPane.YES_OPTION,JOptionPane.INFORMATION_MESSAGE,general.getIcon("winner"), opciones, opciones[0]);
-		//if (respuesta == JOptionPane.YES_OPTION) {
-			//General.getCliente().enviarDatosCliente(4, General.getCliente().getClienteConectado().getNombre());
-			//General.getCliente().interrupt();
-			//System.exit(0);
+		
+		Object[] opciones = { "Aceptar" };
+		int respuesta = JOptionPane.showOptionDialog(new JFrame(),"La subasta ha finalizado \n El ganador es "+ganador,"Ganador", JOptionPane.YES_OPTION,JOptionPane.INFORMATION_MESSAGE,general.getIcon("winner"), opciones, opciones[0]);
+		if (respuesta == JOptionPane.YES_OPTION) {
+			General.getCliente().enviarDatosCliente(4, General.getCliente().getClienteConectado().getNombre());
+			General.getCliente().interrupt();
+			this.dispose();
+			Principal regreso = new Principal();
+			regreso.setVisible(true);
+		}
 		}
 
 	
