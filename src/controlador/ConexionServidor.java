@@ -29,7 +29,8 @@ public class ConexionServidor extends Thread {
 			while (true) {
 					Socket nuevoSServidor = sServidor.accept();
 					nuevaConexion = new ConexionClienteServidor(nuevoSServidor);
-					General.setConexionTemp(nuevaConexion);
+					//General.setConexionTemp(nuevaConexion);
+					General.nuevaConexionTemp(nuevaConexion);
 				
 			}
 		} catch (IOException e1) {

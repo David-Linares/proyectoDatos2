@@ -86,6 +86,7 @@ public class ConexionCliente extends Thread {
 					ArrayList datos = (ArrayList) eMensaje;
 					General.setListadoConectadosTemp((DefaultListModel) datos.get(0));
 					General.setProductoSeleccionado((Producto) datos.get(1));
+					General.setPosicionConexionTemp((int) datos.get(2));
 					General.getVentanaDatosCliente().getLblProductoSubastaCliente().setText(General.getProductoSeleccionado().getNombre() + " = " + General.getProductoSeleccionado().getValor());
 					General.getVentanaDatosCliente().gettADescripcionProducto().setText(General.getProductoSeleccionado().getDescripcion());
 					break;

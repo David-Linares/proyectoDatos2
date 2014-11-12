@@ -1,6 +1,7 @@
 package controlador;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
@@ -20,8 +21,10 @@ public class General {
 	private static General general;
 	private static Producto[] arrayProductos;
 	private static ArrayList<ConexionClienteServidor> conexiones = new ArrayList<ConexionClienteServidor>();
+	private static ArrayList<ConexionClienteServidor> conexionesTemp = new ArrayList<ConexionClienteServidor>();
 	private static Temporizador reloj = null;
 	private static String tiempo;
+	private static int posicionConexionTemp;
 	private static DefaultListModel listadoConectados = new DefaultListModel();
 	private static DefaultListModel listadoConectadosTemp = new DefaultListModel();
 	private static Producto productoSeleccionado;
@@ -33,7 +36,6 @@ public class General {
 	private static DatosCliente ventanaDatosCliente;
 	private static SubastaVendedor ventanaServidor;
 	private static JTextPane panelSubastaCliente;
-
 	/* CONSTRUCTOR DE GENERAL, CREA LOS PRODUCTOS PARA LA SUBASTA */
 	private General() {
 		Producto producto1 = new Producto(1, "Bicicleta", 200000,
@@ -73,7 +75,21 @@ public class General {
 
 		return general;
 	}
-
+		
+	public static int getPosicionConexionTemp() {
+		return posicionConexionTemp;
+	}
+	public static void setPosicionConexionTemp(int posicionConexionTemp) {
+		General.posicionConexionTemp = posicionConexionTemp;
+	}
+	public static ArrayList<ConexionClienteServidor> getConexionesTemp() {
+		return conexionesTemp;
+	}
+	public static void setConexionesTemp(
+			ArrayList<ConexionClienteServidor> conexionesTemp) {
+		General.conexionesTemp = conexionesTemp;
+	}
+	
 	public static DefaultListModel getListadoConectadosTemp() {
 		return listadoConectadosTemp;
 	}
@@ -200,6 +216,10 @@ public class General {
 		}
 		conexiones.add(nuevo);
 
+	}
+	//Crea una conexión temporal 
+	public static void nuevaConexionTemp(ConexionClienteServidor nuevo) {
+		conexionesTemp.add(nuevo);
 	}
 
 	// DESCONECTA Y ELIMINA LA CONEXION DE UN CLIENTE

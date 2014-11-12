@@ -64,10 +64,11 @@ public class ConexionClienteServidor extends Thread{
 				/* RECIBE UNA CLASE CONEXION SIN CLIENTE
 				 SE CREA EL ARRAYLIST PARA ENIAR DATOS A ConexionCliente */
 				case 1:
-					@SuppressWarnings("rawtypes")
+					int posconexion = General.getConexionesTemp().size() - 1;
 					ArrayList datosServidor = new ArrayList();
 					datosServidor.add(General.getListadoConectados());
 					datosServidor.add(General.getProductoSeleccionado());
+					datosServidor.add(posconexion);
 					entradaDatosConexion(operacion, datosServidor);
 					break;
 
