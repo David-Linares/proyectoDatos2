@@ -88,7 +88,7 @@ public class SubastaCliente extends JFrame {
 		panelSubastaCliente.setEditable(false);
 		setResizable(false);
 	
-		setTitle("Subasta Cliente: " + General.getConexCliente().getClienteConectado().getNombre().toLowerCase().toLowerCase().trim());
+		//setTitle("Subasta Cliente: " + General.getConexCliente().getClienteConectado().getNombre().toLowerCase().toLowerCase().trim());
 	
 		setDefaultCloseOperation(0);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(SubastaCliente.class.getResource("/images/customer.png")));
@@ -167,9 +167,9 @@ public class SubastaCliente extends JFrame {
 			}
 		});
 		contentPane.add(btnNewButton_1);
-
-		JLabel lblMontoCliente = new JLabel("Monto Disponible: "
-				+ General.getConexCliente().getClienteConectado().getMonto());
+		JLabel lblMontoCliente = new JLabel("");
+		//JLabel lblMontoCliente = new JLabel("Monto Disponible: "
+				//+ General.getConexCliente().getClienteConectado().getMonto());
 		lblMontoCliente.setForeground(new Color(255, 255, 255));
 		lblMontoCliente.setBounds(10, 13, 443, 21);
 		lblMontoCliente.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 15));

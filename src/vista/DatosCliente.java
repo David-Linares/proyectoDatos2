@@ -204,12 +204,16 @@ public class DatosCliente extends JFrame {
 		if (validacion()) {
 			try {
 				Cliente nuevoCliente = new Cliente(tfNickCliente.getText().toLowerCase().trim(),Long.parseLong(tfMontoCliente.getText()));
+				System.out.println("DC / "+nuevoCliente);
+				System.out.println("DC / antes: "+General.getConexCliente());
 				if (General.getConexCliente() != null) {
 					General.getConexCliente().setClienteConectado(nuevoCliente);
-					panelSubastaCliente = new SubastaCliente();					
+					System.out.println("DC / después: "+General.getConexCliente());
+					panelSubastaCliente = new SubastaCliente();
 					General.setPanelSubastaCliente(panelSubastaCliente.getPanelSubasta());
 					General.getConexCliente().setVentanaCliente(panelSubastaCliente);
-					General.getConexCliente().enviarDatosCliente(2, nuevoCliente);
+					System.out.println("DC / final antes de enviar: "+General.getConexCliente());
+					System.out.println("DC / socket antes de enviar: "+General.getConexCliente().getSocketCliente());
 				}
 				//JOptionPane.showMessageDialog(new JFrame(), "Datos cliente / "+General.getListadoConectados());
 				panelSubastaCliente.getListConectados().setModel(General.getListadoConectados());

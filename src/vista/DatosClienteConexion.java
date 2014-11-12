@@ -150,6 +150,7 @@ public class DatosClienteConexion extends JFrame {
 					General.setConexCliente(new ConexionCliente(puerto, ip));
 					DatosCliente pcliente = new DatosCliente();
 					General.setVentanaDatosCliente(pcliente);
+					System.out.println("DCC / "+General.getConexCliente());
 					General.getConexCliente().start();
 					setVisible(false);
 					pcliente.setVisible(true);

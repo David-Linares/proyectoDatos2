@@ -29,7 +29,7 @@ public class ConexionCliente extends Thread {
 	/* CONSTRUCTOR DE ConexionCliente, QUE RECIBE COMO PARÁMETRO 
 	UN PUERTO TIPO INT, UNA IP DE TIPO STRING, Y UN CLIENTECONECTADO 
 	DE TIPO CLIENTE*/
-		public ConexionCliente(int puerto, String ip, Cliente clienteConectado) {
+	public ConexionCliente(int puerto, String ip, Cliente clienteConectado) {
 		this.ipCliente = ip;
 		this.puertoCliente = puerto;
 		this.clienteConectado = clienteConectado;
@@ -69,20 +69,23 @@ public class ConexionCliente extends Thread {
 
 		try {
 			SocketCliente = new Socket(ipCliente, puertoCliente);
-			objetoEntrada = new ObjectInputStream(SocketCliente.getInputStream());
 			enviarDatosCliente(1, null);
+			objetoEntrada = new ObjectInputStream(SocketCliente.getInputStream());
 			verificaConectado = true;
 			while (verificaConectado) {
 				//LEE Y SEPARA LA ENTRADA DE DATOS SEGUN EL TIPO
 				int operacion = objetoEntrada.readInt();
 				Object eMensaje = objetoEntrada.readObject();
+				System.out.println("CC / "+General.getConexCliente() + " " + operacion + " " + eMensaje);
+				
 			switch (operacion) {
 				
 	     		/* RECIBE EL ARRAYLIST QUE LLEGA DE ConexionClienteServidor
 				 CON LA INFORMACION DE LISTADO DE CONECTADOS Y EL PRODUCTO
 			    PARA ACTUALIZARLO AL CLIENTE EN ELA VENTANA DatosCliente
 			    LA CONEXION DEL CLIENTE LA CREA EN UN LISTADO DE CONECTADOS TEMPORAL*/
-				case 1: 
+				case 1:
+					
 					ArrayList datos = (ArrayList) eMensaje;
 					General.setListadoConectadosTemp((DefaultListModel) datos.get(0));
 					General.setProductoSeleccionado((Producto) datos.get(1));
@@ -93,6 +96,7 @@ public class ConexionCliente extends Thread {
 				/*AGREGAR UN NUEVO CLIENTE - RECIBE EL CLIENTE Y LO AGREGA AL MODELOS DE LISTADO 
 				 DE CONECTADOS */
 				case 2:
+					System.out.println("CC / "+ventanaCliente);
 					ventanaCliente.agregarNuevo((Cliente) eMensaje);
 					break;
 				/*RECIBE UN MENSAJE Y LO ENVÍA A LA VENTANA DEL CLIENTE */
@@ -109,7 +113,7 @@ public class ConexionCliente extends Thread {
 					General.setProductoSeleccionado((Producto)eMensaje);
 					ventanaCliente.agregarProductoEnSubasta((Producto) eMensaje);
 					break;
-				/*NOTIFICA DE UN FIN DE SUBASTA CLIENTE */	
+				/* NOTIFICA DE UN FIN DE SUBASTA CLIENTE */
 				case 6: 
 					ventanaCliente.finSubasta((String) eMensaje);
 					break;
@@ -148,6 +152,7 @@ public class ConexionCliente extends Thread {
 	 PARA QUE SE EJECUTE UNA ACCIÓN SEGUN EL CASO - OPERACION */
 	public void enviarDatosCliente(int operacion, Object valor) {
 		try {
+			System.out.println("CC / "+SocketCliente);
 			ObjectOutputStream salida = new ObjectOutputStream(SocketCliente.getOutputStream());
 			salida.writeInt(operacion);
 			salida.writeObject(valor);
@@ -158,6 +163,21 @@ public class ConexionCliente extends Thread {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "ConexionCliente [clienteConectado=" + clienteConectado
+				+ ", puertoCliente=" + puertoCliente + ", ipCliente="
+				+ ipCliente + ", ventanaCliente=" + ventanaCliente + "]";
+	}
+
+	public Socket getSocketCliente() {
+		return SocketCliente;
+	}
+
+	public void setSocketCliente(Socket socketCliente) {
+		SocketCliente = socketCliente;
+	}
+	
 	
 
 }

@@ -45,9 +45,7 @@ public class ConexionClienteServidor extends Thread {
 	}
 
 	public String toString() {
-		return "Conexion [s=" + socketClienteServidor + ", salida="
-				+ objetoSalida + ", general=" + general + ", clienteTemp="
-				+ clienteTemporal + "]";
+		return "Conexion [clienteTemp=" + clienteTemporal + "]";
 	}
 
 	/* RECIBE TODOS LOS DATOS QUE LLEGAN DE CLIENTE Y LE RESPONDE SEGUN EL CASO */
@@ -67,11 +65,10 @@ public class ConexionClienteServidor extends Thread {
 				 * PARA ENIAR DATOS A ConexionCliente
 				 */
 				case 1:
-					int posconexion = General.getConexionesTemp().size() - 1;
 					ArrayList datosServidor = new ArrayList();
 					datosServidor.add(General.getListadoConectados());
 					datosServidor.add(General.getProductoSeleccionado());
-					datosServidor.add(posconexion);
+					datosServidor.add(General.getPosicionConexionTemp());
 					entradaDatosConexion(operacion, datosServidor);
 					break;
 
@@ -81,10 +78,12 @@ public class ConexionClienteServidor extends Thread {
 				 * LAS CONEXIONES LA NUEVA CONEXION
 				 */
 				case 2:
+					System.out.println("CCS / antes cliente: "+ clienteTemporal);
 					clienteTemporal = (Cliente) eMensaje;
+					System.out.println("CCS / después cliente: "+ clienteTemporal);
 					ConexionClienteServidor conexTemp = General
 							.getConexionesTemp().get(
-									General.getConexionesTemp().size() - 1);
+									General.getPosicionConexionTemp());
 					conexTemp.setClienteTemp(clienteTemporal);
 					General.nuevaConexion(conexTemp);
 					General.enviarDatos(operacion, eMensaje);

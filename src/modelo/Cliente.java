@@ -39,6 +39,11 @@ public class Cliente implements Serializable {
 	public void setMonto(long monto) {
 		this.monto = monto;
 	}
+	@Override
+	public String toString() {
+		return "Cliente [nombre=" + nombre + ", monto=" + monto + "]";
+	}
+	
 
 	
 }
