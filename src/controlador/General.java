@@ -66,8 +66,8 @@ public class General {
 
 		};
 	}
-	/*MÉTODO ENCARGADO DE CREAR SOLO UNA INSTANCIA A LA VEZ DE LA CLASE
-	ES SINCRONIZADO CON EL FIN DE MANEJAR QUE LOS HILOS QUE ACCEDAN A LA CLASE 
+	/* CREA LA CLASE SINGLETON, EVITA CREAR VARIAS INTANCIAS. SOLO PERMITE UNA A LA VEZ.
+	ES SINCRONIZADO CON EL FIN DE QUE LAS INSTANCIAS QUE SE CREAN ACCEDAN A LA CLASE 
 	SEA DE FORMA ORDENADA*/
 	public static synchronized General getInstance() {
 		if (general == null)
@@ -201,15 +201,15 @@ public class General {
 		return conexiones;
 	}
 
-	// RECORRE TODAS LAS CONEXIONES EXISTENTES Y ENVIA A CONEXION UNA NUEVA
-	// ENTRADA DE DATOS
+	/*RECORRE TODAS LAS CONEXIONES EXISTENTES Y ENVIA A CONEXION UNA NUEVA
+	 ENTRADA DE DATOS*/
 	public static void enviarDatos(int operacion, Object sMensaje) {
 		for (ConexionClienteServidor con : conexiones) {
 			con.entradaDatosConexion(operacion, sMensaje);
 		}
 	}
 
-	// NOTIFICA A UN CLIENTE NUEVO TODAS LAS CONEXIONES EXISTENTES
+	/*NOTIFICA A UN CLIENTE NUEVO TODAS LAS CONEXIONES EXISTENTES*/
 	public static void nuevaConexion(ConexionClienteServidor nuevo) {
 		for (ConexionClienteServidor con : conexiones) {
 			nuevo.entradaDatosConexion(2, con.getClienteTemp());
@@ -271,6 +271,8 @@ public class General {
 		} catch (Exception e) {
 			return false;
 		}
+		
+		
 
 	}
 

@@ -45,10 +45,13 @@ public class ConexionClienteServidor extends Thread {
 	}
 
 	public String toString() {
-		return "Conexion [clienteTemp=" + clienteTemporal + "]";
+		return "Conexion [s=" + socketClienteServidor + ", salida="
+				+ objetoSalida + ", general=" + general + ", clienteTemp="
+				+ clienteTemporal + "]";
 	}
 
-	/* RECIBE TODOS LOS DATOS QUE LLEGAN DE CLIENTE Y LE RESPONDE SEGUN EL CASO */
+	/*RECIBE TODOS LOS DATOS QUE LLEGAN DE CLIENTE Y LE RESPONDE SEGUN EL CASO
+	 ESPERA UNA ENTRADA DE DATOS*/
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	public synchronized void run() {
 		while (true) {
@@ -57,13 +60,10 @@ public class ConexionClienteServidor extends Thread {
 						socketClienteServidor.getInputStream());
 				int operacion = entrada.readInt();
 				Object eMensaje = entrada.readObject();
-				// System.out.println("ConexiÃ³n / ope = "+operacion+" entrada = "+eMensaje);
 				switch (operacion) {
 
-				/*
-				 * RECIBE UNA CLASE CONEXION SIN CLIENTE SE CREA EL ARRAYLIST
-				 * PARA ENIAR DATOS A ConexionCliente
-				 */
+				/*RECIBE UNA CONEXION SIN CLIENTE Y CREA EL ARRAYLIST CON EL
+				 LISTADO DE CONECTADOS Y EL PRODUCTO PARA ENIAR DATOS A CONEXIONCLIENTE*/
 				case 1:
 					ArrayList datosServidor = new ArrayList();
 					datosServidor.add(General.getListadoConectados());
@@ -77,7 +77,7 @@ public class ConexionClienteServidor extends Thread {
 				 * SERVIDOR, AGREGADA AL LISTADO DE CONECTADOS Y NOTICA A TODAS
 				 * LAS CONEXIONES LA NUEVA CONEXION
 				 */
-				case 2:
+				/*case 2:
 					System.out.println("CCS / antes cliente: "+ clienteTemporal);
 					clienteTemporal = (Cliente) eMensaje;
 					System.out.println("CCS / después cliente: "+ clienteTemporal);
@@ -91,49 +91,53 @@ public class ConexionClienteServidor extends Thread {
 							.getTpMensajesSubasta()
 							.setText(
 									General.getVentanaServidor()
-											.getTpMensajesSubasta().getText()
+											.getTpMensajesSubasta().getText()*/
+				/**/
+				case 2:
+					clienteTemporal = (Cliente) eMensaje;
+					General.getConexionTemp().setClienteTemp(clienteTemporal);
+					General.nuevaConexion(General.getConexionTemp());
+					General.enviarDatos(operacion, eMensaje);
+					General.getVentanaServidor()
+							.getTpMensajesSubastaVendedor()
+							.setText(
+									General.getVentanaServidor()
+											.getTpMensajesSubastaVendedor().getText()
 											+ clienteTemporal.getNombre()
 											+ " se conect\u00f3 \n");
 					General.getListadoConectados().addElement(
 							clienteTemporal.getNombre());
 					break;
-
-				/*
-				 * ENVÌA A LA VENTADA DEL SERVIDOR EL NUEVO OFRECIMIENTO DE UN
-				 * CLIENTE Y NOTIFICA A TODOS LOS CLIENTES DE ESE MISMO
-				 * OFRECIMIENTO
-				 */
+				/* ENVIA A LA VENTANA DEL SERVIDOR EL NUEVO OFRECIMIENTO DE UN
+				 CLIENTE Y NOTIFICA A TODOS LOS CLIENTES DE ESE MISMO OFRECIMIENTO*/
 				case 3:
 					eMensaje = this.clienteTemporal.getNombre() + " ofrece: "
 							+ eMensaje;
 					General.enviarDatos(operacion, (String) eMensaje);
 					General.getVentanaServidor()
-							.getTpMensajesSubasta()
+							.getTpMensajesSubastaVendedor()
 							.setText(
 									General.getVentanaServidor()
-											.getTpMensajesSubasta().getText()
+											.getTpMensajesSubastaVendedor().getText()
 											+ (String) eMensaje + "\n");
 					break;
-				/*
-				 * NOTIFICA AL SERVIDOR QUE UN CLIENTE SE HA DESCONECTADO Y DEL
-				 * LISTADO DEL SERVIDOR ELIMINA EL CLIENTE
-				 */
+
+				/*NOTIFICA AL SERVIDOR QUE UN CLIENTE SE HA DESCONECTADO Y DEL
+				 LISTADO DE CONECTADOS DEL SERVIDOR ELIMINA EL CLIENTE*/
 				case 4:
 					General.getVentanaServidor().borrarCliente(
 							(String) eMensaje);
 					general.desconecta(this);
 					General.getVentanaServidor()
-							.getTpMensajesSubasta()
+							.getTpMensajesSubastaVendedor()
 							.setText(
 									General.getVentanaServidor()
-											.getTpMensajesSubasta().getText()
+											.getTpMensajesSubastaVendedor().getText()
 											+ clienteTemporal.getNombre()
 											+ " se desconect\u00f3 \n");
 					break;
-				/*
-				 * NOTIFICA A TODAS LAS CONEXIONES EL PRODUCTO SELECCIONADO Y
-				 * ENVÌA AL SERVIDOR EL PRODUCTO QUE SE HA SELECCIONADO
-				 */
+
+				/*ACTUALIZA EL VALOR DEL PRODUCTO UNA VEZ SE HA OFERTADO A LOS CLIENTES SERVIDOR */
 				case 5:
 					eMensaje = (Producto) eMensaje;
 					General.enviarDatos(operacion, eMensaje);
@@ -147,10 +151,8 @@ public class ConexionClienteServidor extends Thread {
 											+ General.getProductoSeleccionado()
 													.getValor());
 					break;
-				/*
-				 * INICIALIZA EL RELOJ UNA VEZ HAY UN OFRECIMIENTO Y CUANDO ES 3
-				 * NOTIFICA QUE LA SUBASTA SE HA ACABADO
-				 */
+				/*INICIALIZA EL RELOJ UNA VEZ HAY UN OFRECIMIENTO Y CUANDO ES 3
+				 NOTIFICA QUE LA SUBASTA SE HA ACABADO*/
 				case 6:
 					Temporizador reloj = new Temporizador(3, 0);
 					if (General.getReloj() != null)
@@ -168,19 +170,17 @@ public class ConexionClienteServidor extends Thread {
 								+ e.getMessage());
 			}
 		}
+			
+		
 	}
 
-	// ESCRIBE LOS DATOS DE ENTRADA AL CLIENTE - CLASE ConexionCliente
+	/*ESCRIBE LOS DATOS DE ENTRADA AL CLIENTE - CLASE CONEXIONCLIENTE*/
 	public void entradaDatosConexion(int operacion, Object sMensaje) {
 		try {
 			objetoSalida.writeInt(operacion);
 			objetoSalida.writeObject(sMensaje);
 		} catch (Exception e) {
-			e.printStackTrace();
-			// JOptionPane.showMessageDialog(
-			// new JFrame(),
-			// "Conexion / Se produjo un error en la llegada "
-			// + e.getMessage());
+			JOptionPane.showMessageDialog( new JFrame(), "Se produjo un error en la ENTRADA DE DATOS " + e.getMessage());
 		}
 	}
 

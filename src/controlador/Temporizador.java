@@ -74,7 +74,7 @@ public class Temporizador extends Thread implements Serializable {
 		}
 	}
 
-	/*DETERMINA QUE TAN RÁPIDO VA A CONTAR EL TIEMPO DEL RELOJ*/
+	/*DUERME EL HILO PARA LLEVAR UN CONTROL DE TIEMPO*/
 	public static void retraso() {
 		try {
 			Thread.sleep(200);

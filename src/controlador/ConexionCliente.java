@@ -96,7 +96,6 @@ public class ConexionCliente extends Thread {
 				/*AGREGAR UN NUEVO CLIENTE - RECIBE EL CLIENTE Y LO AGREGA AL MODELOS DE LISTADO 
 				 DE CONECTADOS */
 				case 2:
-					System.out.println("CC / "+ventanaCliente);
 					ventanaCliente.agregarNuevo((Cliente) eMensaje);
 					break;
 				/*RECIBE UN MENSAJE Y LO ENVÍA A LA VENTANA DEL CLIENTE */
@@ -123,18 +122,20 @@ public class ConexionCliente extends Thread {
 			System.out.println(e);
 			System.out.println(e.getMessage());
 			JOptionPane.showMessageDialog(ventanaCliente,
-					"CCCliente / Host desconocido " + e.getMessage());
+					"No se encuentra el Servidor, Vuelva a digitar la IP " + e.getMessage());
 
 			e.printStackTrace();
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(ventanaCliente,
-					"CCCliente / IOException " + e.getMessage());
+					"CCliente / IOException " + e.getMessage());
 		} catch (ClassNotFoundException e) {
 			System.out.println(e);
 			System.out.println(e.getMessage());
 			JOptionPane.showMessageDialog(ventanaCliente,
-					"CCCliente / ClassNotFound " + e.getMessage());
+					"CCliente / ClassNotFound " + e.getMessage());
 		}
+		
+	
 	}
 
 	/*RECIBE EL MONTO DEL NUEVO OFRECIMIENTO DEL CLIENTE E INICIA EL RELOG CADA VEZ QUE LE LLEGA UN MENSAJE */
