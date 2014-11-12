@@ -1,7 +1,6 @@
 package controlador;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;

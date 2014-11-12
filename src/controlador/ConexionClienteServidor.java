@@ -52,7 +52,7 @@ public class ConexionClienteServidor extends Thread {
 
 	/*RECIBE TODOS LOS DATOS QUE LLEGAN DE CLIENTE Y LE RESPONDE SEGUN EL CASO
 	 ESPERA UNA ENTRADA DE DATOS*/
-	@SuppressWarnings({ "unchecked", "deprecation" })
+	@SuppressWarnings({ "unchecked", "deprecation", "rawtypes" })
 	public synchronized void run() {
 		while (true) {
 			try {
