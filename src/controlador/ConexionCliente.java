@@ -8,6 +8,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import modelo.Cliente;
@@ -99,7 +100,7 @@ public class ConexionCliente extends Thread {
 					ventanaCliente.agregarNuevo((Cliente) eMensaje);
 					break;
 				/*RECIBE UN MENSAJE Y LO ENVÍA A LA VENTANA DEL CLIENTE */
-				case 3: 
+				case 3:
 					ventanaCliente.mensajeRecibido((String) eMensaje);
 					break;
 				/*ELIMINA EL CLIENTE DEL LISTADO DE CONECTADOS*/
