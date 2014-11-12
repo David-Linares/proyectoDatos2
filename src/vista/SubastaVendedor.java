@@ -29,33 +29,34 @@ import java.awt.Color;
 
 import javax.swing.JTextArea;
 
-
 @SuppressWarnings("serial")
-public class VendedorSubasta extends JFrame {
+public class SubastaVendedor extends JFrame {
 
-	private JPanel contentPane;
-	@SuppressWarnings("rawtypes")
-	private JList listConectados = new JList();
-	private JLabel labelIp;
-	private JTextPane tpMensajesSubastaVendedor = new JTextPane();
-	private JScrollPane scrollPanel = new JScrollPane(tpMensajesSubastaVendedor);
+	/* ATRIBUTOS */
 	General general = General.getInstance();
-	private JScrollPane scrollLista = new JScrollPane();
-	private JLabel lblProductoSubastado;
-	private JLabel lblReloj;
-	private JTextArea tAProductoDescripcion = new JTextArea(); 
-	private JScrollPane scrollProductoDescripcion = new JScrollPane(tAProductoDescripcion);
+
 	@SuppressWarnings("unused")
 	private Principal regreso;
-	
-	/**
-	 * Launch the application.
-	 */
+
+	private JPanel contentPane;
+	private JLabel labelIp;
+	private JLabel lblProductoSubastado;
+	private JLabel lblReloj;
+	private JTextPane tpMensajesSubastaVendedor = new JTextPane();
+	private JScrollPane scrollPanel = new JScrollPane(tpMensajesSubastaVendedor);
+	private JTextArea tAProductoDescripcion = new JTextArea();
+	private JScrollPane scrollProductoDescripcion = new JScrollPane(
+			tAProductoDescripcion);
+	@SuppressWarnings("rawtypes")
+	private JList listConectados = new JList();
+	private JScrollPane scrollLista = new JScrollPane(listConectados);
+
+	/* SE CREA EL MARCO */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VendedorSubasta frame = new VendedorSubasta();
+					SubastaVendedor frame = new SubastaVendedor();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -64,30 +65,24 @@ public class VendedorSubasta extends JFrame {
 		});
 	}
 
-	
-	
 	@SuppressWarnings("rawtypes")
 	public JList getListConectados() {
 		return listConectados;
 	}
-
-
 
 	@SuppressWarnings("rawtypes")
 	public void setListConectados(JList listConectados) {
 		this.listConectados = listConectados;
 	}
 
-
-
-	public JTextPane getTpMensajesSubasta() {
+	public JTextPane getTpMensajesSubastaVendedor() {
 		return tpMensajesSubastaVendedor;
 	}
-	
+
 	public JLabel getLblProductoSubastado() {
 		return lblProductoSubastado;
 	}
-	
+
 	public JLabel getLblReloj() {
 		return lblReloj;
 	}
@@ -96,22 +91,21 @@ public class VendedorSubasta extends JFrame {
 		this.lblReloj = lblReloj;
 	}
 
-
-
 	@SuppressWarnings("unchecked")
-	public VendedorSubasta() {
+	public SubastaVendedor() {
 		setFont(new Font("Calibri", Font.BOLD, 12));
 		setResizable(false);
 		tpMensajesSubastaVendedor.setForeground(new Color(51, 102, 255));
 		tpMensajesSubastaVendedor.setFont(new Font("SansSerif", Font.BOLD, 12));
 		tpMensajesSubastaVendedor.setEditable(false);
 		setTitle("Subasta Vendedor");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VendedorSubasta.class.getResource("/images/martillo.png")));
+		setDefaultCloseOperation(0);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(
+				SubastaVendedor.class.getResource("/images/martillo.png")));
 		setBounds(100, 100, 563, 452);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(100,149,237));
-		contentPane.setForeground(new Color(100,149,237));
+		contentPane.setBackground(new Color(100, 149, 237));
+		contentPane.setForeground(new Color(100, 149, 237));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -125,36 +119,37 @@ public class VendedorSubasta extends JFrame {
 
 		listConectados.setModel(General.getListadoConectados());
 
-		JButton btnNewButton = new JButton("Finalizar Subasta");
-		btnNewButton.setBackground(new Color(255, 255, 255));
-		btnNewButton.setForeground(new Color(51, 102, 255));
-		btnNewButton.setFont(new Font("Kristen ITC", Font.BOLD, 15));
-		btnNewButton.addActionListener(new ActionListener() {
-		
+		JButton btnFinalizarSubasta = new JButton("Finalizar Subasta");
+		btnFinalizarSubasta.setBackground(new Color(255, 255, 255));
+		btnFinalizarSubasta.setForeground(new Color(51, 102, 255));
+		btnFinalizarSubasta.setFont(new Font("Kristen ITC", Font.BOLD, 15));
+		btnFinalizarSubasta.addActionListener(new ActionListener() {
+			/*
+			 * FINALIZA LA SUBASTA CUANDO EL VENDEDOR LO DESEE O SE ACABE EL
+			 * TIEMPO Y LO DEVUELVE A LA VENTANA PRINCIPAL PARA UNA NUEVA
+			 * SUBASTA
+			 */
 			public void actionPerformed(ActionEvent arg0) {
-				//System.exit(0);
-			
+				// System.exit(0);
 				Principal regreso = new Principal();
 				setVisible(false);
-				
 				regreso.setVisible(true);
-				dispose();
-				
 			}
 		});
-		btnNewButton.setBounds(352, 382, 197, 29);
-		contentPane.add(btnNewButton);
-		
+		btnFinalizarSubasta.setBounds(352, 382, 197, 29);
+		contentPane.add(btnFinalizarSubasta);
+
 		lblProductoSubastado = new JLabel();
 		lblProductoSubastado.setForeground(new Color(255, 255, 255));
 		lblProductoSubastado.setFont(new Font("Kristen ITC", Font.BOLD, 15));
 		lblProductoSubastado.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProductoSubastado.setBounds(10, 11, 396, 42);
+		lblProductoSubastado.setText(General.getProductoSeleccionado()
+				.getNombre()
+				+ " = "
+				+ General.getProductoSeleccionado().getValor());
 		contentPane.add(lblProductoSubastado);
 
-		lblProductoSubastado.setText(General.getProductoSeleccionado().getNombre()
-				+ " = " + General.getProductoSeleccionado().getValor());
-		
 		try {
 			labelIp = new JLabel("IP: "
 					+ InetAddress.getLocalHost().getHostAddress());
@@ -166,43 +161,49 @@ public class VendedorSubasta extends JFrame {
 			scrollPanel.setAutoscrolls(true);
 			scrollPanel.setBounds(10, 116, 396, 254);
 			contentPane.add(scrollPanel);
-			
+
 			lblReloj = new JLabel();
 			lblReloj.setForeground(new Color(255, 255, 255));
 			lblReloj.setHorizontalAlignment(SwingConstants.CENTER);
 			lblReloj.setFont(new Font("SansSerif", Font.BOLD, 18));
 			lblReloj.setBounds(418, 11, 121, 42);
 			contentPane.add(lblReloj);
-			
-			
-			scrollProductoDescripcion.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
-			scrollProductoDescripcion.setBackground(new Color(100,149,237));
+
+			scrollProductoDescripcion.setFont(new Font("Berlin Sans FB Demi",
+					Font.PLAIN, 14));
+			scrollProductoDescripcion.setBackground(new Color(100, 149, 237));
 			tAProductoDescripcion.setBorder(null);
-			tAProductoDescripcion.setBackground(new Color(100,149,237));
-			tAProductoDescripcion.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+			tAProductoDescripcion.setBackground(new Color(100, 149, 237));
+			tAProductoDescripcion.setFont(new Font("Berlin Sans FB Demi",
+					Font.PLAIN, 14));
 			tAProductoDescripcion.setWrapStyleWord(true);
 			tAProductoDescripcion.setLineWrap(true);
 			tAProductoDescripcion.setForeground(new Color(255, 255, 255));
 			tAProductoDescripcion.setEditable(false);
 			scrollProductoDescripcion.setBounds(10, 57, 396, 56);
 			contentPane.add(scrollProductoDescripcion);
-			tAProductoDescripcion.setText("Descripción de Producto: "+General.getProductoSeleccionado().getDescripcion());
-		
-			
+			tAProductoDescripcion.setText("Descripción de Producto: "
+					+ General.getProductoSeleccionado().getDescripcion());
+
 		} catch (UnknownHostException e) {
 			JOptionPane.showMessageDialog(new JFrame(),
 					"SubastaVendedor / Se produjo un error " + e.getMessage());
 		}
 	}
 
+	/* IMPRIME AL CLIENTE EL MENSAJE QUE RECIBE */
 	public void mensajeRecibido(String nuevoMensaje) {
-		tpMensajesSubastaVendedor.setText(tpMensajesSubastaVendedor.getText() + nuevoMensaje
-				+ "\n");
+		tpMensajesSubastaVendedor.setText(tpMensajesSubastaVendedor.getText()
+				+ nuevoMensaje + "\n");
 	}
-	
+
+	/*
+	 * RECIBE UN NOMBRE DE UN CLIENTE, TRAE LA POSICION DEL MISMO Y LO ELIMINA
+	 * DEL LISTADO DE CONECTADOS
+	 */
 	public void borrarCliente(String nombre) {
 		int pos = General.getListadoConectados().indexOf(nombre);
 		General.getListadoConectados().remove(pos);
-		
+
 	}
 }

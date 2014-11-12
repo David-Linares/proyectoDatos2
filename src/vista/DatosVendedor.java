@@ -162,7 +162,7 @@ public class DatosVendedor extends JFrame {
 						int puerto = Integer.parseInt(textFieldPuerto.getText());
 						try{
 							General.setServidor(new ConexionServidor(puerto));
-							VendedorSubasta principalSubasta = new VendedorSubasta();
+							SubastaVendedor principalSubasta = new SubastaVendedor();
 							General.setVentanaServidor(principalSubasta);
 							General.getServidor().start();
 							setVisible(false);

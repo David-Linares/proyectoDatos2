@@ -6,18 +6,17 @@ import java.io.Serializable;
 
 public class Cliente implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1827287870763275550L;
 	
+	/*ATRIBUTOS*/
 	private String nombre;
 	private long monto;
-			
+	
+	/*CONSTRUCTOR DE LA CLASE SIN PARAMETROS*/
 	public Cliente() {
 		super();
 	}
-
+	/*CONSTRUCTOR DE LA CLASE RECIBE POR PARAMETRO NOMBRE Y MONTO*/
 	public Cliente(String nombre, long monto) {
 		super();
 		this.nombre = nombre;
@@ -40,6 +39,11 @@ public class Cliente implements Serializable {
 	public void setMonto(long monto) {
 		this.monto = monto;
 	}
+	@Override
+	public String toString() {
+		return "Cliente [nombre=" + nombre + ", monto=" + monto + "]";
+	}
+	
 
 	
 }

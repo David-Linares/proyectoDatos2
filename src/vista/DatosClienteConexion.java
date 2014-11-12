@@ -27,12 +27,13 @@ import java.awt.Color;
 @SuppressWarnings("serial")
 public class DatosClienteConexion extends JFrame {
 
-	
-	ClienteSubasta psubasta;
-	private JPanel contentPane;
-	private JTextField tfIp;
-	private JTextField tfPuerto;
+	/*ATRIBUTOS*/
+	SubastaCliente psubasta;
 	General general = General.getInstance();
+	
+	private JPanel contentPane;
+	private JTextField tfIpDatosConexion;
+	private JTextField tfPuertoDatosConexion;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -47,9 +48,7 @@ public class DatosClienteConexion extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	/*CREAR EL MARCO*/
 	public DatosClienteConexion() {
 		setResizable(false);
 		setFont(new Font("Calibri", Font.BOLD, 12));
@@ -70,16 +69,23 @@ public class DatosClienteConexion extends JFrame {
 		label.setBounds(90, 11, 247, 34);
 		contentPane.add(label);
 
-		JLabel lblIpPConexion = new JLabel("Indique la Ip del Servidor");
-		lblIpPConexion.setForeground(new Color(255, 255, 255));
-		lblIpPConexion.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblIpPConexion.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
-		lblIpPConexion.setBounds(28, 57, 154, 23);
-		contentPane.add(lblIpPConexion);
+		JLabel lblIpDatosConexion = new JLabel("Indique la Ip del Servidor");
+		lblIpDatosConexion.setForeground(new Color(255, 255, 255));
+		lblIpDatosConexion.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblIpDatosConexion.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		lblIpDatosConexion.setBounds(28, 57, 154, 23);
+		contentPane.add(lblIpDatosConexion);
 
-		tfIp = new JTextField("127.0.0.1");
-		tfIp.setForeground(new Color(51, 102, 255));
-		tfIp.addKeyListener(new KeyAdapter() {
+		JLabel lblPuertoDatosConexion = new JLabel("Indique el Puerto");
+		lblPuertoDatosConexion.setForeground(new Color(255, 255, 255));
+		lblPuertoDatosConexion.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblPuertoDatosConexion.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		lblPuertoDatosConexion.setBounds(38, 92, 144, 23);
+		contentPane.add(lblPuertoDatosConexion);
+		
+		tfIpDatosConexion = new JTextField("127.0.0.1");
+		tfIpDatosConexion.setForeground(new Color(51, 102, 255));
+		tfIpDatosConexion.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == 10) {
@@ -95,63 +101,57 @@ public class DatosClienteConexion extends JFrame {
 				
 			}
 		});
-		tfIp.setFont(new Font("SansSerif", Font.BOLD, 12));
-		tfIp.setColumns(10);
-		tfIp.setBounds(200, 57, 209, 23);
-		contentPane.add(tfIp);
-
-		JLabel lblPuertoConexion = new JLabel("Indique el Puerto");
-		lblPuertoConexion.setForeground(new Color(255, 255, 255));
-		lblPuertoConexion.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPuertoConexion.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
-		lblPuertoConexion.setBounds(38, 92, 144, 23);
-		contentPane.add(lblPuertoConexion);
-
-		tfPuerto = new JTextField("8090");
-		tfPuerto.setForeground(new Color(51, 102, 255));
-		tfPuerto.addKeyListener(new KeyAdapter() {
-			@Override
+		tfIpDatosConexion.setFont(new Font("SansSerif", Font.BOLD, 12));
+		tfIpDatosConexion.setColumns(10);
+		tfIpDatosConexion.setBounds(200, 57, 209, 23);
+		contentPane.add(tfIpDatosConexion);
+	
+		tfPuertoDatosConexion = new JTextField("8090");
+		tfPuertoDatosConexion.setForeground(new Color(51, 102, 255));
+		tfPuertoDatosConexion.addKeyListener(new KeyAdapter() {
+			/* SE VALIDA QUE EL PUERTO NO EXCEDA LOS 5 CARACTERES Y 
+			 ESTE SEAN SOLO NÚMEROS*/
 			public void keyTyped(java.awt.event.KeyEvent evt) {
 				char car = evt.getKeyChar();
-				if (tfPuerto.getText().length() >= 5)
+				if (tfPuertoDatosConexion.getText().length() >= 5)
 					evt.consume();
 				if ((car < '0' || car > '9')) {
 					evt.consume();
 				}
 			}
 		});
-		tfPuerto.setFont(new Font("SansSerif", Font.BOLD, 12));
-		tfPuerto.setColumns(10);
-		tfPuerto.setBounds(200, 92, 209, 23);
-		contentPane.add(tfPuerto);
+		tfPuertoDatosConexion.setFont(new Font("SansSerif", Font.BOLD, 12));
+		tfPuertoDatosConexion.setColumns(10);
+		tfPuertoDatosConexion.setBounds(200, 92, 209, 23);
+		contentPane.add(tfPuertoDatosConexion);
 		
-
-		JButton btnConectarme = new JButton("Conectarme");
-		btnConectarme.setBackground(new Color(255, 255, 255));
-		btnConectarme.setForeground(new Color(51,102,255));
-		btnConectarme.setFont(new Font("Kristen ITC", Font.BOLD, 15));
-		btnConectarme.addActionListener(new ActionListener() {
+		JButton btnConectarmeDatosConexion = new JButton("Conectarme");
+		btnConectarmeDatosConexion.setBackground(new Color(255, 255, 255));
+		btnConectarmeDatosConexion.setForeground(new Color(51,102,255));
+		btnConectarmeDatosConexion.setFont(new Font("Kristen ITC", Font.BOLD, 15));
+		btnConectarmeDatosConexion.addActionListener(new ActionListener() {
+			/*BOTON DE CONECTARME CREA EL CLIENTE E INICIA LA SUBASTA PARA ESE CLIENTE*/
 			public void actionPerformed(ActionEvent arg0) {
 				iniciarConexion();
 			}
 			
 		});
-		btnConectarme.setBounds(102, 136, 224, 34);
-		contentPane.add(btnConectarme);
+		btnConectarmeDatosConexion.setBounds(102, 136, 224, 34);
+		contentPane.add(btnConectarmeDatosConexion);
 	}
-
+	/*CREA EL CLIENTE CON LA CONEXION QUE SE CREO EN DATOS CLIENTE CONEXION*/
 	private void iniciarConexion() {
 		if (validacion()) {
 			try {
 				//JOptionPane.showMessageDialog(new JFrame(), "PConexion / Entrï¿½ a Iniciar Conexiï¿½n");
-				int puerto = Integer.parseInt(tfPuerto.getText());
-				String ip = tfIp.getText();
-				System.out.println("PConexion / " + General.getCliente());
-				if (General.getCliente() == null) {
-					General.setCliente(new ConexionCliente(puerto, ip));
+				int puerto = Integer.parseInt(tfPuertoDatosConexion.getText());
+				String ip = tfIpDatosConexion.getText();
+				if (General.getConexCliente() == null) {
+					General.setConexCliente(new ConexionCliente(puerto, ip));
 					DatosCliente pcliente = new DatosCliente();
 					General.setVentanaDatosCliente(pcliente);
-					General.getCliente().start();
+					System.out.println("DCC / "+General.getConexCliente());
+					General.getConexCliente().start();
 					setVisible(false);
 					pcliente.setVisible(true);
 				}
@@ -165,9 +165,10 @@ public class DatosClienteConexion extends JFrame {
 		}
 	}
 
+	/*VALIDA SI LOS DATOS INGRESADOS SE HAN DIGITADO */
 	private boolean validacion() {
-		String ipV = this.tfIp.getText();
-		String puertoV = this.tfPuerto.getText();
+		String ipV = this.tfIpDatosConexion.getText();
+		String puertoV = this.tfPuertoDatosConexion.getText();
 
 		String mensajeV = "";
 
@@ -175,13 +176,13 @@ public class DatosClienteConexion extends JFrame {
 			mensajeV = "\u00A1Debe escribir la IP!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
 					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
-			tfIp.requestFocus();
+			tfIpDatosConexion.requestFocus();
 			return false;
 		} else if (puertoV.equals("")) {
 			mensajeV = "\u00A1Debe escribir el n\u00famero de puerto!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
 					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
-			tfPuerto.requestFocus();
+			tfPuertoDatosConexion.requestFocus();
 			return false;
 		} else {
 			return true;
