@@ -79,10 +79,10 @@ public class ConexionClienteServidor extends Thread {
 					General.nuevaConexion(General.getConexionTemp());
 					General.enviarDatos(operacion, eMensaje);
 					General.getVentanaServidor()
-							.getTpMensajesSubasta()
+							.getTpMensajesSubastaVendedor()
 							.setText(
 									General.getVentanaServidor()
-											.getTpMensajesSubasta().getText()
+											.getTpMensajesSubastaVendedor().getText()
 											+ clienteTemporal.getNombre()
 											+ " se conect\u00f3 \n");
 					General.getListadoConectados().addElement(
@@ -96,10 +96,10 @@ public class ConexionClienteServidor extends Thread {
 							+ eMensaje;
 					General.enviarDatos(operacion, (String) eMensaje);
 					General.getVentanaServidor()
-							.getTpMensajesSubasta()
+							.getTpMensajesSubastaVendedor()
 							.setText(
 									General.getVentanaServidor()
-											.getTpMensajesSubasta().getText()
+											.getTpMensajesSubastaVendedor().getText()
 											+ (String) eMensaje + "\n");
 					break;
 
@@ -110,10 +110,10 @@ public class ConexionClienteServidor extends Thread {
 							(String) eMensaje);
 					general.desconecta(this);
 					General.getVentanaServidor()
-							.getTpMensajesSubasta()
+							.getTpMensajesSubastaVendedor()
 							.setText(
 									General.getVentanaServidor()
-											.getTpMensajesSubasta().getText()
+											.getTpMensajesSubastaVendedor().getText()
 											+ clienteTemporal.getNombre()
 											+ " se desconect\u00f3 \n");
 					break;

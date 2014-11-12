@@ -228,7 +228,7 @@ public class DatosCliente extends JFrame {
 					General.getConexCliente().setClienteConectado(nuevoCliente);
 					//JOptionPane.showMessageDialog(new JFrame(), "DC / Le asignó el cliente"+General.getCliente().getClienteConectado().getNombre());
 					panelSubastaCliente = new SubastaCliente();
-					General.setPanelSubastaCliente(panelSubastaCliente.getPanelSubasta());
+					General.setPanelSubastaCliente(panelSubastaCliente.getPanelSubastaCliente());
 					General.getConexCliente().setVentanaCliente(panelSubastaCliente);
 				}
 				//JOptionPane.showMessageDialog(new JFrame(), "Datos cliente / "+General.getListadoConectados());

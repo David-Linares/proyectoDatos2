@@ -2,8 +2,6 @@ package controlador;
 
 import java.io.Serializable;
 
-import javax.swing.JOptionPane;
-
 public class Temporizador extends Thread implements Serializable {
 	
 	/*ATRIBUTOS*/
