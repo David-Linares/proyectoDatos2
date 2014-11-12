@@ -211,6 +211,7 @@ public class General {
 
 	// NOTIFICA A UN CLIENTE NUEVO TODAS LAS CONEXIONES EXISTENTES
 	public static void nuevaConexion(ConexionClienteServidor nuevo) {
+		JOptionPane.showMessageDialog(new JFrame(), "general "+conexiones);
 		for (ConexionClienteServidor con : conexiones) {
 			nuevo.entradaDatosConexion(2, con.getClienteTemp());
 		}
