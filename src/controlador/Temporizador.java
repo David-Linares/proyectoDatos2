@@ -67,7 +67,7 @@ public class Temporizador extends Thread implements Serializable {
 				}else if(min == 0 && seg == 0){
 					mensaje = "MENSAJE DE SERVIDOR: A LAS 3!! La subasta ha finalizado!";
 					General.enviarDatos(3,mensaje);
-					General.enviarDatos(6,General.getConexionTemp().getClienteTemp().getNombre());
+					General.enviarDatos(6,General.getGanador().getNombre());
 				}
 			}
 			n++;

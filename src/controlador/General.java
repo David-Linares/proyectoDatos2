@@ -12,6 +12,7 @@ import javax.swing.JTextPane;
 
 import vista.DatosCliente;
 import vista.SubastaVendedor;
+import modelo.Cliente;
 import modelo.Producto;
 
 @SuppressWarnings("rawtypes")
@@ -24,6 +25,7 @@ public class General {
 	private static ArrayList<ConexionClienteServidor> conexionesTemp = new ArrayList<ConexionClienteServidor>();
 	private static Temporizador reloj = null;
 	private static String tiempo;
+	private static Cliente ganador;
 	private static int posicionConexionTemp;
 	private static DefaultListModel listadoConectados = new DefaultListModel();
 	private static DefaultListModel listadoConectadosTemp = new DefaultListModel();
@@ -76,6 +78,12 @@ public class General {
 		return general;
 	}
 		
+	public static Cliente getGanador() {
+		return ganador;
+	}
+	public static void setGanador(Cliente ganador) {
+		General.ganador = ganador;
+	}
 	public static int getPosicionConexionTemp() {
 		return posicionConexionTemp;
 	}

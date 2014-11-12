@@ -113,6 +113,7 @@ public class ConexionClienteServidor extends Thread {
 				case 3:
 					eMensaje = this.clienteTemporal.getNombre() + " ofrece: "
 							+ eMensaje;
+					General.setGanador(this.clienteTemporal);
 					General.enviarDatos(operacion, (String) eMensaje);
 					General.getVentanaServidor()
 							.getTpMensajesSubastaVendedor()
