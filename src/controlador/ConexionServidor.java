@@ -20,7 +20,7 @@ public class ConexionServidor extends Thread {
 		this.puertoServidor = puerto;
 	}
 	
-	/*METODO A LA ESPERA DE MÀS CONEXIONES*/
+	/*METODO A LA ESPERA DE MÁS CONEXIONES*/
 	public void run() {
 		ServerSocket sServidor = null;
 		ConexionClienteServidor nuevaConexion = null;

@@ -26,6 +26,7 @@ import javax.swing.JTextArea;
 import modelo.Cliente;
 
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
 public class DatosCliente extends JFrame {
@@ -42,6 +43,9 @@ public class DatosCliente extends JFrame {
 	private JTextField tfNickCliente;
 	private JTextArea tADescripcionProductoCliente= new JTextArea();
 	private JScrollPane scrollTextArea = new JScrollPane(tADescripcionProductoCliente);
+	private JButton btnSalir;
+	
+	DatosClienteConexion datosCCliente;
 
 	public JLabel getLblProductoSubastaCliente() {
 		return lblProductoSubastaCliente;
@@ -184,6 +188,23 @@ public class DatosCliente extends JFrame {
 		btnIngresarSubastaCliente.setFont(new Font("Kristen ITC", Font.BOLD, 15));
 		btnIngresarSubastaCliente.setBounds(105, 265, 224, 34);
 		contentPane.add(btnIngresarSubastaCliente);
+		
+		btnSalir = new JButton("");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				/*BOTON DE SALIR*/
+				setVisible(false);
+				General.getConexCliente().interrupt();;
+				System.exit(0);
+				}
+		});
+		btnSalir.setIcon(new ImageIcon(DatosCliente.class.getResource("/images/exit.png")));
+		btnSalir.setOpaque(false);
+		btnSalir.setContentAreaFilled(false);
+		btnSalir.setBorderPainted(false);
+		btnSalir.setBorder(null);
+		btnSalir.setBounds(407, 8, 31, 29);
+		contentPane.add(btnSalir);
 		btnIngresarSubastaCliente.addActionListener(new ActionListener() {
 			
 			/*SE CREA EL HILO DE ACUERDO A LA INFORMACION QUE DIGITO Y CADA UNA DE SUS VALIDACIONES*/
@@ -194,9 +215,7 @@ public class DatosCliente extends JFrame {
 		});
 
 	}
-	/*SE CREA UN NUEVO CLIENTE SEGUN LA INFORMACION DIGITADA
-	 SI LA CONEXION NO ESTA NULA ENTONCES A ESA CONEXION SE LE ASIGNA ESE CLIENTE COMO CLIENTECONECTADO, 
-	 SE CREA LA VENTANA DE SUBASTACLIENTE  
+	/*
 	 
 	 */
 	@SuppressWarnings("unchecked")
@@ -277,7 +296,4 @@ public class DatosCliente extends JFrame {
 		}
 
 	}
-
-	
-	
 }

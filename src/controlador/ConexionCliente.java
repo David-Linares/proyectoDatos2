@@ -118,18 +118,20 @@ public class ConexionCliente extends Thread {
 			System.out.println(e);
 			System.out.println(e.getMessage());
 			JOptionPane.showMessageDialog(ventanaCliente,
-					"CCCliente / Host desconocido " + e.getMessage());
+					"No se encuentra el Servidor, Vuelva a digitar la IP " + e.getMessage());
 
 			e.printStackTrace();
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(ventanaCliente,
-					"CCCliente / IOException " + e.getMessage());
+					"CCliente / IOException " + e.getMessage());
 		} catch (ClassNotFoundException e) {
 			System.out.println(e);
 			System.out.println(e.getMessage());
 			JOptionPane.showMessageDialog(ventanaCliente,
-					"CCCliente / ClassNotFound " + e.getMessage());
+					"CCliente / ClassNotFound " + e.getMessage());
 		}
+		
+	
 	}
 
 	/*RECIBE EL MONTO DEL NUEVO OFRECIMIENTO DEL CLIENTE E INICIA EL RELOG CADA VEZ QUE LE LLEGA UN MENSAJE */

@@ -19,7 +19,9 @@ import java.awt.Color;
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
 	
+	/*ATRIBUTOS*/
 	private JButton btnNuevaSubasta;
+	
 	
 	public JButton getBtnNuevaSubasta() {
 		return btnNuevaSubasta;
@@ -41,7 +43,7 @@ public class Principal extends JFrame {
 			}
 		});
 	}
-
+	/*SE CREA EL MARCO*/
 	public Principal() {
 		setForeground(new Color(30, 144, 255));
 		setFont(new Font("Calibri", Font.BOLD, 12));
@@ -70,33 +72,36 @@ public class Principal extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/images/martillo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
+		
 		btnNuevaSubasta = new JButton("Crear nueva Subasta");
 		btnNuevaSubasta.setForeground(new Color(51, 102, 255));
 		btnNuevaSubasta.setBackground(new Color(255, 255, 255));
 		btnNuevaSubasta.setFont(new Font("Kristen ITC", Font.BOLD, 15));
 		btnNuevaSubasta.addActionListener(new ActionListener() {
+			/*EVENTO QUE CREA LA VENTANA DE DATOS VENDEDOR */
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
-				DatosVendedor pvendedor = new DatosVendedor();
-				pvendedor.setVisible(true);
+				DatosVendedor datosVendedor = new DatosVendedor();
+				datosVendedor.setVisible(true);
 			}
 		});
 		btnNuevaSubasta.setBounds(12, 12, 338, 42);
 		getContentPane().add(btnNuevaSubasta);
 		
-		JButton btnNewButton_1 = new JButton("Entrar a la Subasta");
-		btnNewButton_1.setForeground(new Color(51, 102, 255));
-		btnNewButton_1.setBackground(new Color(255, 255, 255));
-		btnNewButton_1.setFont(new Font("Kristen ITC", Font.BOLD, 15));
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnEntrarSubasta = new JButton("Entrar a la Subasta");
+		btnEntrarSubasta.setForeground(new Color(51, 102, 255));
+		btnEntrarSubasta.setBackground(new Color(255, 255, 255));
+		btnEntrarSubasta.setFont(new Font("Kristen ITC", Font.BOLD, 15));
+		btnEntrarSubasta.addActionListener(new ActionListener() {
+			/*EVENTO QUE CREA LA VENTANA DE DATOS CLIENTE CONEXION*/
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
-				DatosClienteConexion pconexion = new DatosClienteConexion();
-				pconexion.setVisible(true);
+				DatosClienteConexion datosClienteConexion = new DatosClienteConexion();
+				datosClienteConexion.setVisible(true);
 			}
 		});
-		btnNewButton_1.setBounds(12, 66, 338, 42);
-		getContentPane().add(btnNewButton_1);
+		btnEntrarSubasta.setBounds(12, 66, 338, 42);
+		getContentPane().add(btnEntrarSubasta);
 	}
 
 	
