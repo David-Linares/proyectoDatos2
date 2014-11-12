@@ -193,6 +193,7 @@ public class DatosCliente extends JFrame {
 		
 		btnSalir = new JButton("");
 		btnSalir.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
 				/*BOTON DE SALIR*/
 				setVisible(false);
@@ -266,7 +267,7 @@ public class DatosCliente extends JFrame {
 		if (nombreV.equals("")) {
 			mensajeV = "\u00A1Debe escribir el nick de usuario!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
-					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
+					JOptionPane.INFORMATION_MESSAGE, General.getIcon("alarm"));
 			tfNickCliente.requestFocus();
 			return false;
 		} else if (General.getListadoConectadosTemp().contains(nombreV)) {
@@ -274,14 +275,14 @@ public class DatosCliente extends JFrame {
 					+ nombreV
 					+ " ya est\u00e1 registrado en la subasta\n Por favor intenta con uno nuevo";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
-					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
+					JOptionPane.INFORMATION_MESSAGE, General.getIcon("alarm"));
 			tfNickCliente.setText("");
 			tfNickCliente.requestFocus();
 			return false;
 		} else if (montoV.equals("")) {
 			mensajeV = "\u00A1Debe escribir el monto!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
-					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
+					JOptionPane.INFORMATION_MESSAGE, General.getIcon("alarm"));
 			tfMontoCliente.requestFocus();
 			return false;
 		} else
@@ -292,13 +293,13 @@ public class DatosCliente extends JFrame {
 			mensajeV = "\u00A1El monto debe ser mayor al valor actual del producto ("
 					+ General.getProductoSeleccionado().getValor() + ")!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
-					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
+					JOptionPane.INFORMATION_MESSAGE, General.getIcon("alarm"));
 
 			return false;
 		} else {
 			JOptionPane.showMessageDialog(null, "Bienvenido a la subasta",
 					"\u00A1Bienvenido! "+nombreV, JOptionPane.INFORMATION_MESSAGE,
-					general.getIcon("confirm"));
+					General.getIcon("confirm"));
 			return true;
 		}
 

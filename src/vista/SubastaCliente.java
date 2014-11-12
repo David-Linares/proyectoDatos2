@@ -238,7 +238,7 @@ public class SubastaCliente extends JFrame {
 						"Realmente deseas salir de la subasta? \n Una vez sales tienes que esperar\n a una pr\u00f3xima subasta para poder ingresar.",
 						"Salir?", JOptionPane.YES_NO_OPTION,
 						JOptionPane.INFORMATION_MESSAGE,
-						general.getIcon("sure"), opciones, opciones[1]);
+						General.getIcon("sure"), opciones, opciones[1]);
 		if (respuesta == JOptionPane.NO_OPTION) {
 			return;
 		}
@@ -253,8 +253,7 @@ public class SubastaCliente extends JFrame {
 
 		General.getListadoConectados().removeAllElements();
 		panelSubastaCliente.setText("");
-		dispose();
-		//System.exit(0);
+		System.exit(0);
 		}
 	
 
@@ -282,14 +281,13 @@ public class SubastaCliente extends JFrame {
 		General.getListadoConectados().remove(posicion);
 	}
 	/*FINALIZAR SUBASTA Y E INDICA CUAL ES EL GANADOR  */
+	@SuppressWarnings("deprecation")
 	public void finSubasta(String ganador){
 		Object[] opciones = { "Aceptar" };
-		int respuesta = JOptionPane.showOptionDialog(new JFrame(),"La subasta ha finalizado \n El ganador es "+ganador,"Ganador", JOptionPane.YES_OPTION,JOptionPane.INFORMATION_MESSAGE,general.getIcon("winner"), opciones, opciones[0]);
+		int respuesta = JOptionPane.showOptionDialog(new JFrame(),"La subasta ha finalizado \n El ganador es "+ganador,"Ganador", JOptionPane.YES_OPTION,JOptionPane.INFORMATION_MESSAGE,General.getIcon("winner"), opciones, opciones[0]);
 		if (respuesta == JOptionPane.YES_OPTION) {
-			General.getConexCliente().interrupt();
-			this.dispose();
-			Principal regreso = new Principal();
-			regreso.setVisible(true);
+			General.getConexCliente().stop();
+			System.exit(0);
 		}
 		}
 

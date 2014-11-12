@@ -8,7 +8,6 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import modelo.Cliente;
@@ -128,7 +127,10 @@ public class ConexionCliente extends Thread {
 			e.printStackTrace();
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(ventanaCliente,
-					"CCliente / IOException " + e.getMessage());
+					"Vaya!! El servidor se ha desconectado.\n Inténtalo más tarde", "Error",
+					JOptionPane.INFORMATION_MESSAGE,
+					General.getIcon("surprise"));
+				System.exit(0);
 		} catch (ClassNotFoundException e) {
 			JOptionPane.showMessageDialog(ventanaCliente,
 					"CCliente / ClassNotFound " + e.getMessage());

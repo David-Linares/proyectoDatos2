@@ -186,7 +186,7 @@ public class DatosVendedor extends JFrame {
 		if (puerto.equals("")) {
 			mensajeV = "\u00A1Debe escribir el n\u00famero de puerto!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
-					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
+					JOptionPane.INFORMATION_MESSAGE, General.getIcon("alarm"));
 			textFieldPuerto.requestFocus();
 			return false;
 		}

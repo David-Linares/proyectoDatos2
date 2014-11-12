@@ -175,13 +175,13 @@ public class DatosClienteConexion extends JFrame {
 		if (ipV.equals("")) {
 			mensajeV = "\u00A1Debe escribir la IP!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
-					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
+					JOptionPane.INFORMATION_MESSAGE, General.getIcon("alarm"));
 			tfIpDatosConexion.requestFocus();
 			return false;
 		} else if (puertoV.equals("")) {
 			mensajeV = "\u00A1Debe escribir el n\u00famero de puerto!\n";
 			JOptionPane.showMessageDialog(null, mensajeV, "\u00A1Advertencia!",
-					JOptionPane.INFORMATION_MESSAGE, general.getIcon("alarm"));
+					JOptionPane.INFORMATION_MESSAGE, General.getIcon("alarm"));
 			tfPuertoDatosConexion.requestFocus();
 			return false;
 		} else {

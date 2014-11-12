@@ -11,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -36,7 +35,6 @@ public class SubastaVendedor extends JFrame {
 	/* ATRIBUTOS */
 	General general = General.getInstance();
 
-	@SuppressWarnings("unused")
 	private Principal regreso;
 
 	private JPanel contentPane;
@@ -131,17 +129,7 @@ public class SubastaVendedor extends JFrame {
 			 * SUBASTA
 			 */
 			public void actionPerformed(ActionEvent arg0) {
-				// System.exit(0);
-
-				try {
-					General.getServidor().interrupt();
-					regreso = new Principal();
-					setVisible(false);
-					regreso.setVisible(true);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				};
+				salirSubasta();
 			}
 		});
 		btnFinalizarSubasta.setBounds(352, 382, 197, 29);
@@ -212,6 +200,34 @@ public class SubastaVendedor extends JFrame {
 	public void borrarCliente(String nombre) {
 		int pos = General.getListadoConectados().indexOf(nombre);
 		General.getListadoConectados().remove(pos);
+	}
 
+	public void salirSubasta() {
+		Object[] opciones = { "Si, Deseo Salir.", "No, Deseo Quedarme." };
+		int respuesta = JOptionPane
+				.showOptionDialog(
+						new JFrame(),
+						"Hay una subasta en proceso. Realmente desea salir?",
+						"Salir?", JOptionPane.YES_NO_OPTION,
+						JOptionPane.INFORMATION_MESSAGE,
+						General.getIcon("sure"), opciones, opciones[1]);
+		if (respuesta == JOptionPane.NO_OPTION) {
+			return;
+		}
+		/* SE ELIMINA EL CLIENTE DE LA CONEXION Y DEL LISTADO DE CONECTADOS */
+		try {
+			General.getServidor().interrupt();
+			regreso = new Principal();
+			setVisible(false);
+			regreso.setVisible(true);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		General.setServidor(null);
+		setVisible(false);
+		General.getListadoConectados().removeAllElements();
+		tpMensajesSubastaVendedor.setText("");
+		System.exit(0);
 	}
 }

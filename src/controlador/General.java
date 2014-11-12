@@ -179,7 +179,7 @@ public class General {
 		General.ventanaServidor = ventanaServidor;
 	}
 
-	public Icon getIcon(String nombreIcono) {
+	public static Icon getIcon(String nombreIcono) {
 		return new ImageIcon("src/images/" + nombreIcono + ".png");
 
 	}
@@ -263,14 +263,14 @@ public class General {
 				JOptionPane.showMessageDialog(new JFrame(),
 						"Valor superior al monto inicial", "Datos",
 						JOptionPane.INFORMATION_MESSAGE,
-						general.getIcon("error"));
+						General.getIcon("error"));
 				return false;
 
 			} else if (monto <= General.getProductoSeleccionado().getValor()) {
 				JOptionPane.showMessageDialog(new JFrame(),
 						"Valor debe ser superior al actual", "Datos",
 						JOptionPane.INFORMATION_MESSAGE,
-						general.getIcon("error"));
+						General.getIcon("error"));
 
 				return false;
 
