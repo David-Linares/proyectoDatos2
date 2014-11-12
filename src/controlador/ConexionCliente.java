@@ -130,8 +130,6 @@ public class ConexionCliente extends Thread {
 			JOptionPane.showMessageDialog(ventanaCliente,
 					"CCliente / IOException " + e.getMessage());
 		} catch (ClassNotFoundException e) {
-			System.out.println(e);
-			System.out.println(e.getMessage());
 			JOptionPane.showMessageDialog(ventanaCliente,
 					"CCliente / ClassNotFound " + e.getMessage());
 		}

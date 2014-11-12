@@ -14,6 +14,7 @@ public class ConexionServidor extends Thread {
 	private int puertoServidor;
 	private General general = General.getInstance();
 	private SubastaVendedor ventanaSubastaVendedor;
+	private ServerSocket sServidor = null;
 	
 	/*CONSTRUCTOR DE LA CLASE QUE RECIBE UN PUERTO*/
 	public ConexionServidor(int puerto) {
@@ -22,7 +23,6 @@ public class ConexionServidor extends Thread {
 	
 	/*METODO A LA ESPERA DE MÁS CONEXIONES*/
 	public void run() {
-		ServerSocket sServidor = null;
 		ConexionClienteServidor nuevaConexion = null;
 		try {
 			sServidor = new ServerSocket(puertoServidor);
@@ -44,5 +44,14 @@ public class ConexionServidor extends Thread {
 	
 
 		}
+		
+	}
+
+	public ServerSocket getsServidor() {
+		return sServidor;
+	}
+
+	public void setsServidor(ServerSocket sServidor) {
+		this.sServidor = sServidor;
 	}
 }

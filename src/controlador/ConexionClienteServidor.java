@@ -43,6 +43,15 @@ public class ConexionClienteServidor extends Thread {
 	public void setClienteTemp(Cliente clienteNuevo) {
 		this.clienteTemporal = clienteNuevo;
 	}
+	
+
+	public Socket getSocketClienteServidor() {
+		return socketClienteServidor;
+	}
+
+	public void setSocketClienteServidor(Socket socketClienteServidor) {
+		this.socketClienteServidor = socketClienteServidor;
+	}
 
 	public String toString() {
 		return "Conexion [s=" + socketClienteServidor + ", salida="
@@ -166,9 +175,7 @@ public class ConexionClienteServidor extends Thread {
 			} catch (IOException e) {
 				System.out.println(e.getCause() + " " + e.getMessage());
 			} catch (ClassNotFoundException e) {
-				JOptionPane.showMessageDialog(new JFrame(),
-						"Conexion / Se produjo un error Class en la salida "
-								+ e.getMessage());
+				e.printStackTrace();
 			}
 		}
 			

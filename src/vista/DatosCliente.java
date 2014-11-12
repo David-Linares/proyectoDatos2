@@ -26,6 +26,8 @@ import javax.swing.JTextArea;
 import modelo.Cliente;
 
 import java.awt.Color;
+import java.io.IOException;
+
 import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
@@ -194,8 +196,15 @@ public class DatosCliente extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				/*BOTON DE SALIR*/
 				setVisible(false);
-				General.getConexCliente().interrupt();;
-				System.exit(0);
+				try {
+					General.getConexCliente().stop();
+					General.getConexCliente().getSocketCliente().close();
+				dispose();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				}
 		});
 		btnSalir.setIcon(new ImageIcon(DatosCliente.class.getResource("/images/exit.png")));

@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -131,9 +132,16 @@ public class SubastaVendedor extends JFrame {
 			 */
 			public void actionPerformed(ActionEvent arg0) {
 				// System.exit(0);
-				Principal regreso = new Principal();
-				setVisible(false);
-				regreso.setVisible(true);
+
+				try {
+					General.getServidor().interrupt();
+					regreso = new Principal();
+					setVisible(false);
+					regreso.setVisible(true);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				};
 			}
 		});
 		btnFinalizarSubasta.setBounds(352, 382, 197, 29);
