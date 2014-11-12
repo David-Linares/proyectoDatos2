@@ -61,9 +61,10 @@ public class General {
 				"Inmueble ubicado en el norte de Bogota, con 130 metros cuadrados, cercano a vias principales, buena iluminacion");
 		Producto producto8 = new Producto(8, "Piano", 180000,
 				"Teclado de marmol, madera de sauce, modelo 1978");
+		Producto producto9 = new Producto(9, "Apartamento", 45000000,"Ubicado al Noroccidende, en zona residencial cercano a sector comercial como lo son los centros comerciales Unicentro de Occidente y Portal 80, cercano a la calle 80. Cuenta con 55 metros cuadrados, parqueadero privado, cocina integral, paredes pintadas y cocina remodelada, cuenta con altillo y estudio. cuenta con 3 hatibaciones, sala, comedor independiente y con balcon con vista al parque ");
 
 		arrayProductos = new Producto[] { producto1, producto2, producto3,
-				producto4, producto5, producto6, producto7, producto8,
+				producto4, producto5, producto6, producto7, producto8, producto9
 
 		};
 	}
